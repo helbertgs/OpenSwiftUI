@@ -1,9 +1,9 @@
 import OpenCombine
 import Swift
-import UIKit
+import AppKit
 
 /// A property wrapper type that you use to create a AppKit app delegate.
-@propertyWrapper public struct UIApplicationDelegateAdaptor<DelegateType> where DelegateType : NSObject, DelegateType : UIApplicationDelegate {
+@propertyWrapper public struct NSApplicationDelegateAdaptor<DelegateType> where DelegateType : NSObject, DelegateType : NSApplicationDelegate {
 
     // MARK: - Property(ies).
 
@@ -12,8 +12,8 @@ import UIKit
 
     // MARK: - Constructor(s).
 
-    /// Creates a UIKit app delegate adaptor.
-    /// - Parameter delegateType: The type of application delegate that you define in your app, which conforms to the UIApplicationDelegate protocol.
+    /// Creates a AppKit app delegate adaptor.
+    /// - Parameter delegateType: The type of application delegate that you define in your app, which conforms to the NSApplicationDelegateAdaptor protocol.
     public init(_ delegateType: DelegateType.Type = DelegateType.self) {
         self.wrappedValue = delegateType.init()
     }
@@ -25,8 +25,8 @@ extension UIApplicationDelegateAdaptor where DelegateType : OpenCombine.Observab
         .init(wrappedValue)
     }
 
-    /// Creates a UIKit app delegate adaptor using a delegate that’s an observable object.
-    /// - Parameter delegateType: The type of application delegate that you define in your app, which conforms to the UIApplicationDelegate and ObservableObject protocols.
+    /// Creates a AppKit app delegate adaptor using a delegate that’s an observable object.
+    /// - Parameter delegateType: The type of application delegate that you define in your app, which conforms to the NSApplicationDelegateAdaptor and ObservableObject protocols.
     public init(_ delegateType: DelegateType.Type = DelegateType.self) {
         self.wrappedValue = delegateType.init()
     }

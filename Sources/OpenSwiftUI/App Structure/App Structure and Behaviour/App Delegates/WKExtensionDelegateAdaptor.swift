@@ -1,9 +1,9 @@
 import OpenCombine
 import Swift
-import UIKit
+import WatchKit
 
-/// A property wrapper type that you use to create a AppKit app delegate.
-@propertyWrapper public struct UIApplicationDelegateAdaptor<DelegateType> where DelegateType : NSObject, DelegateType : UIApplicationDelegate {
+/// A property wrapper type that you use to create a WatchKit app delegate.
+@propertyWrapper public struct WKExtensionDelegateAdaptor<DelegateType> where DelegateType : NSObject, DelegateType : WKExtensionDelegate {
 
     // MARK: - Property(ies).
 
@@ -12,8 +12,8 @@ import UIKit
 
     // MARK: - Constructor(s).
 
-    /// Creates a UIKit app delegate adaptor.
-    /// - Parameter delegateType: The type of application delegate that you define in your app, which conforms to the UIApplicationDelegate protocol.
+    /// Creates a WatchKit app delegate adaptor.
+    /// - Parameter delegateType: The type of application delegate that you define in your app, which conforms to the WKExtensionDelegate protocol.
     public init(_ delegateType: DelegateType.Type = DelegateType.self) {
         self.wrappedValue = delegateType.init()
     }
@@ -25,8 +25,8 @@ extension UIApplicationDelegateAdaptor where DelegateType : OpenCombine.Observab
         .init(wrappedValue)
     }
 
-    /// Creates a UIKit app delegate adaptor using a delegate that’s an observable object.
-    /// - Parameter delegateType: The type of application delegate that you define in your app, which conforms to the UIApplicationDelegate and ObservableObject protocols.
+    /// Creates a WatchKit app delegate adaptor using a delegate that’s an observable object.
+    /// - Parameter delegateType: The type of application delegate that you define in your app, which conforms to the WKExtensionDelegate and ObservableObject protocols.
     public init(_ delegateType: DelegateType.Type = DelegateType.self) {
         self.wrappedValue = delegateType.init()
     }
