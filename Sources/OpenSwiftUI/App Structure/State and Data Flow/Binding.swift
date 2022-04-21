@@ -80,7 +80,7 @@ extension Binding where Value == AnyHashable {
     /// - Parameters:
     ///   - base: A Hashable value to project to an AnyHashable value.
     public init<V>(_ base: Binding<V>) where Value == AnyHashable, V : Hashable {
-        self.init(get: base.getter, set: base.setter)
+        fatalError()
     }
 
 }
