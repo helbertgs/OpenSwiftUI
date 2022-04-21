@@ -2,7 +2,7 @@ import Swift
 
 // A collection of environment values propagated through a view hierarchy.
 ///
-/// SwiftUI exposes a collection of values to your app's views in an
+/// OpenSwiftUI exposes a collection of values to your app's views in an
 /// `EnvironmentValues` structure. To read a value from the structure,
 /// declare a property using the ``Environment`` property wrapper and
 /// specify the value's key path. For example, you can read the current locale:
@@ -10,10 +10,10 @@ import Swift
 ///     @Environment(\.locale) var locale: Locale
 ///
 /// Use the property you declare to dynamically control a view's layout.
-/// SwiftUI automatically sets or updates many environment values, like
+/// OpenSwiftUI automatically sets or updates many environment values, like
 /// ``EnvironmentValues/pixelLength``, ``EnvironmentValues/scenePhase``, or
 /// ``EnvironmentValues/locale``, based on device characteristics, system state,
-/// or user settings. For others, like ``EnvironmentValues/lineLimit``, SwiftUI
+/// or user settings. For others, like ``EnvironmentValues/lineLimit``, OpenSwiftUI
 /// provides a reasonable default value.
 ///
 /// You can set or override some values using the ``View/environment(_:_:)``
@@ -26,7 +26,7 @@ import Swift
 /// --- including its descendants in the view hierarchy --- but only up to the
 /// point where you apply a different environment modifier.
 ///
-/// SwiftUI provides dedicated view modifiers for setting some values, which
+/// OpenSwiftUI provides dedicated view modifiers for setting some values, which
 /// typically makes your code easier to read. For example, rather than setting
 /// the ``EnvironmentValues/lineLimit`` value directly, as in the previous
 /// example, you should instead use the ``View/lineLimit(_:)`` modifier:
@@ -75,6 +75,11 @@ import Swift
 /// `myCustomValue` view modifier.
 public struct EnvironmentValues : CustomStringConvertible {
 
+    // MARK: - Type Alias.
+
+    private typealias PropertyList = [ObjectIdentifier : Any]
+
+
     // MARK: - Private Property(ies).
     private var _plist: PropertyList
 
@@ -85,7 +90,7 @@ public struct EnvironmentValues : CustomStringConvertible {
     /// directly. Doing so would provide access only to default values that
     /// don't update based on system settings or device characteristics.
     /// Instead, you rely on an environment values' instance
-    /// that SwiftUI manages for you when you use the ``Environment``
+    /// that OpenSwiftUI manages for you when you use the ``Environment``
     /// property wrapper and the ``View/environment(_:_:)`` view modifier.
     public init() { _plist = PropertyList() }
 

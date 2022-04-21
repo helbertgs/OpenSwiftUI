@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import OpenCombine
 import Swift
 import UIKit
@@ -22,7 +24,7 @@ import UIKit
 extension UIApplicationDelegateAdaptor where DelegateType : OpenCombine.ObservableObject {
     /// A projection of the observed object that provides bindings to its properties.
     public var projectedValue: ObservedObject<DelegateType>.Wrapper {
-        .init(wrappedValue)
+        .init(wrappedValue: wrappedValue)
     }
 
     /// Creates a UIKit app delegate adaptor using a delegate that’s an observable object.
@@ -31,3 +33,5 @@ extension UIApplicationDelegateAdaptor where DelegateType : OpenCombine.Observab
         self.wrappedValue = delegateType.init()
     }
 }
+
+#endif

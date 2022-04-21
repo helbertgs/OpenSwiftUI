@@ -1,7 +1,8 @@
 import Swift
 import Foundation
 
-/// A property wrapper type that reflects a value from UserDefaults and invalidates a view on a change in value in that user default.
+/// A property wrapper type that reflects a value from `UserDefaults` and
+/// invalidates a view on a change in value in that user default.
 @frozen @propertyWrapper public struct AppStorage<Value> {
 
     // MARK: - Private Property(ies).

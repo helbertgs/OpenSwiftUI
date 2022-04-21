@@ -13,7 +13,7 @@ public protocol DynamicProperty {
     // MARK: - Function*s).
     /// Updates the underlying value of the stored value.
     ///
-    /// SwiftUI calls this function before rendering a view's
+    /// OpenSwiftUI calls this function before rendering a view's
     /// ``View/body-swift.property`` to ensure the view has the most recent
     /// value.
     mutating func update()
@@ -30,7 +30,7 @@ extension DynamicProperty {
     // MARK: - Function*s).
     /// Updates the underlying value of the stored value.
     ///
-    /// SwiftUI calls this function before rendering a view's
+    /// OpenSwiftUI calls this function before rendering a view's
     /// ``View/body-swift.property`` to ensure the view has the most recent
     /// value.
     public mutating func update() { }

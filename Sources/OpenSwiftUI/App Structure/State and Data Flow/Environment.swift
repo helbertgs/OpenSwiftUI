@@ -21,17 +21,17 @@ import Swift
 ///         LightContent()
 ///     }
 ///
-/// If the value changes, SwiftUI updates any parts of your view that depend on
+/// If the value changes, OpenSwiftUI updates any parts of your view that depend on
 /// the value. For example, that might happen in the above example if the user
 /// changes the Appearance settings.
 ///
 /// You can use this property wrapper to read --- but not set --- an environment
-/// value. SwiftUI updates some environment values automatically based on system
+/// value. OpenSwiftUI updates some environment values automatically based on system
 /// settings and provides reasonable defaults for others. You can override some
 /// of these, as well as set custom environment values that you define,
 /// using the ``View/environment(_:_:)`` view modifier.
 ///
-/// For the complete list of environment values provided by SwiftUI, see the
+/// For the complete list of environment values provided by OpenSwiftUI, see the
 /// properties of the ``EnvironmentValues`` structure. For information about
 /// creating custom environment values, see the ``EnvironmentKey`` protocol.
 @propertyWrapper public struct Environment<Value> : DynamicProperty {
@@ -75,7 +75,7 @@ import Swift
     ///         // ...
     ///     }
     ///
-    /// SwiftUI automatically updates any parts of `MyView` that depend on
+    /// OpenSwiftUI automatically updates any parts of `MyView` that depend on
     /// the property when the associated environment value changes.
     /// You can't modify the environment value using a property like this.
     /// Instead, use the ``View/environment(_:_:)`` view modifier on a view to
