@@ -176,7 +176,9 @@ extension Scene {
     }
 }
 
-#if os(iOS)
+#if os(iOS) && canImport(UIKit)
+
+import UIKit
 
 extension Scene {
 
@@ -191,7 +193,7 @@ extension Scene {
     /// - Parameter store: The user defaults to use as the default
     ///   store for `AppStorage`.
     public func defaultAppStorage(_ store: UserDefaults) -> some Scene {
-        self
+        
     }
 }
 
