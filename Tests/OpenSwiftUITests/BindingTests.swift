@@ -9,7 +9,7 @@ final class BindingTests: QuickSpec {
         describe("Binding") {
             context("init") {
                 it("with a constant value") {
-                    //let view = AnyView()
+//                    let view = AnyView()
 //                    let value = binding.getter()
 
 //                    expect(value).to(equal("Hello, World!"))

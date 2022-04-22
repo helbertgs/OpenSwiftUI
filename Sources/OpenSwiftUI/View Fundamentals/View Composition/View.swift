@@ -1,3 +1,4 @@
+import OpenCombine
 import Swift
 
 /// A type that represents part of your app's user interface and provides
@@ -114,7 +115,11 @@ extension View {
 }
 
 extension View {
-    public func environment<V>(_ keyPath: WritableKeyPath<EnvironmentValues, V>, _ value: V) -> some View {
+    @inlinable public func environment<V>(_ keyPath: WritableKeyPath<EnvironmentValues, V>, _ value: V) -> some View {
         modifier(_EnvironmentKeyWritingModifier(keyPath: keyPath, value: value))
     }
+
+//    @inlinable public func environmentObject<T>(_ object: T) -> some View where T : OpenCombine.ObservableObject {
+//        environment(T.environmentStore, object)
+//    }
 }
