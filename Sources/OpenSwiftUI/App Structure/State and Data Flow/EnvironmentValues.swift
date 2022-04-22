@@ -73,7 +73,7 @@ import Swift
 /// Clients of your value then access the value in the usual way, reading it
 /// with the ``Environment`` property wrapper, and setting it with the
 /// `myCustomValue` view modifier.
-public struct EnvironmentValues : CustomStringConvertible {
+public struct EnvironmentValues : CustomStringConvertible, DynamicProperty {
 
     // MARK: - Type Alias.
 
@@ -134,16 +134,4 @@ public struct EnvironmentValues : CustomStringConvertible {
     /// A string that represents the contents of the environment values
     /// instance.
     public var description: String { _plist.map { "\($0): \($1)" }.joined(separator: "\n") }
-}
-
-// MARK: - Environment Key(s) and Value(s).
-enum ColorSchemeEnvironmentKey: EnvironmentKey {
-    static var defaultValue: ColorScheme { .light }
-}
-
-extension EnvironmentValues {
-    public var colorScheme: ColorScheme {
-        get { self[ColorSchemeEnvironmentKey.self] }
-        set { self[ColorSchemeEnvironmentKey.self] = newValue }
-    }
 }

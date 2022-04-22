@@ -1,6 +1,6 @@
 import Swift
 
-extension Never {
+public struct _ViewModifier_Content<Modifier> : View where Modifier: ViewModifier {
 
     // MARK: - Type Alias.
 
@@ -9,8 +9,5 @@ extension Never {
     // MARK: - Property(ies).
 
     public var body: Never { fatalError() }
-}
 
-extension Never : Scene { }
-extension Never : Commands { }
-extension Never : View { }
+}
