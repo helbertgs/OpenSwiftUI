@@ -14,3 +14,5 @@ extension Never {
 extension Never : Scene { }
 extension Never : Commands { }
 extension Never : View { }
+extension Never : WidgetConfiguration { }
+extension Never : Widget { }
