@@ -1,12 +1,13 @@
 import Swift
 
 /// An alignment position along the horizontal axis.
-public struct VerticalAlignment : Equatable, Hashable {
+@frozen public struct VerticalAlignment : Equatable, Hashable {
 
     // MARK: - Private Property(ies).
-    let key: AlignmentKey
+    @usableFromInline let key: AlignmentKey
 
     // MARK: - Static Property(ies).
+
     /// A guide marking the bottom edge of the view.
     public static let bottom: VerticalAlignment = .init(key: .init(bits: 5))
 
@@ -30,10 +31,10 @@ public struct VerticalAlignment : Equatable, Hashable {
     /// - Parameter id: An identifier that uniquely identifies the vertical
     ///   alignment.
     public init(_ id: AlignmentID.Type) {
-        key = .init(bits: ObjectIdentifier(id).hashValue)
+        self.key = .init(bits: ObjectIdentifier(id).hashValue)
     }
 
-    init(key: AlignmentKey) {
+    internal init(key: AlignmentKey) {
         self.key = key
     }
 
@@ -51,7 +52,7 @@ public struct VerticalAlignment : Equatable, Hashable {
     ///
     /// - Parameter hasher: The hasher to use when combining the components
     ///   of this instance.
-    public func hash(into hasher: inout Hasher) {
+    @inlinable public func hash(into hasher: inout Hasher) {
         hasher.combine(key)
     }
 
@@ -64,7 +65,7 @@ public struct VerticalAlignment : Equatable, Hashable {
     /// - Parameters:
     ///   - lhs: A value to compare.
     ///   - rhs: Another value to compare.
-    public static func == (a: VerticalAlignment, b: VerticalAlignment) -> Bool {
-        a.key == b.key
+    @inlinable public static func == (lhs: VerticalAlignment, rhs: VerticalAlignment) -> Bool {
+        lhs.key == rhs.key
     }
 }
