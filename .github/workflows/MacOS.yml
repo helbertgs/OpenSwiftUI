@@ -13,16 +13,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: macos-10.15
-            xcode-version: "11.3.1" # Swift 5.3.1
-          - os: macos-10.15
-            xcode-version: "11.7"   # Swift 5.2.4
-          - os: macos-11
-            xcode-version: "12.4"   # Swift 5.3.2
           - os: macos-11
             xcode-version: "12.5.1" # Swift 5.4.2
-          - os: macos-11
-            xcode-version: "13.2.1" # Swift 5.5.2
+          - os: macos-latest
+            xcode-version: "13.3.1" # Swift 5.5.2
     runs-on: ${ { matrix.os } }
     steps:
     - uses: actions/checkout@v3
