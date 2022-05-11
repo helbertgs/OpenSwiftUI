@@ -8,13 +8,11 @@ on:
 
 jobs:
   Test:
-    name: Unit Test
+    name: Execute tests on MacOS
     strategy:
       fail-fast: false
       matrix:
         include:
-          - os: macos-11
-            xcode-version: "12.5.1" # Swift 5.4.2
           - os: macos-latest
             xcode-version: "13.3.1" # Swift 5.5.2
     runs-on: ${ { matrix.os } }
