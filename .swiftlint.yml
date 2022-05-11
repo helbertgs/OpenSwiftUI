@@ -29,7 +29,6 @@ disabled_rules:
 
 opt_in_rules:
   - array_init
-  - attributes
   - closure_end_indentation
   - closure_spacing
   - contains_over_first_not_nil
@@ -39,7 +38,6 @@ opt_in_rules:
   - explicit_enum_raw_value
   - explicit_init
   - first_where
-  - generic_type_name
   - identical_operands
   - implicit_return
   - implicitly_unwrapped_optional
