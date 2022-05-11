@@ -12,10 +12,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        swift_version: ["5.4.2", "5.5.1"]
+        swift_version: ["5.5.0", "5.5.1"]
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
       - uses: MaxDesiatov/swift-windows-action@v1
         with:
+          shell-action: swift build
           swift-version: ${{ matrix.swift_version }}

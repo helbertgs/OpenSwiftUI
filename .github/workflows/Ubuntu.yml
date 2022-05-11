@@ -1,0 +1,30 @@
+name: Ubuntu 
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ubuntu_test:
+    name: Execute tests on Ubuntu
+    strategy:
+      fail-fast: false
+      matrix:
+        swift_version: ["5.4.0", "5.5.0", "5.5.1"]
+    runs-on: ubuntu-latest
+    container: swift:${{ matrix.swift_version }}-bionic
+    steps:
+      - uses: actions/checkout@v2
+      - name: Building and running tests in debug mode with coverage
+        run: |
+          swift test \
+            -c debug \
+            -Xswiftc -warnings-as-errors \
+            --enable-code-coverage \
+            --build-path .build-test-debug
+          llvm-cov show \
+            -instr-profile=.build-test-debug/debug/codecov/default.profdata \
+            .build-test-debug/debug/OpenSwiftUITests.xctest \
+            > coverage.txt
