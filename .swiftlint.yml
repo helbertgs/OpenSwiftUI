@@ -21,6 +21,7 @@ disabled_rules:
   - no_fallthrough_only
   - no_space_in_method_call
   - redundant_string_enum_value
+  - switch_case_on_newline
   - todo
   - trailing_comma
   - type_body_length
@@ -54,7 +55,6 @@ opt_in_rules:
   - redundant_nil_coalescing
   - sorted_first_last
   - sorted_imports
-  - switch_case_on_newline
   - toggle_bool
   - unneeded_parentheses_in_closure_argument
   - untyped_error_in_catch
