@@ -100,7 +100,6 @@ extension ModifiedContent : ViewModifier where Content : ViewModifier, Modifier 
 
 extension ModifiedContent : Scene where Content : Scene {
 
-
     // MARK: - Property(ies).
     /// The content and behavior of the view.
     ///

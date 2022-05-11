@@ -114,7 +114,7 @@ extension AppStorage where Value : ExpressibleByNilLiteral {
     /// - Parameters:
     ///   - key: The key to read and write the value to in the user defaults store.
     ///   - store: The user defaults store to read and write to. A value of nil will use the user default store from the environment.
-    public init(_ key: String, store: UserDefaults? = UserDefaults.standard) where Value == Optional<String> {
+    public init(_ key: String, store: UserDefaults? = UserDefaults.standard) where Value == String? {
         getter = { store?.string(forKey: key) }
         setter = { store?.set($0, forKey: key) }
     }
@@ -123,7 +123,7 @@ extension AppStorage where Value : ExpressibleByNilLiteral {
     /// - Parameters:
     ///   - key: The key to read and write the value to in the user defaults store.
     ///   - store: The user defaults store to read and write to. A value of nil will use the user default store from the environment.
-    public init(_ key: String, store: UserDefaults? = UserDefaults.standard) where Value == Optional<Double> {
+    public init(_ key: String, store: UserDefaults? = UserDefaults.standard) where Value == Double? {
         getter = { store?.double(forKey: key) }
         setter = { store?.set($0, forKey: key) }
     }
@@ -132,7 +132,7 @@ extension AppStorage where Value : ExpressibleByNilLiteral {
     /// - Parameters:
     ///   - key: The key to read and write the value to in the user defaults store.
     ///   - store: The user defaults store to read and write to. A value of nil will use the user default store from the environment.
-    public init(_ key: String, store: UserDefaults? = UserDefaults.standard) where Value == Optional<Bool> {
+    public init(_ key: String, store: UserDefaults? = UserDefaults.standard) where Value == Bool? {
         getter = { store?.bool(forKey: key) }
         setter = { store?.set($0, forKey: key) }
     }
@@ -141,7 +141,7 @@ extension AppStorage where Value : ExpressibleByNilLiteral {
     /// - Parameters:
     ///   - key: The key to read and write the value to in the user defaults store.
     ///   - store: The user defaults store to read and write to. A value of nil will use the user default store from the environment.
-    public init(_ key: String, store: UserDefaults? = UserDefaults.standard) where Value == Optional<URL> {
+    public init(_ key: String, store: UserDefaults? = UserDefaults.standard) where Value == URL? {
         getter = { store?.object(forKey: key) as? URL }
         setter = { store?.set($0, forKey: key) }
     }
@@ -150,7 +150,7 @@ extension AppStorage where Value : ExpressibleByNilLiteral {
     /// - Parameters:
     ///   - key: The key to read and write the value to in the user defaults store.
     ///   - store: The user defaults store to read and write to. A value of nil will use the user default store from the environment.
-    public init(_ key: String, store: UserDefaults? = UserDefaults.standard) where Value == Optional<Data> {
+    public init(_ key: String, store: UserDefaults? = UserDefaults.standard) where Value == Data? {
         getter = { store?.object(forKey: key) as? Data }
         setter = { store?.set($0, forKey: key) }
     }

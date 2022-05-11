@@ -25,10 +25,8 @@ import Swift
     /// However, a view displaying the value is updated asynchronously and may
     /// not show the new value immediately.
     @inlinable public var wrappedValue: ObjectType {
-        get {
-            guard let store = _store else { fatalError() }
-            return store
-        }
+        guard let store = _store else { fatalError() }
+        return store
     }
 
     /// A projection of the environment object that creates bindings to its
@@ -57,7 +55,7 @@ import Swift
         ///
         /// - Returns: A new binding.
         public subscript<Subject>(dynamicMember keyPath: ReferenceWritableKeyPath<ObjectType, Subject>) -> Binding<Subject> {
-            get { Binding.init(get: { root[keyPath: keyPath] }, set: { root[keyPath: keyPath] = $0 }) }
+            Binding.init(get: { root[keyPath: keyPath] }, set: { root[keyPath: keyPath] = $0 })
         }
     }
 }
