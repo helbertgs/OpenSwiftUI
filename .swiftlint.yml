@@ -71,13 +71,14 @@ implicit_return:
     - closure
 
 line_length:
-  warning: 90
-  error: 120
+  warning: 120
+  error: 140
   ignores_urls: true
 
 generic_type_name:
-  min_length: 3
+  min_length: 2
 
 attributes:
   always_on_line_above:
     - "@usableFromInline"
+    - "@inlinable"
