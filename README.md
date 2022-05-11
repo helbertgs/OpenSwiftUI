@@ -1,5 +1,6 @@
 # OpenSwiftUI
 [![Swift](https://github.com/helbertgs/OpenSwiftUI/actions/workflows/swift.yml/badge.svg)](https://github.com/helbertgs/OpenSwiftUI/actions/workflows/swift.yml)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/0cdb7c84c14a4e709e938a65ff87e2e4)](https://www.codacy.com/gh/helbertgs/OpenSwiftUI/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=helbertgs/OpenSwiftUI&amp;utm_campaign=Badge_Grade)
 ![Swift Version](https://badgen.net/badge/Swift/5.6/orange)
 ![Swift Package Manager Version](https://badgen.net/badge/Swift%20Package%20Manager/5.6/orange)
 ![iOS](https://badgen.net/badge/iOS/13.0+/gray)
@@ -7,8 +8,9 @@
 ![tvOS](https://badgen.net/badge/tvOS/13.0+/gray)
 ![Mac Catalyst](https://badgen.net/badge/Mac%20Catalyst/6.0+/gray)
 ![watchOS](https://badgen.net/badge/watchOS/6.0+/gray)
-![OS](https://badgen.net/badge/platforms/iOS%20%7C%20macOS%20%7C%20tvOS%20%7C%20watchOS%20%7C%20Linux%20%7C%20Windows/black)
 ![Windows](https://badgen.net/badge/Windows/10+/blue)
+![Platforms](https://badgen.net/badge/platforms/iOS%20%7C%20macOS%20%7C%20tvOS%20%7C%20watchOS%20%7C%20Linux%20%7C%20Windows/black)
+
 
 Declare the user interface and behavior for your app on every platform. Open-source framework based on Apple's SwiftUI.
 
