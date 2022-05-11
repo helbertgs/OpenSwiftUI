@@ -1,4 +1,5 @@
 # OpenSwiftUI
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3861fba10edf4b7380da84f2ea0f6b71)](https://app.codacy.com/gh/helbertgs/OpenSwiftUI?utm_source=github.com&utm_medium=referral&utm_content=helbertgs/OpenSwiftUI&utm_campaign=Badge_Grade_Settings)
 [![Swift](https://github.com/helbertgs/OpenSwiftUI/actions/workflows/swift.yml/badge.svg)](https://github.com/helbertgs/OpenSwiftUI/actions/workflows/swift.yml)
 ![Swift Version](https://badgen.net/badge/Swift/5.6/orange)
 ![Swift Package Manager Version](https://badgen.net/badge/Swift%20Package%20Manager/5.6/orange)
