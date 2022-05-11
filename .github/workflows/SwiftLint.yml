@@ -2,20 +2,25 @@ name: SwiftLint
 
 on:
   push:
-    branches: [ main ]
     paths:
-      - ".github/workflows/SwiftLint.yml"
-      - ".swiftlint.yml"
-      - "**/*.swift"
-  pull_request:
-    paths:
-      - ".github/workflows/SwiftLint.yml"
+      - ".github/workflows/swiftlint.yml"
       - ".swiftlint.yml"
       - "**/*.swift"
 
 jobs:
   SwiftLint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
+      - uses: actions/checkout@v1
+      # Fetch current versions of files
+      - name: Fetch base ref
+        run: |
+          git fetch --prune --no-tags --depth=1 origin +refs/heads/${{ github.base_ref }}:refs/heads/${{ github.base_ref }}
+      # Diff pull request to current files, then SwiftLint changed files
       - name: GitHub Action for SwiftLint
         uses: mayk-it/action-swiftlint@3.2.2
+        env:
+          DIFF_BASE: ${{ github.base_ref }}
+          DIFF_HEAD: HEAD
+        with:
+          args: --strict
