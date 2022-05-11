@@ -3,6 +3,16 @@
 
 import PackageDescription
 
+let supportedPlatforms: [Platform] = [
+    .macOS,
+    .macCatalyst,
+    .iOS,
+    .watchOS,
+    .tvOS,
+    .linux,
+    .windows
+]
+
 let package = Package(
     name: "OpenSwiftUI",
     platforms: [
@@ -28,3 +38,11 @@ let package = Package(
             dependencies: ["OpenSwiftUI", "Nimble", "Quick"]),
     ]
 )
+
+// MARK: - Helpers
+
+extension Array where Element == Platform {
+    func except(_ exceptions: [Platform]) -> [Platform] {
+        return filter { !exceptions.contains($0) }
+    }
+}

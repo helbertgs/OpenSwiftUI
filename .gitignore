@@ -21,6 +21,9 @@ DerivedData/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
+.build-test-debug/
+.build-test-debug-sanitize-thread/
+.build-test-release/
 
 ## Obj-C/Swift specific
 *.hmap
