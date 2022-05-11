@@ -10,6 +10,7 @@ disabled_rules:
   - class_delegate_protocol
   - colon
   - cyclomatic_complexity
+  - explicit_enum_raw_value
   - force_cast
   - force_try
   - force_unwrapping
@@ -22,6 +23,7 @@ disabled_rules:
   - no_space_in_method_call
   - redundant_string_enum_value
   - switch_case_on_newline
+  - switch_case_alignment
   - todo
   - trailing_comma
   - type_body_length
@@ -36,7 +38,6 @@ opt_in_rules:
   - convenience_type
   - empty_string
   - empty_xctest_method
-  - explicit_enum_raw_value
   - explicit_init
   - first_where
   - identical_operands
