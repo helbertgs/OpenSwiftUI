@@ -16,13 +16,18 @@ disabled_rules:
   - force_unwrapping
   - function_body_length
   - function_parameter_count
+  - generic_type_name
   - identifier_name
+  - large_tuple
+  - nesting
+  - opening_brace
   - redundant_string_enum_value
   - switch_case_on_newline
   - switch_case_alignment
   - trailing_comma
   - type_body_length
-  - opening_brace
+  - type_name
+  
 
 implicit_return:
   included: 
@@ -34,8 +39,8 @@ file_length:
   ignore_comment_only_lines: true
 
 line_length:
-  warning: 135
-  error: 140
+  warning: 150
+  error: 160
   ignores_urls: true
   ignores_comments: true
   ignores_function_declarations: true
