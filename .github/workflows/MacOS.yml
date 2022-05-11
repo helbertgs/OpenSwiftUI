@@ -43,21 +43,3 @@ jobs:
           -instr-profile=.build-test-debug/debug/codecov/default.profdata \
           .build-test-debug/debug/OpenSwiftUITests.xctest/Contents/MacOS/OpenSwiftTests \
           > coverage.txt
-    - name: Build and run tests in debug mode with TSan
-        if: ${{ matrix.xcode-version != '13.2.1' }} # https://bugs.swift.org/browse/SR-15444
-        run: |
-          swift test \
-          -c debug \
-          --sanitize thread \
-          -Xswiftc -warnings-as-errors \
-          --build-path .build-test-debug-sanitize-thread
-      - name: Build and run tests in release mode
-        run: |
-          swift test \
-            -c release \
-            -Xswiftc -warnings-as-errors \
-            --enable-code-coverage \
-            --build-path .build-test-release
-      - uses: codecov/codecov-action@v2
-        with:
-          verbose: true
