@@ -17,14 +17,9 @@ jobs:
   SwiftLint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Fetch base ref
         run: |
-          git fetch --prune --no-tags --depth=1 origin +refs/heads/${{ github.base_ref }}:refs/heads/${{ github.base_ref }}
+         swift build
       - name: GitHub Action for SwiftLint
         uses: mayk-it/action-swiftlint@3.2.2
-        env:
-          DIFF_BASE: ${{ github.base_ref }}
-          DIFF_HEAD: HEAD
-        with:
-          args: --strict
