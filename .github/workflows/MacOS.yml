@@ -10,11 +10,10 @@ jobs:
   Test:
     name: Execute tests on MacOS
     strategy:
-      fail-fast: false
       matrix:
         include:
           - os: macos-latest
-            xcode-version: "13.3.1" # Swift 5.5.2
+            xcode-version: "13.3.1"
     runs-on: ${ { matrix.os } }
     steps:
     - uses: actions/checkout@v3
