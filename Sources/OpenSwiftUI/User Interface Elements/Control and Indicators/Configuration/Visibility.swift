@@ -5,7 +5,7 @@ import Swift
 ///
 /// For example, the preferred visibility of list row separators can be
 /// configured using the ``View/listRowSeparator(_:edges:)``.
-@frozen public enum Visibility : String, CaseIterable, Hashable, Sendable {
+@frozen public enum Visibility : String, CaseIterable, Hashable {
 
     /// The element may be visible or hidden depending on the policies of the
     /// component accepting the visibility configuration.

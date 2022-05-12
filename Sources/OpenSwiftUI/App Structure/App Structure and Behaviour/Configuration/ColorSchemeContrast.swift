@@ -44,7 +44,7 @@ import Swift
     public static var allCases: [ColorSchemeContrast] = [ .standard, .increased ]
 
     // MARK: - Hashable
-    
+
     /// Hashes the essential components of this value by feeding them into the
     /// given hasher.
     ///

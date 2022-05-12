@@ -3,7 +3,7 @@ import Swift
 /// A dynamic property type that allows access to a namespace defined
 /// by the persistent identity of the object containing the property
 /// (e.g. a view).
-@frozen @propertyWrapper public struct Namespace : DynamicProperty, Sendable {
+@frozen @propertyWrapper public struct Namespace : DynamicProperty {
 
     /// Creating a Namespace.
     @inlinable public init() {

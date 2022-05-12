@@ -1,7 +1,7 @@
 import Swift
 
 /// Constants that define how a view's content fills the available space.
-@frozen public enum ContentMode : String, CaseIterable, Equatable, Hashable, Sendable {
+@frozen public enum ContentMode : String, CaseIterable, Equatable, Hashable {
 
     // MARK: - Case(s).
 
