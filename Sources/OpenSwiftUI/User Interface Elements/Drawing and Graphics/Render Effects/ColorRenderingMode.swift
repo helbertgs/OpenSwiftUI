@@ -1,4 +1,4 @@
-import SwiftUI
+import Swift
 
 /// The set of possible working color spaces for color-compositing operations.
 ///

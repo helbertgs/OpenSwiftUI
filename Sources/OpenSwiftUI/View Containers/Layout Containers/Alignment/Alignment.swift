@@ -5,7 +5,7 @@ import Swift
 /// The following table shows the various alignment guides next to each other.
 ///
 /// ![A table showing the various alignment guides next to each
-/// other.](SwiftUI-Alignment-table.png)
+/// other.](OpenSwiftUI-Alignment-table.png)
 @frozen public struct Alignment : Equatable, Hashable {
 
     // MARK: - Public Property(ies).

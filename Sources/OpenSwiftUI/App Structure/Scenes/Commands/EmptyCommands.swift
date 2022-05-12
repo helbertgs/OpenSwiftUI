@@ -7,7 +7,7 @@ public struct EmptyCommands : Commands {
     /// The type of commands that represents the body of this command hierarchy.
     ///
     /// When you create custom commands, Swift infers this type from your
-    /// implementation of the required ``SwiftUI/Commands/body-swift.property``
+    /// implementation of the required ``OpenSwiftUI/Commands/body-swift.property``
     /// property.
     public typealias Body = Never
 

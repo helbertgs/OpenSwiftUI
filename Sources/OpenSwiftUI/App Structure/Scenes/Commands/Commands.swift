@@ -9,7 +9,7 @@ public protocol Commands {
     /// The type of commands that represents the body of this command hierarchy.
     ///
     /// When you create custom commands, Swift infers this type from your
-    /// implementation of the required ``SwiftUI/Commands/body-swift.property``
+    /// implementation of the required ``OpenSwiftUI/Commands/body-swift.property``
     /// property.
     associatedtype Body : Commands
 
@@ -19,7 +19,7 @@ public protocol Commands {
     ///
     /// For any commands that you create, provide a computed `body` property
     /// that defines the scene as a composition of other scenes. You can
-    /// assemble a command hierarchy from built-in commands that SwiftUI
+    /// assemble a command hierarchy from built-in commands that OpenSwiftUI
     /// provides, as well as other commands that you've defined.
     @CommandsBuilder var body : Self.Body { get }
 }
