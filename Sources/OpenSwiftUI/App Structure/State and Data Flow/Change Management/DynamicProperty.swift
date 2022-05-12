@@ -8,9 +8,11 @@ import Swift
 public protocol DynamicProperty {
 
     // MARK: - Property(ies).
+
     static var _propertyBehaviors: UInt32 { get }
 
     // MARK: - Function*s).
+
     /// Updates the underlying value of the stored value.
     ///
     /// OpenSwiftUI calls this function before rendering a view's
@@ -19,15 +21,18 @@ public protocol DynamicProperty {
     mutating func update()
 
     // MARK: - Static Function*s).
+
     // static func _makeProperty<V>(in buffer: inout _DynamicPropertyBuffer, container: _GraphValue<V>, fieldOffset: Int, inputs: inout _GraphInputs)
 }
 
 extension DynamicProperty {
 
     // MARK: - Property(ies).
+
     public static var _propertyBehaviors: UInt32 { 0 }
 
     // MARK: - Function*s).
+
     /// Updates the underlying value of the stored value.
     ///
     /// OpenSwiftUI calls this function before rendering a view's
@@ -36,5 +41,6 @@ extension DynamicProperty {
     public mutating func update() { }
 
     // MARK: - Static Function*s).
+
     // public static func _makeProperty<V>(in buffer: inout _DynamicPropertyBuffer, container: _GraphValue<V>, fieldOffset: Int, inputs: inout _GraphInputs) { }
 }
