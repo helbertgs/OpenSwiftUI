@@ -14,7 +14,7 @@ import Swift
 
     /// A namespace defined by the persistent identity of an
     /// `@Namespace` dynamic property.
-    @frozen public struct ID : Hashable, Sendable {
+    @frozen public struct ID : Hashable {
 
         @usableFromInline let id: Int
 
