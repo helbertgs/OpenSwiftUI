@@ -30,7 +30,3 @@ jobs:
           -Xswiftc -warnings-as-errors \
           --enable-code-coverage \
           --build-path .build-test-debug
-        xcrun llvm-cov show \
-          -instr-profile=.build-test-debug/debug/codecov/default.profdata \
-          .build-test-debug/debug/OpenSwiftUITests.xctest/Contents/MacOS/OpenSwiftTests \
-          > coverage.txt
