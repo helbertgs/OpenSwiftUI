@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        swift_version: ["5.4.2"]
+        swift_version: ["5.4.3"]
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
