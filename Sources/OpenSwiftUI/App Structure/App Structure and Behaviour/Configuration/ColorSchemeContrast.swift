@@ -32,4 +32,51 @@ import Swift
     /// OpenSwiftUI displays views with increased contrast between the app's
     /// foreground and background colors.
     case increased
+
+    // MARK: - Type Alias.
+
+    /// A type that can represent a collection of all values of this type.
+    public typealias AllCases = [ColorSchemeContrast]
+
+    // MARK: - Static Property(ies).
+
+    /// A collection of all values of this type.
+    public static var allCases: [ColorSchemeContrast] = [ .standard, .increased ]
+
+    // MARK: - Hashable
+    
+    /// Hashes the essential components of this value by feeding them into the
+    /// given hasher.
+    ///
+    /// Implement this method to conform to the `Hashable` protocol. The
+    /// components used for hashing must be the same as the components compared
+    /// in your type's `==` operator implementation. Call `hasher.combine(_:)`
+    /// with each of these components.
+    ///
+    /// - Important: Never call `finalize()` on `hasher`. Doing so may become a
+    ///   compile-time error in the future.
+    ///
+    /// - Parameter hasher: The hasher to use when combining the components
+    ///   of this instance.
+    @inlinable public func hash(into hasher: inout Hasher) {
+        hasher.combine(self)
+    }
+
+    // MARK: - Equatable.
+
+    /// Returns a Boolean value indicating whether two values are equal.
+    ///
+    /// Equality is the inverse of inequality. For any values `a` and `b`,
+    /// `a == b` implies that `a != b` is `false`.
+    ///
+    /// - Parameters:
+    ///   - lhs: A value to compare.
+    ///   - rhs: Another value to compare.
+    @inlinable public static func == (lhs: ColorSchemeContrast, rhs: ColorSchemeContrast) -> Bool {
+        switch (lhs, rhs) {
+            case (.standard, .standard): return true
+            case (.increased, .increased): return true
+            default: return false
+        }
+    }
 }
