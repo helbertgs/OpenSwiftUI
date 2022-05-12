@@ -105,7 +105,7 @@ extension AppStorage where Value : ExpressibleByNilLiteral {
     /// - Parameters:
     ///   - key: The key to read and write the value to in the user defaults store.
     ///   - store: The user defaults store to read and write to. A value of nil will use the user default store from the environment.
-    public init(_ key: String, store: UserDefaults? = UserDefaults.standard) where Value == Optional<Int> {
+    public init(_ key: String, store: UserDefaults? = UserDefaults.standard) where Value == Int? {
         getter = { store?.integer(forKey: key) }
         setter = { store?.set($0, forKey: key) }
     }
@@ -159,7 +159,7 @@ extension AppStorage where Value : ExpressibleByNilLiteral {
     /// - Parameters:
     ///   - key: The key to read and write the value to in the user defaults store.
     ///   - store: The user defaults store to read and write to. A value of nil will use the user default store from the environment.
-    public init<R>(_ key: String, store: UserDefaults? = UserDefaults.standard) where Value == Optional<R>, R : RawRepresentable, R.RawValue == Int {
+    public init<R>(_ key: String, store: UserDefaults? = UserDefaults.standard) where Value == R?, R : RawRepresentable, R.RawValue == Int {
         getter = { store?.integer(forKey: key) as? R }
         setter = { store?.set($0, forKey: key) }
     }
@@ -168,7 +168,7 @@ extension AppStorage where Value : ExpressibleByNilLiteral {
     /// - Parameters:
     ///   - key: The key to read and write the value to in the user defaults store.
     ///   - store: The user defaults store to read and write to. A value of nil will use the user default store from the environment.
-    public init<R>(_ key: String, store: UserDefaults? = UserDefaults.standard) where Value == Optional<R>, R : RawRepresentable, R.RawValue == String {
+    public init<R>(_ key: String, store: UserDefaults? = UserDefaults.standard) where Value == R?, R : RawRepresentable, R.RawValue == String {
         getter = { store?.string(forKey: key) as? R }
         setter = { store?.set($0, forKey: key) }
     }

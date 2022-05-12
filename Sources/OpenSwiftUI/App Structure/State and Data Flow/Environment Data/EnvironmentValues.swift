@@ -79,7 +79,6 @@ public struct EnvironmentValues : CustomStringConvertible, DynamicProperty {
 
     private typealias PropertyList = [ObjectIdentifier : Any]
 
-
     // MARK: - Private Property(ies).
     private var _plist: PropertyList
 

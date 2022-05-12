@@ -1,9 +1,9 @@
 excluded:
   - Package.swift
+  - Tests
 
 included:
   - Sources
-  - Tests
 
 disabled_rules:
   - block_based_kvo
@@ -28,7 +28,6 @@ disabled_rules:
   - type_body_length
   - type_name
   
-
 implicit_return:
   included: 
     - closure
