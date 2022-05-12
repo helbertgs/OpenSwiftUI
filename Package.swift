@@ -25,8 +25,6 @@ let package = Package(
             targets: ["OpenSwiftUI"]),
     ],
     dependencies: [
-         .package(url: "https://github.com/Quick/Nimble.git", from: "9.2.1"),
-         .package(url: "https://github.com/Quick/Quick.git", from: "5.0.0"),
          .package(url: "https://github.com/OpenCombine/OpenCombine.git", from: "0.13.0")
     ],
     targets: [
@@ -36,7 +34,7 @@ let package = Package(
             plugins: [ ]),
         .testTarget(
             name: "OpenSwiftUITests",
-            dependencies: ["OpenSwiftUI", "Nimble", "Quick"]),
+            dependencies: [ "OpenSwiftUI" ]),
     ]
 )
 
