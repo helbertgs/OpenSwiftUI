@@ -1,5 +1,8 @@
 # OpenSwiftUI
 [![SwiftLint](https://github.com/helbertgs/OpenSwiftUI/actions/workflows/SwiftLint.yml/badge.svg)](https://github.com/helbertgs/OpenSwiftUI/actions/workflows/SwiftLint.yml)
+[![MacOS](https://github.com/helbertgs/OpenSwiftUI/actions/workflows/MacOS.yml/badge.svg)](https://github.com/helbertgs/OpenSwiftUI/actions/workflows/MacOS.yml)
+[![Ubuntu](https://github.com/helbertgs/OpenSwiftUI/actions/workflows/Ubuntu.yml/badge.svg)](https://github.com/helbertgs/OpenSwiftUI/actions/workflows/Ubuntu.yml)
+[![Windows](https://github.com/helbertgs/OpenSwiftUI/actions/workflows/Windows.yml/badge.svg)](https://github.com/helbertgs/OpenSwiftUI/actions/workflows/Windows.yml)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0cdb7c84c14a4e709e938a65ff87e2e4)](https://www.codacy.com/gh/helbertgs/OpenSwiftUI/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=helbertgs/OpenSwiftUI&amp;utm_campaign=Badge_Grade)
 ![Swift Version](https://badgen.net/badge/Swift/5.6/orange)
 ![Swift Package Manager Version](https://badgen.net/badge/Swift%20Package%20Manager/5.6/orange)
