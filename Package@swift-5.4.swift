@@ -33,7 +33,8 @@ let package = Package(
         .testTarget(
             name: "OpenSwiftUITests",
             dependencies: [ "OpenSwiftUI" ]),
-    ]
+    ],
+    cxxLanguageStandard: .cxx17
 )
 
 // MARK: - Helpers
