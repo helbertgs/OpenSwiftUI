@@ -18,7 +18,7 @@ public enum ControlActiveState : String, CaseIterable, Equatable, Hashable {
     public typealias AllCases = [ControlActiveState]
 
     /// A collection of all values of this type.
-    public static var allCases: [ControlActiveState] { get }
+    public static var allCases: [ControlActiveState] { [ .key, .active, .inactive ] }
 
     // MARK: - Equatable.
 
