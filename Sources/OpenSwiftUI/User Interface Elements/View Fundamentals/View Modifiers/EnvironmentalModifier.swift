@@ -11,7 +11,7 @@ public protocol EnvironmentalModifier : ViewModifier where Self.Body == Never {
 
     // MARK: - Property(ies).
 
-    static var _requiresMainThread: Swift.Bool { get }
+    static var _requiresMainThread: Bool { get }
 
     // MARK: - Function(s).
 

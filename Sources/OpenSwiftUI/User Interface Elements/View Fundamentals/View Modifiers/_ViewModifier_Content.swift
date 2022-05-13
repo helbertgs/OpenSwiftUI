@@ -9,5 +9,4 @@ public struct _ViewModifier_Content<Modifier> : View where Modifier: ViewModifie
     // MARK: - Property(ies).
 
     public var body: Never { fatalError() }
-
 }
