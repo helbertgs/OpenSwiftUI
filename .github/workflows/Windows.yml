@@ -2,7 +2,7 @@ name: Windows
 
 on:
   push:
-    branches: [ main ]
+    branches: [ tests/windows ]
   pull_request:
     branches: [ main ]
 

@@ -2,7 +2,7 @@ name: SwiftLint
 
 on:
   push:
-    branches: [ main ]
+    branches: [ tests/lint ]
   pull_request:
     branches: [ main ]
 
