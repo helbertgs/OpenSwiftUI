@@ -130,7 +130,155 @@ public struct EnvironmentValues : CustomStringConvertible, DynamicProperty {
     }
 
     // MARK: - Custom String Convertible
+
     /// A string that represents the contents of the environment values
     /// instance.
     public var description: String { _plist.map { "\($0): \($1)" }.joined(separator: "\n") }
+}
+
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
+extension ScenePhase : EnvironmentKey {
+    public static var defaultValue: ScenePhase {
+        .background
+    }
+}
+
+@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
+extension Prominence : EnvironmentKey {
+    public static var defaultValue: Prominence {
+        .standard
+    }
+}
+
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
+struct IsEnable : EnvironmentKey {
+    static var defaultValue: Bool {
+        true
+    }
+}
+
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
+struct IsFocused : EnvironmentKey {
+    static var defaultValue: Bool {
+        false
+    }
+}
+
+extension ColorScheme : EnvironmentKey {
+    public static var defaultValue: ColorScheme {
+        .light
+    }
+}
+
+extension ColorSchemeContrast : EnvironmentKey {
+    public static var defaultValue: ColorSchemeContrast {
+        .standard
+    }
+}
+
+extension EnvironmentValues {
+    /// The current phase of the scene.
+    ///
+    /// The system sets this value to provide an indication of the
+    /// operational state of a scene or collection of scenes. The exact
+    /// meaning depends on where you access the value. For more information,
+    /// see ``ScenePhase``.
+    @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
+    var scenePhase: ScenePhase {
+        get { self[ScenePhase.self] }
+        set { self[ScenePhase.self] = newValue }
+    }
+
+    // The prominence to apply to section headers within a view.
+    ///
+    /// The default is ``Prominence/standard``.
+    @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
+    var headerProminence: Prominence {
+        get { self[Prominence.self] }
+        set { self[Prominence.self] = newValue }
+    }
+
+    /// A Boolean value that indicates whether the view associated with this
+    /// environment allows user interaction.
+    ///
+    /// The default value is `true`.
+    @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
+    public var isEnabled: Bool {
+        get { self[IsEnable.self] }
+        get { self[IsEnable.self] = newValue }
+    }
+
+    /// Returns whether the nearest focusable ancestor has focus.
+    ///
+    /// If there is no focusable ancestor, the value is `false`.
+    @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
+    public var isFocused: Bool {
+        get { self[IsFocused.self] }
+        set { self[IsFocused.self] = newValue }
+    }
+
+    /// The color scheme of this environment.
+    ///
+    /// Read this environment value from within a view to find out if OpenSwiftUI
+    /// is currently displaying the view using the ``ColorScheme/light`` or
+    /// ``ColorScheme/dark`` appearance. The value that you receive depends on
+    /// whether the user has enabled Dark Mode, possibly superseded by
+    /// the configuration of the current presentation's view hierarchy.
+    ///
+    ///     @Environment(\.colorScheme) private var colorScheme
+    ///
+    ///     var body: some View {
+    ///         Text(colorScheme == .dark ? "Dark" : "Light")
+    ///     }
+    ///
+    /// You can set the `colorScheme` environment value directly,
+    /// but that usually isn't what you want. Doing so changes the color
+    /// scheme of the given view and its child views but *not* the views
+    /// above it in the view hierarchy. Instead, set a color scheme using the
+    /// ``View/preferredColorScheme(_:)`` modifier, which also propagates the
+    /// value up through the view hierarchy to the enclosing presentation, like
+    /// a sheet or a window.
+    ///
+    /// When adjusting your app's user interface to match the color scheme,
+    /// consider also checking the ``EnvironmentValues/colorSchemeContrast``
+    /// property, which reflects a system-wide contrast setting that the user
+    /// controls. For information about using color and contrast in your app,
+    /// see [Color and Contrast](https://developer.apple.com/design/human-interface-guidelines/accessibility/overview/color-and-contrast/).
+    ///
+    /// > Note: If you only need to provide different colors or
+    /// images for different color scheme and contrast settings, do that in
+    /// your app's Asset Catalog. See
+    /// <doc://com.apple.documentation/documentation/Xcode/Asset-Management>.
+    public var colorScheme: ColorScheme {
+        get { self[ColorScheme.self] }
+        set { self[ColorScheme.self] = newValue }
+    }
+
+    /// The contrast associated with the color scheme of this environment.
+    ///
+    /// Read this environment value from within a view to find out if OpenSwiftUI
+    /// is currently displaying the view using ``ColorSchemeContrast/standard``
+    /// or ``ColorSchemeContrast/increased`` contrast. The value that you read
+    /// depends entirely on user settings, and you can't change it.
+    ///
+    ///     @Environment(\.colorSchemeContrast) private var colorSchemeContrast
+    ///
+    ///     var body: some View {
+    ///         Text(colorSchemeContrast == .standard ? "Standard" : "Increased")
+    ///     }
+    ///
+    /// When adjusting your app's user interface to match the contrast,
+    /// consider also checking the ``EnvironmentValues/colorScheme`` property
+    /// to find out if OpenSwiftUI is displaying the view with a light or dark
+    /// appearance. For information about using color and contrast in your app,
+    /// see [Color and Contrast](https://developer.apple.com/design/human-interface-guidelines/accessibility/overview/color-and-contrast/).
+    ///
+    /// > Note: If you only need to provide different colors or
+    /// images for different color scheme and contrast settings, do that in
+    /// your app's Asset Catalog. See
+    /// <doc://com.apple.documentation/documentation/Xcode/Asset-Management>.
+    public var colorSchemeContrast: ColorSchemeContrast {
+        get { self[ColorSchemeContrast.self] }
+        set { self[ColorSchemeContrast.self] = newValue }
+    }
 }
