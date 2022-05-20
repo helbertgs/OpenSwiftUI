@@ -80,9 +80,11 @@ public struct EnvironmentValues : CustomStringConvertible, DynamicProperty {
     private typealias PropertyList = [ObjectIdentifier : Any]
 
     // MARK: - Private Property(ies).
+
     private var _plist: PropertyList
 
     // MARK: - Public Constructor(s).
+
     /// Creates an environment values instance.
     ///
     /// You don't typically create an instance of ``EnvironmentValues``
@@ -94,6 +96,7 @@ public struct EnvironmentValues : CustomStringConvertible, DynamicProperty {
     public init() { _plist = PropertyList() }
 
     // MARK: - Public Subscript(s).
+
     /// Accesses the environment value associated with a custom key.
     ///
     /// Create custom environment values by defining a key
