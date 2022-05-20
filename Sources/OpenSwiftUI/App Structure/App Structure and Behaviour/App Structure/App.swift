@@ -117,18 +117,6 @@ public protocol App {
     static func main()
 }
 
-//extension App {
-//    /// Initializes and runs the app.
-//    ///
-//    /// If you precede your ``OpenSwiftUI/App`` conformer's declaration with the
-//    /// [@main](https://docs.swift.org/swift-book/ReferenceManual/Attributes.html#ID626)
-//    /// attribute, the system calls the conformer's `main()` method to launch
-//    /// the app. OpenSwiftUI provides a
-//    /// default implementation of the method that manages the launch process in
-//    /// a platform-appropriate way.
-//    public static func main() { }
-//}
-
 #if os(iOS) && canImport(UIKit)
 
 import UIKit
