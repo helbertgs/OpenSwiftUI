@@ -208,7 +208,7 @@ extension EnvironmentValues {
     @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
     public var isEnabled: Bool {
         get { self[IsEnable.self] }
-        get { self[IsEnable.self] = newValue }
+        set { self[IsEnable.self] = newValue }
     }
 
     /// Returns whether the nearest focusable ancestor has focus.
