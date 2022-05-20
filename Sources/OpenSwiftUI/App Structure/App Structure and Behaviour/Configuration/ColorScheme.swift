@@ -5,6 +5,7 @@ import Swift
 /// The color scheme enumerates the user setting options for Light or Dark Mode.
 /// It also provides the light or dark options for any particular view when the
 /// app wants to override the user setting.
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, Windows 10.0, *)
 @frozen public enum ColorScheme: CaseIterable, Equatable, Hashable {
 
     // MARK: - Case(s).
