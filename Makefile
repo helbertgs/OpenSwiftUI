@@ -23,6 +23,9 @@ swift-version:
 generate-xcodeproj:
 	$(SWIFT_EXE) package $(SWIFT_BUILD_FLAGS) generate-xcodeproj --enable-code-coverage
 
+lint:
+	$(SWIFT_EXE) run swift-lint
+
 clean:
 	rm -rf .build
 
