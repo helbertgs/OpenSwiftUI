@@ -31,6 +31,6 @@ extension EnvironmentValues {
     /// your app's Asset Catalog. See
     /// <doc://com.apple.documentation/documentation/Xcode/Asset-Management>.
     public var colorSchemeContrast: ColorSchemeContrast {
-        get { self[ColorSchemeContrastKey.self] }
+        self[ColorSchemeContrastKey.self]
     }
 }
