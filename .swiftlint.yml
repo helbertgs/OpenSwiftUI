@@ -1,6 +1,7 @@
 excluded:
   - Package.swift
   - Tests
+  - .build/
 
 included:
   - Sources

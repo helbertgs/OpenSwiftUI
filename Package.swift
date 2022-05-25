@@ -25,12 +25,16 @@ let package = Package(
             targets: ["OpenSwiftUI"]),
     ],
     dependencies: [
-         .package(url: "https://github.com/OpenCombine/OpenCombine.git", from: "0.13.0")
+         .package(url: "https://github.com/OpenCombine/OpenCombine.git", from: "0.13.0"),
+         .package(url: "https://github.com/yanagiba/swift-lint.git", from: "0.2.0")
     ],
     targets: [
         .target(
             name: "OpenSwiftUI",
-            dependencies: [ "OpenCombine" ]),
+            dependencies: [
+                "OpenCombine",
+                "swift-lint"
+            ]),
         .testTarget(
             name: "OpenSwiftUITests",
             dependencies: [ "OpenSwiftUI" ]),
