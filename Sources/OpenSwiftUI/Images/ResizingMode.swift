@@ -3,7 +3,7 @@ import Swift
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, Windows 10, *)
 extension Image {
 
-    /// The modes that SwiftUI uses to resize an image to fit within its containing view.
+    /// The modes that OpenSwiftUI uses to resize an image to fit within its containing view.
     public enum ResizingMode : String, Equatable, Hashable {
 
         // MARK: - Case(s).
@@ -49,11 +49,11 @@ extension Image {
         }
     }
 
-    /// Sets the mode by which SwiftUI resizes an image to fit its space.
+    /// Sets the mode by which OpenSwiftUI resizes an image to fit its space.
     /// - Parameters:
     ///   - capInsets: Inset values that indicate a portion of the image that
-    ///   SwiftUI doesn't resize.
-    ///   - resizingMode: The mode by which SwiftUI resizes the image.
+    ///   OpenSwiftUI doesn't resize.
+    ///   - resizingMode: The mode by which OpenSwiftUI resizes the image.
     /// - Returns: An image, with the new resizing behavior set.
     public func resizable(capInsets: EdgeInsets = EdgeInsets(), resizingMode: Image.ResizingMode = .stretch) -> Image {
         fatalError()

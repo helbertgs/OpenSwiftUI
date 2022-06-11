@@ -110,7 +110,7 @@ extension View {
     ///
     /// - Parameter modifier: The modifier to apply to this view.
     @inlinable public func modifier<T>(_ modifier: T) -> ModifiedContent<Self, T> {
-        .init(self, modifier)
+        .init(content: self, modifier: modifier)
     }
 }
 
@@ -122,4 +122,11 @@ extension View {
 //    @inlinable public func environmentObject<T>(_ object: T) -> some View where T : OpenCombine.ObservableObject {
 //        environment(T.environmentStore, object)
 //    }
+}
+
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
+extension View {
+    @inlinable public func onChange<V>(of value: V, perform action: @escaping (_ newValue: V) -> Void) -> some View where V : Equatable {
+        modifier(_ValueActionModifier(value: value, action: action))
+    }
 }

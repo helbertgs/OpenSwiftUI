@@ -18,7 +18,7 @@ extension Image {
     /// The image next to the Small text is slightly smaller than the text.
     /// The image next to the Medium text matches the size of the text. The
     /// image next to the Large text is larger than the
-    /// text.](SwiftUI-EnvironmentAdditions-Image-scale.png)
+    /// text.](OpenSwiftUI-EnvironmentAdditions-Image-scale.png)
     ///
     @available(macOS 11.0, *)
     public enum Scale : String, Equatable, Hashable {

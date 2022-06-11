@@ -3,7 +3,7 @@ import Swift
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 extension Image {
 
-    /// A type that indicates how SwiftUI renders images.
+    /// A type that indicates how OpenSwiftUI renders images.
     public enum TemplateRenderingMode : String, Equatable, Hashable {
 
         // MARK: - Case(s).

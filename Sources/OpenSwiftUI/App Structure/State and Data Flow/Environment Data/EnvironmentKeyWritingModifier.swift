@@ -1,6 +1,6 @@
 import Swift
 
-@frozen public struct _EnvironmentKeyWritingModifier<Value>: ViewModifier {
+@frozen public struct _EnvironmentKeyWritingModifier<Value> {
 
     // MARK: - Type Alias.
     /// The type of view representing the body of this view.
@@ -19,5 +19,17 @@ import Swift
     public init(keyPath: WritableKeyPath<EnvironmentValues, Value>, value: Value) {
         self.keyPath = keyPath
         self.value = value
+    }
+}
+
+@available(iOS 13.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
+extension _EnvironmentKeyWritingModifier : ViewModifier {
+
+}
+
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
+extension _EnvironmentKeyWritingModifier : _SceneModifier {
+    public static func _makeScene(modifier: _GraphValue<_EnvironmentKeyWritingModifier<Value>>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
+        fatalError()
     }
 }

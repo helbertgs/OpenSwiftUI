@@ -46,7 +46,7 @@ extension UserInterfaceSizeClass {
 
     // MARK: - Constructor(s).
 
-    /// Creates a size class from the specified OpenOpenSwiftUI size class.
+    /// Creates a size class from the specified OpenSwiftUI size class.
     @inlinable public init?(_ userInterfaceSizeClass: UIUserInterfaceSizeClass) {
         switch userInterfaceSizeClass {
             case .compact:

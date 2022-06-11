@@ -84,11 +84,13 @@ public protocol Scene {
     /// Swift infers the scene's ``OpenSwiftUI/Scene/Body-swift.associatedtype``
     /// associated type based on the contents of the `body` property.
     @SceneBuilder var body: Self.Body { get }
+
+    static func _makeScene(scene: _GraphValue<Self>, inputs: _SceneInputs) -> _SceneOutputs
 }
 
 extension Scene {
-    private func modifier<T>(_ modifier: T) -> ModifiedContent<Self, T> {
-        .init(self, modifier)
+    @inlinable internal func modifier<T>(_ modifier: T) -> ModifiedContent<Self, T> {
+        .init(content: self, modifier: modifier)
     }
 }
 
@@ -141,20 +143,28 @@ extension Scene {
     ///     value.
     ///
     /// - Returns: A scene that triggers an action in response to a change.
+    @available(iOS 13.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
     @inlinable public func onChange<V>(of value: V, perform action: @escaping (_ newValue: V) -> Void) -> some Scene where V : Equatable {
-        self
+        modifier(_ValueActionModifier(value: value, action: action))
     }
 }
 
 extension Scene {
     /// Sets the style for windows created by this scene.
     public func windowStyle<S>(_ style: S) -> some Scene where S : WindowStyle {
-        modifier(style)
+        modifier(WindowStyleModifier(style: style))
     }
 
     /// Sets the style for the toolbar defined within this scene.
     public func windowToolbarStyle<S>(_ style: S) -> some Scene where S : WindowToolbarStyle {
-        modifier(style)
+        modifier(WindowToolbarStyleModifier(style: style))
+    }
+}
+
+@available(iOS 13.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
+extension Scene {
+    @inlinable internal func environment<V>(_ keyPath: WritableKeyPath<EnvironmentValues, V>, _ value: V) -> some Scene {
+        modifier(_EnvironmentKeyWritingModifier(keyPath: keyPath, value: value))
     }
 }
 
@@ -172,7 +182,7 @@ extension Scene {
     /// discoverability HUD that users see when they hold down the Command (⌘)
     /// key.
     public func commands<Content>(@CommandsBuilder content: () -> Content) -> some Scene where Content : Commands {
-        ModifiedContent(self, content())
+        modifier(CommandsModifier(content: content()))
     }
 }
 
@@ -193,7 +203,7 @@ extension Scene {
     /// - Parameter store: The user defaults to use as the default
     ///   store for `AppStorage`.
     public func defaultAppStorage(_ store: UserDefaults) -> some Scene {
-        self
+        environment(\.defaultAppStorage, store)
     }
 }
 

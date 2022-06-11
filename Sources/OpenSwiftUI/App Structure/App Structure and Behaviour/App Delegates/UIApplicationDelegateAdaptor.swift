@@ -114,7 +114,13 @@ import UIKit
     // MARK: - Property(ies).
 
     /// The underlying app delegate.
-    public var wrappedValue: DelegateType
+    public var wrappedValue: DelegateType {
+        get {
+            guard let wrapper = UIApplicationAdapter.shared.wrapper as? DelegateType else { fatalError() }
+            return wrapper
+        }
+        set { UIApplicationAdapter.shared.wrapper = newValue }
+    }
 
     // MARK: - Constructor(s).
 
