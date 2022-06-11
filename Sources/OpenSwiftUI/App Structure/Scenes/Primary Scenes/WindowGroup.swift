@@ -29,7 +29,8 @@ import Swift
 ///
 /// You typically use a window group for the main interface of an app that isn't
 /// document-based. For document-based apps, use a ``DocumentGroup`` instead.
-@frozen public struct WindowGroup<Content> : Scene {
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
+@frozen public struct WindowGroup<Content> : Scene where Content : View {
 
     // MARK: - Type Alias.
 
@@ -39,6 +40,12 @@ import Swift
     /// implementation of the required ``OpenSwiftUI/Scene/body-swift.property``
     /// property.
     public typealias Body = Never
+
+    // MARK: - Internal Property(ies).
+
+    @usableFromInline var title: String?
+    @usableFromInline var content: Content
+    @usableFromInline var id: String?
 
     // MARK: - Public Property(ies).
 
@@ -53,11 +60,6 @@ import Swift
     /// associated type based on the contents of the `body` property.
     public var body: Never { fatalError() }
 
-    // MARK: - Private Property(ies).
-
-    @_alwaysEmitIntoClient
-    @usableFromInline var content: Content
-
     // MARK: - Constructor(s).
 
     /// Creates a window group.
@@ -66,7 +68,7 @@ import Swift
     /// content of each window in the group.
     ///
     /// - Parameter content: A closure that creates the content for each
-    @inlinable public init(content: () -> Content) {
+    @inlinable public init(@ViewBuilder content: () -> Content) {
         self.content = content()
     }
 
@@ -78,7 +80,9 @@ import Swift
     /// - Parameters:
     ///   - title: The string to use for the title of the group.
     ///   - content: A clousure that creates the content for each instance of the group.
-    @inlinable public init<S>(_ title: S, content: () -> Content) {
+    @_disfavoredOverload
+    @inlinable public init<S>(_ title: S, @ViewBuilder content: () -> Content) where S: StringProtocol {
+        self.title = String(title)
         self.content = content()
     }
 
@@ -92,7 +96,9 @@ import Swift
     ///     must be unique among the window groups in your app.
     ///   - content: A closure that creates the content for each instance
     ///     of the group.
-    @inlinable public init(id: String, content: () -> Content) {
+    @_disfavoredOverload
+    @inlinable public init(id: String, @ViewBuilder content: () -> Content) {
+        self.id = id
         self.content = content()
     }
 
@@ -108,8 +114,17 @@ import Swift
     ///   - id: A string that uniquely identifies the window group. Identifiers
     ///     must be unique among the window groups in your app.
     ///   - content: A closure that creates the content for each instance
-    ///     of the group.
-    @inlinable public init<S>(_ title: S, id: String, content: () -> Content) {
+    ///     of the group.note
+    @_disfavoredOverload
+    @inlinable public init<S>(_ title: S, id: String, @ViewBuilder content: () -> Content) where S: StringProtocol {
+        self.title = String(title)
+        self.id = id
         self.content = content()
+    }
+
+    // MARK: - Static Function(s).
+
+    public static func _makeScene(scene: _GraphValue<WindowGroup<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
+        fatalError()
     }
 }

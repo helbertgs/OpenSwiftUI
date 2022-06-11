@@ -12,6 +12,7 @@ import Swift
     @inlinable public var height: Float { 0 }
 
     // MARK: - Subscript(s).
+
     /// Gets the value of the given horizontal guide.
     @inlinable public subscript(guide: HorizontalAlignment) -> Float { 0 }
 
@@ -27,6 +28,7 @@ import Swift
     @inlinable public subscript(explicit guide: VerticalAlignment) -> Float? { 0 }
 
     // MARK: - Equatable.
+
     /// Returns a Boolean value indicating whether two values are equal.
     ///
     /// Equality is the inverse of inequality. For any values `a` and `b`,
@@ -40,6 +42,7 @@ import Swift
     }
 
     // MARK: - Hashable.
+
     /// Hashes the essential components of this value by feeding them into the
     /// given hasher.
     ///

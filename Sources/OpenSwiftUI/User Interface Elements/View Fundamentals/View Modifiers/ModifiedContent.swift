@@ -30,7 +30,7 @@ import Swift
     /// - Parameters:
     ///     - content: The content that the modifier changes.
     ///     - modifier: The modifier to apply to the content.
-    @inlinable public init(_ content: Content, _ modifier: Modifier) {
+    @inlinable public init(content: Content, modifier: Modifier) {
         self.content = content
         self.modifier = modifier
     }
@@ -98,7 +98,8 @@ extension ModifiedContent where Content : View, Modifier : ViewModifier {
 extension ModifiedContent : ViewModifier where Content : ViewModifier, Modifier : ViewModifier {
 }
 
-extension ModifiedContent : Scene where Content : Scene {
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
+extension ModifiedContent : Scene where Content : Scene, Modifier : _SceneModifier {
 
     // MARK: - Property(ies).
     /// The content and behavior of the view.
@@ -117,4 +118,15 @@ extension ModifiedContent : Scene where Content : Scene {
     /// For more information about composing views and a view hierarchy,
     /// see <doc:Declaring-a-Custom-View>.
     public var body : Never { fatalError() }
+
+    public static func _makeScene(scene: _GraphValue<ModifiedContent<Content, Modifier>>, inputs: _SceneInputs) -> _SceneOutputs {
+        fatalError()
+    }
+}
+
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
+extension ModifiedContent where Content : Scene {
+    public static func _makeScene(scene: _GraphValue<ModifiedContent<Content, Modifier>>, inputs: _SceneInputs) -> _SceneOutputs {
+        fatalError()
+    }
 }

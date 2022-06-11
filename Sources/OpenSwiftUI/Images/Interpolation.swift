@@ -14,7 +14,7 @@ extension Image {
 
         // MARK: - Case(s).
 
-        /// A value that indicates SwiftUI doesn't interpolate image data.
+        /// A value that indicates OpenSwiftUI doesn't interpolate image data.
         case none
 
         /// A value that indicates a low level of interpolation quality, which may

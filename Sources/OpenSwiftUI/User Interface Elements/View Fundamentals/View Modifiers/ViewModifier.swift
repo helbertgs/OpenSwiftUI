@@ -77,6 +77,6 @@ extension ViewModifier {
     /// Returns a new modifier that is the result of concatenating
     /// `self` with `modifier`.
     @inlinable public func concat<T>(_ modifier: T) -> ModifiedContent<Self, T> {
-        .init(self, modifier)
+        .init(content: self, modifier: modifier)
     }
 }
