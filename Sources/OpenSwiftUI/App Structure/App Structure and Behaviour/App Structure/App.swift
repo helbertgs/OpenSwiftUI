@@ -60,7 +60,7 @@ import Swift
 ///             }
 ///         }
 ///     }
-///
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
 public protocol App {
 
     // MARK: - Associated Type(s).
@@ -121,6 +121,7 @@ public protocol App {
 
 import UIKit
 
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
 extension App {
     /// Initializes and runs the app.
     ///
@@ -141,6 +142,7 @@ extension App {
 
 import AppKit
 
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
 extension App {
     /// Initializes and runs the app.
     ///

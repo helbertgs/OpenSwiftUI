@@ -61,6 +61,7 @@ import Swift
 ///             }
 ///         }
 ///     }
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
 public protocol Scene {
 
     // MARK: - Associated Type(s).
@@ -88,12 +89,14 @@ public protocol Scene {
     static func _makeScene(scene: _GraphValue<Self>, inputs: _SceneInputs) -> _SceneOutputs
 }
 
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
 extension Scene {
     @inlinable internal func modifier<T>(_ modifier: T) -> ModifiedContent<Self, T> {
         .init(content: self, modifier: modifier)
     }
 }
 
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
 extension Scene {
     /// Adds an action to perform when the given value changes.
     ///
@@ -143,12 +146,12 @@ extension Scene {
     ///     value.
     ///
     /// - Returns: A scene that triggers an action in response to a change.
-    @available(iOS 13.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
     @inlinable public func onChange<V>(of value: V, perform action: @escaping (_ newValue: V) -> Void) -> some Scene where V : Equatable {
         modifier(_ValueActionModifier(value: value, action: action))
     }
 }
 
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
 extension Scene {
     /// Sets the style for windows created by this scene.
     public func windowStyle<S>(_ style: S) -> some Scene where S : WindowStyle {
@@ -161,13 +164,14 @@ extension Scene {
     }
 }
 
-@available(iOS 13.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
 extension Scene {
     @inlinable internal func environment<V>(_ keyPath: WritableKeyPath<EnvironmentValues, V>, _ value: V) -> some Scene {
         modifier(_EnvironmentKeyWritingModifier(keyPath: keyPath, value: value))
     }
 }
 
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
 extension Scene {
 
     /// Adds commands to the scene.
@@ -190,6 +194,7 @@ extension Scene {
 
 import UIKit
 
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
 extension Scene {
 
     /// The default store used by `AppStorage` contained within the scene and

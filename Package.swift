@@ -16,8 +16,8 @@ let supportedPlatforms: [Platform] = [
 let package = Package(
     name: "OpenSwiftUI",
     platforms: [
-        .iOS(.v13),
-        .macOS(.v10_15)
+        .iOS(.v14),
+        .macOS(.v11)
     ],
     products: [
         .library(
