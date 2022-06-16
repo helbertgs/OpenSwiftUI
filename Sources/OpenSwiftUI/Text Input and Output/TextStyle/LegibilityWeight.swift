@@ -3,7 +3,6 @@ import Swift
 /// The Accessibility Bold Text user setting options.
 ///
 /// The app can't override the user's choice.
-@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, Windows 1, *)
 public enum LegibilityWeight : String, Equatable, Hashable {
 
     // MARK: - Case(s).
