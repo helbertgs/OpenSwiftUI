@@ -125,6 +125,32 @@ import Swift
     // MARK: - Static Function(s).
 
     public static func _makeScene(scene: _GraphValue<WindowGroup<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
-        fatalError()
+        #if os(iOS)
+            return _make(scene: scene, inputs: inputs)
+        #else
+            fatalError()
+        #endif
     }
 }
+
+#if canImport(UIKit) || os(iOS)
+
+import UIKit
+
+fileprivate extension WindowGroup {
+    static func _make(scene: _GraphValue<WindowGroup<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
+        if inputs.role == UISceneSession.Role.windowApplication {
+            let config = UISceneConfiguration(name: nil, sessionRole: inputs.role)
+            config.delegateClass = UISceneAdapter.self
+
+            var outputs = _SceneOutputs()
+            outputs.config = config
+
+            return outputs
+        }
+
+        fatalError("Unhandled scene role \(inputs.role)")
+    }
+}
+
+#endif

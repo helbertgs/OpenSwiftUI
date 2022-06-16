@@ -132,7 +132,14 @@ extension App {
     /// default implementation of the method that manages the launch process in
     /// a platform-appropriate way.
     public static func main() {
-        UIApplicationMain(CommandLine.argc, CommandLine.unsafeArgv, nil, "\(UIApplicationAdapter.self)")
+//         UIApplicationMain(CommandLine.argc, CommandLine.unsafeArgv, nil, "\(UIApplicationAdapter.self)")
+//        let app = Self()
+//
+//        var inputs = _SceneInputs()
+//        inputs.environmentValues = EnvironmentValues()
+//
+//        var outputs = _SceneOutputs()
+//        outputs.scene = Self.Body._makeScene(scene: _GraphValue<Self.Body>(app.body), inputs: inputs)
     }
 }
 
