@@ -1,8 +1,6 @@
 name: MacOS
 
 on:
-  push:
-    branches: [ tests/macos ]
   pull_request:
     branches: [ main ]
 
