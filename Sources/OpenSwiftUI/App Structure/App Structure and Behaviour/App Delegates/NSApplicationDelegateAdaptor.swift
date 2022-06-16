@@ -55,11 +55,6 @@ import AppKit
 /// delegate whenever possible. For example, prefer to handle changes
 /// in ``ScenePhase`` instead of relying on delegate callbacks, like
 /// <doc://com.apple.documentation/documentation/AppKit/NSApplicationDelegate/1428385-applicationdidfinishlaunching>.
-@available(macOS 11.0, *)
-@available(iOS, unavailable)
-@available(tvOS, unavailable)
-@available(watchOS, unavailable)
-@available(Windows, unavailable)
 @propertyWrapper public struct NSApplicationDelegateAdaptor<DelegateType> where DelegateType : NSObject, DelegateType : NSApplicationDelegate {
 
     // MARK: - Property(ies).

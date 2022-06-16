@@ -1,8 +1,6 @@
 name: Windows 
 
 on:
-  push:
-    branches: [ tests/windows ]
   pull_request:
     branches: [ main ]
 

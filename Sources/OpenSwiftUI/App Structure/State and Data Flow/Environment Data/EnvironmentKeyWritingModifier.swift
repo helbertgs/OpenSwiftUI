@@ -22,12 +22,12 @@ import Swift
     }
 }
 
-@available(iOS 13.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
+@available(iOS 13.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 1, *)
 extension _EnvironmentKeyWritingModifier : ViewModifier {
 
 }
 
-@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 1, *)
 extension _EnvironmentKeyWritingModifier : _SceneModifier {
     public static func _makeScene(modifier: _GraphValue<_EnvironmentKeyWritingModifier<Value>>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
         fatalError()

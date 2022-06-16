@@ -1,6 +1,6 @@
 import Swift
 
-@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, Windows 10, *)
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, Windows 1, *)
 extension Image {
 
     /// The level of quality for rendering an image that requires interpolation,

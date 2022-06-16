@@ -98,7 +98,7 @@ extension ModifiedContent where Content : View, Modifier : ViewModifier {
 extension ModifiedContent : ViewModifier where Content : ViewModifier, Modifier : ViewModifier {
 }
 
-@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 1, *)
 extension ModifiedContent : Scene where Content : Scene, Modifier : _SceneModifier {
 
     // MARK: - Property(ies).
@@ -124,7 +124,7 @@ extension ModifiedContent : Scene where Content : Scene, Modifier : _SceneModifi
     }
 }
 
-@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 10, *)
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 1, *)
 extension ModifiedContent where Content : Scene {
     public static func _makeScene(scene: _GraphValue<ModifiedContent<Content, Modifier>>, inputs: _SceneInputs) -> _SceneOutputs {
         fatalError()

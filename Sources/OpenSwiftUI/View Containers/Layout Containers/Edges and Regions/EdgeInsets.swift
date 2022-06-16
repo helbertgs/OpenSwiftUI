@@ -1,7 +1,7 @@
 import Swift
 
 /// The inset distances for the sides of a rectangle.
-@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, Windows 10, *)
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, Windows 1, *)
 @frozen public struct EdgeInsets : Equatable {
 
     public var top: Float

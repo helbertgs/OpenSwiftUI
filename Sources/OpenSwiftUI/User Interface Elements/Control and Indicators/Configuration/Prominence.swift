@@ -1,7 +1,7 @@
 import Swift
 
 /// A type indicating the prominence of a view hierarchy.
-@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, Windows 10, *)
+@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, Windows 1, *)
 public enum Prominence : String, Equatable, Hashable {
 
     // MARK: - Case(s).
