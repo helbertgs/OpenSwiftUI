@@ -1,13 +1,11 @@
 import Swift
 
-@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, Windows 1, *)
 public struct DisplayScaleKey : EnvironmentKey {
     public static var defaultValue: Float {
         0
     }
 }
 
-@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, Windows 1, *)
 extension EnvironmentValues {
     /// The display scale of this environment.
     var displayScale: Float {

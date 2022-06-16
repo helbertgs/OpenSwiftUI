@@ -61,7 +61,6 @@ import Swift
 ///             }
 ///         }
 ///     }
-@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 1, *)
 public protocol Scene {
 
     // MARK: - Associated Type(s).
@@ -89,14 +88,12 @@ public protocol Scene {
     static func _makeScene(scene: _GraphValue<Self>, inputs: _SceneInputs) -> _SceneOutputs
 }
 
-@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 1, *)
 extension Scene {
     @inlinable internal func modifier<T>(_ modifier: T) -> ModifiedContent<Self, T> {
         .init(content: self, modifier: modifier)
     }
 }
 
-@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 1, *)
 extension Scene {
     /// Adds an action to perform when the given value changes.
     ///
@@ -151,7 +148,6 @@ extension Scene {
     }
 }
 
-@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 1, *)
 extension Scene {
     /// Sets the style for windows created by this scene.
     public func windowStyle<S>(_ style: S) -> some Scene where S : WindowStyle {
@@ -164,14 +160,12 @@ extension Scene {
     }
 }
 
-@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 1, *)
 extension Scene {
     @inlinable internal func environment<V>(_ keyPath: WritableKeyPath<EnvironmentValues, V>, _ value: V) -> some Scene {
         modifier(_EnvironmentKeyWritingModifier(keyPath: keyPath, value: value))
     }
 }
 
-@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 1, *)
 extension Scene {
 
     /// Adds commands to the scene.
@@ -194,7 +188,6 @@ extension Scene {
 
 import UIKit
 
-@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, Windows 1, *)
 extension Scene {
 
     /// The default store used by `AppStorage` contained within the scene and

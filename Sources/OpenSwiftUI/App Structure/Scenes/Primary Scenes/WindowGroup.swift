@@ -29,7 +29,6 @@ import Swift
 ///
 /// You typically use a window group for the main interface of an app that isn't
 /// document-based. For document-based apps, use a ``DocumentGroup`` instead.
-@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
 @frozen public struct WindowGroup<Content> : Scene where Content : View {
 
     // MARK: - Type Alias.

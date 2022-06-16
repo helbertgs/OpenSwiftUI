@@ -1,6 +1,5 @@
 import Swift
 
-@available(iOS 14.0, macOS 10.15, tvOS 14.0, watchOS 7.0, Windows 1, *)
 public protocol _SceneModifier {
 
     // MARK: - Associated Type(s).
@@ -20,21 +19,18 @@ public protocol _SceneModifier {
     static func _makeScene(modifier: _GraphValue<Self>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs
 }
 
-@available(iOS 14.0, macOS 10.15, tvOS 14.0, watchOS 7.0, Windows 1, *)
 extension _SceneModifier {
     @inlinable internal func concat<T>(_ modifier: T) -> ModifiedContent<Self, T> {
         .init(content: self, modifier: modifier)
     }
 }
 
-@available(iOS 14.0, macOS 10.15, tvOS 14.0, watchOS 7.0, Windows 1, *)
 extension _SceneModifier where Self.Body == Never {
     public func body(content: Self.SceneContent) -> Self.Body {
         content.body
     }
 }
 
-@available(iOS 14.0, macOS 10.15, tvOS 14.0, watchOS 7.0, Windows 1, *)
 extension _SceneModifier where Self : _GraphInputsModifier, Self.Body == Never {
     static func _makeScene(modifier: _GraphValue<Self>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
         fatalError()

@@ -2,7 +2,7 @@ import Swift
 
 /// The size classes, like regular or small, that you can apply to controls
 /// within a view.
-@available(iOS 15.0, macOS 10.15, Windows 1, *)
+@available(iOS 15.0, macOS 10.15, *)
 @available(tvOS, unavailable)
 @available(watchOS, unavailable)
 public enum ControlSize : String, CaseIterable, Equatable, Hashable {
@@ -19,7 +19,7 @@ public enum ControlSize : String, CaseIterable, Equatable, Hashable {
     case regular
 
     /// A control version that is prominently sized.
-    @available(macOS 11.0, Windows 1, *)
+    @available(macOS 11.0, *)
     case large
 
     // MARK: - Case Interable.
