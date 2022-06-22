@@ -31,7 +31,7 @@ extension EnvironmentValues {
     /// action in the environment.
     public var rename: RenameAction? {
         get { nil }
-        set { print(#function) }
+        set { _ = newValue }
     }
 }
 
