@@ -16,10 +16,7 @@ let package = Package(
     ],
     dependencies: [
          .package(url: "https://github.com/OpenCombine/OpenCombine.git", from: "0.13.0"),
-<<<<<<< HEAD
          .package(url: "https://github.com/yanagiba/swift-lint.git", from: "0.2.0"),
-=======
->>>>>>> 5f4727d (chore: update documentation)
          .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
     ],
     targets: [
