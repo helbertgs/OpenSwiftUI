@@ -8,7 +8,8 @@ import Swift
 /// object changes. If you declare a property as an environment object, be sure
 /// to set a corresponding model object on an ancestor view by calling its
 /// ``View/environmentObject(_:)`` modifier.
-@frozen @propertyWrapper public struct EnvironmentObject<ObjectType> : DynamicProperty where ObjectType : ObservableObject {
+@frozen
+@propertyWrapper public struct EnvironmentObject<ObjectType> : DynamicProperty where ObjectType : ObservableObject {
 
     // MARK: - Property(ies).
 
@@ -47,7 +48,11 @@ import Swift
     /// to its properties using dynamic member lookup.
     @dynamicMemberLookup @frozen public struct Wrapper {
 
+        // MARK: - Property(ies).
+
         let root: ObjectType
+
+        // MARK: - Subscript(s).
 
         /// Returns a binding to the resulting value of a given key path.
         ///

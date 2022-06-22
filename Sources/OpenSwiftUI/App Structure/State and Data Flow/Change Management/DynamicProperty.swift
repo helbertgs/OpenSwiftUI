@@ -22,7 +22,7 @@ public protocol DynamicProperty {
 
     // MARK: - Static Function*s).
 
-    // static func _makeProperty<V>(in buffer: inout _DynamicPropertyBuffer, container: _GraphValue<V>, fieldOffset: Int, inputs: inout _GraphInputs)
+    static func _makeProperty<V>(in buffer: inout _DynamicPropertyBuffer, container: _GraphValue<V>, fieldOffset: Int, inputs: inout _GraphInputs)
 }
 
 extension DynamicProperty {
@@ -42,5 +42,7 @@ extension DynamicProperty {
 
     // MARK: - Static Function*s).
 
-    // public static func _makeProperty<V>(in buffer: inout _DynamicPropertyBuffer, container: _GraphValue<V>, fieldOffset: Int, inputs: inout _GraphInputs) { }
+    public static func _makeProperty<V>(in buffer: inout _DynamicPropertyBuffer, container: _GraphValue<V>, fieldOffset: Int, inputs: inout _GraphInputs) {
+        fatalError()
+    }
 }
