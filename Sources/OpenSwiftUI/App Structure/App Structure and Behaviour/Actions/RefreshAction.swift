@@ -59,6 +59,7 @@ import Swift
 /// user to cancel the task. For more information, see
 /// [Concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)
 /// in *The Swift Programming Language*.
+@available(Windows, unavailable)
 public struct RefreshAction {
 
     // MARK: - Property(ies).
@@ -105,6 +106,7 @@ public struct RefreshAction {
     }
 }
 
+@available(Windows, unavailable)
 extension EnvironmentValues {
 
     /// A refresh action stored in a view's environment.
