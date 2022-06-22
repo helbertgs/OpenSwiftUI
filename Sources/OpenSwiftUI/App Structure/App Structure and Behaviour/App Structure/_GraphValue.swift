@@ -1,17 +1,20 @@
 import Swift
 
-public struct _GraphValue<Value>  {
+@frozen public struct _GraphValue<Value>  {
 
     // MARK: - Property(ies).
+
+    @usableFromInline
     internal var value: Value
 
     // MARK: - Constructor(s).
-    init(_ value: Value) {
+
+    @inlinable internal init(_ value: Value) {
         self.value = value
     }
 
     // MARK: - Subscript(s).
-    public subscript<T>(keyPath: KeyPath<Value, T>) -> _GraphValue<T> {
+    @inlinable internal subscript<T>(keyPath: KeyPath<Value, T>) -> _GraphValue<T> {
         .init(value[keyPath: keyPath])
     }
 }
@@ -26,7 +29,7 @@ extension _GraphValue : Equatable where Value : Equatable {
     /// - Parameters:
     ///   - lhs: A value to compare.
     ///   - rhs: Another value to compare.
-    public static func == (lhs: _GraphValue<Value>, rhs: _GraphValue<Value>) -> Bool {
+    @inlinable public static func == (lhs: _GraphValue<Value>, rhs: _GraphValue<Value>) -> Bool {
         lhs.value == rhs.value
     }
 }

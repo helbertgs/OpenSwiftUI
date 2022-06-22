@@ -34,9 +34,11 @@ import Swift
 /// For the complete list of environment values provided by OpenSwiftUI, see the
 /// properties of the ``EnvironmentValues`` structure. For information about
 /// creating custom environment values, see the ``EnvironmentKey`` protocol.
-@propertyWrapper public struct Environment<Value> : DynamicProperty {
+@frozen
+@propertyWrapper
+public struct Environment<Value> : DynamicProperty {
 
-    private var content: Content
+    @usableFromInline var content: Content
 
     /// The current value of the environment property.
     ///
@@ -86,6 +88,7 @@ import Swift
         content = .keyPath(keyPath)
     }
 
+    @usableFromInline
     enum Content {
         case keyPath(KeyPath<EnvironmentValues, Value>)
         case value(Value)
