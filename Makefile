@@ -29,6 +29,12 @@ lint:
 clean:
 	rm -rf .build
 
+docc:
+	@echo "Building documentation..."
+	@sudo swift package --allow-writing-to-directory docs/ generate-documentation --target OpenSwiftUI --disable-indexing --transform-for-static-hosting --hosting-base-path OpenSwiftUI --output-path docs/
+	@echo "Comminting..."
+	@git add . && git commit -m "chore: update documentation" && git push 
+
 .PHONY: debug release \
 	    test-debug \
 	    test-release \
