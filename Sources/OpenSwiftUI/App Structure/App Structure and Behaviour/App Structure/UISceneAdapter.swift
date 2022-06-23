@@ -12,13 +12,12 @@ class UISceneAdapter: NSObject, UISceneDelegate {
     // MARK: - Function(s).
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
-            let controller = UIViewController(nibName: nil, bundle: nil)
-            controller.view.backgroundColor = .blue
-            window.rootViewController = controller
-            self.window = window
-            window.makeKeyAndVisible()
+        if let windowScene = scene as? UIWindowScene,
+            let application = UIApplication.shared as? _Application,
+            let rootViewController: UIViewController = application.root?.rootViewController {
+            self.window = UIWindow(windowScene: windowScene)
+            self.window?.rootViewController = rootViewController
+            self.window?.makeKeyAndVisible()
         }
     }
 

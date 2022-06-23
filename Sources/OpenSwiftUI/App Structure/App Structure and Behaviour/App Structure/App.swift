@@ -141,21 +141,8 @@ extension App {
 }
 
 class _Application: UIApplication {
-
     var environmentValues = EnvironmentValues()
     var root: _SceneOutputs?
-
-    override var delegate: UIApplicationDelegate? {
-        willSet {
-            print("Is UIApplicationAdapter: \(newValue is UIApplicationAdapter)")
-            print("Is _Application: \(self as _Application)")
-        }
-    }
-
-    override init() {
-        super.init()
-        print(#function)
-    }
 }
 
 #endif
