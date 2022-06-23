@@ -33,7 +33,7 @@ class UIApplicationAdapter: NSObject, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        _Tree.shared.root?.config ?? .init(name: nil, sessionRole: .windowApplication)
+        _Tree.shared.scene?.config ?? .init(name: nil, sessionRole: .windowApplication)
     }
 }
 
