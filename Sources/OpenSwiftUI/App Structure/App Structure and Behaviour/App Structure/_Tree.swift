@@ -9,10 +9,12 @@ final class _Tree {
         }
     }
 
-    static let shared = _Tree()
+    static var shared = _Tree()
 
     init(environmentValues: EnvironmentValues = EnvironmentValues(), root: _SceneOutputs? = nil) {
         self.environmentValues = environmentValues
         self.root = root
+
+        print(root)
     }
 }
