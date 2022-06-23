@@ -150,7 +150,8 @@ class _Application: UIApplication {
 
     override var delegate: UIApplicationDelegate? {
         willSet {
-            print("UIApplicationDelegate: \(type(of: newValue))")
+            print("Is UIApplicationAdapter: \(newValue is UIApplicationAdapter)")
+            print("Is _Application: \(self as _Application)")
         }
     }
 
