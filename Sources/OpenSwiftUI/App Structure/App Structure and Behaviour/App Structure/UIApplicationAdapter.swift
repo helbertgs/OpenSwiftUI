@@ -26,16 +26,20 @@ class UIApplicationAdapter: NSObject, UIApplicationDelegate {
     // MARK: - UIApplicationDelegate Function(s).
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        wrapper?.application?(application, didFinishLaunchingWithOptions: launchOptions) ?? true
+        print(#function)
+        return wrapper?.application?(application, didFinishLaunchingWithOptions: launchOptions) ?? true
     }
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        print(#function)
         if connectingSceneSession.role == UISceneSession.Role.windowApplication {
             let config = UISceneConfiguration(name: nil, sessionRole: connectingSceneSession.role)
             config.delegateClass = UISceneAdapter.self
             config.storyboard = nil
 
-            return wrapper?.application?(application, configurationForConnecting: connectingSceneSession, options: options) ?? config
+            let res = wrapper?.application?(application, configurationForConnecting: connectingSceneSession, options: options) ?? config
+            print(res)
+            return res
         }
 
         fatalError("Unhandled scene role \(connectingSceneSession.role)")

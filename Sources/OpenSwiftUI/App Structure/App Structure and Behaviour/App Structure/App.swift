@@ -149,6 +149,11 @@ class _Application: UIApplication {
             print("UIApplicationDelegate: \(type(of: newValue))")
         }
     }
+
+    override init() {
+        super.init()
+        print(#function)
+    }
 }
 
 #endif
