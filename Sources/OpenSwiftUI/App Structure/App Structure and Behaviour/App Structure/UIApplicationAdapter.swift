@@ -15,6 +15,10 @@ class UIApplicationAdapter: NSObject, UIApplicationDelegate {
 
     // MARK: - Constructor(s).
 
+    override init() {
+        self.wrapper = nil
+    }
+
     init(wrapper: UIApplicationDelegate? = nil) {
         self.wrapper = wrapper
     }
