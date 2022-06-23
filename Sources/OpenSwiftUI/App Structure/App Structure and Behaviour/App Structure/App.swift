@@ -135,7 +135,7 @@ extension App {
                           NSStringFromClass(OpenSwiftUI._Application.self),
                           NSStringFromClass(OpenSwiftUI.UIApplicationAdapter.self))
 
-        _Tree.shared = _Tree(root: Self())
+        _Tree.shared = _Tree(Self.self)
     }
 }
 

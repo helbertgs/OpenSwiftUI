@@ -3,28 +3,24 @@ import Foundation
 final class _Tree {
 
     var environmentValues = EnvironmentValues()
-    var root: (any App)? {
-        didSet {
-            if let value = oldValue {
-               scene = run(value.body)
-            }
-        }
-    }
-
-    var scene: _SceneOutputs? {
-        didSet {
-            dump(oldValue)
-        }
-    }
+    var root: (any App)
+    var scene: _SceneOutputs?
 
     static var shared = _Tree()
 
-    init(environmentValues: EnvironmentValues = EnvironmentValues(), root: (any App)? = nil) {
-        self.environmentValues = environmentValues
-        self.root = root
+    init<T>(_ t: T.Type = EmptyApp.self) where T: App {
+        self.environmentValues = EnvironmentValues()
+        let app = T()
+        self.root = app
+        self.scene = T.Body._makeScene(scene: .init(app.body), inputs: .init())
     }
 
-    func run<T>(_ scene: T) -> _SceneOutputs where T : Scene {
-        T._makeScene(scene: .init(scene), inputs: .init())
+    struct EmptyApp: App {
+        var body: some Scene {
+            WindowGroup {
+
+            }
+        }
     }
 }
+
