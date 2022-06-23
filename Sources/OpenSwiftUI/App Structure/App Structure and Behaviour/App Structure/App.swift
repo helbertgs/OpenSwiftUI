@@ -130,7 +130,7 @@ extension App {
     /// default implementation of the method that manages the launch process in
     /// a platform-appropriate way.
     public static func main() {
-        UIApplicationMain(CommandLine.argc, CommandLine.unsafeArgv, nil, "\(UIApplicationAdapter.self)")
+        UIApplicationMain(CommandLine.argc, CommandLine.unsafeArgv, nil, NSStringFromClass(OpenSwiftUI.UIApplicationAdapter.self))
         let app = Self()
 
         var inputs = _SceneInputs()
