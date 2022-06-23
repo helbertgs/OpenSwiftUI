@@ -136,20 +136,14 @@ extension App {
                           NSStringFromClass(OpenSwiftUI.UIApplicationAdapter.self))
 
         let app = Self()
-
-        (UIApplication.shared as? _Application)?.root = app
-        let _ = Self.Body._makeScene(scene: _GraphValue<Self.Body>(app.body), inputs: .init())
+        (UIApplication.shared as? _Application)?.root = Self.Body._makeScene(scene: _GraphValue<Self.Body>(app.body), inputs: .init())
     }
 }
 
 class _Application: UIApplication {
 
     var environmentValues = EnvironmentValues()
-    var root: (any App)? {
-        willSet {
-            print(newValue)
-        }
-    }
+    var root: _SceneOutputs?
 
     override var delegate: UIApplicationDelegate? {
         willSet {
