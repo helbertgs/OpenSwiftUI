@@ -145,7 +145,11 @@ extension App {
 class _Application: UIApplication {
 
     var environmentValues = EnvironmentValues()
-    var root: (any App)?
+    var root: (any App)? {
+        willSet {
+            print(newValue)
+        }
+    }
 
     override var delegate: UIApplicationDelegate? {
         willSet {
