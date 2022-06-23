@@ -91,7 +91,7 @@ public protocol App {
     ///
     /// Swift infers the app's ``OpenSwiftUI/App/Body-swift.associatedtype``
     /// associated type based on the scene provided by the `body` property.
-    var body: Self.Body { get }
+    @SceneBuilder var body: Self.Body { get }
 
     // MARK: - Constructor(s).
 
@@ -130,14 +130,14 @@ extension App {
     /// default implementation of the method that manages the launch process in
     /// a platform-appropriate way.
     public static func main() {
-//         UIApplicationMain(CommandLine.argc, CommandLine.unsafeArgv, nil, "\(UIApplicationAdapter.self)")
-//        let app = Self()
-//
-//        var inputs = _SceneInputs()
-//        inputs.environmentValues = EnvironmentValues()
-//
-//        var outputs = _SceneOutputs()
-//        outputs.scene = Self.Body._makeScene(scene: _GraphValue<Self.Body>(app.body), inputs: inputs)
+        UIApplicationMain(CommandLine.argc, CommandLine.unsafeArgv, nil, "\(UIApplicationAdapter.self)")
+        let app = Self()
+
+        var inputs = _SceneInputs()
+        inputs.environmentValues = EnvironmentValues()
+
+        var outputs = _SceneOutputs()
+        outputs.scene = Self.Body._makeScene(scene: _GraphValue<Self.Body>(app.body), inputs: inputs)
     }
 }
 

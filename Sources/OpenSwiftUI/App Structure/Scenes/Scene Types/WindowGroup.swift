@@ -138,17 +138,13 @@ import UIKit
 
 fileprivate extension WindowGroup {
     static func _make(scene: _GraphValue<WindowGroup<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
-        if inputs.role == UISceneSession.Role.windowApplication {
-            let config = UISceneConfiguration(name: nil, sessionRole: inputs.role)
-            config.delegateClass = UISceneAdapter.self
+        let config = UISceneConfiguration(name: "Window", sessionRole: .windowApplication)
+        config.delegateClass = UISceneAdapter.self
 
-            var outputs = _SceneOutputs()
-            outputs.config = config
+        var outputs = _SceneOutputs()
+        outputs.config = config
 
-            return outputs
-        }
-
-        fatalError("Unhandled scene role \(inputs.role)")
+        return outputs
     }
 }
 
