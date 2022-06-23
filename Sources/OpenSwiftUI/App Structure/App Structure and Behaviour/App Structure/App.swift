@@ -136,7 +136,7 @@ extension App {
                           NSStringFromClass(OpenSwiftUI.UIApplicationAdapter.self))
 
         let app = Self()
-        UIApplicationAdapter.shared.root = Self.Body._makeScene(scene: _GraphValue<Self.Body>(app.body), inputs: .init())
+        _Tree.shared.root = Self.Body._makeScene(scene: _GraphValue<Self.Body>(app.body), inputs: .init())
     }
 }
 
