@@ -13,10 +13,9 @@ class UISceneAdapter: NSObject, UISceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene,
-            let application = UIApplication.shared as? _Application,
-            let rootViewController: UIViewController = application.root?.rootViewController {
+           let output = (UIApplication.shared as? _Application)?.root {
             self.window = UIWindow(windowScene: windowScene)
-            self.window?.rootViewController = rootViewController
+            self.window?.rootViewController = output.rootViewController
             self.window?.makeKeyAndVisible()
         }
     }
