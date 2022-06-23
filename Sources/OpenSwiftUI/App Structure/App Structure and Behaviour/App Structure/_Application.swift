@@ -4,8 +4,10 @@ import Swift
 import UIKit
 
 class _Application: UIApplication {
-    var environmentValues = EnvironmentValues()
-    var root: _SceneOutputs?
+    override var delegate: UIApplicationDelegate? {
+        get { UIApplicationAdapter.shared }
+        set { let _ = newValue }
+    }
 }
 
 #endif

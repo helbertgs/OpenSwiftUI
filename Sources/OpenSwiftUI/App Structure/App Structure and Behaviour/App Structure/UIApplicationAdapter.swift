@@ -8,6 +8,8 @@ class UIApplicationAdapter: NSObject, UIApplicationDelegate {
     // MARK: - Property(ies).
 
     var wrapper: UIApplicationDelegate?
+    var environmentValues = EnvironmentValues()
+    var root: _SceneOutputs?
 
     // MARK: - Singleton.
 
@@ -31,10 +33,7 @@ class UIApplicationAdapter: NSObject, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        let config = UISceneConfiguration(name: nil, sessionRole: .windowApplication)
-        guard let application = application as? _Application else { return config }
-
-        return application.root?.config ?? config
+        UIApplicationAdapter.shared.root?.config ?? .init(name: nil, sessionRole: .windowApplication)
     }
 }
 
