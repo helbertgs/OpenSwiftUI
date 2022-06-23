@@ -137,16 +137,15 @@ extension App {
 
         let app = Self()
 
-        if let appDelegate = UIApplication.shared as? _Application {
-            appDelegate.root = Self.Body._makeScene(scene: _GraphValue<Self.Body>(app.body), inputs: .init())
-        }
+        (UIApplication.shared as? _Application)?.root = app
+        let _ = Self.Body._makeScene(scene: _GraphValue<Self.Body>(app.body), inputs: .init())
     }
 }
 
 class _Application: UIApplication {
 
     var environmentValues = EnvironmentValues()
-    var root: Any?
+    var root: (any App)?
 
     override var delegate: UIApplicationDelegate? {
         willSet {
