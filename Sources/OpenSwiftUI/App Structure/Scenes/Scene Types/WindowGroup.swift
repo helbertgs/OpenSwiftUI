@@ -138,13 +138,21 @@ import UIKit
 
 fileprivate extension WindowGroup {
     static func _make(scene: _GraphValue<WindowGroup<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
-        let config = UISceneConfiguration(name: "Window", sessionRole: .windowApplication)
-        config.delegateClass = UISceneAdapter.self
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            let rootViewController = UIViewController()
+            rootViewController.view.backgroundColor = .red
 
-        var outputs = _SceneOutputs()
-        outputs.config = config
+            let window = UIWindow(windowScene: windowScene)
+            window.makeKeyAndVisible()
+            window.rootViewController = rootViewController
 
-        return outputs
+            var output = _SceneOutputs()
+            output.window = window
+
+            return output
+        }
+
+        return _SceneOutputs()
     }
 }
 
