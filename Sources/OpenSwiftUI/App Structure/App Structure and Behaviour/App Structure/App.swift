@@ -130,19 +130,23 @@ extension App {
     /// default implementation of the method that manages the launch process in
     /// a platform-appropriate way.
     public static func main() {
-        let app = Self()
-        let _ = Self.Body._makeScene(scene: _GraphValue<Self.Body>(app.body), inputs: .init())
-
         UIApplicationMain(CommandLine.argc,
                           CommandLine.unsafeArgv,
                           NSStringFromClass(OpenSwiftUI._Application.self),
                           NSStringFromClass(OpenSwiftUI.UIApplicationAdapter.self))
+
+        let app = Self()
+
+        if let appDelegate = UIApplication.shared as? _Application {
+            appDelegate.root = Self.Body._makeScene(scene: _GraphValue<Self.Body>(app.body), inputs: .init())
+        }
     }
 }
 
 class _Application: UIApplication {
 
     var environmentValues = EnvironmentValues()
+    var root: Any?
 
     override var delegate: UIApplicationDelegate? {
         willSet {
