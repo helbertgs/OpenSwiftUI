@@ -140,11 +140,6 @@ extension App {
     }
 }
 
-class _Application: UIApplication {
-    var environmentValues = EnvironmentValues()
-    var root: _SceneOutputs?
-}
-
 #endif
 
 #if os(macOS) && canImport(Cocoa)

@@ -138,12 +138,18 @@ import UIKit
 
 fileprivate extension WindowGroup {
     static func _make(scene: _GraphValue<WindowGroup<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
+        let sessionRole = UISceneSession.Role.windowApplication
+        let config = UISceneConfiguration(name: scene.value.title, sessionRole: sessionRole)
+        config.delegateClass = UISceneAdapter.self
+        config.storyboard = nil
+
         let rootViewController = UIViewController(nibName: nil, bundle: nil)
         rootViewController.view.backgroundColor = .white
 
         var outputs = _SceneOutputs()
         outputs.title = scene.value.title
         outputs.id = scene.value.id
+        outputs.config = config
         outputs.rootViewController = rootViewController
 
         return outputs
