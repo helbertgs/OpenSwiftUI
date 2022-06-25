@@ -157,5 +157,3 @@ fileprivate extension WindowGroup {
 }
 
 #endif
-
-
