@@ -132,10 +132,10 @@ extension App {
     public static func main() {
         UIApplicationMain(CommandLine.argc,
                           CommandLine.unsafeArgv,
-                          NSStringFromClass(OpenSwiftUI._Application.self),
+                          nil,
                           NSStringFromClass(OpenSwiftUI.UIApplicationAdapter.self))
 
-        _Tree.shared = _Tree(Self.self)
+        _Graph.shared = _Graph(Self.self)
     }
 }
 

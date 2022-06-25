@@ -16,12 +16,14 @@ let package = Package(
     ],
     dependencies: [
          .package(url: "https://github.com/OpenCombine/OpenCombine.git", from: "0.13.0"),
+         .package(url: "https://github.com/apple/swift-markdown.git", branch: "main")
     ],
     targets: [
         .target(
             name: "OpenSwiftUI",
             dependencies: [
                 "OpenCombine",
+                .product(name: "Markdown", package: "swift-markdown")
             ]),
         .testTarget(
             name: "OpenSwiftUITests",

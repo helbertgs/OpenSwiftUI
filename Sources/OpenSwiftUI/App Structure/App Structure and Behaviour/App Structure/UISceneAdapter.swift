@@ -12,11 +12,10 @@ class UISceneAdapter: NSObject, UISceneDelegate {
     // MARK: - Function(s).
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        if let windowScene = scene as? UIWindowScene,
-           let output = _Tree.shared.scene {
+        if let windowScene = scene as? UIWindowScene {
             self.window = UIWindow(windowScene: windowScene)
-            self.window?.rootViewController = output.rootViewController
             self.window?.makeKeyAndVisible()
+            self.window?.rootViewController = _Graph.shared.scene.rootViewController
         }
     }
 
