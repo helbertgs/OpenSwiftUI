@@ -19,4 +19,8 @@ import Swift
     @inlinable public init(_ value: T) {
         self.value = value
     }
+
+    public static func makeView(view: _GraphValue<TupleView<T>>, inputs: _ViewInputs) -> _ViewOutputs {
+        fatalError()
+    }
 }

@@ -17,6 +17,17 @@ import Swift
         self.storage = storage
     }
 
+    // MARK: - Static Function(s).
+
+    public static func makeView(view: _GraphValue<_ConditionalContent<TrueContent, FalseContent>>, inputs: _ViewInputs) -> _ViewOutputs {
+        switch view.value.storage {
+            case .falseContent(let view):
+                return FalseContent.Body.makeView(view: .init(view.body), inputs: inputs)
+            case .trueContent(let view):
+                return TrueContent.Body.makeView(view: .init(view.body), inputs: inputs)
+        }
+    }
+
     // MARK: - Internal Structure(s).
 
     @usableFromInline @frozen enum Storage {

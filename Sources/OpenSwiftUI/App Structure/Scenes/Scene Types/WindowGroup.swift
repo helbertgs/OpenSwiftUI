@@ -143,7 +143,7 @@ fileprivate extension WindowGroup {
         config.delegateClass = UISceneAdapter.self
         config.storyboard = nil
 
-        let rootViewController = UIViewController(nibName: nil, bundle: nil)
+        let rootViewController = UIHostingController(rootView: scene.value.content)
         rootViewController.view.backgroundColor = .white
 
         var outputs = _SceneOutputs()

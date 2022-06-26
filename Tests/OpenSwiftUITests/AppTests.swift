@@ -10,6 +10,6 @@ class AppTests: XCTestCase {
 
     func testAppMain() throws {
         AppMock.main()
-        XCTAssertTrue(AppMock.isCalledInit)
+        XCTAssertTrue(AppMock.isCalledMain)
     }
 }

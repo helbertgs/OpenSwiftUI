@@ -35,6 +35,13 @@ import Swift
     public var body: Never { fatalError() }
 
     // MARK: - Constructor(s).
+
     /// Creates an empty view.
     @inlinable public init() { }
+
+    // MARK: - Static Function(s).
+
+    public static func makeView(view: _GraphValue<EmptyView>, inputs: _ViewInputs) -> _ViewOutputs {
+        fatalError()
+    }
 }

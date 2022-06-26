@@ -64,6 +64,8 @@ public protocol View {
     /// For more information about composing views and a view hierarchy,
     /// see <doc:Declaring-a-Custom-View>.
     @ViewBuilder var body: Self.Body { get }
+
+    static func makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs
 }
 
 extension View {

@@ -15,6 +15,7 @@ import Swift
     var storage: AnyViewStorageBase
 
     // MARK: - Constructor(s).
+
     public init<V>(_ view: V) where V: View {
         storage = AnyViewStorage(view)
     }
@@ -27,7 +28,14 @@ import Swift
         storage = AnyViewStorage(erasing)
     }
 
+    // MARK: - Static Function(s).
+
+    public static func makeView(view: _GraphValue<AnyView>, inputs: _ViewInputs) -> _ViewOutputs {
+        fatalError()
+    }
+
     // MARK: - Internal Structure(s).
+
     @usableFromInline
     class AnyViewStorageBase { }
 

@@ -2,7 +2,7 @@ import Swift
 
 /// A view type that compares itself against its previous value and prevents its
 /// child updating if its new value is the same as its old value.
-@frozen public struct EquatableView<Content> : View where Content : Equatable, Content : View {
+@frozen public struct EquatableView<Content> : View, Equatable where Content : Equatable, Content : View {
 
     // MARK: - Type Alias.
 
@@ -21,5 +21,13 @@ import Swift
 
     @inlinable public init(content: Content) {
         self.content = content
+    }
+
+    public static func makeView(view: _GraphValue<EquatableView<Content>>, inputs: _ViewInputs) -> _ViewOutputs {
+        Content.makeView(view: .init(view.value.content), inputs: inputs)
+    }
+
+    @inlinable public static func == (_ lhs: EquatableView<Content>, _ rhs: EquatableView<Content>) -> Bool {
+        lhs.content == rhs.content
     }
 }

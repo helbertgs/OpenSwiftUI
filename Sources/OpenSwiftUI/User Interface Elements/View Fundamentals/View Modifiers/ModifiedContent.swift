@@ -71,6 +71,10 @@ extension ModifiedContent : View where Content : View {
     public var body: Never {
         fatalError()
     }
+
+    public static func makeView(view: _GraphValue<ModifiedContent<Content, Modifier>>, inputs: _ViewInputs) -> _ViewOutputs {
+        Content.makeView(view: .init(view.value.content), inputs: inputs)
+    }
 }
 
 extension ModifiedContent where Content : View, Modifier : ViewModifier {
@@ -119,7 +123,15 @@ extension ModifiedContent : Scene where Content : Scene, Modifier : _SceneModifi
     public var body : Never { fatalError() }
 
     public static func _makeScene(scene: _GraphValue<ModifiedContent<Content, Modifier>>, inputs: _SceneInputs) -> _SceneOutputs {
-        fatalError()
+        let modified = Modifier._makeScene(modifier: .init(scene.value.modifier), inputs: inputs) { graph, inputs in
+            _SceneOutputs()
+        }
+        let content = Content._makeScene(scene: .init(scene.value.content), inputs: inputs)
+
+        return .init(props: [
+            "modifier": modified,
+            "content": content
+        ])
     }
 }
 

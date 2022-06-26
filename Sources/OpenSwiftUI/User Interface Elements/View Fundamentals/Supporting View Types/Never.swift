@@ -12,7 +12,11 @@ extension Never {
 }
 
 extension Never : Commands { }
-extension Never : View { }
+extension Never : View {
+    public static func makeView(view: _GraphValue<Never>, inputs: _ViewInputs) -> _ViewOutputs {
+        fatalError()
+    }
+}
 extension Never : WidgetConfiguration { }
 extension Never : Widget { }
 
