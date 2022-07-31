@@ -7,6 +7,8 @@ class _UIHostingView<Content> : UIView where Content : View {
     // MARK: - Property(ies).
 
     var _rootView: Content
+    var environmentValues: EnvironmentValues = .init()
+    var overridedEvenvironmentValues: EnvironmentValues = .init()
 
     // MARK: - Constructor(s).
 

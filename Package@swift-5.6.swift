@@ -1,4 +1,4 @@
-// swift-tools-version:5.7
+// swift-tools-version:5.6
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -15,8 +15,8 @@ let package = Package(
             targets: ["OpenSwiftUI"]),
     ],
     dependencies: [
-         .package(url: "https://github.com/OpenCombine/OpenCombine.git", from: "0.13.0"),
-         .package(url: "https://github.com/apple/swift-markdown.git", branch: "main")
+        .package(url: "https://github.com/OpenCombine/OpenCombine.git", from: "0.13.0"),
+        .package(url: "https://github.com/apple/swift-markdown.git", branch: "main")
     ],
     targets: [
         .target(
