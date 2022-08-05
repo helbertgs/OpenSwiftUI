@@ -5,11 +5,15 @@ import PackageDescription
 
 let supportedPlatforms: [Platform] = [
     .macOS,
+    .macCatalyst,
     .iOS,
     .watchOS,
     .tvOS,
+    .driverKit,
     .linux,
-    .windows
+    .android,
+    .windows,
+    .wasi,
 ]
 
 let package = Package(
@@ -24,12 +28,16 @@ let package = Package(
             targets: ["OpenSwiftUI"]),
     ],
     dependencies: [
-         .package(url: "https://github.com/OpenCombine/OpenCombine.git", from: "0.13.0")
+        .package(url: "https://github.com/OpenCombine/OpenCombine.git", from: "0.13.0"),
+        .package(url: "https://github.com/apple/swift-markdown.git", branch: "main")
     ],
     targets: [
         .target(
             name: "OpenSwiftUI",
-            dependencies: [ "OpenCombine" ]),
+            dependencies: [
+                .product(name: "OpenCombine", package: "OpenCombine"),
+                .product(name: "Markdown", package: "swift-markdown")
+            ]),
         .testTarget(
             name: "OpenSwiftUITests",
             dependencies: [ "OpenSwiftUI" ]),
@@ -37,8 +45,7 @@ let package = Package(
     cxxLanguageStandard: .cxx17
 )
 
-// MARK: - Helpers
-
+// MARK: Helpers
 extension Array where Element == Platform {
     func except(_ exceptions: [Platform]) -> [Platform] {
         return filter { !exceptions.contains($0) }

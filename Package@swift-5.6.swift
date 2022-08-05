@@ -3,6 +3,19 @@
 
 import PackageDescription
 
+let supportedPlatforms: [Platform] = [
+    .macOS,
+    .macCatalyst,
+    .iOS,
+    .watchOS,
+    .tvOS,
+    .driverKit,
+    .linux,
+    .android,
+    .windows,
+    .wasi,
+]
+
 let package = Package(
     name: "OpenSwiftUI",
     platforms: [
@@ -22,7 +35,7 @@ let package = Package(
         .target(
             name: "OpenSwiftUI",
             dependencies: [
-                "OpenCombine",
+                .product(name: "OpenCombine", package: "OpenCombine"),
                 .product(name: "Markdown", package: "swift-markdown")
             ]),
         .testTarget(
@@ -31,3 +44,10 @@ let package = Package(
     ],
     cxxLanguageStandard: .cxx17
 )
+
+// MARK: Helpers
+extension Array where Element == Platform {
+    func except(_ exceptions: [Platform]) -> [Platform] {
+        return filter { !exceptions.contains($0) }
+    }
+}

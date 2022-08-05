@@ -37,8 +37,6 @@ let package = Package(
             dependencies: [
                 .product(name: "OpenCombine", package: "OpenCombine"),
                 .product(name: "Markdown", package: "swift-markdown")
-                // .product(name: "OpenCombine", package: "OpenCombine", condition: .when(platforms: supportedPlatforms.except([.macOS, .macCatalyst, .iOS, .watchOS, .tvOS, .driverKit]))),
-                // .product(name: "Markdown", package: "swift-markdown", condition: .when(platforms: supportedPlatforms.except([.macOS, .macCatalyst, .iOS, .watchOS, .tvOS, .driverKit])))
             ]),
         .testTarget(
             name: "OpenSwiftUITests",
