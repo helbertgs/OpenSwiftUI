@@ -1,6 +1,11 @@
+#if os(iOS) || os(macOS)
+import Combine
+#else
+import OpenCombine
+#endif
+
 #if canImport(WatchKit)
 
-import OpenCombine
 import Swift
 import WatchKit
 
@@ -21,7 +26,7 @@ import WatchKit
     }
 }
 
-extension UIApplicationDelegateAdaptor where DelegateType : OpenCombine.ObservableObject {
+extension UIApplicationDelegateAdaptor where DelegateType : ObservableObject {
     /// A projection of the observed object that provides bindings to its properties.
     public var projectedValue: ObservedObject<DelegateType>.Wrapper {
         .init(wrappedValue: wrappedValue)

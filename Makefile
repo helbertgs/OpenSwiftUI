@@ -1,6 +1,8 @@
 SWIFT_EXE=swift
 SWIFT_TEST_FLAGS=
 SWIFT_BUILD_FLAGS=-Xcc -Wunguarded-availability
+BAZEL=bazel
+BAZEL_BUILD_FLAGS=--swiftcopt=-whole-module-optimization
 
 debug:
 	$(SWIFT_EXE) build -c debug $(SWIFT_BUILD_FLAGS)
@@ -27,7 +29,18 @@ lint:
 	$(SWIFT_EXE) run swift-lint
 
 clean:
-	rm -rf .build
+	@rm -rf .build
+	@rm -rf .swiftpm
+	@make bzl_clean
+
+bzl_build:
+	$(BAZEL) build //... $(BAZEL_BUILD_FLAGS)
+
+bzl_test:
+	$(BAZEL) test //... $(BAZEL_BUILD_FLAGS)
+
+bzl_clean:
+	$(BAZEL) clean --expunge
 
 .PHONY: debug release \
 	    test-debug \

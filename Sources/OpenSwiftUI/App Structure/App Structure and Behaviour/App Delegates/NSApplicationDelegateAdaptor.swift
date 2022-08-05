@@ -1,6 +1,11 @@
+#if os(iOS) || os(macOS)
+import Combine
+#else
+import OpenCombine
+#endif
+
 #if canImport(AppKit)
 
-import OpenCombine
 import Swift
 import AppKit
 
@@ -99,7 +104,7 @@ import AppKit
 @available(tvOS, unavailable)
 @available(watchOS, unavailable)
 @available(Windows, unavailable)
-extension NSApplicationDelegateAdaptor where DelegateType : OpenCombine.ObservableObject {
+extension NSApplicationDelegateAdaptor where DelegateType : ObservableObject {
 
     /// A projection of the observed object that provides bindings to its
     /// properties.

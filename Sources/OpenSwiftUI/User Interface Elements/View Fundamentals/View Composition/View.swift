@@ -1,4 +1,8 @@
+#if os(iOS) || os(macOS)
+import Combine
+#else
 import OpenCombine
+#endif
 import Swift
 
 /// A type that represents part of your app's user interface and provides
@@ -121,7 +125,7 @@ extension View {
         modifier(_EnvironmentKeyWritingModifier(keyPath: keyPath, value: value))
     }
 
-//    @inlinable public func environmentObject<T>(_ object: T) -> some View where T : OpenCombine.ObservableObject {
+//    @inlinable public func environmentObject<T>(_ object: T) -> some View where T : ObservableObject {
 //        environment(T.environmentStore, object)
 //    }
 }

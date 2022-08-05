@@ -1,0 +1,15 @@
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@build_bazel_rules_ios//rules:framework.bzl", "apple_framework")
+load("@build_bazel_rules_swift//swift:swift.bzl", "swift_library")
+
+swift_library(
+    name = "OpenSwiftUI",
+    srcs = glob([ "Sources/**/*.swift" ]),
+    visibility = ["//swift:__subpackages__"],
+    deps = [ "@swift_pkgs//OpenCombine:OpenCombine" ],
+)
+
+build_test(
+    name = "OpenSwiftUITest",
+    targets = [":OpenSwiftUI"],
+)

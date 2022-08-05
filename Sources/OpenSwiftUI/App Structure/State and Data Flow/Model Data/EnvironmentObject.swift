@@ -1,4 +1,8 @@
+#if os(iOS) || os(macOS)
+import Combine
+#else
 import OpenCombine
+#endif
 import Swift
 
 /// A property wrapper type for an observable object supplied by a parent or

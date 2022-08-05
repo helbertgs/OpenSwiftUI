@@ -17,6 +17,11 @@ Package.resolved
 .build-test-debug-sanitize-thread/
 .build-test-release/
 
+# Bazel
+bazel-*
+
+# Xcode
+#
 # Add this line if you want to avoid checking in source code from the Xcode workspace/project.
 *.xcworkspace
 *.xcodeproj
