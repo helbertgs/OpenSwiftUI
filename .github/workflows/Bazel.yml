@@ -1,0 +1,31 @@
+name: Bazel
+
+on: push
+  push: {}
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+  steps:
+    - uses: actions/checkout@v1
+    - name: Mount bazel cache
+      uses: actions/cache@v1
+      with:
+        path: /home/runner/.cache/bazel
+    
+    - name: Upgrade Homebrew
+      run: |
+        brew upgrade
+    
+    - name: Install bazelisk
+      run: |
+        brew install bazelisk
+
+    - name: Building with bazel
+      run: |
+        make bzl_build
+
+    - name: Testing with bazel
+      run: |
+        make bzl_test
