@@ -142,7 +142,7 @@ extension ModifiedContent : Scene where Content : Scene, Modifier : _SceneModifi
     public var body : Never { fatalError() }
 
     public static func _makeScene(scene: _GraphValue<ModifiedContent<Content, Modifier>>, inputs: _SceneInputs) -> _SceneOutputs {
-        let modified = Modifier._makeScene(modifier: .init(scene.value.modifier), inputs: inputs) { graph, inputs in
+        let modified = Modifier._makeScene(modifier: .init(scene.value.modifier), inputs: inputs) { _, _ in
             _SceneOutputs()
         }
         let content = Content._makeScene(scene: .init(scene.value.content), inputs: inputs)
