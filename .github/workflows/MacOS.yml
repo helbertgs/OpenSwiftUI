@@ -2,7 +2,7 @@ name: MacOS
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ develop ]
 
 jobs:
   Test:
@@ -16,6 +16,5 @@ jobs:
       run: |
         swift test \
           -c debug \
-          -Xswiftc -warnings-as-errors \
           --enable-code-coverage \
           --build-path .build-test-debug

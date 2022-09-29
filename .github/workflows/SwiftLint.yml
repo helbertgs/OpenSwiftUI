@@ -2,8 +2,6 @@ name: SwiftLint
 
 on:
   push:
-    branches: [ develop ]
-  pull_request:
     branches: [ main ]
 
 jobs:
