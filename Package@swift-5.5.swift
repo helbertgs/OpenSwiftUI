@@ -9,11 +9,7 @@ let supportedPlatforms: [Platform] = [
     .iOS,
     .watchOS,
     .tvOS,
-    .driverKit,
-    .linux,
-    .android,
-    .windows,
-    .wasi,
+    .windows
 ]
 
 let package = Package(

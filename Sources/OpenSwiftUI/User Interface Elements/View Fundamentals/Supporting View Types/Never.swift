@@ -13,7 +13,7 @@ extension Never {
 
 extension Never : Commands { }
 extension Never : View {
-    public static func makeView(view: _GraphValue<Never>, inputs: _ViewInputs) -> _ViewOutputs {
+    public static func _makeView(view: _GraphValue<Never>, inputs: _ViewInputs) -> _ViewOutputs {
         fatalError()
     }
 }

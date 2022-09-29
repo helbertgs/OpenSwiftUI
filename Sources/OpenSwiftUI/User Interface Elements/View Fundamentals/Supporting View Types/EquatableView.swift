@@ -23,8 +23,8 @@ import Swift
         self.content = content
     }
 
-    public static func makeView(view: _GraphValue<EquatableView<Content>>, inputs: _ViewInputs) -> _ViewOutputs {
-        Content.makeView(view: .init(view.value.content), inputs: inputs)
+    public static func _makeView(view: _GraphValue<EquatableView<Content>>, inputs: _ViewInputs) -> _ViewOutputs {
+        Content._makeView(view: .init(view.value.content), inputs: inputs)
     }
 
     @inlinable public static func == (_ lhs: EquatableView<Content>, _ rhs: EquatableView<Content>) -> Bool {

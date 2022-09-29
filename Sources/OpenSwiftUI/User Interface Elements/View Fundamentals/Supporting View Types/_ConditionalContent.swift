@@ -19,12 +19,12 @@ import Swift
 
     // MARK: - Static Function(s).
 
-    public static func makeView(view: _GraphValue<_ConditionalContent<TrueContent, FalseContent>>, inputs: _ViewInputs) -> _ViewOutputs {
+    public static func _makeView(view: _GraphValue<_ConditionalContent<TrueContent, FalseContent>>, inputs: _ViewInputs) -> _ViewOutputs {
         switch view.value.storage {
             case .falseContent(let view):
-                return FalseContent.Body.makeView(view: .init(view.body), inputs: inputs)
+                return FalseContent.Body._makeView(view: .init(view.body), inputs: inputs)
             case .trueContent(let view):
-                return TrueContent.Body.makeView(view: .init(view.body), inputs: inputs)
+                return TrueContent.Body._makeView(view: .init(view.body), inputs: inputs)
         }
     }
 

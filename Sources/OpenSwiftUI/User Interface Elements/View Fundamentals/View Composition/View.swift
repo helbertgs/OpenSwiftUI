@@ -69,7 +69,7 @@ public protocol View {
     /// see <doc:Declaring-a-Custom-View>.
     @ViewBuilder var body: Self.Body { get }
 
-    static func makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs
+    static func _makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs
 }
 
 extension View {

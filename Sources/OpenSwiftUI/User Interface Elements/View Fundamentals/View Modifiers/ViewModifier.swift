@@ -58,7 +58,11 @@ public protocol ViewModifier {
     ///
     /// `content` is a proxy for the view that will have the modifier
     /// represented by `Self` applied to it.
-    @ViewBuilder func body(content: Self.Content) -> Self.Body
+    @ViewBuilder @MainActor(unsafe) func body(content: Self.Content) -> Self.Body
+
+    static func _makeView(modifier: _GraphValue<Self>, inputs: _ViewInputs, body: @escaping (_Graph, _ViewInputs) -> _ViewOutputs) -> _ViewOutputs
+    static func _makeViewList(modifier: _GraphValue<Self>, inputs: _ViewListInputs, body: @escaping (_Graph, _ViewListInputs) -> _ViewListOutputs) -> _ViewListOutputs
+    static func _viewListCount(inputs: _ViewListCountInputs, body: (_ViewListCountInputs) -> Int?) -> Int?
 }
 
 extension ViewModifier where Self.Body == Never {
@@ -69,6 +73,18 @@ extension ViewModifier where Self.Body == Never {
     /// represented by `Self` applied to it.
     public func body(content: Self.Content) -> Self.Body {
         fatalError()
+    }
+
+    static func _makeView(modifier: _GraphValue<Self>, inputs: _ViewInputs, body: @escaping (_Graph, _ViewInputs) -> _ViewOutputs) -> _ViewOutputs {
+        fatalError()
+    }
+
+    static func _makeViewList(modifier: _GraphValue<Self>, inputs: _ViewListInputs, body: @escaping (_Graph, _ViewListInputs) -> _ViewListOutputs) -> _ViewListOutputs {
+        fatalError()
+    }
+
+    static func _viewListCount(inputs: _ViewListCountInputs, body: (_ViewListCountInputs) -> Int?) -> Int? {
+        nil
     }
 }
 

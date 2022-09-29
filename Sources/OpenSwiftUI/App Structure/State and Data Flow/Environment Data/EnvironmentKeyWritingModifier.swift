@@ -23,7 +23,17 @@ import Swift
 }
 
 extension _EnvironmentKeyWritingModifier : ViewModifier {
+    public static func _makeViewList(modifier: _GraphValue<_EnvironmentKeyWritingModifier<Value>>, inputs: _ViewListInputs, body: @escaping (_Graph, _ViewListInputs) -> _ViewListOutputs) -> _ViewListOutputs {
+        .init()
+    }
 
+    public static func _makeView(modifier: _GraphValue<_EnvironmentKeyWritingModifier<Value>>, inputs: _ViewInputs, body: @escaping (_Graph, _ViewInputs) -> _ViewOutputs) -> _ViewOutputs {
+        .init()
+    }
+
+    public static func _viewListCount(inputs: _ViewListCountInputs, body: (_ViewListCountInputs) -> Int?) -> Int? {
+        nil
+    }
 }
 
 extension _EnvironmentKeyWritingModifier : _SceneModifier {

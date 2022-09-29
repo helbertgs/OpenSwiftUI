@@ -72,8 +72,8 @@ extension ModifiedContent : View where Content : View {
         fatalError()
     }
 
-    public static func makeView(view: _GraphValue<ModifiedContent<Content, Modifier>>, inputs: _ViewInputs) -> _ViewOutputs {
-        Content.makeView(view: .init(view.value.content), inputs: inputs)
+    public static func _makeView(view: _GraphValue<ModifiedContent<Content, Modifier>>, inputs: _ViewInputs) -> _ViewOutputs {
+        Content._makeView(view: .init(view.value.content), inputs: inputs)
     }
 }
 
@@ -100,6 +100,25 @@ extension ModifiedContent where Content : View, Modifier : ViewModifier {
 }
 
 extension ModifiedContent : ViewModifier where Content : ViewModifier, Modifier : ViewModifier {
+    /// Gets the current body of the caller.
+    ///
+    /// `content` is a proxy for the view that will have the modifier
+    /// represented by `Self` applied to it.
+    public func body(content: Self.Content) -> Self.Body {
+        fatalError()
+    }
+
+    public static func _makeView(modifier: _GraphValue<Self>, inputs: _ViewInputs, body: @escaping (_Graph, _ViewInputs) -> _ViewOutputs) -> _ViewOutputs {
+        fatalError()
+    }
+
+    public static func _makeViewList(modifier: _GraphValue<Self>, inputs: _ViewListInputs, body: @escaping (_Graph, _ViewListInputs) -> _ViewListOutputs) -> _ViewListOutputs {
+        fatalError()
+    }
+
+    public static func _viewListCount(inputs: _ViewListCountInputs, body: (_ViewListCountInputs) -> Int?) -> Int? {
+        nil
+    }
 }
 
 extension ModifiedContent : Scene where Content : Scene, Modifier : _SceneModifier {

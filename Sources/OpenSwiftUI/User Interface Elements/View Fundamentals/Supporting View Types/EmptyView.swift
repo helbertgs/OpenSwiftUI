@@ -41,7 +41,7 @@ import Swift
 
     // MARK: - Static Function(s).
 
-    public static func makeView(view: _GraphValue<EmptyView>, inputs: _ViewInputs) -> _ViewOutputs {
+    public static func _makeView(view: _GraphValue<EmptyView>, inputs: _ViewInputs) -> _ViewOutputs {
         fatalError()
     }
 }

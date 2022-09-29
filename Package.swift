@@ -9,11 +9,7 @@ let supportedPlatforms: [Platform] = [
     .iOS,
     .watchOS,
     .tvOS,
-    .driverKit,
-    .linux,
-    .android,
-    .windows,
-    .wasi,
+    .windows
 ]
 
 let package = Package(
@@ -28,8 +24,11 @@ let package = Package(
             targets: ["OpenSwiftUI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/OpenCombine/OpenCombine.git", from: "0.13.0"),
-        .package(url: "https://github.com/apple/swift-markdown.git", branch: "main")
+        .package(url: "https://github.com/OpenCombine/OpenCombine.git", branch: "master"),
+        .package(url: "https://github.com/apple/swift-markdown.git", branch: "main"),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", branch: "main"),
+        .package(url: "https://github.com/Quick/Nimble", branch: "main"),
+        .package(url: "https://github.com/Quick/Quick", branch: "main")
     ],
     targets: [
         .target(
@@ -37,10 +36,23 @@ let package = Package(
             dependencies: [
                 .product(name: "OpenCombine", package: "OpenCombine"),
                 .product(name: "Markdown", package: "swift-markdown")
+            ],
+            exclude: [ ]),
+        .testTarget(
+            name: "Unit",
+            dependencies: [
+                "Nimble",
+                "OpenSwiftUI",
+                "Quick"
             ]),
         .testTarget(
-            name: "OpenSwiftUITests",
-            dependencies: [ "OpenSwiftUI" ]),
+            name: "Snapshot",
+            dependencies: [
+                "Nimble",
+                "OpenSwiftUI",
+                "Quick",
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
+            ]),
     ],
     cxxLanguageStandard: .cxx17
 )

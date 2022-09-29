@@ -20,7 +20,7 @@ import Swift
         self.value = value
     }
 
-    public static func makeView(view: _GraphValue<TupleView<T>>, inputs: _ViewInputs) -> _ViewOutputs {
+    public static func _makeView(view: _GraphValue<TupleView<T>>, inputs: _ViewInputs) -> _ViewOutputs {
         fatalError()
     }
 }
