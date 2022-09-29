@@ -22,8 +22,6 @@ SWIFT_EXE=swift
 SWIFT_TEST_FLAGS=
 SWIFT_BUILD_FLAGS=-Xcc -Wunguarded-availability
 SWIFT_VERSION
-BAZEL=bazel
-BAZEL_BUILD_FLAGS=--swiftcopt=-whole-module-optimization
 
 # Export Settings.
 
@@ -51,10 +49,6 @@ install-bundler: # Install Bundler dependencies
 install-homebrew: # Install Homebrew
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-.PHONY: install-bazel
-install-bazel:  # Install Bazel
-	brew install bazel
-
 .PHONY: install-mint
 install-mint: # Install Mint
 	brew untap homebrew-community/mint
@@ -78,7 +72,6 @@ clean: # Delete cache
 	xcodebuild clean -alltargets
 	@rm -rf .build
 	@rm -rf .swiftpm
-	@$(BAZEL) clean --expunge
 
 .PHONY: build-debug
 build-debug: # Xcode build for debug
@@ -130,14 +123,6 @@ spm-test-debug-sanitize-thread:
 .PHONY: swift-test-release
 spm-test-release:
 	$(SWIFT_EXE) test -c release $(SWIFT_BUILD_FLAGS) $(SWIFT_TEST_FLAGS)
-
-.PHONY: bazel-build
-bazel-build:
-	$(BAZEL) build //... $(BAZEL_BUILD_FLAGS)
-
-.PHONY: bazel-test
-bazel-test:
-	$(BAZEL) test //... $(BAZEL_BUILD_FLAGS)
 
 .PHONY: lint
 lint:
