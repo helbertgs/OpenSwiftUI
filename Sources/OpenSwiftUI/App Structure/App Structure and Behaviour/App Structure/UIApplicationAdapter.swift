@@ -3,17 +3,13 @@
 import Swift
 import UIKit
 
-class UIApplicationAdapter: NSObject, UIApplicationDelegate {
+class UIApplicationDelegateAdapter: NSObject, UIApplicationDelegate {
 
     // MARK: - Property(ies).
 
     var wrapper: UIApplicationDelegate?
     var environmentValues = EnvironmentValues()
-    var root: _SceneOutputs?
-
-    // MARK: - Singleton.
-
-    static let shared = UIApplicationAdapter()
+    static var app: (any App)?
 
     // MARK: - Constructor(s).
 
@@ -28,12 +24,22 @@ class UIApplicationAdapter: NSObject, UIApplicationDelegate {
     // MARK: - UIApplicationDelegate Function(s).
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        print(#function)
         return wrapper?.application?(application, didFinishLaunchingWithOptions: launchOptions) ?? true
     }
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        _Graph.shared.scene.config ?? .init(name: nil, sessionRole: .windowApplication)
+        var inputs = _SceneInputs()
+        inputs.application = application
+        inputs.connectingSceneSession = connectingSceneSession
+        inputs.options = options
+
+        guard let app = UIApplicationDelegateAdapter.app else { return .init() }
+        let outputs = transform(app, inputs: inputs)
+        return outputs.sceneConfiguration
+    }
+
+    func transform<T>(_ anyScene: T, inputs: _SceneInputs) -> _SceneOutputs where T : App {
+        T.Body._makeScene(scene: _GraphValue(anyScene.body), inputs: inputs)
     }
 }
 

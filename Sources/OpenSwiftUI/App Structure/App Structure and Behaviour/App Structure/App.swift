@@ -130,12 +130,12 @@ extension App {
     /// default implementation of the method that manages the launch process in
     /// a platform-appropriate way.
     public static func main() {
+        UIApplicationDelegateAdapter.app = Self()
+
         UIApplicationMain(CommandLine.argc,
                           CommandLine.unsafeArgv,
                           nil,
-                          NSStringFromClass(OpenSwiftUI.UIApplicationAdapter.self))
-
-        _Graph.shared = _Graph(Self.self)
+                          NSStringFromClass(OpenSwiftUI.UIApplicationDelegateAdapter.self))
     }
 }
 

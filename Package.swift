@@ -21,6 +21,7 @@ let package = Package(
     products: [
         .library(
             name: "OpenSwiftUI",
+            type: .dynamic,
             targets: ["OpenSwiftUI"]),
     ],
     dependencies: [
@@ -54,7 +55,7 @@ let package = Package(
                 .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
             ]),
     ],
-    cxxLanguageStandard: .cxx17
+    cxxLanguageStandard: .cxx20
 )
 
 // MARK: Helpers

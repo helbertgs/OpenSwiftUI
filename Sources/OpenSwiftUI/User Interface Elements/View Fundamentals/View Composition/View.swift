@@ -73,6 +73,12 @@ public protocol View {
 }
 
 extension View {
+    public static func _makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs {
+        .init()
+    }
+}
+
+extension View {
     /// Applies a modifier to a view and returns a new view.
     ///
     /// Use this modifier to combine a ``View`` and a ``ViewModifier``, to
