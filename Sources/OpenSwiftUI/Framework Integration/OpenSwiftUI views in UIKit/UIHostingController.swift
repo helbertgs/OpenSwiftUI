@@ -24,7 +24,9 @@ open class UIHostingController<Content> : UIViewController where Content : View 
 
 //    var allowedBehaviours: HostingControllerAllowedBehaviors = .default
 //    var requiredBridges: HostingControllerBridges = .none
-    var host: _UIHostingView<Content>?
+    var host: _UIHostingView<Content> {
+        didSet { self.view = oldValue }
+    }
 //    var overrides: HostingControllerOverrides = .init(pushTarget: nil, navigation: nil, split: nil)
 //
 
@@ -103,6 +105,7 @@ open class UIHostingController<Content> : UIViewController where Content : View 
     ///   specified SwiftUI view.
     public init(rootView: Content) {
         self.rootView = AnyView(rootView)
+        self.host = .init(self.rootView)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -117,6 +120,7 @@ open class UIHostingController<Content> : UIViewController where Content : View 
     ///   interface.
     public init?(coder aDecoder: NSCoder, rootView: Content) {
         self.rootView = AnyView(rootView)
+        self.host = .init(self.rootView)
         super.init(coder: aDecoder)
     }
 
@@ -133,6 +137,7 @@ open class UIHostingController<Content> : UIViewController where Content : View 
     /// -Parameter coder: The decoder to use during initialization.
     required dynamic public init?(coder aDecoder: NSCoder) {
         self.rootView = AnyView(EmptyView())
+        self.host = .init(self.rootView)
         super.init(coder: aDecoder)
     }
 

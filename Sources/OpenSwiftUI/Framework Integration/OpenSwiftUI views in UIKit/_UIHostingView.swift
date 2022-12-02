@@ -12,8 +12,15 @@ class _UIHostingView<Content> : UIView where Content : View {
 
     // MARK: - Constructor(s).
 
-    init(_rootView: Content) {
-        self._rootView = AnyView(_rootView)
+    init(_ rootView: Content) {
+        self._rootView = AnyView(rootView)
+        super.init(frame: .zero)
+
+        backgroundColor = .green
+    }
+
+    init(_ rootView: AnyView) {
+        self._rootView = rootView
         super.init(frame: .zero)
 
         backgroundColor = .green
