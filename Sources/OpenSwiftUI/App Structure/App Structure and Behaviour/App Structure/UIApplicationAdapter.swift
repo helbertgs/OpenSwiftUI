@@ -28,7 +28,7 @@ class UIApplicationDelegateAdapter: NSObject, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        let config = UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+        let config = UISceneConfiguration(name: "Default Configuration", sessionRole: .windowApplication)
         config.sceneClass = OpenSwiftUI.UISceneAdapter.self
         return config
     }
