@@ -120,36 +120,23 @@ import Swift
         self.id = id
         self.content = content()
     }
-
-    // MARK: - Static Function(s).
-
-    public static func _makeScene(scene: _GraphValue<WindowGroup<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
-        #if os(iOS)
-            return _make(scene: scene, inputs: inputs)
-        #else
-            fatalError()
-        #endif
-    }
 }
 
 #if canImport(UIKit) || os(iOS)
 
 import UIKit
 
-fileprivate extension WindowGroup {
-    static func _make(scene: _GraphValue<WindowGroup<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
-        let config = UISceneConfiguration(name: scene.value.title, sessionRole: inputs.connectingSceneSession)
-        config.delegateClass = UISceneAdapter.self
-        config.storyboard = nil
-
+extension WindowGroup {
+    public static func _makeScene(scene: _GraphValue<WindowGroup<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
         let rootViewController = UIHostingController(rootView: scene.value.content)
-        rootViewController.view.backgroundColor = .white
+        rootViewController.title = scene.value.title
+
+        let window = UIWindow(windowScene: inputs.windowScene)
+        window.makeKeyAndVisible()
+        window.rootViewController = rootViewController
 
         var outputs = _SceneOutputs()
-        outputs.windowName = scene.value.title
-        outputs.windowId = scene.value.id
-        outputs.sceneConfiguration = config
-        outputs.rootViewController = rootViewController
+        outputs.window = window
 
         return outputs
     }

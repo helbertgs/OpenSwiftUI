@@ -28,18 +28,9 @@ class UIApplicationDelegateAdapter: NSObject, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        var inputs = _SceneInputs()
-        inputs.application = application
-        inputs.connectingSceneSession = connectingSceneSession
-        inputs.options = options
-
-        guard let app = UIApplicationDelegateAdapter.app else { return .init() }
-        let outputs = transform(app, inputs: inputs)
-        return outputs.sceneConfiguration
-    }
-
-    func transform<T>(_ anyScene: T, inputs: _SceneInputs) -> _SceneOutputs where T : App {
-        T.Body._makeScene(scene: _GraphValue(anyScene.body), inputs: inputs)
+        let config = UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+        config.sceneClass = OpenSwiftUI.UISceneAdapter.self
+        return config
     }
 }
 

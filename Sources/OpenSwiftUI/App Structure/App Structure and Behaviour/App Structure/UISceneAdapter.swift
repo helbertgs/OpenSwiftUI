@@ -12,10 +12,14 @@ class UISceneAdapter: NSObject, UISceneDelegate {
     // MARK: - Function(s).
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        if let windowScene = scene as? UIWindowScene {
-            self.window = UIWindow(windowScene: windowScene)
-            self.window?.makeKeyAndVisible()
-            self.window?.rootViewController = _Graph.shared.scene.rootViewController
+        if let windowScene = scene as? UIWindowScene, let app = UIApplicationDelegateAdapter.app {
+            var inputs = _SceneInputs()
+            inputs.windowScene = windowScene
+            inputs.session = session
+            inputs.options = connectionOptions
+
+            let outputs = make(app, inputs: inputs)
+            window = outputs.window
         }
     }
 
@@ -46,6 +50,10 @@ class UISceneAdapter: NSObject, UISceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
         // Save changes in the application's managed object context when the application transitions to the background.
+    }
+
+    func make<T>(_ app: T, inputs: _SceneInputs) -> _SceneOutputs where T : App {
+        T.Body._makeScene(scene: _GraphValue(app.body), inputs: inputs)
     }
 }
 
