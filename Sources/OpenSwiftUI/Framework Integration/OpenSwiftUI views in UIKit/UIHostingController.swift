@@ -24,9 +24,7 @@ open class UIHostingController<Content> : UIViewController where Content : View 
 
 //    var allowedBehaviours: HostingControllerAllowedBehaviors = .default
 //    var requiredBridges: HostingControllerBridges = .none
-    var host: _UIHostingView<Content> {
-        didSet { self.view = oldValue }
-    }
+    var host: _UIHostingView<Content>
 //    var overrides: HostingControllerOverrides = .init(pushTarget: nil, navigation: nil, split: nil)
 //
 
@@ -143,6 +141,7 @@ open class UIHostingController<Content> : UIViewController where Content : View 
 
     override dynamic open func loadView() {
         super.loadView()
+        view = host
     }
 
     /// Notifies the view controller that its view is about to be added to a

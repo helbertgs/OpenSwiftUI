@@ -16,14 +16,14 @@ class _UIHostingView<Content> : UIView where Content : View {
         self._rootView = AnyView(rootView)
         super.init(frame: .zero)
 
-        backgroundColor = .green
+        backgroundColor = .systemBackground
     }
 
     init(_ rootView: AnyView) {
         self._rootView = rootView
         super.init(frame: .zero)
 
-        backgroundColor = .green
+        backgroundColor = .systemBackground
     }
 
     required init?(coder: NSCoder) {

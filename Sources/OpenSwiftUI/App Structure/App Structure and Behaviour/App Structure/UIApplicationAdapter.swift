@@ -27,7 +27,7 @@ class UIApplicationDelegateAdapter: NSObject, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        let config = UISceneConfiguration(name: "Default Configuration", sessionRole: .windowApplication)
+        let config = UISceneConfiguration(name: nil, sessionRole: connectingSceneSession.role)
         config.delegateClass = OpenSwiftUI.UISceneAdapter.self
         config.storyboard = nil
 
