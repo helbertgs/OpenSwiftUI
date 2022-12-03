@@ -8,7 +8,6 @@ class UIApplicationDelegateAdapter: NSObject, UIApplicationDelegate {
     // MARK: - Property(ies).
 
     var wrapper: UIApplicationDelegate?
-    var environmentValues = EnvironmentValues()
     static var app: (any App)?
 
     // MARK: - Constructor(s).
@@ -29,7 +28,9 @@ class UIApplicationDelegateAdapter: NSObject, UIApplicationDelegate {
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         let config = UISceneConfiguration(name: "Default Configuration", sessionRole: .windowApplication)
-        config.sceneClass = OpenSwiftUI.UISceneAdapter.self
+        config.delegateClass = OpenSwiftUI.UISceneAdapter.self
+        config.storyboard = nil
+
         return config
     }
 }
