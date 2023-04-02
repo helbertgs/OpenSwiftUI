@@ -49,7 +49,8 @@ import Swift
     // MARK: - Private Property(ies).
 
     @usableFromInline var getter: () -> Value
-    @usableFromInline var setter: (Value) -> Void
+    @usableFromInline var setter: (Value, Transaction) -> Void
+    @usableFromInline var transaction: Transaction
 
     // MARK: - Public Property(ies).
 
@@ -76,10 +77,7 @@ import Swift
     /// asynchronously, so the view may not show the change immediately.
     public var wrappedValue : Value {
         get { getter() }
-        set {
-            setter(newValue)
-            update()
-        }
+        nonmutating set { setter(newValue, transaction) }
     }
 
     /// A projection of the binding value that returns a binding.
@@ -104,7 +102,7 @@ import Swift
     ///     }
     ///
     public var projectedValue: Binding<Value> {
-        Binding(get: getter, set: setter)
+        self
     }
 
     // MARK: - Subscript(s).
@@ -138,13 +136,19 @@ import Swift
 
         getter = { wrappedValue }
         setter = base.setter
+        transaction = base.transaction
     }
 
     /// Creates a binding by projecting the base value to an optional value.
     ///
     /// - Parameter base: A value to project to an optional value.
     public init<V>(_ base: Binding<V>) where Value == V? {
-        fatalError("")
+        self.getter = base.getter
+        self.transaction = base.transaction
+        self.setter = { value, transaction in
+            guard let value = value else { return }
+            base.setter(value, transaction)
+        }
     }
 
     /// Creates a binding by projecting the base value to a hashable value.
@@ -152,7 +156,12 @@ import Swift
     /// - Parameters:
     ///   - base: A `Hashable` value to project to an `AnyHashable` value.
     public init<V>(_ base: Binding<V>) where Value == AnyHashable, V : Hashable {
-        fatalError()
+        self.getter = base.getter
+        self.transaction = base.transaction
+        self.setter = { value, transaction in
+            guard let value = value as? V else { return }
+            base.setter(value, transaction)
+        }
     }
 
     /// Creates a binding with closures that read and write the binding value.
@@ -165,7 +174,8 @@ import Swift
     ///       - newValue: The new value of the binding value.
     public init(get: @escaping () -> Value, set: @escaping (Value) -> Void) {
         self.getter = get
-        self.setter = set
+        self.setter = { value, _ in set(value) }
+        self.transaction = .init(animation: nil)
     }
 
     // MARK: - Static Function(s).
@@ -200,7 +210,6 @@ extension Binding : Identifiable where Value : Identifiable {
     }
 }
 
-/*
 extension Binding {
 
     /// Specifies a transaction for the binding.
@@ -208,7 +217,12 @@ extension Binding {
     /// - Parameter transaction  : An instance of a ``Transaction``.
     ///
     /// - Returns: A new binding.
-    public func transaction(_ transaction: Transaction) -> Binding<Value>
+    public func transaction(_ transaction: Transaction) -> Binding<Value> {
+        var binding = self
+        binding.transaction = transaction
+        
+        return binding
+    }
 
     /// Specifies an animation to perform when the binding value changes.
     ///
@@ -216,6 +230,49 @@ extension Binding {
     ///   value changes.
     ///
     /// - Returns: A new binding.
-    public func animation(_ animation: Animation? = .default) -> Binding<Value>
+    public func animation(_ animation: Animation? = .default) -> Binding<Value> {
+        self.transaction(.init(animation: animation))
+    }
 }
-*/
+
+extension Binding : Sequence where Value : MutableCollection {
+    public typealias Element = Binding<Value.Element>
+    public typealias Iterator = IndexingIterator<Binding<Value>>
+    public typealias SubSequence = Slice<Binding<Value>>
+}
+
+extension Binding: Collection where Value: MutableCollection {
+  public typealias Index = Value.Index
+  public typealias Indices = Value.Indices
+  public var startIndex: Binding<Value>.Index { wrappedValue.startIndex }
+  public var endIndex: Binding<Value>.Index { wrappedValue.endIndex }
+  public var indices: Value.Indices { wrappedValue.indices }
+
+  public func index(after i: Binding<Value>.Index) -> Binding<Value>.Index {
+    wrappedValue.index(after: i)
+  }
+
+  public func formIndex(after i: inout Binding<Value>.Index) {
+    wrappedValue.formIndex(after: &i)
+  }
+
+    public subscript(position: Binding<Value>.Index) -> Binding<Value>.Element {
+        Binding<Value.Element>(
+            get: { self.wrappedValue[position] },
+            set: { self.wrappedValue[position] = $0 }
+        )
+  }
+}
+
+extension Binding: BidirectionalCollection where Value: BidirectionalCollection, Value: MutableCollection {
+  public func index(before i: Binding<Value>.Index) -> Binding<Value>.Index {
+    wrappedValue.index(before: i)
+  }
+
+  public func formIndex(before i: inout Binding<Value>.Index) {
+    wrappedValue.formIndex(before: &i)
+  }
+}
+
+extension Binding: RandomAccessCollection where Value: MutableCollection, Value: RandomAccessCollection {
+}

@@ -15,11 +15,11 @@ public struct _Graph {
 
     // MARK: - Static Property(ies).
 
-    static var shared = _Graph()
+    static var shared = _Graph(EmptyApp.self)
 
     // MARK: - Constructor(s).
 
-    @inlinable init<T>(_ t: T.Type = EmptyApp.self) where T: App {
+    @inlinable init<T>(_ t: T.Type) where T: App {
         self.environmentValues = EnvironmentValues()
         let app = T()
         self.root = app

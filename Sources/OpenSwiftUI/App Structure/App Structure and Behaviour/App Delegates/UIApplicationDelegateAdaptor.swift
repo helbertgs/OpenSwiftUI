@@ -200,7 +200,7 @@ extension UIApplicationDelegateAdaptor where DelegateType : ObservableObject {
     ///     }
     ///
     public var projectedValue: ObservedObject<DelegateType>.Wrapper {
-        .init(wrappedValue: wrappedValue)
+        .init(value: wrappedValue)
     }
 
     /// Creates a UIKit app delegate adaptor using a delegate that's
