@@ -165,7 +165,7 @@ extension App {
 
 import SwiftWin32
 
-extension App {
+extension OpenSwiftUI.App {
     /// Initializes and runs the app.
     ///
     /// If you precede your ``OpenSwiftUI/App`` conformer's declaration with the
@@ -175,8 +175,11 @@ extension App {
     /// default implementation of the method that manages the launch process in
     /// a platform-appropriate way.
     public static func main() {
-        SwiftWin32.ApplicationMain(CommandLine.argc, CommandLine.unsafeArgv, nil,
-                            String(describing: String(reflecting: Self.self)))
+        SwiftWin32.ApplicationMain(
+            CommandLine.argc, 
+            CommandLine.unsafeArgv,
+            nil,
+            String(describing: String(reflecting: OpenSwiftUI.WinApplicationDelegateAdapter.self)))
     }
 }
 
