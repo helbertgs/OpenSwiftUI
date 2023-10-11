@@ -21,16 +21,15 @@ let package = Package(
     products: [
         .library(
             name: "OpenSwiftUI",
-            type: .dynamic,
             targets: ["OpenSwiftUI"]),
     ],
     dependencies: [
         .package(url: "https://github.com/OpenCombine/OpenCombine.git", branch: "master"),
         .package(url: "https://github.com/apple/swift-markdown.git", branch: "main"),
-        .package(url: "https://github.com/compnerd/swift-win32.git", branch: "main")
-        // .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", branch: "main"),
-        // .package(url: "https://github.com/Quick/Nimble", branch: "main"),
-        // .package(url: "https://github.com/Quick/Quick", branch: "main")
+        .package(url: "https://github.com/compnerd/swift-win32.git", branch: "main"),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", branch: "main"),
+        .package(url: "https://github.com/Quick/Nimble", branch: "main"),
+        .package(url: "https://github.com/Quick/Quick", branch: "main")
     ],
     targets: [
         .target(
@@ -41,21 +40,20 @@ let package = Package(
                 .product(name: "SwiftWin32", package: "swift-win32", condition: .when(platforms: [.windows]))
             ],
             exclude: [ ]),
-        // .testTarget(
-        //     name: "Unit",
-        //     dependencies: [
-        //         "Nimble",
-        //         "OpenSwiftUI",
-        //         "Quick"
-        //     ]),
-        // .testTarget(
-        //     name: "Snapshot",
-        //     dependencies: [
-        //         "Nimble",
-        //         "OpenSwiftUI",
-        //         "Quick",
-        //         .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
-        //     ]),
+        .testTarget(
+            name: "Unit",
+            dependencies: [
+                "OpenSwiftUI",
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
+            ]),
+        .testTarget(
+            name: "Snapshot",
+            dependencies: [
+                "OpenSwiftUI",
+                .product(name: "Nimble", package:"Nimble", condition: .when(platforms: [.macOS, .iOS])),
+                .product(name: "Quick", package:"Quick", condition: .when(platforms: [.macOS, .iOS])),
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing", condition: .when(platforms: [.macOS, .iOS]))
+            ]),
     ],
     cxxLanguageStandard: .cxx20
 )
