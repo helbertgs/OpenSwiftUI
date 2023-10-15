@@ -167,3 +167,9 @@ extension EnvironmentValues {
         fatalError("")
     }
 }
+
+extension DismissSearchAction : Equatable {
+    public static func == (_ lhs: DismissSearchAction, _ rhs: DismissSearchAction) -> Bool {
+        ObjectIdentifier(type(of: lhs.self)) == ObjectIdentifier(type(of: rhs.self))
+    }
+}

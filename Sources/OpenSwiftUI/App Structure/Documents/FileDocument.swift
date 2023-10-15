@@ -1,4 +1,4 @@
 import Swift
 
-public protocol FileDocument {
+public protocol FileDocument  : Equatable, Hashable {
 }

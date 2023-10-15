@@ -24,17 +24,6 @@ public struct RenameAction {
     }
 }
 
-extension EnvironmentValues {
-    /// An action that activates the standard rename interaction.
-    ///
-    /// Use the ``View/renameAction(_:)-6lghl`` modifier to configure the rename
-    /// action in the environment.
-    public var rename: RenameAction? {
-        get { nil }
-        set { _ = newValue }
-    }
-}
-
 extension View {
     /// Sets the rename action in the environment to update focus state.
     ///
@@ -103,5 +92,11 @@ extension View {
     /// - Returns: A view that has the specified rename action.
     public func renameAction(_ action: @escaping () -> Void) -> some View {
         environment(\.rename, RenameAction(action: action))
+    }
+}
+
+extension RenameAction : Equatable {
+    public static func == (_ lhs: RenameAction, _ rhs: RenameAction) -> Bool {
+        ObjectIdentifier(type(of: lhs.self)) == ObjectIdentifier(type(of: rhs.self))
     }
 }

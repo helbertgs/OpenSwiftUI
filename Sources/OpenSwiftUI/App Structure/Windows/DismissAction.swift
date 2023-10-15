@@ -107,3 +107,9 @@ public struct DismissAction {
         action?()
     }
 }
+
+extension DismissAction : Equatable {
+    public static func == (_ lhs: DismissAction, _ rhs: DismissAction) -> Bool {
+        ObjectIdentifier(type(of: lhs.self)) == ObjectIdentifier(type(of: rhs.self))
+    }
+}
