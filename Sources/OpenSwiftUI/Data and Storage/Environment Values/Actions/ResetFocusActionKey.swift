@@ -1,11 +1,13 @@
 import Swift
 
+@available(iOS, unavailable)
 @frozen public struct ResetFocusActionKey : EnvironmentKey {
     public static var defaultValue: ResetFocusAction { 
         .init()
      }
 }
 
+@available(iOS, unavailable)
 extension EnvironmentValues {
 
     /// An action that requests the focus system to reevaluate default focus.
@@ -24,6 +26,6 @@ extension EnvironmentValues {
     ///
     public var resetFocus: ResetFocusAction {
         get { self[ResetFocusActionKey.self] }
-        set { self[ResetFocusActionKey.self] newValue }
+        set { self[ResetFocusActionKey.self] = newValue }
     }
 }

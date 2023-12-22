@@ -24,15 +24,3 @@ extension _SceneModifier {
         .init(content: self, modifier: modifier)
     }
 }
-
-extension _SceneModifier where Self.Body == Never {
-    public func body(content: Self.SceneContent) -> Self.Body {
-        content.body
-    }
-}
-
-extension _SceneModifier where Self : _GraphInputsModifier, Self.Body == Never {
-    static func _makeScene(modifier: _GraphValue<Self>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
-        fatalError()
-    }
-}

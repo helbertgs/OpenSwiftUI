@@ -30,7 +30,7 @@ import Swift
 /// You typically use a window group for the main interface of an app that isn't
 /// document-based. For document-based apps, use a ``DocumentGroup`` instead.
 @frozen public struct WindowGroup<Content> : Scene where Content : View {
-
+    
     // MARK: - Type Alias.
 
     /// The type of scene that represents the body of this scene.
@@ -42,7 +42,7 @@ import Swift
 
     // MARK: - Internal Property(ies).
 
-    @usableFromInline var title: String?
+    @usableFromInline var title: String = ""
     @usableFromInline var content: Content
     @usableFromInline var id: String?
 

@@ -60,6 +60,7 @@ import Swift
 ///             }
 ///         }
 ///     }
+@MainActor
 public protocol App {
 
     // MARK: - Associated Type(s).
@@ -91,7 +92,9 @@ public protocol App {
     ///
     /// Swift infers the app's ``OpenSwiftUI/App/Body-swift.associatedtype``
     /// associated type based on the scene provided by the `body` property.
-    @SceneBuilder var body: Self.Body { get }
+//    @MainActor 
+    @SceneBuilder 
+    var body: Self.Body { get }
 
     // MARK: - Constructor(s).
 
@@ -116,71 +119,19 @@ public protocol App {
     static func main()
 }
 
-#if os(iOS) && canImport(UIKit)
-
-import UIKit
-
 extension App {
-    /// Initializes and runs the app.
-    ///
-    /// If you precede your ``OpenSwiftUI/App`` conformer's declaration with the
-    /// [@main](https://docs.swift.org/swift-book/ReferenceManual/Attributes.html#ID626)
-    /// attribute, the system calls the conformer's `main()` method to launch
-    /// the app. OpenSwiftUI provides a
-    /// default implementation of the method that manages the launch process in
-    /// a platform-appropriate way.
+    #if os(macOS) || canImport(AppKit)
     public static func main() {
-        UIApplicationDelegateAdapter.app = Self()
-
-        UIApplicationMain(CommandLine.argc,
-                          CommandLine.unsafeArgv,
-                          nil,
-                          NSStringFromClass(OpenSwiftUI.UIApplicationDelegateAdapter.self))
+        AppKitApplication.app = Self()
+        AppKitApplication.shared.run()
     }
-}
-
-#endif
-
-#if os(macOS) && canImport(Cocoa)
-
-import AppKit
-
-extension App {
-    /// Initializes and runs the app.
-    ///
-    /// If you precede your ``OpenSwiftUI/App`` conformer's declaration with the
-    /// [@main](https://docs.swift.org/swift-book/ReferenceManual/Attributes.html#ID626)
-    /// attribute, the system calls the conformer's `main()` method to launch
-    /// the app. OpenSwiftUI provides a
-    /// default implementation of the method that manages the launch process in
-    /// a platform-appropriate way.
+    #elseif os(Windows) && canImport(SwiftWin32)
     public static func main() {
-//         let _ = NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv)
+        WindowsApplication.shared.appDelegate.graph.data = Self()
     }
-}
-
-#endif
-
-#if os(Windows) && canImport(SwiftWin32)
-
-@_exported import SwiftWin32
-
-extension OpenSwiftUI.App {
-    /// Initializes and runs the app.
-    ///
-    /// If you precede your ``OpenSwiftUI/App`` conformer's declaration with the
-    /// [@main](https://docs.swift.org/swift-book/ReferenceManual/Attributes.html#ID626)
-    /// attribute, the system calls the conformer's `main()` method to launch
-    /// the app. OpenSwiftUI provides a
-    /// default implementation of the method that manages the launch process in
-    /// a platform-appropriate way.
+    #else
     public static func main() {
-        SwiftWin32.ApplicationMain(
-            CommandLine.argc, 
-            CommandLine.unsafeArgv,
-            nil,
-            String(describing: String(reflecting: OpenSwiftUI.WinApplicationDelegateAdapter.self)))
-    }
+        UIKitApplication.shared.appDelegate.graph._rootSceneList.append(Self().body)
+    }        
+    #endif
 }
-
-#endif

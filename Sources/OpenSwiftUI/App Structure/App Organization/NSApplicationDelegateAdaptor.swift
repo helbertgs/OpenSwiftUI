@@ -134,7 +134,7 @@ extension NSApplicationDelegateAdaptor where DelegateType : ObservableObject {
     ///     }
     ///
     public var projectedValue: ObservedObject<DelegateType>.Wrapper {
-        .init(wrappedValue: wrappedValue)
+        .init(value: wrappedValue)
     }
 
     /// Creates an AppKit app delegate adaptor using a delegate that's

@@ -20,3 +20,18 @@ import Swift
         set { props[member] = newValue }
     }
 }
+
+extension _SceneInputs {
+    static func + (_ lhs: _SceneOutputs, _ rhs: _SceneInputs) -> _SceneInputs {
+        var output = _SceneInputs()
+        lhs.props.forEach { (key: String, value: Any) in
+            output.props[key] = value
+        }
+        
+        rhs.props.forEach { (key: String, value: Any) in
+            output.props[key] = value
+        }
+        
+        return output
+    }
+}

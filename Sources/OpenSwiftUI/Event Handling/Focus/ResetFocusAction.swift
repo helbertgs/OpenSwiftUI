@@ -30,6 +30,7 @@ public struct ResetFocusAction {
     }
 }
 
+@available(iOS, unavailable)
 extension ResetFocusAction : Equatable {
     public static func == (_ lhs: ResetFocusAction, _ rhs: ResetFocusAction) -> Bool {
         ObjectIdentifier(type(of: lhs.self)) == ObjectIdentifier(type(of: rhs.self))

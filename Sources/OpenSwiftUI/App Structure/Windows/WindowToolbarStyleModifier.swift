@@ -15,10 +15,19 @@ public struct WindowToolbarStyleModifier<Style> : _SceneModifier where Style : W
     init(style: Style) {
         self.style = style
     }
+    
+    // MARK: - Function(s).
+    
+    public func body(content: SceneContent) -> Never {
+        fatalError()
+    }
 
     // MARK: - Static Function(s).
 
     public static func _makeScene(modifier: _GraphValue<WindowToolbarStyleModifier<Style>>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
-        fatalError()
+        var output = _SceneOutputs()
+        output.windowToolbarStyle = modifier.value.style
+        
+        return output
     }
 }

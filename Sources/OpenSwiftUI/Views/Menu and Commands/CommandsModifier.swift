@@ -15,6 +15,12 @@ public struct CommandsModifier<Content> : _SceneModifier where Content : Command
     init(content: Content) {
         self.content = content
     }
+    
+    // MARK: - Function(s).
+    
+    public func body(content: SceneContent) -> Never {
+        fatalError()
+    }
 
     // MARK: - Static Function(s).
 

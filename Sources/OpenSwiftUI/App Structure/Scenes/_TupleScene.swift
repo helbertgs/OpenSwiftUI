@@ -29,19 +29,20 @@ internal struct _TupleScene<T> : Scene {
 
     @usableFromInline
     internal static func _makeScene(scene: _GraphValue<_TupleScene<T>>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = _SceneOutputs()
-        var scenes = [_SceneOutputs]()
-
-        for child in Mirror(reflecting: scene.value.value).children {
-            let scene = child.value as! (any Scene)
-            scenes.append(_makeScene(scene: scene, inputs: inputs))
-        }
-
-        outputs.scenes = scenes
-        return outputs
+//        var outputs = _SceneOutputs()
+//        var scenes = [_SceneOutputs]()
+//
+//        for child in Mirror(reflecting: scene.value.value).children {
+//            let scene = child.value as! (any Scene)
+//            scenes.append(_makeScene(scene: scene, inputs: inputs))
+//        }
+//
+//        outputs.scenes = scenes
+//        return outputs
+        return .init()
     }
 
-    internal static func _makeScene<T>(scene: T, inputs: _SceneInputs) -> _SceneOutputs where T: Scene {
-        T._makeScene(scene: _GraphValue(scene), inputs: inputs)
-    }
+//    internal static func _makeScene<T>(scene: T, inputs: _SceneInputs) -> _SceneOutputs where T: Scene {
+//        T._makeScene(scene: _GraphValue(scene), inputs: inputs)
+//    }
 }

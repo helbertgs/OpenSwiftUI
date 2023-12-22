@@ -33,6 +33,15 @@ import Swift
 }
 
 extension _ValueActionModifier : _SceneModifier {
+    
+    // MARK: - Function(s).
+    
+    public func body(content: SceneContent) -> Never {
+        fatalError()
+    }
+    
+    // MARK: - Static Function(s).
+
     public static func _makeScene(modifier: _GraphValue<_ValueActionModifier<Value>>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
         fatalError()
     }

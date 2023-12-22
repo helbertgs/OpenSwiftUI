@@ -22,41 +22,42 @@ let package = Package(
         .library(
             name: "OpenSwiftUI",
             targets: ["OpenSwiftUI"]),
+        .executable(
+            name: "macSSample",
+            targets: ["macOSSample"]),
     ],
     dependencies: [
         .package(url: "https://github.com/OpenCombine/OpenCombine.git", branch: "master"),
         .package(url: "https://github.com/apple/swift-markdown.git", branch: "main"),
-        .package(url: "https://github.com/compnerd/swift-win32.git", branch: "main"),
-        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", branch: "main"),
-        .package(url: "https://github.com/Quick/Nimble", branch: "main"),
-        .package(url: "https://github.com/Quick/Quick", branch: "main")
     ],
     targets: [
         .target(
             name: "OpenSwiftUI",
             dependencies: [
                 .product(name: "OpenCombine", package: "OpenCombine"),
-                .product(name: "Markdown", package: "swift-markdown"),
-                .product(name: "SwiftWin32", package: "swift-win32", condition: .when(platforms: [.windows]))
-            ],
-            exclude: [ ]),
-        .testTarget(
-            name: "Unit",
-            dependencies: [
-                "OpenSwiftUI",
-                .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
-            ]),
-        .testTarget(
-            name: "Snapshot",
-            dependencies: [
-                "OpenSwiftUI",
-                .product(name: "Nimble", package:"Nimble", condition: .when(platforms: [.macOS, .iOS])),
-                .product(name: "Quick", package:"Quick", condition: .when(platforms: [.macOS, .iOS])),
-                .product(name: "SnapshotTesting", package: "swift-snapshot-testing", condition: .when(platforms: [.macOS, .iOS]))
-            ]),
-    ],
-    cxxLanguageStandard: .cxx20
+                .product(name: "Markdown", package: "swift-markdown")
+            ]
+        ),
+        .executableTarget(
+            name: "macOSSample",
+            dependencies: ["OpenSwiftUI"]
+        )
+    ]
 )
+
+#if os(Windows)
+    package.dependencies += [
+        .package(url: "https://github.com/compnerd/swift-win32.git", branch: "main"),
+    ]
+
+package
+    .targets
+    .first { $0.name == "OpenSwiftUI" }?
+    .dependencies += [
+        .product(name: "Windows", package: "swift-win32")
+    ]
+#endif
+
 
 // MARK: Helpers
 extension Array where Element == Platform {

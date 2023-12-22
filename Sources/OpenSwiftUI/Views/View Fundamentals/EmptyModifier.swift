@@ -61,3 +61,18 @@ import Swift
         .init()
     }
 }
+
+extension EmptyModifier: _SceneModifier {
+    
+    // MARK: - Function(s).
+    
+    public func body(content: SceneContent) -> Never {
+        fatalError()
+    }
+    
+    // MARK: - Static Function(s).
+    
+    public static func _makeScene(modifier: _GraphValue<EmptyModifier>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
+        .init()
+    }
+}

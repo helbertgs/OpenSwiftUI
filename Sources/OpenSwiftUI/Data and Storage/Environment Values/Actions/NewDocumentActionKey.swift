@@ -1,11 +1,13 @@
 import Swift
 
+@available(iOS, unavailable)
 @frozen public struct NewDocumentActionKey : EnvironmentKey {
     public static var defaultValue: NewDocumentAction {
         .init()
     }
 }
 
+@available(iOS, unavailable)
 extension EnvironmentValues {
 
     /// An action that presents a new document.
