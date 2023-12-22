@@ -1,22 +1,21 @@
 #if os(Windows) && canImport(SwiftWin32)
 
-import WinSDK
+import SwiftWin32
 
+@MainActor
 class WindowsKitApplication {
     
     // MARK: - Property(ies).
     
-    let appDelegate: AppDelegate
+    let appDelegate: AppDelegate = AppDelegate()
     
     // MARK: - Static Property(ies).
     
-    static let shared = AppKitApplication()
+    static let shared = WindowsKitApplication()
 
     // MARK: - Constructor(s).
     
-    init(appDelegate: AppDelegate = AppDelegate()) {
-        self.appDelegate = appDelegate
-        
+    init() {
         SwiftWin32.ApplicationMain(
             CommandLine.argc,
             CommandLine.unsafeArgv,

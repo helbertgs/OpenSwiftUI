@@ -22,9 +22,9 @@ let package = Package(
         .library(
             name: "OpenSwiftUI",
             targets: ["OpenSwiftUI"]),
-        .executable(
-            name: "macSSample",
-            targets: ["macOSSample"]),
+        // .executable(
+        //     name: "macSSample",
+        //     targets: ["macOSSample"]),
     ],
     dependencies: [
         .package(url: "https://github.com/OpenCombine/OpenCombine.git", branch: "master"),
@@ -38,23 +38,25 @@ let package = Package(
                 .product(name: "Markdown", package: "swift-markdown")
             ]
         ),
-        .executableTarget(
-            name: "macOSSample",
-            dependencies: ["OpenSwiftUI"]
-        )
+        // .executableTarget(
+        //     name: "macOSSample",
+        //     dependencies: ["OpenSwiftUI"]
+        // )
     ]
 )
 
 #if os(Windows)
     package.dependencies += [
-        .package(url: "https://github.com/compnerd/swift-win32.git", branch: "main"),
+        .package(url: "https://github.com/helbertgs/swift-win32.git", branch: "main"),
+        // .package(url: "https://github.com/pvieito/PythonKit.git", branch: "master"),
     ]
 
 package
     .targets
     .first { $0.name == "OpenSwiftUI" }?
     .dependencies += [
-        .product(name: "Windows", package: "swift-win32")
+        .product(name: "SwiftWin32", package: "swift-win32"),
+        // .product(name: "PythonKit", package: "PythonKit"),
     ]
 #endif
 

@@ -4,7 +4,6 @@ import Swift
 @available(iOS, unavailable)
 @available(tvOS, unavailable)
 @available(watchOS, unavailable)
-@available(visionOS, unavailable)
 extension Scene {
 
     /// Defines a keyboard shortcut for opening new scene windows.

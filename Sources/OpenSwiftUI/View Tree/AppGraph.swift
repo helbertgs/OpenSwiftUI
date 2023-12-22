@@ -14,7 +14,7 @@ class AppGraph {
         })
     }()
     
-    var observers: [NSKeyValueObservation] = []
+    // var observers: [NSKeyValueObservation] = []
     var _rootScenePhase: ScenePhase = .inactive
     var _rootSceneList: [any Scene] = []
 //    var _primarySceneSummaries: [Any] = []

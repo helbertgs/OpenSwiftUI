@@ -256,6 +256,7 @@ extension Scene {
     ///
     /// - Returns: A scene that has the specified object in its environment.
     @available(iOS 17.0, macOS 14, *)
+    @available(Windows, unavailable)
     @inlinable
     public func environment<T>(_ object: T?) -> some Scene where T : AnyObject, T : Observable {
         modifier(EmptyModifier())
@@ -385,7 +386,6 @@ extension Scene {
 @available(iOS, unavailable)
 @available(tvOS, unavailable)
 @available(watchOS, unavailable)
-@available(visionOS, unavailable)
 extension Scene {
 
     /// Sets the style for menu bar extra created by this scene.
