@@ -143,25 +143,3 @@ extension WindowGroup {
 }
 
 #endif
-
-#if os(Windows) && canImport(SwiftWin32)
-
-import SwiftWin32
-
-extension WindowGroup {
-   public static func _makeScene(scene: _GraphValue<WindowGroup<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
-        let rootViewController = ViewController()
-        rootViewController.title = scene.value.title
-
-        let window = Window(windowScene: inputs.windowScene)
-        window.makeKeyAndVisible()
-        window.rootViewController = rootViewController
-
-        var outputs = _SceneOutputs()
-        outputs.window = window
-
-        return outputs
-    }
-}
-
-#endif

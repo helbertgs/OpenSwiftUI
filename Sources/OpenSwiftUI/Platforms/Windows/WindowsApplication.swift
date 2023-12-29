@@ -3,24 +3,34 @@
 import SwiftWin32
 
 @MainActor
-class WindowsKitApplication {
+class WindowsApplication {
     
     // MARK: - Property(ies).
     
     let appDelegate: AppDelegate = AppDelegate()
+
+    // MARK: - Static Property(ies).
+    
+    static var app: (any App)!
     
     // MARK: - Static Property(ies).
     
-    static let shared = WindowsKitApplication()
+    static let shared = WindowsApplication()
 
     // MARK: - Constructor(s).
     
     init() {
-        SwiftWin32.ApplicationMain(
+       
+    }
+
+    // MARK: - Function(s).
+
+    func run() {
+         SwiftWin32.ApplicationMain(
             CommandLine.argc,
             CommandLine.unsafeArgv,
             nil,
-            String(describing: String(reflecting: OpenSwiftUI.WinApplicationDelegateAdapter.self)))
+            String(describing: String(reflecting: OpenSwiftUI.AppDelegate.self)))
     }
 }
 

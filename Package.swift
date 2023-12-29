@@ -3,15 +3,6 @@
 
 import PackageDescription
 
-let supportedPlatforms: [Platform] = [
-    .macOS,
-    .macCatalyst,
-    .iOS,
-    .watchOS,
-    .tvOS,
-    .windows
-]
-
 let package = Package(
     name: "OpenSwiftUI",
     platforms: [
@@ -22,9 +13,9 @@ let package = Package(
         .library(
             name: "OpenSwiftUI",
             targets: ["OpenSwiftUI"]),
-        // .executable(
-        //     name: "macSSample",
-        //     targets: ["macOSSample"]),
+        .executable(
+            name: "Sample",
+            targets: ["Sample"]),
     ],
     dependencies: [
         .package(url: "https://github.com/OpenCombine/OpenCombine.git", branch: "master"),
@@ -38,32 +29,27 @@ let package = Package(
                 .product(name: "Markdown", package: "swift-markdown")
             ]
         ),
-        // .executableTarget(
-        //     name: "macOSSample",
-        //     dependencies: ["OpenSwiftUI"]
-        // )
+        .executableTarget(
+            name: "Sample",
+            dependencies: ["OpenSwiftUI"],
+            swiftSettings: [
+                .unsafeFlags([ "-parse-as-library" ], .when(platforms: [.windows]))]
+        )
     ]
 )
 
 #if os(Windows)
-    package.dependencies += [
-        .package(url: "https://github.com/helbertgs/swift-win32.git", branch: "main"),
-        // .package(url: "https://github.com/pvieito/PythonKit.git", branch: "master"),
-    ]
+    package
+        .dependencies += [
+            .package(url: "https://github.com/helbertgs/swift-win32.git", branch: "main"),
+            .package(url: "https://github.com/pvieito/PythonKit.git", branch: "master"),
+        ]
 
-package
-    .targets
-    .first { $0.name == "OpenSwiftUI" }?
-    .dependencies += [
-        .product(name: "SwiftWin32", package: "swift-win32"),
-        // .product(name: "PythonKit", package: "PythonKit"),
-    ]
+    package
+        .targets
+        .first { $0.name == "OpenSwiftUI" }?
+        .dependencies += [
+            .product(name: "SwiftWin32", package: "swift-win32"),
+            .product(name: "PythonKit", package: "PythonKit"),
+        ]
 #endif
-
-
-// MARK: Helpers
-extension Array where Element == Platform {
-    func except(_ exceptions: [Platform]) -> [Platform] {
-        return filter { !exceptions.contains($0) }
-    }
-}

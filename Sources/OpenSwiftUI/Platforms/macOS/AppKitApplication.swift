@@ -20,6 +20,8 @@ class AppKitApplication {
     // MARK: - Constructor(s).
     
     init() { }
+
+    // MARK: - Function(s).
     
     func run() {
         NSApplication.shared.delegate = self.appDelegate

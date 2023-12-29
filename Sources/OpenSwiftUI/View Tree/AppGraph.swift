@@ -22,6 +22,7 @@ class AppGraph {
 //    var _sceneKeyboardShortcuts: [KeyboardShortcuts] = []
     var _rootCommandsList: [any Commands] = []
     var _launchProfileOptions: [Application.LaunchOptionsKey] = []
+    var _environmentValues = EnvironmentValues()
     
     // MARK: - Constructor(s).
     
@@ -31,11 +32,21 @@ class AppGraph {
             _rootSceneList.append(app.body)
         }
         #endif
+
+        #if os(Windows)
+        if let app = WindowsApplication.app {
+            _rootSceneList.append(app.body)
+        }
+        #endif
+
         loadPropertyFile()
     }
     
     func run<T>(_ t: T) where T : Scene {
-        let _ = T._makeScene(scene: _GraphValue(t), inputs: .init())
+        var inputs = _SceneInputs()
+        inputs.environmentValues = _environmentValues
+
+        let _ = T._makeScene(scene: _GraphValue(t), inputs: inputs)
     }
     
     // MARK: - Function(s).

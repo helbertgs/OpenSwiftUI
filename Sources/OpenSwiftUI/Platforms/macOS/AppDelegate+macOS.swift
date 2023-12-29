@@ -7,7 +7,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Property(ies).
     
     let graph = AppGraph()
-    var window: NSWindow!
     
     // MARK: - Function(s).
     

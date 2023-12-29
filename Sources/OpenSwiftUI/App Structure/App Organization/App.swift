@@ -127,7 +127,8 @@ extension App {
     }
     #elseif os(Windows) && canImport(SwiftWin32)
     public static func main() {
-        // WindowsApplication.shared.appDelegate.graph.data = Self()
+        WindowsApplication.app = Self()
+        WindowsApplication.shared.run()
     }
     #else
     public static func main() {
