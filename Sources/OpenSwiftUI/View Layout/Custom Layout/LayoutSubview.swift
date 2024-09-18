@@ -32,7 +32,9 @@ public struct LayoutSubview : Equatable {
     ///     }
     ///
     /// For more information about creating a custom layout, see ``Layout``.
-    public subscript<K>(key: K.Type) -> K.Value where K : LayoutValueKey { get }
+    public subscript<K>(key: K.Type) -> K.Value where K : LayoutValueKey { 
+        fatalError()    
+    }
 
     /// The layout priority of the subview.
     ///
@@ -69,7 +71,9 @@ public struct LayoutSubview : Equatable {
     ///             .layoutPriority(1)
     ///     }
     ///
-    public var priority: Double { get }
+    public var priority: Double { 
+        0 
+    }
 
     /// Asks the subview for its size.
     ///
@@ -135,7 +139,9 @@ public struct LayoutSubview : Equatable {
     /// You can also merge this instance with instances from other subviews
     /// to construct a new instance that's suitable for the subviews' container.
     /// See ``Layout/spacing(subviews:cache:)-86z2e``.
-    public var spacing: ViewSpacing { get }
+    public var spacing: ViewSpacing { 
+        .init()
+     }
 
     /// Assigns a position and proposed size to the subview.
     ///
@@ -234,10 +240,10 @@ public struct LayoutSubviews : Equatable, RandomAccessCollection, Sendable {
     var elements: [Element] = []
 
     /// The index of the first subview.
-    public var startIndex: Int { get }
+    public var startIndex: Int { 0 }
 
     /// An index that's one higher than the last subview.
-    public var endIndex: Int { get }
+    public var endIndex: Int { 0 }
 
     /// Gets the subview proxy at a specified index.
     public subscript(index: Int) -> LayoutSubviews.Element { 
@@ -251,8 +257,8 @@ public struct LayoutSubviews : Equatable, RandomAccessCollection, Sendable {
 
     /// Gets the subview proxies with the specified indicies.
     public subscript<S>(indices: S) -> LayoutSubviews where S : Sequence, S.Element == Int { 
-        
-     }
+        fatalError()
+    }
 
     /// Returns a Boolean value indicating whether two values are equal.
     ///

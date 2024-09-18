@@ -4,7 +4,8 @@
 /// types that do not have any animatable properties.
 @frozen public struct EmptyAnimatableData {
 
-    @inlinable public init()
+    @inlinable public init() {
+    }
 
     /// The zero value.
     ///
@@ -20,7 +21,6 @@
     ///   - lhs: The first value to add.
     ///   - rhs: The second value to add.
     @inlinable public static func += (lhs: inout EmptyAnimatableData, rhs: EmptyAnimatableData) {
-
     }
 
     /// Subtracts the second value from the first and stores the difference in the
@@ -30,7 +30,6 @@
     ///   - lhs: A numeric value.
     ///   - rhs: The value to subtract from `lhs`.
     @inlinable public static func -= (lhs: inout EmptyAnimatableData, rhs: EmptyAnimatableData) {
-
     }
 
     /// Adds two values and produces their sum.
@@ -83,7 +82,6 @@
 
     /// Multiplies each component of this value by the given value.
     @inlinable public mutating func scale(by rhs: Double) {
-
     }
 
     /// The dot-product of this animatable data instance with itself.

@@ -2,9 +2,6 @@ import Swift
 
 /// Keyboard shortcuts describe combinations of keys on a keyboard that the user
 /// can press in order to activate a button or toggle.
-@available(iOS 13.0, macOS 10.15, *)
-@available(tvOS, unavailable)
-@available(watchOS, unavailable)
 public struct KeyboardShortcut : Sendable {
     
     // MARK: - Property(ies).

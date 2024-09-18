@@ -1,9 +1,5 @@
 import Swift
 
-@available(macCatalyst 13.0, macOS 10.15, *)
-@available(iOS, unavailable)
-@available(tvOS, unavailable)
-@available(watchOS, unavailable)
 public enum ControlActiveState : String, CaseIterable, Equatable, Hashable {
 
     // MARK: - Case(s).

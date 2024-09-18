@@ -56,7 +56,6 @@ public struct ViewSpacing : Sendable {
     ///   - edges: The edges to merge. Edges that you don't specify are
     ///     unchanged after the method completes.
     public mutating func formUnion(_ other: ViewSpacing, edges: Edge.Set = .all) {
-        0
     }
 
     /// Gets a new value that merges the spacing preferences of another spacing
@@ -74,7 +73,7 @@ public struct ViewSpacing : Sendable {
     /// - Returns: A new view spacing preferences instance with the merged
     ///   values.
     public func union(_ other: ViewSpacing, edges: Edge.Set = .all) -> ViewSpacing {
-        0
+        .init()
     }
 
     /// Gets the preferred spacing distance along the specified axis to the view

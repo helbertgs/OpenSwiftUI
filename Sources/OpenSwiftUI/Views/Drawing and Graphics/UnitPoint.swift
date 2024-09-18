@@ -59,7 +59,6 @@ import Swift
 /// It’s important to test your app for the different locales that you
 /// distribute your app in. For more information about the localization process,
 /// see <doc://com.apple.documentation/documentation/Xcode/localization>.
-@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 @frozen public struct UnitPoint : Equatable, Hashable {
 
     /// The normalized distance from the origin to the point in the horizontal

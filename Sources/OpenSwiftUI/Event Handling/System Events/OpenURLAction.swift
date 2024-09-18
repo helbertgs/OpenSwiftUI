@@ -229,7 +229,6 @@ public struct OpenURLAction {
     ///     it can open the URL, but possibly before fully opening the URL.
     ///     The closure takes a Boolean value that indicates whether the
     ///     method can open the URL.
-    @available(watchOS, unavailable)
     public func callAsFunction(_ url: URL, completion: @escaping (_ accepted: Bool) -> Void) {
         fatalError()
     }

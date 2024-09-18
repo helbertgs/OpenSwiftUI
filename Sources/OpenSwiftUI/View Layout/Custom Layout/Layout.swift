@@ -146,7 +146,7 @@ import Swift
 /// modifier. Read the corresponding value from the subview's proxy using the
 /// key as an index on the subview. For more information about creating,
 /// setting, and accessing custom layout values, see ``LayoutValueKey``.
-public protocol Layout : Animatable {
+public protocol Layout {
 
     /// Properties of a layout container.
     ///
@@ -545,7 +545,7 @@ public protocol Layout : Animatable {
     /// - Returns: The guide's position relative to the `bounds`.
     ///   Return `nil` to indicate that the guide doesn't have an explicit
     ///   value.
-    func explicitAlignment(of guide: HorizontalAlignment, in bounds: CGRect, proposal: ProposedViewSize, subviews: Self.Subviews, cache: inout Self.Cache) -> Float?
+    func explicitAlignment(of guide: HorizontalAlignment, in bounds: Rect, proposal: ProposedViewSize, subviews: Self.Subviews, cache: inout Self.Cache) -> Float?
 
     /// Returns the position of the specified vertical alignment guide along
     /// the y axis.

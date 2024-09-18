@@ -41,6 +41,10 @@ import Foundation
     /// implementation of the required ``View/body-swift.property`` property.
     public typealias Body = Never
 
+    public var body: Never {
+        fatalError()
+    }
+
     /// Creates an instance with the given spacing and horizontal alignment.
     ///
     /// - Parameters:
@@ -50,9 +54,13 @@ import Foundation
     ///     want the stack to choose a default distance for each pair of
     ///     subviews.
     ///   - content: A view builder that creates the content of this stack.
-    @inlinable public init(alignment: HorizontalAlignment = .center, spacing: CGFloat? = nil, @ViewBuilder content: () -> Content) {
+    @inlinable public init(alignment: HorizontalAlignment = .center, spacing: Float? = nil, @ViewBuilder content: () -> Content) {
         self.layout = .init(alignment: alignment, spacing: spacing)
         self.content = content()
+    }
+
+    public static func _makeView(view: _GraphValue<VStack<Content>>, inputs: _ViewInputs) -> _ViewOutputs {
+        .init()
     }
 }
 
@@ -62,7 +70,7 @@ import Foundation
 /// ``Layout`` protocol so you can use it in the conditional layouts that you
 /// construct with ``AnyLayout``. If you don't need a conditional layout, use
 /// ``VStack`` instead.
-@frozen public struct VStackLayout : Layout {
+@frozen public struct VStackLayout {
 
     /// The horizontal alignment of subviews.
     public var alignment: HorizontalAlignment
@@ -96,7 +104,7 @@ import Foundation
     /// the places where you work with the cache.
     ///
     /// See ``makeCache(subviews:)-23agy`` for more information.
-    public typealias Cache = [String: any]
+    public typealias Cache = [String: Any]
 }
 
 extension VStackLayout : Sendable { }

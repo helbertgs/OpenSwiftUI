@@ -20,7 +20,6 @@ extension Image {
     /// image next to the Large text is larger than the
     /// text.](OpenSwiftUI-EnvironmentAdditions-Image-scale.png)
     ///
-    @available(macOS 11.0, *)
     public enum Scale : String, Equatable, Hashable {
 
         // MARK: - Case(s).

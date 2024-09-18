@@ -30,9 +30,7 @@ import Swift
 /// ``WindowResizability/automatic``. With that strategy, ``Settings``
 /// windows use the ``WindowResizability/contentSize`` strategy, while
 /// all others use ``WindowResizability/contentMinSize``.
-@available(iOS 13.0, macOS 10.15, *)
-@available(tvOS, unavailable)
-@available(watchOS, unavailable)
+@MainActor
 @frozen public struct WindowResizability {
     
     // MARK: - Property(ies).

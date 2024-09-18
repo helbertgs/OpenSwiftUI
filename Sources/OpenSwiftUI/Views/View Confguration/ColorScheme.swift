@@ -23,7 +23,7 @@ import Swift
     // MARK: - Static Property(ies).
 
     /// A collection of all values of this type.
-    public static var allCases: [ColorScheme] = [ .dark, .light ]
+    nonisolated public static var allCases: [ColorScheme] = [ .dark, .light ]
 
     // MARK: - Hashable
 

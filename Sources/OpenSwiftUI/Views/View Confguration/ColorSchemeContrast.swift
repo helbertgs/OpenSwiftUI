@@ -21,6 +21,7 @@ import Swift
 /// Your app can't override the user's choice. For
 /// information about using color and contrast in your app, see
 /// [Color and Contrast](https://developer.apple.com/design/human-interface-guidelines/accessibility/overview/color-and-contrast).
+@MainActor
 @frozen public enum ColorSchemeContrast : CaseIterable, Equatable, Hashable {
 
     // MARK: - Case(s).

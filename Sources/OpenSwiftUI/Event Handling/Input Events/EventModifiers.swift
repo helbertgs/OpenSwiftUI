@@ -1,9 +1,7 @@
 import Swift
 
 /// A set of key modifiers that you can add to a gesture.
-@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
-@frozen 
-public struct EventModifiers : OptionSet {
+@frozen public struct EventModifiers : OptionSet {
     
     // MARK: - Type Alias.
     
@@ -63,7 +61,6 @@ public struct EventModifiers : OptionSet {
     }
 }
 
-@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 extension EventModifiers : Sendable {
 }
 
