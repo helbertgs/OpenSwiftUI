@@ -1,5 +1,6 @@
 @testable import OpenSwiftUI
 import XCTest
+import SwiftUI
 
 class AppTests: XCTestCase {
 

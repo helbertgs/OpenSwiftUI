@@ -545,7 +545,7 @@ public protocol Layout : Animatable {
     /// - Returns: The guide's position relative to the `bounds`.
     ///   Return `nil` to indicate that the guide doesn't have an explicit
     ///   value.
-    func explicitAlignment(of guide: HorizontalAlignment, in bounds: CGRect, proposal: ProposedViewSize, subviews: Self.Subviews, cache: inout Self.Cache) -> Float?
+    func explicitAlignment(of guide: HorizontalAlignment, in bounds: Rect, proposal: ProposedViewSize, subviews: Self.Subviews, cache: inout Self.Cache) -> Float?
 
     /// Returns the position of the specified vertical alignment guide along
     /// the y axis.
@@ -610,7 +610,9 @@ extension Layout {
     /// default values. The properties instance contains information about the
     /// layout container, like a ``LayoutProperties/stackOrientation``
     /// property that indicates the container's major axis.
-    public static var layoutProperties: LayoutProperties { get }
+    public static var layoutProperties: LayoutProperties {
+        fatalError()
+    }
 
     /// Reinitializes a cache to a new value.
     ///
