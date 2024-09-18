@@ -255,10 +255,7 @@ extension Scene {
     ///   environment.
     ///
     /// - Returns: A scene that has the specified object in its environment.
-    @available(iOS 17.0, macOS 14, *)
-    @available(Windows, unavailable)
-    @inlinable
-    public func environment<T>(_ object: T?) -> some Scene where T : AnyObject, T : Observable {
+    @inlinable public func environment<T>(_ object: T?) -> some Scene where T : AnyObject, T : Observable {
         modifier(EmptyModifier())
     }
     
@@ -347,8 +344,6 @@ extension Scene {
     }
 }
 
-@available(tvOS, unavailable)
-@available(watchOS, unavailable)
 extension Scene {
 
     /// Specifies a modifier to indicate if this Scene can be used
@@ -383,9 +378,6 @@ extension Scene {
     }
 }
 
-@available(iOS, unavailable)
-@available(tvOS, unavailable)
-@available(watchOS, unavailable)
 extension Scene {
 
     /// Sets the style for menu bar extra created by this scene.
@@ -588,8 +580,6 @@ extension Scene {
     }
 }
 
-@available(tvOS, unavailable)
-@available(watchOS, unavailable)
 extension Scene {
 
     /// Sets the kind of resizability to use for a window.
@@ -632,8 +622,6 @@ extension Scene {
     }
 }
 
-@available(tvOS, unavailable)
-@available(watchOS, unavailable)
 extension Scene {
 
     /// Removes all commands defined by the modified scene.

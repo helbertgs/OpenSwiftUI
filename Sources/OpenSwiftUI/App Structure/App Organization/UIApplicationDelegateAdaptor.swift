@@ -110,10 +110,6 @@ import UIKit
 /// object, OpenSwiftUI automatically puts it in the ``Environment``, from where
 /// you can access it with the ``EnvironmentObject`` property wrapper, and
 /// create bindings to its published properties.
-@available(iOS 14.0, tvOS 14.0, *)
-@available(macOS, unavailable)
-@available(watchOS, unavailable)
-@available(Windows, unavailable)
 @propertyWrapper public struct UIApplicationDelegateAdaptor<DelegateType> where DelegateType : NSObject, DelegateType : UIApplicationDelegate {
 
     // MARK: - Property(ies).
@@ -166,10 +162,6 @@ import UIKit
     }
 }
 
-@available(iOS 14.0, tvOS 14.0, *)
-@available(macOS, unavailable)
-@available(watchOS, unavailable)
-@available(Windows, unavailable)
 extension UIApplicationDelegateAdaptor where DelegateType : ObservableObject {
 
     /// A projection of the observed object that provides bindings to its

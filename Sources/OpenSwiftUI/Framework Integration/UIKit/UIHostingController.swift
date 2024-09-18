@@ -11,9 +11,6 @@ import UIKit
 /// property. Use the hosting controller like you would any other view
 /// controller, by presenting it or embedding it as a child view controller
 /// in your interface.
-@available(iOS 13.0, tvOS 13.0, *)
-@available(macOS, unavailable)
-@available(watchOS, unavailable)
 open class UIHostingController<Content> : UIViewController where Content : View {
 
     // MARK: - Property(ies).
@@ -32,9 +29,6 @@ open class UIHostingController<Content> : UIViewController where Content : View 
     /// of its SwiftUI content.
     ///
     /// The default value is the empty set.
-    @available(iOS 16.0, tvOS 16.0, *)
-    @available(macOS, unavailable)
-    @available(watchOS, unavailable)
     public var sizingOptions: UIHostingControllerSizingOptions {
         .preferredContentSize
     }

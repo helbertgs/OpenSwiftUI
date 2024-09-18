@@ -1,8 +1,5 @@
 import Swift
 
-@available(iOS, unavailable)
-@available(tvOS, unavailable)
-@available(watchOS, unavailable)
 public struct NewDocumentAction : Equatable, Hashable {
 
     /// Presents a new document window, using the provided closure to specify

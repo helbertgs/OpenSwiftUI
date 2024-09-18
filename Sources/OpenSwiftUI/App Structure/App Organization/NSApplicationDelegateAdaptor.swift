@@ -99,11 +99,6 @@ import AppKit
     }
 }
 
-@available(macOS 11.0, *)
-@available(iOS, unavailable)
-@available(tvOS, unavailable)
-@available(watchOS, unavailable)
-@available(Windows, unavailable)
 extension NSApplicationDelegateAdaptor where DelegateType : ObservableObject {
 
     /// A projection of the observed object that provides bindings to its

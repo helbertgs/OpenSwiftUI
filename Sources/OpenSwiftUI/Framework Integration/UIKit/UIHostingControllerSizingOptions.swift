@@ -1,9 +1,6 @@
 #if os(iOS) || canImport(UIKit)
 
 /// Options for how a hosting controller tracks its content's size.
-@available(iOS 16.0, tvOS 16.0, *)
-@available(macOS, unavailable)
-@available(watchOS, unavailable)
 public struct UIHostingControllerSizingOptions : OptionSet {
 
     // MARK: - Type Alias.

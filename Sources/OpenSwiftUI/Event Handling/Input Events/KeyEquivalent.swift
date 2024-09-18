@@ -18,8 +18,6 @@ import Swift
 /// equivalent to Command-Shift-] on ANSI keyboards, but would produce a
 /// different shortcut for keyboard layouts where punctuation characters are in
 /// different locations.
-@available(iOS 13.0, macOS 10.15, tvOS 17.0, *)
-@available(watchOS, unavailable)
 public struct KeyEquivalent : Sendable {
     
     // MARK: - Property(ies).
@@ -80,8 +78,6 @@ public struct KeyEquivalent : Sendable {
     }
 }
 
-@available(iOS 13.0, macOS 10.15, tvOS 17.0, *)
-@available(watchOS, unavailable)
 extension KeyEquivalent : Hashable {
 
     /// Hashes the essential components of this value by feeding them into the
@@ -116,8 +112,6 @@ extension KeyEquivalent : Hashable {
     }
 }
 
-@available(iOS 13.0, macOS 10.15, tvOS 17.0, *)
-@available(watchOS, unavailable)
 extension KeyEquivalent : ExpressibleByExtendedGraphemeClusterLiteral {
 
     // MARK: - Type Alias.

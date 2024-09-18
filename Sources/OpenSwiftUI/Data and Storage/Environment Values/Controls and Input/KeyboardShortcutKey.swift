@@ -6,9 +6,6 @@ public struct KeyboardShortcutKey : EnvironmentKey {
     }
 }
 
-@available(iOS 15.0, macOS 12.0, *)
-@available(tvOS, unavailable)
-@available(watchOS, unavailable)
 extension EnvironmentValues {
 
     /// The keyboard shortcut that buttons in this environment will be triggered
