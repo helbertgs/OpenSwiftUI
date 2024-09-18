@@ -25,7 +25,7 @@
             "preLaunchTask": "swift: Build Release WindowsSample"
         },
         {
-            "type": "lldb",
+            "type": "swift-lldb",
             "request": "launch",
             "sourceLanguages": [
                 "swift"
@@ -33,11 +33,11 @@
             "args": [],
             "cwd": "${workspaceFolder:OpenSwiftUI}",
             "name": "Debug Sample",
-            "program": "${workspaceFolder:OpenSwiftUI}\\.build\\debug\\Sample.exe",
+            "program": "${workspaceFolder:OpenSwiftUI}/.build/debug/Sample",
             "preLaunchTask": "swift: Build Debug Sample"
         },
         {
-            "type": "lldb",
+            "type": "swift-lldb",
             "request": "launch",
             "sourceLanguages": [
                 "swift"
@@ -45,7 +45,7 @@
             "args": [],
             "cwd": "${workspaceFolder:OpenSwiftUI}",
             "name": "Release Sample",
-            "program": "${workspaceFolder:OpenSwiftUI}\\.build\\release\\Sample.exe",
+            "program": "${workspaceFolder:OpenSwiftUI}/.build/release/Sample",
             "preLaunchTask": "swift: Build Release Sample"
         }
     ]

@@ -32,7 +32,7 @@ import Foundation
 /// ``AnyLayout``, use ``VStackLayout`` instead.
 @frozen public struct VStack<Content> : View where Content : View {
 
-    public let layout: VStackLayout
+    public let layout: _VStackLayout
     public let content: Content
 
     /// The type of view representing the body of this view.
@@ -70,28 +70,15 @@ import Foundation
 /// ``Layout`` protocol so you can use it in the conditional layouts that you
 /// construct with ``AnyLayout``. If you don't need a conditional layout, use
 /// ``VStack`` instead.
-@frozen public struct VStackLayout {
-
-    public func makeCache(subviews: Subviews) -> [String : Any] {
-        fatalError()
-    }
-    
-    public func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout [String : Any]) -> Size {
-        fatalError()
-    }
-    
-    public func placeSubviews(in bounds: Rect, proposal: ProposedViewSize, subviews: Subviews, cache: inout [String : Any]) {
-        fatalError()
-    }
-    
+@frozen public struct _VStackLayout: Equatable, Hashable, Sendable {
 
     /// The horizontal alignment of subviews.
-    public var alignment: HorizontalAlignment
+    public let alignment: HorizontalAlignment
 
     /// The distance between adjacent subviews.
     ///
     /// Set this value to `nil` to use default distances between subviews.
-    public var spacing: Float?
+    public let spacing: Float?
 
     /// Creates a vertical stack with the specified spacing and horizontal
     /// alignment.
@@ -105,21 +92,4 @@ import Foundation
         self.alignment = alignment
         self.spacing = spacing
     }
-
-    /// The type defining the data to animate.
-    public typealias AnimatableData = EmptyAnimatableData
-
-    public var animatableData = EmptyAnimatableData()
-
-    /// Cached values associated with the layout instance.
-    ///
-    /// If you create a cache for your custom layout, you can use
-    /// a type alias to define this type as your data storage type.
-    /// Alternatively, you can refer to the data storage type directly in all
-    /// the places where you work with the cache.
-    ///
-    /// See ``makeCache(subviews:)-23agy`` for more information.
-    public typealias Cache = [String: Any]
 }
-
-extension VStackLayout : Sendable { }
