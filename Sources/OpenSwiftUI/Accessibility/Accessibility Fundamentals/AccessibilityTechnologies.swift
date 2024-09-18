@@ -1,7 +1,7 @@
 import Swift
 
 /// Accessibility technologies available to the system.
-public struct AccessibilityTechnologies : SetAlgebra {
+public struct AccessibilityTechnologies : SetAlgebra, Equatable, Hashable, Sendable {
 
     // MARK: - Type Alias.
 
@@ -19,11 +19,11 @@ public struct AccessibilityTechnologies : SetAlgebra {
 
     /// The value that represents the VoiceOver screen reader, allowing use
     /// of the system without seeing the screen visually.
-    public static var voiceOver: AccessibilityTechnologies = .init(technologySet: .voiceOver)
+    public static let voiceOver: AccessibilityTechnologies = .init(technologySet: .voiceOver)
 
     /// The value that represents a switch control, allowing the use of the
     /// entire system using controller buttons, a breath-controlled switch or similar hardware.
-    public static var switchControl: AccessibilityTechnologies = .init(technologySet: .switchControl)
+    public static let switchControl: AccessibilityTechnologies = .init(technologySet: .switchControl)
 
     // MARK: - Constructor(s).
 

@@ -122,24 +122,8 @@ import Swift
     }
 }
 
-#if canImport(UIKit) || os(iOS)
-
-import UIKit
-
 extension WindowGroup {
     public static func _makeScene(scene: _GraphValue<WindowGroup<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
-        let rootViewController = UIHostingController(rootView: scene.value.content)
-        rootViewController.title = scene.value.title
-
-        let window = UIWindow(windowScene: inputs.windowScene)
-        window.makeKeyAndVisible()
-        window.rootViewController = rootViewController
-
-        var outputs = _SceneOutputs()
-        outputs.window = window
-
-        return outputs
+        .init()
     }
 }
-
-#endif

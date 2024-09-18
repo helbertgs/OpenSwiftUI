@@ -1,9 +1,5 @@
-#if os(iOS) || os(macOS)
-import Combine
-#else
 import OpenCombine
-#endif
-import Swift
+import Foundation
 
 /// A property wrapper type for an observable object supplied by a parent or
 /// ancestor view.
@@ -13,7 +9,7 @@ import Swift
 /// to set a corresponding model object on an ancestor view by calling its
 /// ``View/environmentObject(_:)`` modifier.
 @frozen
-@propertyWrapper public struct EnvironmentObject<ObjectType> : DynamicProperty where ObjectType : ObservableObject {
+@propertyWrapper public struct EnvironmentObject<ObjectType> : DynamicProperty where ObjectType : OpenCombine.ObservableObject {
 
     // MARK: - Property(ies).
 

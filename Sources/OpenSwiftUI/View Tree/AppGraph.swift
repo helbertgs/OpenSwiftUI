@@ -27,18 +27,6 @@ class AppGraph {
     // MARK: - Constructor(s).
     
     public init() {
-        #if os(macOS)
-        if let app = AppKitApplication.app {
-            _rootSceneList.append(app.body)
-        }
-        #endif
-
-        #if os(Windows)
-        if let app = WindowsApplication.app {
-            _rootSceneList.append(app.body)
-        }
-        #endif
-
         loadPropertyFile()
     }
     

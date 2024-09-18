@@ -5,7 +5,7 @@ import Swift
 /// The color scheme enumerates the user setting options for Light or Dark Mode.
 /// It also provides the light or dark options for any particular view when the
 /// app wants to override the user setting.
-@frozen public enum ColorScheme: CaseIterable, Equatable, Hashable {
+@frozen public enum ColorScheme: CaseIterable, Equatable, Hashable, Sendable {
 
     // MARK: - Case(s).
 
@@ -23,7 +23,7 @@ import Swift
     // MARK: - Static Property(ies).
 
     /// A collection of all values of this type.
-    public static var allCases: [ColorScheme] = [ .dark, .light ]
+    public static let allCases: [ColorScheme] = [ .dark, .light ]
 
     // MARK: - Hashable
 

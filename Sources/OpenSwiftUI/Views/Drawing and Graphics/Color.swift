@@ -1,4 +1,4 @@
-import Swift
+import Foundation
 
 /// A representation of a color that adapts to a given context.
 ///
@@ -60,15 +60,7 @@ import Swift
 /// system defined colors, or those that you load from an Asset Catalog.
 /// For example, a color can have distinct light and dark variants
 /// that the system chooses from at render time.
-public struct Color: CustomStringConvertible, Equatable, Hashable {
-
-    // MARK: - Type Alias.
-
-    /// The type of view representing the body of this view.
-    ///
-    /// When you create a custom view, Swift infers this type from your
-    /// implementation of the required ``View/body-swift.property`` property.
-    public typealias Body = Never
+public struct Color: Copyable, CustomStringConvertible, Equatable, Hashable, Sendable {
 
     // MARK: - Private Property(ies).
 
@@ -91,7 +83,7 @@ public struct Color: CustomStringConvertible, Equatable, Hashable {
     ///     Text("Accent Color")
     ///         .foregroundStyle(Color.accentColor)
     ///
-    public static var accentColor: Color = .init(red: 0, green: 0, blue: 0)
+    public static let accentColor: Color = .init(red: 0, green: 0, blue: 0)
 
     /// A context-dependent red color suitable for use in UI elements.
     public static let red: Color = .init(red: 1, green: 0, blue: 0)
@@ -358,7 +350,7 @@ extension Color {
 }
 
 extension Color {
-    class AnyColorBox : Equatable, Hashable {
+    class AnyColorBox : Equatable, Hashable, @unchecked Sendable {
 
         // MARK: - Hashable.
         /// Hashes the essential components of the color by feeding them into the
@@ -385,8 +377,8 @@ extension Color {
 }
 
 extension Color {
-    class ColorBox<T> where T : AnyColorBox {
-        var base: T
+    class ColorBox<T>: @unchecked Sendable where T : AnyColorBox {
+        let base: T
         init(_ base: T) { self.base = base }
     }
 }
@@ -398,7 +390,7 @@ extension Color {
     /// This color space uses the Digital Cinema Initiatives - Protocol 3
     /// (DCI-P3) primary colors, a D65 white point, and the ``sRGB``
     /// transfer function.
-    class DisplayP3: AnyColorBox {
+    class DisplayP3: AnyColorBox, @unchecked Sendable {
 
         // MARK: - Public Property(ies).
         /// The amount of red in the color.
@@ -437,7 +429,7 @@ extension Color {
     /// components of a color to a range of `0` to `1`, but OpenSwiftUI colors
     /// use an extended sRGB color space, so you can use component values
     /// outside that range.
-    class Resolved: AnyColorBox, CustomStringConvertible {
+    class Resolved: AnyColorBox, CustomStringConvertible, @unchecked Sendable {
 
         // MARK: - Public Property(ies).
 
@@ -471,5 +463,24 @@ extension Color {
         var description: String {
             "#FFFFFFFF"
         }
+    }
+}
+
+extension Color: View {
+
+    // MARK: - Type Alias.
+
+    /// The type of view representing the body of this view.
+    ///
+    /// When you create a custom view, Swift infers this type from your
+    /// implementation of the required ``View/body-swift.property`` property.
+    public typealias Body = Never
+
+    public var body: Never {
+        fatalError()
+    }
+
+    public static func _makeView(view: _GraphValue<Color>, inputs: _ViewInputs) -> _ViewOutputs {
+        .init()
     }
 }

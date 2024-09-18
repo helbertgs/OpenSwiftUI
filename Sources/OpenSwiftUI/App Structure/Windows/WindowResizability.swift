@@ -30,7 +30,7 @@ import Swift
 /// ``WindowResizability/automatic``. With that strategy, ``Settings``
 /// windows use the ``WindowResizability/contentSize`` strategy, while
 /// all others use ``WindowResizability/contentMinSize``.
-@frozen public struct WindowResizability {
+@frozen public struct WindowResizability: Copyable, Equatable, Hashable, Sendable {
     
     // MARK: - Property(ies).
     
@@ -76,7 +76,7 @@ import Swift
     
     // MARK: - Enum
 
-    public enum Role {
+    public enum Role: Equatable, Hashable, Sendable {
         case automatic
         case contentMinSize
         case contentSize

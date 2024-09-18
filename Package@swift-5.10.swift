@@ -15,8 +15,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/OpenCombine/OpenCombine.git", branch: "master"),
-        .package(url: "https://github.com/helbertgs/OpenGLAD", branch: "main"),
-        .package(url: "https://github.com/helbertgs/OpenGLFW", branch: "main"),
+        .package(url: "https://github.com/helbertgs/OpenGLAD.git", branch: "main"),
+        .package(url: "https://github.com/helbertgs/OpenGLFW.git", branch: "main")
     ],
     targets: [
         .target(

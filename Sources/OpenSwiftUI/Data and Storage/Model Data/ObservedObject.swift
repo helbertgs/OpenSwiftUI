@@ -1,14 +1,9 @@
-#if os(iOS) || os(macOS)
-import Combine
-#else
 import OpenCombine
-#endif
 import Foundation
-import Swift
 
 /// A property wrapper type that subscribes to an observable object and
 /// invalidates a view whenever the observable object changes.
-@propertyWrapper @frozen public struct ObservedObject<ObjectType> where ObjectType : ObservableObject {
+@propertyWrapper @frozen public struct ObservedObject<ObjectType> where ObjectType : OpenCombine.ObservableObject {
 
     // MARK: - Public Property(ies).
 

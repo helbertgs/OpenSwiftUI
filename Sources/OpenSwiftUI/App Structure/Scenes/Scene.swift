@@ -1,9 +1,5 @@
 import Foundation
-#if canImport(Combine)
-import Combine
-#else
 import OpenCombine
-#endif
 
 /// A part of an app's user interface with a life cycle managed by the
 /// system.
@@ -286,7 +282,7 @@ extension Scene {
     ///
     /// - Parameter object: the object to store and make available to
     ///   the scene's subhierarchy.
-    @inlinable public func environmentObject<T>(_ object: T) -> some Scene where T : ObservableObject {
+    @inlinable public func environmentObject<T>(_ object: T) -> some Scene where T : OpenCombine.ObservableObject {
         modifier(EmptyModifier())
     }
     
