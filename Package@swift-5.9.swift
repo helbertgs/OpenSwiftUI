@@ -5,10 +5,6 @@ import PackageDescription
 
 let package = Package(
     name: "OpenSwiftUI",
-    platforms: [
-        .iOS(.v13),
-        .macOS(.v10_15)
-    ],
     products: [
         .library(
             name: "OpenSwiftUI",
@@ -19,37 +15,24 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/OpenCombine/OpenCombine.git", branch: "master"),
-        .package(url: "https://github.com/apple/swift-markdown.git", branch: "main"),
+        .package(url: "https://github.com/helbertgs/OpenGLAD", branch: "main"),
+        .package(url: "https://github.com/helbertgs/OpenGLFW", branch: "main"),
     ],
     targets: [
         .target(
             name: "OpenSwiftUI",
             dependencies: [
                 .product(name: "OpenCombine", package: "OpenCombine"),
-                .product(name: "Markdown", package: "swift-markdown")
+                .product(name: "OpenGLAD", package: "OpenGLAD"),
+                .product(name: "OpenGLFW", package: "OpenGLFW")
             ]
         ),
         .executableTarget(
             name: "Sample",
             dependencies: ["OpenSwiftUI"],
             swiftSettings: [
-                .unsafeFlags([ "-parse-as-library" ], .when(platforms: [.windows]))]
+                .unsafeFlags([ "-parse-as-library" ])
+            ]
         )
     ]
 )
-
-#if os(Windows)
-    package
-        .dependencies += [
-            .package(url: "https://github.com/helbertgs/swift-win32.git", branch: "main"),
-            .package(url: "https://github.com/pvieito/PythonKit.git", branch: "master"),
-        ]
-
-    package
-        .targets
-        .first { $0.name == "OpenSwiftUI" }?
-        .dependencies += [
-            .product(name: "SwiftWin32", package: "swift-win32"),
-            .product(name: "PythonKit", package: "PythonKit"),
-        ]
-#endif
