@@ -610,7 +610,9 @@ extension Layout {
     /// default values. The properties instance contains information about the
     /// layout container, like a ``LayoutProperties/stackOrientation``
     /// property that indicates the container's major axis.
-    public static var layoutProperties: LayoutProperties { get }
+    public static var layoutProperties: LayoutProperties {
+        fatalError()
+    }
 
     /// Reinitializes a cache to a new value.
     ///

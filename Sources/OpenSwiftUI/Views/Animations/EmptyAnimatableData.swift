@@ -1,10 +1,33 @@
+import Foundation
+
 /// An empty type for animatable data.
 ///
 /// This type is suitable for use as the `animatableData` property of
 /// types that do not have any animatable properties.
-@frozen public struct EmptyAnimatableData {
+@frozen public struct EmptyAnimatableData : Animatable, VectorArithmetic, AdditiveArithmetic {
+    public func scaled(by rhs: Double) -> EmptyAnimatableData {
+        .init()
+    }
+
+    public mutating func interpolate(towards other: EmptyAnimatableData, amount: Double) {
+    }
+
+    public func interpolated(towards other: EmptyAnimatableData, amount: Double) -> EmptyAnimatableData {
+        .init()
+    }
+
+    public static prefix func + (x: EmptyAnimatableData) -> EmptyAnimatableData {
+        .init()
+    }
+
+
+    public typealias AnimatableData = Float
+
+    public var animatableData: Float = 0
+
 
     @inlinable public init() {
+        
     }
 
     /// The zero value.
@@ -87,7 +110,7 @@
     /// The dot-product of this animatable data instance with itself.
     @inlinable public var magnitudeSquared: Double { 
         0
-     }
+    }
 
     /// Returns a Boolean value indicating whether two values are equal.
     ///
@@ -103,3 +126,26 @@
 }
 
 extension EmptyAnimatableData : Sendable { }
+
+
+extension Float : VectorArithmetic {
+    public var magnitudeSquared: Double {
+        1
+    }
+    
+    public mutating func scale(by rhs: Double) {
+        self = self * Float(rhs)
+    }
+    
+    public func scaled(by rhs: Double) -> Float {
+        self * Float(rhs)
+    }
+    
+    public mutating func interpolate(towards other: Float, amount: Double) {
+        fatalError()
+    }
+    
+    public func interpolated(towards other: Float, amount: Double) -> Float {
+        fatalError()
+    }
+}

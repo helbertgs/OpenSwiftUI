@@ -1,4 +1,4 @@
-import Swift
+import Foundation
 
 /// The contrast between the app's foreground and background colors.
 ///
@@ -21,8 +21,7 @@ import Swift
 /// Your app can't override the user's choice. For
 /// information about using color and contrast in your app, see
 /// [Color and Contrast](https://developer.apple.com/design/human-interface-guidelines/accessibility/overview/color-and-contrast).
-@MainActor
-@frozen public enum ColorSchemeContrast : CaseIterable, Equatable, Hashable {
+@frozen public enum ColorSchemeContrast : CaseIterable, Equatable, Hashable, Sendable {
 
     // MARK: - Case(s).
 
@@ -42,7 +41,7 @@ import Swift
     // MARK: - Static Property(ies).
 
     /// A collection of all values of this type.
-    public static var allCases: [ColorSchemeContrast] = [ .standard, .increased ]
+    public static let allCases: [ColorSchemeContrast] = [ .standard, .increased ]
 
     // MARK: - Hashable
 

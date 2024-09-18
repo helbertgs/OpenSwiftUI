@@ -1,4 +1,4 @@
-import Swift
+import Foundation
 
 /// A type that represents the structure and behavior of an app.
 ///
@@ -60,7 +60,7 @@ import Swift
 ///             }
 ///         }
 ///     }
-@MainActor
+@MainActor @preconcurrency
 public protocol App {
 
     // MARK: - Associated Type(s).
@@ -92,8 +92,7 @@ public protocol App {
     ///
     /// Swift infers the app's ``OpenSwiftUI/App/Body-swift.associatedtype``
     /// associated type based on the scene provided by the `body` property.
-//    @MainActor 
-    @SceneBuilder 
+    @SceneBuilder @MainActor @preconcurrency
     var body: Self.Body { get }
 
     // MARK: - Constructor(s).
@@ -104,6 +103,7 @@ public protocol App {
     /// Swift synthesizes a default initializer for structures that don't
     /// provide one. You typically rely on the default initializer for
     /// your app.
+    @MainActor @preconcurrency
     init()
 
     // MARK: - Static Function(s).
@@ -116,23 +116,14 @@ public protocol App {
     /// the app. OpenSwiftUI provides a
     /// default implementation of the method that manages the launch process in
     /// a platform-appropriate way.
+    @MainActor @preconcurrency
     static func main()
 }
 
 extension App {
-    #if os(macOS) || canImport(AppKit)
+    @MainActor @preconcurrency
     public static func main() {
-        AppKitApplication.app = Self()
-        AppKitApplication.shared.run()
+        // TODO: Create UIApplication and UIApplicationDelegate
+        print("\(Self.self).\(#function)")
     }
-    #elseif os(Windows) && canImport(SwiftWin32)
-    public static func main() {
-        WindowsApplication.app = Self()
-        WindowsApplication.shared.run()
-    }
-    #else
-    public static func main() {
-        UIKitApplication.shared.appDelegate.graph._rootSceneList.append(Self().body)
-    }        
-    #endif
 }

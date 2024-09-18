@@ -18,6 +18,7 @@
 /// see ``LayoutValueKey``.
 public struct LayoutSubview : Equatable {
 
+
     /// Gets the value for the subview that's associated with the specified key.
     ///
     /// If you define a custom layout value using ``LayoutValueKey``,
@@ -32,8 +33,8 @@ public struct LayoutSubview : Equatable {
     ///     }
     ///
     /// For more information about creating a custom layout, see ``Layout``.
-    public subscript<K>(key: K.Type) -> K.Value where K : LayoutValueKey { 
-        fatalError()    
+    public subscript<K>(key: K.Type) -> K.Value where K : LayoutValueKey {
+        fatalError()
     }
 
     /// The layout priority of the subview.
@@ -71,9 +72,7 @@ public struct LayoutSubview : Equatable {
     ///             .layoutPriority(1)
     ///     }
     ///
-    public var priority: Double { 
-        0 
-    }
+    public var priority: Double
 
     /// Asks the subview for its size.
     ///
@@ -139,9 +138,7 @@ public struct LayoutSubview : Equatable {
     /// You can also merge this instance with instances from other subviews
     /// to construct a new instance that's suitable for the subviews' container.
     /// See ``Layout/spacing(subviews:cache:)-86z2e``.
-    public var spacing: ViewSpacing { 
-        .init()
-     }
+    public var spacing: ViewSpacing
 
     /// Assigns a position and proposed size to the subview.
     ///
@@ -180,6 +177,10 @@ public struct LayoutSubview : Equatable {
     public func place(at position: Point, anchor: UnitPoint = .topLeading, proposal: ProposedViewSize) {
         fatalError()
     }
+
+    public static func == (lhs: LayoutSubview, rhs: LayoutSubview) -> Bool {
+        lhs.priority == rhs.priority && lhs.spacing == rhs.spacing
+    }
 }
 
 /// A collection of proxy values that represent the subviews of a layout view.
@@ -202,7 +203,7 @@ public struct LayoutSubview : Equatable {
 ///         // ...
 ///     }
 ///
-public struct LayoutSubviews : Equatable, RandomAccessCollection, Sendable {
+public struct LayoutSubviews : Equatable, RandomAccessCollection {
 
     /// A type that contains a subsequence of proxy values.
     public typealias SubSequence = LayoutSubviews
@@ -240,10 +241,14 @@ public struct LayoutSubviews : Equatable, RandomAccessCollection, Sendable {
     var elements: [Element] = []
 
     /// The index of the first subview.
-    public var startIndex: Int { 0 }
+    public var startIndex: Int {
+        elements.startIndex
+    }
 
     /// An index that's one higher than the last subview.
-    public var endIndex: Int { 0 }
+    public var endIndex: Int {
+        elements.endIndex
+    }
 
     /// Gets the subview proxy at a specified index.
     public subscript(index: Int) -> LayoutSubviews.Element { 
@@ -252,7 +257,7 @@ public struct LayoutSubviews : Equatable, RandomAccessCollection, Sendable {
 
     /// Gets the subview proxies in the specified range.
     public subscript(bounds: Range<Int>) -> LayoutSubviews { 
-        elements[bounds]
+        fatalError()
      }
 
     /// Gets the subview proxies with the specified indicies.

@@ -1,16 +1,16 @@
 import Foundation
 
-@frozen public struct AccessibilityTechnologySet : OptionSet, CaseIterable, Equatable, Hashable {
+@frozen public struct AccessibilityTechnologySet : OptionSet, CaseIterable, Equatable, Hashable, Sendable {
 
     // MARK: - Static Property(ies).
 
-    public static var voiceOver : AccessibilityTechnologySet = .init(rawValue: 1 << 0)
-    public static var switchControl : AccessibilityTechnologySet = .init(rawValue: 1 << 1)
+    public static let voiceOver : AccessibilityTechnologySet = .init(rawValue: 1 << 0)
+    public static let switchControl : AccessibilityTechnologySet = .init(rawValue: 1 << 1)
 
     // MARK: - Public Property(ies).
 
     public var rawValue: Int
-    public static var allCases: [AccessibilityTechnologySet] = [.voiceOver, .switchControl]
+    public static let allCases: [AccessibilityTechnologySet] = [.voiceOver, .switchControl]
 
     // MARK: - Constructor(s).
 

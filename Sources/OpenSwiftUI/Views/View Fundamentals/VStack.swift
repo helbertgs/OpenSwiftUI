@@ -72,6 +72,19 @@ import Foundation
 /// ``VStack`` instead.
 @frozen public struct VStackLayout {
 
+    public func makeCache(subviews: Subviews) -> [String : Any] {
+        fatalError()
+    }
+    
+    public func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout [String : Any]) -> Size {
+        fatalError()
+    }
+    
+    public func placeSubviews(in bounds: Rect, proposal: ProposedViewSize, subviews: Subviews, cache: inout [String : Any]) {
+        fatalError()
+    }
+    
+
     /// The horizontal alignment of subviews.
     public var alignment: HorizontalAlignment
 
@@ -95,6 +108,8 @@ import Foundation
 
     /// The type defining the data to animate.
     public typealias AnimatableData = EmptyAnimatableData
+
+    public var animatableData = EmptyAnimatableData()
 
     /// Cached values associated with the layout instance.
     ///

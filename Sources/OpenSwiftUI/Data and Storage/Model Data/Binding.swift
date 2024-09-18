@@ -1,4 +1,4 @@
-import Swift
+import Foundation
 
 /// A property wrapper type that can read and write a value owned by a source of
 /// truth.
@@ -197,18 +197,18 @@ import Swift
     }
 }
 
-extension Binding : Identifiable where Value : Identifiable {
+// extension Binding : Identifiable where Value : Identifiable {
 
-    /// A type representing the stable identity of the entity associated with
-    /// an instance.
-    public typealias ID = Value.ID
+//     // /// A type representing the stable identity of the entity associated with
+//     // /// an instance.
+//     // public typealias ID = Value.ID
 
-    /// The stable identity of the entity associated with this instance,
-    /// corresponding to the `id` of the binding's wrapped value.
-    public var id: Value.ID {
-        wrappedValue.id
-    }
-}
+//     /// The stable identity of the entity associated with this instance,
+//     /// corresponding to the `id` of the binding's wrapped value.
+//     public var id: Value.ID {
+//         wrappedValue.id
+//     }
+// }
 
 extension Binding {
 
