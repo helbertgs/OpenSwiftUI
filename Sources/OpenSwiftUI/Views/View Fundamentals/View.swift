@@ -160,7 +160,7 @@ extension View {
         modifier(_EnvironmentKeyWritingModifier(keyPath: keyPath, value: value))
     }
 
-//    @inlinable public func environmentObject<T>(_ object: T) -> some View where T : ObservableObject {
+//    @inlinable public func environmentObject<T>(_ object: T) -> some View where T : OpenCombine.ObservableObject {
 //        environment(T.environmentStore, object)
 //    }
 }

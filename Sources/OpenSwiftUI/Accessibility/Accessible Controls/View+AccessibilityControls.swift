@@ -4,25 +4,62 @@ extension View {
 
     // MARK: - Adding actions to views
 
-    /// Adds an accessibility action to the view. Actions allow assistive technologies, such as the VoiceOver, to interact with the view by invoking the action.
+    /// Adds an accessibility action to the view. Actions allow assistive technologies,
+    /// such as the VoiceOver, to interact with the view by invoking the action.
+    ///
+    /// For example, this is how a `.default` action to compose
+    /// a new email could be added to a view.
+    ///
+    ///     var body: some View {
+    ///         ContentView()
+    ///             .accessibilityAction {
+    ///                 // Handle action
+    ///             }
+    ///     }
+    ///
     nonisolated public func accessibilityAction(_ actionKind: AccessibilityActionKind = .default,_ handler: @escaping () -> Void) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
         modifier(AccessibilityAttachmentModifier())
+    }
+
+    /// Adds an accessibility action to the view. Actions allow assistive technologies,
+    /// such as the VoiceOver, to interact with the view by invoking the action.
+    ///
+    /// For example, this is how a custom action to compose
+    /// a new email could be added to a view.
+    ///
+    ///     var body: some View {
+    ///         ContentView()
+    ///             .accessibilityAction(named: Text("New Message")) {
+    ///                 // Handle action
+    ///             }
+    ///     }
+    ///
+    nonisolated public func accessibilityAction(named name: Text, _ handler: @escaping () -> Void) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
+        modifier(AccessibilityAttachmentModifier())
+    }
+
+    /// Adds an accessibility action to the view. Actions allow assistive technologies,
+    /// such as the VoiceOver, to interact with the view by invoking the action.
+    ///
+    /// For example, this is how a custom action to compose
+    /// a new email could be added to a view.
+    ///
+    ///     var body: some View {
+    ///         ContentView()
+    ///             .accessibilityAction {
+    ///                 // Handle action
+    ///             } label: {
+    ///                 Label("New Message", systemImage: "plus")
+    ///             }
+    ///     }
+    ///
+    nonisolated public func accessibilityAction<Label>(action: @escaping () -> Void, @ViewBuilder label: () -> Label) -> some View where Label : View {
+        modifier(EmptyModifier())
     }
 
     /// Adds multiple accessibility actions to the view.
     /// - Returns: The modified view.
     nonisolated public func accessibilityActions<Content>(@ViewBuilder _ content: () -> Content) -> some View where Content : View {
-        modifier(EmptyModifier())
-    }
-
-    /// Adds an accessibility action to the view. Actions allow assistive technologies, such as the VoiceOver, to interact with the view by invoking the action.
-    nonisolated public func accessibilityAction(named name: Text, _ handler: @escaping () -> Void) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
-    }
-
-    /// Adds an accessibility action to the view. Actions allow assistive technologies, such as the VoiceOver, to interact with the view by invoking the action.
-    /// - Returns: The modified view.
-    nonisolated public func accessibilityAction<Label>(action: @escaping () -> Void, @ViewBuilder label: () -> Label) -> some View where Label : View {
         modifier(EmptyModifier())
     }
 
