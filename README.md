@@ -4,8 +4,9 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0cdb7c84c14a4e709e938a65ff87e2e4)](https://www.codacy.com/gh/helbertgs/OpenSwiftUI/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=helbertgs/OpenSwiftUI&amp;utm_campaign=Badge_Grade)
 ![Swift Version](https://badgen.net/badge/Swift/6.0/orange)
 ![Swift Package Manager Version](https://badgen.net/badge/Swift%20Package%20Manager/6.0/orange)
-![Windows](https://badgen.net/badge/Windows/10+/blue)
+![Windows](https://badgen.net/badge/Windows/Latest/blue)
 ![Linux](https://badgen.net/badge/Ubuntu/Latest/orange)
+![OpenGL](https://badgen.net/badge/OpenGL/3.3+/blue)
 
 
 Declare the user interface and behavior for your app on every platform. Open-source framework based on Apple's SwiftUI.
