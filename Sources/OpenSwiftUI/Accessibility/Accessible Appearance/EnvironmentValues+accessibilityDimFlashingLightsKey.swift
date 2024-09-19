@@ -1,7 +1,7 @@
 import Swift
 
-@frozen public struct AccessibilityDimFlashingLightsKey : EnvironmentKey {
-    public static var defaultValue: Bool {
+struct AccessibilityDimFlashingLightsKey : EnvironmentKey {
+    static var defaultValue: Bool {
         false
     }
 }
@@ -12,5 +12,6 @@ extension EnvironmentValues {
     /// The default value is `false`.
     public var AccessibilityDimFlashingLightsKey: Bool {
         get { self[AccessibilityEnabledKey.self] }
+        set { self[AccessibilityEnabledKey.self] = newValue }
     }
 }

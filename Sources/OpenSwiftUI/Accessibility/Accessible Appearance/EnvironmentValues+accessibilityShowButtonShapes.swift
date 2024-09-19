@@ -1,7 +1,7 @@
-import Swift
+import Foundation
 
-@frozen public struct AccessibilityShowButtonShapesKey : EnvironmentKey {
-    public static var defaultValue: Bool {
+struct AccessibilityShowButtonShapesKey : EnvironmentKey {
+    static var defaultValue: Bool {
         false
     }
 }
@@ -9,9 +9,8 @@ import Swift
 extension EnvironmentValues {
     /// Whether the system preference for Show Button Shapes is enabled.
     /// If this property’s value is true, interactive custom controls such as buttons should be drawn in such a way that their edges and borders are clearly visible.
-    /// 
-    /// The default value is `false`.
-    public var accessibilityShowButtonShapes: Bool {
+    var accessibilityShowButtonShapes : Bool {
         get { self[AccessibilityShowButtonShapesKey.self] }
+        set { self[AccessibilityShowButtonShapesKey.self] = newValue }
     }
 }
