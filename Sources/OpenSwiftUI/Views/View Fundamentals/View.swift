@@ -1,9 +1,5 @@
-#if os(iOS) || os(macOS)
-import Combine
-#else
+import Foundation
 import OpenCombine
-#endif
-import Swift
 
 /// A type that represents part of your app's user interface and provides
 /// modifiers that you use to configure views.

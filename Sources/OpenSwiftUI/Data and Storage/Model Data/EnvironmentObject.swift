@@ -9,7 +9,7 @@ import Foundation
 /// to set a corresponding model object on an ancestor view by calling its
 /// ``View/environmentObject(_:)`` modifier.
 @frozen
-@propertyWrapper public struct EnvironmentObject<ObjectType> : DynamicProperty where ObjectType : OpenCombine.ObservableObject {
+@propertyWrapper public struct EnvironmentObject<ObjectType> : DynamicProperty where ObjectType : ObservableObject {
 
     // MARK: - Property(ies).
 

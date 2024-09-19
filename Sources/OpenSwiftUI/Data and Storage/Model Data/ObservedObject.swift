@@ -3,7 +3,7 @@ import Foundation
 
 /// A property wrapper type that subscribes to an observable object and
 /// invalidates a view whenever the observable object changes.
-@propertyWrapper @frozen public struct ObservedObject<ObjectType> where ObjectType : OpenCombine.ObservableObject {
+@propertyWrapper @frozen public struct ObservedObject<ObjectType> where ObjectType : ObservableObject {
 
     // MARK: - Public Property(ies).
 

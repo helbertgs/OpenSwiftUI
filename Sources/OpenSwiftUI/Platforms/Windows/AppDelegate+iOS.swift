@@ -1,24 +1,24 @@
-#if os(iOS) && canImport(UIKit)
-import UIKit
+// #if os(iOS) && canImport(UIKit)
+// import UIKit
 
-class AppDelegate : NSObject, UIApplicationDelegate {
+// class AppDelegate : NSObject, UIApplicationDelegate {
     
-    // MARK: - Property(ies).
+//     // MARK: - Property(ies).
     
-    var graph = AppGraph()
+//     var graph = AppGraph()
     
-    // MARK: - Constructor(s).
+//     // MARK: - Constructor(s).
     
-    override init() {
-        super.init()
+//     override init() {
+//         super.init()
         
-    }
+//     }
     
-    // MARK: - Function(s).
+//     // MARK: - Function(s).
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        return true
-    }
-}
+//     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+//         return true
+//     }
+// }
 
-#endif
+// #endif

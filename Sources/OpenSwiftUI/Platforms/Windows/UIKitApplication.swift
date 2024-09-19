@@ -1,29 +1,29 @@
-#if os(iOS) || canImport(UIKit)
+// #if os(iOS) || canImport(UIKit)
 
-import UIKit
+// import UIKit
 
-class UIKitApplication {
+// class UIKitApplication {
     
-    // MARK: - Property(ies).
+//     // MARK: - Property(ies).
     
-    var appDelegate: AppDelegate!
+//     var appDelegate: AppDelegate!
     
-    // MARK: - Static Property(ies).
+//     // MARK: - Static Property(ies).
     
-    static let shared = UIKitApplication()
+//     static let shared = UIKitApplication()
 
-    // MARK: - Constructor(s).
+//     // MARK: - Constructor(s).
     
-    init(appDelegate: AppDelegate = AppDelegate()) {
-        self.appDelegate = appDelegate
+//     init(appDelegate: AppDelegate = AppDelegate()) {
+//         self.appDelegate = appDelegate
         
-        UIApplicationMain(CommandLine.argc, CommandLine.unsafeArgv, nil, NSStringFromClass(OpenSwiftUI.AppDelegate.self))
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
+//         UIApplicationMain(CommandLine.argc, CommandLine.unsafeArgv, nil, NSStringFromClass(OpenSwiftUI.AppDelegate.self))
+//         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+//             return
+//         }
         
-        self.appDelegate = appDelegate
-    }
-}
+//         self.appDelegate = appDelegate
+//     }
+// }
 
-#endif
+// #endif
