@@ -6,17 +6,56 @@ extension View {
 
     /// Adds a label to the view that describes its contents.
     nonisolated public func accessibilityLabel(_ label: Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: [
+                            ObjectIdentifier(AccessibilityLabelStorage.self): 
+                            AccessibilityPropertiesEntry<AccessibilityLabelStorage>(typedValue: 
+                                .init(texts: label, placement: .assign)
+                            )
+                        ]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Adds a label to the view that describes its contents.
     nonisolated public func accessibilityLabel(_ labelKey: LocalizedStringKey) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: [
+                            ObjectIdentifier(AccessibilityLabelStorage.self): 
+                            AccessibilityPropertiesEntry<AccessibilityLabelStorage>(typedValue: 
+                                .init(texts: Text(labelKey), placement: .assign)
+                            )
+                        ]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Adds a label to the view that describes its contents.
     nonisolated public func accessibilityLabel<S>(_ label: S) -> ModifiedContent<Self, AccessibilityAttachmentModifier> where S : StringProtocol {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: [
+                            ObjectIdentifier(AccessibilityLabelStorage.self): 
+                            AccessibilityPropertiesEntry<AccessibilityLabelStorage>(typedValue: 
+                                .init(texts: Text(LocalizedStringKey("\(label)")), placement: .assign)
+                            )
+                        ]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Adds a label to the view that describes its contents.
@@ -24,7 +63,20 @@ extension View {
     ///   - label: The accessibility label to apply.
     ///   - isEnabled: If true the accessibility label is applied; otherwise the accessibility label is unchanged.
     nonisolated public func accessibilityLabel(_ label: Text, isEnabled: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: isEnabled ? [
+                            ObjectIdentifier(AccessibilityLabelStorage.self): 
+                            AccessibilityPropertiesEntry<AccessibilityLabelStorage>(typedValue: 
+                                .init(texts: label, placement: .assign)
+                            )
+                        ] : [:]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Adds a label to the view that describes its contents.
@@ -32,7 +84,20 @@ extension View {
     ///   - label: The accessibility label to apply.
     ///   - isEnabled: If true the accessibility label is applied; otherwise the accessibility label is unchanged.
     nonisolated public func accessibilityLabel(_ labelKey: LocalizedStringKey, isEnabled: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: isEnabled ? [
+                            ObjectIdentifier(AccessibilityLabelStorage.self): 
+                            AccessibilityPropertiesEntry<AccessibilityLabelStorage>(typedValue: 
+                                .init(texts: Text(labelKey), placement: .assign)
+                            )
+                        ] : [:]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Adds a label to the view that describes its contents.
@@ -40,7 +105,20 @@ extension View {
     ///   - label: The accessibility label to apply.
     ///   - isEnabled: If true the accessibility label is applied; otherwise the accessibility label is unchanged.
     nonisolated public func accessibilityLabel<S>(_ label: S, isEnabled: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier> where S : StringProtocol {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: isEnabled ? [
+                            ObjectIdentifier(AccessibilityLabelStorage.self): 
+                            AccessibilityPropertiesEntry<AccessibilityLabelStorage>(typedValue: 
+                                .init(texts: Text(LocalizedStringKey("\(label)")), placement: .assign)
+                            )
+                        ] : [:]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Adds a label to the view that describes its contents.
@@ -52,17 +130,58 @@ extension View {
 
     /// Sets alternate input labels with which users identify a view.
     nonisolated public func accessibilityInputLabels(_ inputLabelKeys: [LocalizedStringKey]) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: [
+                            ObjectIdentifier(Array<Text>.self): 
+                            AccessibilityPropertiesEntry<Array<Text>>(typedValue: 
+                                inputLabelKeys.compactMap { Text($0) }
+                            )
+                        ]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Sets alternate input labels with which users identify a view.
     nonisolated public func accessibilityInputLabels(_ inputLabels: [Text]) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: [
+                            ObjectIdentifier(Array<Text>.self): 
+                            AccessibilityPropertiesEntry<Array<Text>>(typedValue: 
+                                inputLabels
+                            )
+                        ]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Sets alternate input labels with which users identify a view.
     nonisolated public func accessibilityInputLabels<S>(_ inputLabels: [S]) -> ModifiedContent<Self, AccessibilityAttachmentModifier> where S : StringProtocol {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: [
+                            ObjectIdentifier(Array<Text>.self): 
+                            AccessibilityPropertiesEntry<Array<Text>>(typedValue: 
+                                inputLabels
+                                    .compactMap { LocalizedStringKey("\($0.description)") }
+                                    .compactMap { Text($0) }
+                            )
+                        ]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Sets alternate input labels with which users identify a view.
@@ -71,7 +190,20 @@ extension View {
     ///   - inputLabels: The accessibility input labels to apply.
     ///   - isEnabled: If true the accessibility input labels are applied; otherwise the accessibility input labels are unchanged.
     nonisolated public func accessibilityInputLabels(_ inputLabelKeys: [LocalizedStringKey], isEnabled: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: isEnabled ? [
+                            ObjectIdentifier(Array<Text>.self): 
+                            AccessibilityPropertiesEntry<Array<Text>>(typedValue: 
+                                inputLabelKeys.compactMap { Text($0) }
+                            )
+                        ] : [:]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Sets alternate input labels with which users identify a view.
@@ -80,7 +212,18 @@ extension View {
     ///   - inputLabels: The accessibility input labels to apply.
     ///   - isEnabled: If true the accessibility input labels are applied; otherwise the accessibility input labels are unchanged.
     nonisolated public func accessibilityInputLabels(_ inputLabels: [Text], isEnabled: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: isEnabled ? [
+                            ObjectIdentifier(Array<Text>.self): 
+                            AccessibilityPropertiesEntry<Array<Text>>(typedValue: inputLabels)
+                        ] : [:]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Sets alternate input labels with which users identify a view.
@@ -89,7 +232,22 @@ extension View {
     ///   - inputLabels: The accessibility input labels to apply.
     ///   - isEnabled: If true the accessibility input labels are applied; otherwise the accessibility input labels are unchanged.
     nonisolated public func accessibilityInputLabels<S>(_ inputLabels: [S], isEnabled: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier> where S : StringProtocol {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: isEnabled ? [
+                            ObjectIdentifier(Array<Text>.self): 
+                            AccessibilityPropertiesEntry<Array<Text>>(typedValue: 
+                                inputLabels
+                                    .compactMap { LocalizedStringKey("\($0.description)") }
+                                    .compactMap { Text($0) }
+                            )
+                        ] : [:]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Pairs an accessibility element representing a label with the element for the matching content.
@@ -99,7 +257,7 @@ extension View {
     ///   - namespace: The namespace used to organize label and content. Label and content under the same namespace with matching identifiers will be paired together.
     /// - Returns: The modified view.
     nonisolated public func accessibilityLabeledPair<ID>(role: AccessibilityLabeledPairRole, id: ID, in namespace: Namespace.ID) -> some View where ID : Hashable {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     // MARK: - Describing values
@@ -107,19 +265,58 @@ extension View {
     /// Adds a textual description of the value that the view contains.
     /// Use this method to describe the value represented by a view, but only if that’s different than the view’s label. For example, for a slider that you label as “Volume” using accessibilityLabel(), you can provide the current volume setting, like “60%”, using accessibilityValue().
     nonisolated public func accessibilityValue(_ valueDescription: Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: [
+                            ObjectIdentifier(Array<Text>.self): 
+                            AccessibilityPropertiesEntry<AccessibilityValueStorage>(typedValue: 
+                                .init(value: nil, description: [valueDescription])
+                            )
+                        ]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
     
     /// Adds a textual description of the value that the view contains.
     ///  Use this method to describe the value represented by a view, but only if that’s different than the view’s label. For example, for a slider that you label as “Volume” using accessibilityLabel(), you can provide the current volume setting, like “60%”, using accessibilityValue().
     nonisolated public func accessibilityValue(_ valueKey: LocalizedStringKey) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: [
+                            ObjectIdentifier(Array<Text>.self): 
+                            AccessibilityPropertiesEntry<AccessibilityValueStorage>(typedValue: 
+                                .init(value: nil, description: [Text(valueKey)])
+                            )
+                        ]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
     
     /// Adds a textual description of the value that the view contains.
     ///  Use this method to describe the value represented by a view, but only if that’s different than the view’s label. For example, for a slider that you label as “Volume” using accessibilityLabel(), you can provide the current volume setting, like “60%”, using accessibilityValue().
     nonisolated public func accessibilityValue<S>(_ value: S) -> ModifiedContent<Self, AccessibilityAttachmentModifier> where S : StringProtocol {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: [
+                            ObjectIdentifier(Array<Text>.self): 
+                            AccessibilityPropertiesEntry<AccessibilityValueStorage>(typedValue: 
+                                .init(value: nil, description: [Text(LocalizedStringKey("\(value)"))])
+                            )
+                        ]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Adds a textual description of the value that the view contains.
@@ -127,7 +324,20 @@ extension View {
     ///   - valueDescription: The accessibility value to apply.
     ///   - isEnabled: If true the accessibility value is applied; otherwise the accessibility value is unchanged.
     nonisolated public func accessibilityValue(_ valueDescription: Text, isEnabled: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: isEnabled ? [
+                            ObjectIdentifier(Array<Text>.self): 
+                            AccessibilityPropertiesEntry<AccessibilityValueStorage>(typedValue: 
+                                .init(value: nil, description: [valueDescription])
+                            )
+                        ] : [:]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Adds a textual description of the value that the view contains.
@@ -135,7 +345,20 @@ extension View {
     ///   - valueDescription: The accessibility value to apply.
     ///   - isEnabled: If true the accessibility value is applied; otherwise the accessibility value is unchanged.
     nonisolated public func accessibilityValue(_ valueKey: LocalizedStringKey, isEnabled: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: isEnabled ? [
+                            ObjectIdentifier(Array<Text>.self): 
+                            AccessibilityPropertiesEntry<AccessibilityValueStorage>(typedValue: 
+                                .init(value: nil, description: [Text(valueKey)])
+                            )
+                        ] : [:]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Adds a textual description of the value that the view contains.
@@ -143,7 +366,20 @@ extension View {
     ///   - valueDescription: The accessibility value to apply.
     ///   - isEnabled: If true the accessibility value is applied; otherwise the accessibility value is unchanged.
     nonisolated public func accessibilityValue<S>(_ value: S, isEnabled: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier> where S : StringProtocol {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: isEnabled ? [
+                            ObjectIdentifier(Array<Text>.self): 
+                            AccessibilityPropertiesEntry<AccessibilityValueStorage>(typedValue: 
+                                .init(value: nil, description: [Text(LocalizedStringKey("\(value)"))])
+                            )
+                        ] : [:]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     // MARK: - Describing content
@@ -154,7 +390,7 @@ extension View {
     /// The default content type plain.
     /// - Parameter value: The accessibility content type from the available AccessibilityTextContentType options.
     nonisolated public func accessibilityTextContentType(_ value: AccessibilityTextContentType = .plain) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        fatalError()
     }
 
     /// Sets the accessibility level of this heading.
@@ -163,7 +399,7 @@ extension View {
     /// The default heading level if you don’t use this modifier is AccessibilityHeadingLevel.unspecified.
     /// - Parameter level: The heading level to associate with this element from the available AccessibilityHeadingLevel levels.
     nonisolated public func accessibilityHeading(_ level: AccessibilityHeadingLevel = .unspecified) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        fatalError()
     }
     
     // MARK: - Adding custom descriptions
@@ -173,7 +409,7 @@ extension View {
     ///   - key: Key used to specify the identifier and label of the of the additional accessibility information entry.
     ///   - value: Text value for the additional accessibility information. For example: “landscape.” A value of nil will remove any entry of additional information added earlier for any key with the same identifier.
     nonisolated public func accessibilityCustomContent(_ key: AccessibilityCustomContentKey, _ value: Text?, importance: AXCustomContent.Importance = .default) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        fatalError()
     }
 
     /// Add additional accessibility information to the view.
@@ -181,7 +417,7 @@ extension View {
     ///   - key: Key used to specify the identifier and label of the of the additional accessibility information entry.
     ///   - value: Text value for the additional accessibility information. For example: “landscape.” A value of nil will remove any entry of additional information added earlier for any key with the same identifier.
     nonisolated public func accessibilityCustomContent(_ key: AccessibilityCustomContentKey, _ valueKey: LocalizedStringKey, importance: AXCustomContent.Importance = .default) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        fatalError()
     }
 
     /// Add additional accessibility information to the view.
@@ -189,7 +425,7 @@ extension View {
     ///   - key: Key used to specify the identifier and label of the of the additional accessibility information entry.
     ///   - value: Text value for the additional accessibility information. For example: “landscape.” A value of nil will remove any entry of additional information added earlier for any key with the same identifier.
     nonisolated public func accessibilityCustomContent(_ label: Text, _ value: Text, importance: AXCustomContent.Importance = .default) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        fatalError()
     }
 
     /// Add additional accessibility information to the view.
@@ -197,7 +433,7 @@ extension View {
     ///   - key: Key used to specify the identifier and label of the of the additional accessibility information entry.
     ///   - value: Text value for the additional accessibility information. For example: “landscape.” A value of nil will remove any entry of additional information added earlier for any key with the same identifier.
     nonisolated public func accessibilityCustomContent(_ labelKey: LocalizedStringKey, _ value: Text, importance: AXCustomContent.Importance = .default) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        fatalError()
     }
 
     /// Add additional accessibility information to the view.
@@ -205,7 +441,7 @@ extension View {
     ///   - key: Key used to specify the identifier and label of the of the additional accessibility information entry.
     ///   - value: Text value for the additional accessibility information. For example: “landscape.” A value of nil will remove any entry of additional information added earlier for any key with the same identifier.
     nonisolated public func accessibilityCustomContent(_ labelKey: LocalizedStringKey, _ valueKey: LocalizedStringKey, importance: AXCustomContent.Importance = .default) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        fatalError()
     }
 
     /// Add additional accessibility information to the view.
@@ -213,7 +449,7 @@ extension View {
     ///   - key: Key used to specify the identifier and label of the of the additional accessibility information entry.
     ///   - value: Text value for the additional accessibility information. For example: “landscape.” A value of nil will remove any entry of additional information added earlier for any key with the same identifier.
     nonisolated public func accessibilityCustomContent<V>(_ key: AccessibilityCustomContentKey, _ value: V, importance: AXCustomContent.Importance = .default) -> ModifiedContent<Self, AccessibilityAttachmentModifier> where V : StringProtocol {
-        modifier(AccessibilityAttachmentModifier())
+        fatalError()
     }
 
     /// Add additional accessibility information to the view.
@@ -221,19 +457,19 @@ extension View {
     ///   - key: Key used to specify the identifier and label of the of the additional accessibility information entry.
     ///   - value: Text value for the additional accessibility information. For example: “landscape.” A value of nil will remove any entry of additional information added earlier for any key with the same identifier.
     nonisolated public func accessibilityCustomContent<V>(_ labelKey: LocalizedStringKey, _ value: V, importance: AXCustomContent.Importance = .default) -> ModifiedContent<Self, AccessibilityAttachmentModifier> where V : StringProtocol {
-        modifier(AccessibilityAttachmentModifier())
+        fatalError()
     }
 
     // MARK: - Assigning traits to content
 
     /// Adds the given traits to the view.
     nonisolated public func accessibilityAddTraits(_ traits: AccessibilityTraits) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        fatalError()
     }
 
     /// Removes the given traits from this view.
     nonisolated public func accessibilityRemoveTraits(_ traits: AccessibilityTraits) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        fatalError()
     }
 
     // MARK: - Offering hints
@@ -241,19 +477,52 @@ extension View {
     /// Communicates to the user what happens after performing the view’s action.
     /// Provide a hint in the form of a brief phrase, like “Purchases the item” or “Downloads the attachment”.
     nonisolated public func accessibilityHint(_ hint: Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: [
+                            ObjectIdentifier(Text.self): 
+                            AccessibilityPropertiesEntry<Text>(typedValue: hint)
+                        ]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Communicates to the user what happens after performing the view’s action.
     /// Provide a hint in the form of a brief phrase, like “Purchases the item” or “Downloads the attachment”.
     nonisolated public func accessibilityHint(_ hintKey: LocalizedStringKey) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: [
+                            ObjectIdentifier(Text.self): 
+                            AccessibilityPropertiesEntry<Text>(typedValue: Text())
+                        ]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Communicates to the user what happens after performing the view’s action.
     /// Provide a hint in the form of a brief phrase, like “Purchases the item” or “Downloads the attachment”.
     nonisolated public func accessibilityHint<S>(_ hint: S) -> ModifiedContent<Self, AccessibilityAttachmentModifier> where S : StringProtocol {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: [
+                            ObjectIdentifier(Text.self): 
+                            AccessibilityPropertiesEntry<Text>(typedValue: Text())
+                        ]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Communicates to the user what happens after performing the view’s action.
@@ -262,7 +531,18 @@ extension View {
     ///   - hint: The accessibility hint to apply.
     ///   - isEnabled: If true the accessibility hint is applied; otherwise the accessibility hint is unchanged.
     nonisolated public func accessibilityHint(_ hint: Text, isEnabled: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: isEnabled ? [
+                            ObjectIdentifier(Text.self): 
+                            AccessibilityPropertiesEntry<Text>(typedValue: Text())
+                        ] : [:]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Communicates to the user what happens after performing the view’s action.
@@ -271,7 +551,18 @@ extension View {
     ///   - hint: The accessibility hint to apply.
     ///   - isEnabled: If true the accessibility hint is applied; otherwise the accessibility hint is unchanged.
     nonisolated public func accessibilityHint(_ hintKey: LocalizedStringKey, isEnabled: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: isEnabled ? [
+                            ObjectIdentifier(Text.self): 
+                            AccessibilityPropertiesEntry<Text>(typedValue: Text())
+                        ] : [:]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     /// Communicates to the user what happens after performing the view’s action.
@@ -280,7 +571,18 @@ extension View {
     ///   - hint: The accessibility hint to apply.
     ///   - isEnabled: If true the accessibility hint is applied; otherwise the accessibility hint is unchanged.
     nonisolated public func accessibilityHint<S>(_ hint: S, isEnabled: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier> where S : StringProtocol {
-        modifier(AccessibilityAttachmentModifier())
+       modifier(AccessibilityAttachmentModifier(
+            storage: .init(value: .init(
+                properties: .init(
+                    storage: isEnabled ? [
+                            ObjectIdentifier(Text.self): 
+                            AccessibilityPropertiesEntry<Text>(typedValue: Text())
+                        ] : [:]
+                ),
+                platformElement: nil
+            )),
+            behavior: nil
+        ))
     }
 
     // MARK: - Configuring VoiceOver
@@ -291,14 +593,14 @@ extension View {
     /// - Parameter value: The amount to raise or lower the pitch. Values between -1 and 0 result in a lower pitch while values between 0 and 1 result in a higher pitch. The method clamps values to the range -1 to 1.
     /// - Returns: The modified view.
     nonisolated public func speechAdjustedPitch(_ value: Double) -> some View {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Sets whether VoiceOver should always speak all punctuation in the text view.
     /// - Parameter value: A Boolean value that you set to true if VoiceOver should speak all punctuation in the text. Defaults to true.
     /// - Returns: The modified view.
     nonisolated public func speechAlwaysIncludesPunctuation(_ value: Bool = true) -> some View {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Controls whether to queue pending announcements behind existing speech rather than interrupting speech in progress.
@@ -306,7 +608,7 @@ extension View {
     /// - Parameter value: A Boolean value that determines if VoiceOver speaks changes to text immediately or enqueues them behind existing speech. Defaults to true.
     /// - Returns: The modified view.
     nonisolated public func speechAnnouncementsQueued(_ value: Bool = true) -> some View {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Sets whether VoiceOver should speak the contents of the text view character by character.
@@ -316,6 +618,6 @@ extension View {
     /// - Parameter value: A Boolean value that when true indicates VoiceOver should speak text as individual characters. Defaults to true.
     /// - Returns: The modified view.
     nonisolated public func speechSpellsOutCharacters(_ value: Bool = true) -> some View {
-        modifier(EmptyModifier())
+        fatalError()
     }
 }

@@ -31,7 +31,7 @@ public struct AccessibilityActionKind : Equatable, Sendable {
 
     // MARK: - Creating an action type
 
-    public init(named name: String) {
+    public init(named name: Text) {
         self = .init(kind: .custom(name))
     }
 
@@ -47,7 +47,7 @@ extension AccessibilityActionKind {
         case delete
         case magicTap
         case showMenu
-        case custom(String)
+        case custom(Text)
 
         static func == (_ lhs: ActionKind, _ rhs: ActionKind) -> Bool {
             return switch (lhs, rhs) {

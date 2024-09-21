@@ -9,7 +9,7 @@ extension View {
     /// - Parameter active: A true value ignores the system Smart Invert setting. A false value follows the system setting.
     /// - Returns: The modified view.
     nonisolated public func accessibilityIgnoresInvertColors(_ active: Bool = true) -> some View {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     // MARK: - Enlarging content
@@ -17,12 +17,12 @@ extension View {
     /// Adds a default large content view to be shown by the large content viewer.
     /// - Returns: The modified view.
     nonisolated public func accessibilityShowsLargeContentViewer() -> some View {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Adds a custom large content view to be shown by the large content viewer. 
     /// - Returns: The modified view.
     nonisolated public func accessibilityShowsLargeContentViewer<V>(@ViewBuilder _ largeContentView: () -> V) -> some View where V : View {
-        modifier(EmptyModifier())
+        fatalError()
     }
 }

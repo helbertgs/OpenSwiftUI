@@ -1,5 +1,6 @@
 import Foundation
 
+/// The role of an accessibility element in a label / content pair.
 @frozen public enum AccessibilityLabeledPairRole: BitwiseCopyable, Copyable, Equatable, Hashable, Sendable {
     
     // MARK: - Getting roles

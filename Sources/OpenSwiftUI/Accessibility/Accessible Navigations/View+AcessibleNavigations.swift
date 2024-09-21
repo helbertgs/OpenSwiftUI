@@ -10,7 +10,7 @@ extension View {
     ///   - entries: Content used to generate Rotor entries. This can include AccessibilityRotorEntry structs, as well as constructs such as if and ForEach.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<Content>(_ label: Text, @AccessibilityRotorContentBuilder entries: @escaping () -> Content) -> some View where Content : AccessibilityRotorContent {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Create an Accessibility Rotor with the specified user-visible label, and entries generated from the content closure.
@@ -19,7 +19,7 @@ extension View {
     ///   - entries: Content used to generate Rotor entries. This can include AccessibilityRotorEntry structs, as well as constructs such as if and ForEach.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<Content>(_ labelKey: LocalizedStringKey, @AccessibilityRotorContentBuilder entries: @escaping () -> Content) -> some View where Content : AccessibilityRotorContent {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Create an Accessibility Rotor with the specified user-visible label, and entries generated from the content closure.
@@ -28,7 +28,7 @@ extension View {
     ///   - entries: Content used to generate Rotor entries. This can include AccessibilityRotorEntry structs, as well as constructs such as if and ForEach.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<Content>(_ systemRotor: AccessibilitySystemRotor, @AccessibilityRotorContentBuilder entries: @escaping () -> Content) -> some View where Content : AccessibilityRotorContent {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Create an Accessibility Rotor with the specified user-visible label, and entries generated from the content closure.
@@ -37,7 +37,7 @@ extension View {
     ///   - entries: Content used to generate Rotor entries. This can include AccessibilityRotorEntry structs, as well as constructs such as if and ForEach.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<L, Content>(_ label: L, @AccessibilityRotorContentBuilder entries: @escaping () -> Content) -> some View where L : StringProtocol, Content : AccessibilityRotorContent {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Create an Accessibility Rotor with the specified user-visible label and entries.
@@ -48,7 +48,7 @@ extension View {
     ///   - entryLabel: Key path on the entry type that can be used to get a user-visible label for every Rotor entry. This is used on macOS when the user opens the list of entries for the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<EntryModel, ID>(_ rotorLabel: Text, entries: [EntryModel], entryID: KeyPath<EntryModel, ID>, entryLabel: KeyPath<EntryModel, String>) -> some View where ID : Hashable {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Create an Accessibility Rotor with the specified user-visible label and entries.
@@ -59,7 +59,7 @@ extension View {
     ///   - entryLabel: Key path on the entry type that can be used to get a user-visible label for every Rotor entry. This is used on macOS when the user opens the list of entries for the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<EntryModel, ID>(_ rotorLabelKey: LocalizedStringKey, entries: [EntryModel], entryID: KeyPath<EntryModel, ID>, entryLabel: KeyPath<EntryModel, String>) -> some View where ID : Hashable {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Create an Accessibility Rotor with the specified user-visible label and entries.
@@ -70,7 +70,7 @@ extension View {
     ///   - entryLabel: Key path on the entry type that can be used to get a user-visible label for every Rotor entry. This is used on macOS when the user opens the list of entries for the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<EntryModel, ID>(_ systemRotor: AccessibilitySystemRotor, entries: [EntryModel], entryID: KeyPath<EntryModel, ID>, entryLabel: KeyPath<EntryModel, String>) -> some View where ID : Hashable {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Create an Accessibility Rotor with the specified user-visible label and entries.
@@ -81,7 +81,7 @@ extension View {
     ///   - entryLabel: Key path on the entry type that can be used to get a user-visible label for every Rotor entry. This is used on macOS when the user opens the list of entries for the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<L, EntryModel, ID>(_ rotorLabel: L, entries: [EntryModel], entryID: KeyPath<EntryModel, ID>, entryLabel: KeyPath<EntryModel, String>) -> some View where L : StringProtocol, ID : Hashable {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Create an Accessibility Rotor with the specified user-visible label and entries.
@@ -91,7 +91,7 @@ extension View {
     ///   - entryLabel: Key path on the Identifiable type that can be used to get a user-visible label for every Rotor entry. This is used on macOS when the user opens the list of entries for the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<EntryModel>(_ rotorLabel: Text, entries: [EntryModel],entryLabel: KeyPath<EntryModel, String>) -> some View where EntryModel : Identifiable {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Create an Accessibility Rotor with the specified user-visible label and entries.
@@ -101,7 +101,7 @@ extension View {
     ///   - entryLabel: Key path on the Identifiable type that can be used to get a user-visible label for every Rotor entry. This is used on macOS when the user opens the list of entries for the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<EntryModel>(_ rotorLabelKey: LocalizedStringKey, entries: [EntryModel],entryLabel: KeyPath<EntryModel, String>) -> some View where EntryModel : Identifiable {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Create an Accessibility Rotor with the specified user-visible label and entries.
@@ -111,7 +111,7 @@ extension View {
     ///   - entryLabel: Key path on the Identifiable type that can be used to get a user-visible label for every Rotor entry. This is used on macOS when the user opens the list of entries for the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<EntryModel>(_ systemRotor: AccessibilitySystemRotor, entries: [EntryModel],entryLabel: KeyPath<EntryModel, String>) -> some View where EntryModel : Identifiable {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Create an Accessibility Rotor with the specified user-visible label and entries.
@@ -121,7 +121,7 @@ extension View {
     ///   - entryLabel: Key path on the Identifiable type that can be used to get a user-visible label for every Rotor entry. This is used on macOS when the user opens the list of entries for the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<L, EntryModel>(_ rotorLabel: L, entries: [EntryModel],entryLabel: KeyPath<EntryModel, String>) -> some View where L : StringProtocol, EntryModel : Identifiable {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Create an Accessibility Rotor with the specified user-visible label and entries for each of the specified ranges. 
@@ -131,7 +131,7 @@ extension View {
     ///   - textRanges: An array of ranges that will be used to generate the entries of the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor(_ label: Text, textRanges: [Range<String.Index>]) -> some View {
-        modifier(EmptyModifier())
+        fatalError()
 
     }
     /// Create an Accessibility Rotor with the specified user-visible label and entries for each of the specified ranges. 
@@ -141,7 +141,7 @@ extension View {
     ///   - textRanges: An array of ranges that will be used to generate the entries of the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor(_ labelKey: LocalizedStringKey, textRanges: [Range<String.Index>]) -> some View {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Create an Accessibility Rotor with the specified user-visible label and entries for each of the specified ranges. 
@@ -151,7 +151,7 @@ extension View {
     ///   - textRanges: An array of ranges that will be used to generate the entries of the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor(_ systemRotor: AccessibilitySystemRotor, textRanges: [Range<String.Index>]) -> some View {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Create an Accessibility Rotor with the specified user-visible label and entries for each of the specified ranges. 
@@ -161,7 +161,7 @@ extension View {
     ///   - textRanges: An array of ranges that will be used to generate the entries of the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<L>(_ label: L, textRanges: [Range<String.Index>]) -> some View where L : StringProtocol {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     // MARK: - Configuring rotors
@@ -172,7 +172,7 @@ extension View {
     ///   - namespace: A namespace created with @Namespace(). Pass this same namespace when initializing an AccessibilityRotorEntry.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotorEntry<ID>(id: ID, in namespace: Namespace.ID) -> some View where ID : Hashable {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Links multiple accessibility elements so that the user can quickly navigate from one element to another, even when the elements are not near each other in the accessibility hierarchy.
@@ -183,12 +183,12 @@ extension View {
     ///   - namespace: The namespace to use to organize linked accessibility elements. All elements marked with accessibilityLink in this namespace and with the specified id will be linked together.
     /// - Returns: The modified view.
     nonisolated public  func accessibilityLinkedGroup<ID>(id: ID, in namespace: Namespace.ID) -> some View where ID : Hashable {
-        modifier(EmptyModifier())
+        fatalError()
     }
 
     /// Sets the sort priority order for this view’s accessibility element, relative to other elements at the same level.
     /// Higher numbers are sorted first. The default sort priority is zero.
     nonisolated public func accessibilitySortPriority(_ sortPriority: Double) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
-        modifier(AccessibilityAttachmentModifier())
+        fatalError()
     }
 }
