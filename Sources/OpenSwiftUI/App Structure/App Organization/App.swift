@@ -123,7 +123,7 @@ public protocol App {
 extension App {
     @MainActor @preconcurrency
     public static func main() {
-        // TODO: Create UIApplication and UIApplicationDelegate
         print("\(Self.self).\(#function)")
+        OpenSwiftUIApplication.shared.run(Self())
     }
 }

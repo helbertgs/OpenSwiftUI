@@ -10,26 +10,24 @@ let package = Package(
             name: "OpenSwiftUI",
             targets: ["OpenSwiftUI"]),
         .executable(
-            name: "Sample",
-            targets: ["Sample"]),
+            name: "OpenSwiftUISample",
+            targets: ["OpenSwiftUISample"]),
     ],
     dependencies: [
         .package(url: "https://github.com/OpenCombine/OpenCombine.git", branch: "master"),
-        .package(url: "https://github.com/helbertgs/OpenGLAD.git", branch: "main"),
-        .package(url: "https://github.com/helbertgs/OpenGLFW.git", branch: "main"),
+        .package(url: "https://github.com/helbertgs/AppKit.git", branch: "main"),
         .package(url: "https://github.com/swiftlang/swift-docc-plugin", branch: "main")
     ],
     targets: [
         .target(
             name: "OpenSwiftUI",
             dependencies: [
-                .product(name: "OpenCombine", package: "OpenCombine"),
-                .product(name: "OpenGLAD", package: "OpenGLAD"),
-                .product(name: "OpenGLFW", package: "OpenGLFW")
+                .product(name: "AppKit", package: "AppKit"),
+                .product(name: "OpenCombine", package: "OpenCombine")
             ]
         ),
         .executableTarget(
-            name: "Sample",
+            name: "OpenSwiftUISample",
             dependencies: ["OpenSwiftUI"],
             swiftSettings: [
                 .unsafeFlags([ "-parse-as-library" ])
