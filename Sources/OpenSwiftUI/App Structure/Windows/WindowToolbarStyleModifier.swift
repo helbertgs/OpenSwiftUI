@@ -25,9 +25,11 @@ public struct WindowToolbarStyleModifier<Style> : _SceneModifier where Style : W
     // MARK: - Static Function(s).
 
     public static func _makeScene(modifier: _GraphValue<WindowToolbarStyleModifier<Style>>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
-        var output = _SceneOutputs()
-        output.windowToolbarStyle = modifier.value.style
-        
-        return output
+        var outputs = _SceneOutputs()
+        outputs.type = Self.self
+        outputs.modifiers = inputs.modifiers
+        outputs.modifiers.append(modifier.value)
+
+        return outputs
     }
 }

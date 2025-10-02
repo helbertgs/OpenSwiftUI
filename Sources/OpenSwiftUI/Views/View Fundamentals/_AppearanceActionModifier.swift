@@ -1,8 +1,8 @@
 import Swift
 
 @frozen
-public struct _AppearanceActionModifier : _SceneModifier {
-    
+public struct _AppearanceActionModifier : ViewModifier {
+
     // MARK: - Property(ies).
     
     public let appear: (() -> Void)?
@@ -18,21 +18,19 @@ public struct _AppearanceActionModifier : _SceneModifier {
     
     // MARK: - Function(s).
     
-    public func body(content: SceneContent) -> some Scene {
+    public func body(content: Content) -> some View {
         fatalError()
     }
-    
-    public static func _makeScene(modifier: _GraphValue<_AppearanceActionModifier>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
-        var output = _SceneOutputs()
-        
-        if let appear = modifier.value.appear {
-            output.onAppear = appear
-        }
-        
-        if let disappear = modifier.value.disappear {
-            output.onDisappear = disappear
-        }
-        
-        return output
+
+    public static func _makeView(modifier: _GraphValue<_AppearanceActionModifier>, inputs: _ViewInputs, body: @escaping (_Graph, _ViewInputs) -> _ViewOutputs) -> _ViewOutputs {
+        .init()
+    }
+
+    public static func _makeViewList(modifier: _GraphValue<_AppearanceActionModifier>, inputs: _ViewListInputs, body: @escaping (_Graph, _ViewListInputs) -> _ViewListOutputs) -> _ViewListOutputs {
+        fatalError()
+    }
+
+    public static func _viewListCount(inputs: _ViewListCountInputs, body: (_ViewListCountInputs) -> Int?) -> Int? {
+        fatalError()
     }
 }

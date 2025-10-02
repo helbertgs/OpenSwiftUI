@@ -21,10 +21,12 @@ public struct BackgroundTaskModifier<Request, Response> : _SceneModifier {
     }
     
     public static func _makeScene(modifier: _GraphValue<BackgroundTaskModifier<Request, Response>>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
-        .init(props: [
-            "backgroundTask": modifier.value.task,
-            "backgroundTaskStorage": modifier.value.storage
-        ])
+        var outputs = _SceneOutputs()
+        outputs.type = Self.self
+        outputs.modifiers = inputs.modifiers
+        outputs.modifiers.append(modifier.value)
+
+        return outputs
     }
 }
 

@@ -51,7 +51,7 @@ extension ModifiedContent : Equatable where Content : Equatable, Modifier : Equa
     }
 }
 
-extension ModifiedContent : View where Content : View {
+extension ModifiedContent : View where Content : View, Modifier : ViewModifier {
 
     /// The content and behavior of the view.
     ///
@@ -73,29 +73,12 @@ extension ModifiedContent : View where Content : View {
     }
 
     public static func _makeView(view: _GraphValue<ModifiedContent<Content, Modifier>>, inputs: _ViewInputs) -> _ViewOutputs {
-        Content._makeView(view: .init(view.value.content), inputs: inputs)
-    }
-}
+        let content = view.value.content
+        let modifier = view.value.modifier
 
-extension ModifiedContent where Content : View, Modifier : ViewModifier {
-
-    /// The content and behavior of the view.
-    ///
-    /// When you implement a custom view, you must implement a computed
-    /// `body` property to provide the content for your view. Return a view
-    /// that's composed of built-in views that OpenSwiftUI provides, plus other
-    /// composite views that you've already defined:
-    ///
-    ///     struct MyView: View {
-    ///         var body: some View {
-    ///             Text("Hello, World!")
-    ///         }
-    ///     }
-    ///
-    /// For more information about composing views and a view hierarchy,
-    /// see <doc:Declaring-a-Custom-View>.
-    public var body: ModifiedContent<Content, Modifier>.Body {
-        fatalError()
+        var outputs = Content._makeView(view: .init(content), inputs: inputs)
+        outputs.modifiers.append(modifier)
+        return outputs
     }
 }
 

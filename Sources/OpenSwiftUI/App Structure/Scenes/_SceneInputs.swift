@@ -1,37 +1,16 @@
 import Swift
 
-@dynamicMemberLookup
-@frozen public struct _SceneInputs {
+public struct _SceneInputs {
 
-    // MARK: - Property(ies).
+    /// The scene that this input represents.
+    var scene: (any Scene)? = nil
 
-    @usableFromInline var props: [String: Any]
+    /// The environment values for the scene.
+    var environmentValues: EnvironmentValues = .init()
 
-    // MARK: - Constructor(s).
+    /// The modifiers applied to the scene.
+    var modifiers: [any _SceneModifier] = []
 
-    @inlinable internal init(props: [String : Any] = [:]) {
-        self.props = props
-    }
-
-    // MARK: - Subscript(s).
-
-    @inlinable internal subscript<U>(dynamicMember member: String) -> U {
-        get { props[member] as! U }
-        set { props[member] = newValue }
-    }
-}
-
-extension _SceneInputs {
-    static func + (_ lhs: _SceneOutputs, _ rhs: _SceneInputs) -> _SceneInputs {
-        var output = _SceneInputs()
-        lhs.props.forEach { (key: String, value: Any) in
-            output.props[key] = value
-        }
-        
-        rhs.props.forEach { (key: String, value: Any) in
-            output.props[key] = value
-        }
-        
-        return output
-    }
+    /// The content of the scene, if any.
+    var content: (any View)? = nil
 }

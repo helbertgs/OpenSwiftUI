@@ -1,5 +1,6 @@
 import AppKit
 
+
 @MainActor
 class OpenSwiftUIApplication {
 
@@ -11,11 +12,15 @@ class OpenSwiftUIApplication {
         self.app = app
 
         let scene = T.Body._makeScene(scene: .init(app.body), inputs: .init())
-        dump(scene)
+        // dump(scene)
 
-//        let window = NSWindow(contentViewController: NSHostingController(rootView: EmptyView()))
-//        window.makeKeyAndOrderFront(nil)
-//
-//        NSApplication.shared.run()
+        guard let rootView = scene.content?.view else {
+            return
+        }
+
+        let window = NSWindow(contentViewController: NSHostingController(rootView: AnyView(rootView)))
+        window.makeKeyAndOrderFront(nil)
+
+        NSApplication.shared.run()
     }
 }

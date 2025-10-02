@@ -12,7 +12,16 @@ struct MyApp : App {
 
     var body: some Scene {
         WindowGroup("Sample") {
-            EmptyView()
+            VStack {
+                EmptyView()
+
+                EmptyView()
+                    .onAppear {
+                        print("Hello, World")
+                    }
+            }
         }
+        .defaultAppStorage(UserDefaults.standard)
+        .defaultSize(.init(width: 800, height: 600))
     }
 }

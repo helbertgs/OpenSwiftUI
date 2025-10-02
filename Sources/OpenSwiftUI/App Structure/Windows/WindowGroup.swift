@@ -1,4 +1,4 @@
-import Swift
+import Foundation
 
 /// A scene that presents a group of identically structured windows.
 ///
@@ -42,9 +42,9 @@ import Swift
 
     // MARK: - Internal Property(ies).
 
-    @usableFromInline var title: String = ""
-    @usableFromInline var content: Content
-    @usableFromInline var id: String?
+    public let id: String
+    public let title: String
+    public let content: Content
 
     // MARK: - Public Property(ies).
 
@@ -68,6 +68,8 @@ import Swift
     ///
     /// - Parameter content: A closure that creates the content for each
     @inlinable public init(@ViewBuilder content: () -> Content) {
+        self.id = UUID().uuidString
+        self.title = ""
         self.content = content()
     }
 
@@ -81,6 +83,7 @@ import Swift
     ///   - content: A clousure that creates the content for each instance of the group.
     @_disfavoredOverload
     @inlinable public init<S>(_ title: S, @ViewBuilder content: () -> Content) where S: StringProtocol {
+        self.id = UUID().uuidString
         self.title = String(title)
         self.content = content()
     }
@@ -98,6 +101,7 @@ import Swift
     @_disfavoredOverload
     @inlinable public init(id: String, @ViewBuilder content: () -> Content) {
         self.id = id
+        self.title = ""
         self.content = content()
     }
 
@@ -124,6 +128,12 @@ import Swift
 
 extension WindowGroup {
     public static func _makeScene(scene: _GraphValue<WindowGroup<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
-        .init()
+        var outputs = _SceneOutputs()
+        outputs.type = Self.self
+        outputs.scene = scene.value
+        outputs.environmentValues = inputs.environmentValues
+        outputs.content = type(of: scene.value.content)._makeView(view: .init(scene.value.content), inputs: .init())
+
+        return outputs
     }
 }

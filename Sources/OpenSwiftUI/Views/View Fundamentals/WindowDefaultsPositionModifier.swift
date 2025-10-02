@@ -21,9 +21,11 @@ public struct WindowDefaultsPositionModifier : _SceneModifier {
     // MARK: - Static Function(s).
     
     public static func _makeScene(modifier: _GraphValue<WindowDefaultsPositionModifier>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
-        var output = _SceneOutputs()
-        output.origin = modifier.value.position
-        
-        return output
+        var outputs = _SceneOutputs()
+        outputs.type = Self.self
+        outputs.modifiers = inputs.modifiers
+        outputs.modifiers.append(modifier.value)
+
+        return outputs
     }
 }

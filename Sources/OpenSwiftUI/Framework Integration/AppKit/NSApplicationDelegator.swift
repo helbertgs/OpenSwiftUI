@@ -37,13 +37,12 @@ public struct NSApplicationDelegateAdaptor<DelegateType> where DelegateType: NSO
     ///   <doc://com.apple.documentation/documentation/UIKit/UIApplicationDelegate>
     ///   protocol.
     public init(_ delegateType: DelegateType.Type = DelegateType.self) {
-        print("\(Self.self).\(#function)")
         self.wrappedValue = delegateType.init()
         NSApplication.shared.delegate = wrappedValue
     }
 }
 
-extension NSApplicationDelegateAdaptor where DelegateType : ObservableObject {
+extension NSApplicationDelegateAdaptor where DelegateType : OpenCombine.ObservableObject {
 
     /// A projection of the observed object that provides bindings to its
     /// properties.
@@ -112,7 +111,6 @@ extension NSApplicationDelegateAdaptor where DelegateType : ObservableObject {
     ///   <doc://com.apple.documentation/documentation/Combine/ObservableObject>
     ///   protocols.
     public init(_ delegateType: DelegateType.Type = DelegateType.self) {
-        print("\(Self.self).\(#function)")
         self.wrappedValue = delegateType.init()
         NSApplication.shared.delegate = wrappedValue
     }

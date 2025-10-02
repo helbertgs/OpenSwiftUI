@@ -70,7 +70,11 @@ public protocol View {
 
 extension View {
     public static func _makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs {
-        .init()
+        guard Self.Body.self != Never.self else {
+            fatalError("Unsupported view type \(Self.self)")
+        }
+
+        return Self.Body._makeView(view: _GraphValue(view.value.body), inputs: inputs)
     }
 }
 

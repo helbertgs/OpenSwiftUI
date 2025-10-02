@@ -23,12 +23,11 @@ public struct WindowDefaultsSizeModifier : _SceneModifier {
     // MARK: - Static Function(s).
     
     public static func _makeScene(modifier: _GraphValue<WindowDefaultsSizeModifier>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
-        var output = _SceneOutputs()
-        output.size = Size(
-                width: modifier.value.width,
-                height: modifier.value.height
-            )
-        
-        return output
+        var outputs = _SceneOutputs()
+        outputs.type = Self.self
+        outputs.modifiers = inputs.modifiers
+        outputs.modifiers.append(modifier.value)
+
+        return outputs
     }
 }

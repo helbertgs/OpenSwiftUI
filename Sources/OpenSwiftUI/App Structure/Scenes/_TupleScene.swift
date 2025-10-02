@@ -1,48 +1,46 @@
 import Swift
 
-@usableFromInline
-internal struct _TupleScene<T> : Scene {
+public struct _TupleScene<T> : Scene {
 
     // MARK: - Type Alias.
 
-    @usableFromInline
-    internal typealias Body = Never
+    public typealias Body = Never
 
     // MARK: - Property(ies).
 
-    @usableFromInline
-    internal var value: T
+    public var value: T
 
-    @usableFromInline
-    internal var body: Swift.Never {
+    public var body: Never {
         fatalError()
     }
 
     // MARK: - Constructor(s).
 
-    @usableFromInline
-    internal init(_ value: T) {
+    public init(_ value: T) {
         self.value = value
     }
 
     // MARK: - Static Function(s).
 
-    @usableFromInline
-    internal static func _makeScene(scene: _GraphValue<_TupleScene<T>>, inputs: _SceneInputs) -> _SceneOutputs {
-//        var outputs = _SceneOutputs()
-//        var scenes = [_SceneOutputs]()
-//
-//        for child in Mirror(reflecting: scene.value.value).children {
-//            let scene = child.value as! (any Scene)
-//            scenes.append(_makeScene(scene: scene, inputs: inputs))
-//        }
-//
-//        outputs.scenes = scenes
-//        return outputs
-        return .init()
-    }
+    public static func _makeScene(scene: _GraphValue<_TupleScene<T>>, inputs: _SceneInputs) -> _SceneOutputs {
+        let mirror = Mirror(reflecting: scene.value.value)
+        var outputs = _SceneOutputs()
+        outputs.type = Self.self
+        outputs.scene = scene.value
 
-//    internal static func _makeScene<T>(scene: T, inputs: _SceneInputs) -> _SceneOutputs where T: Scene {
-//        T._makeScene(scene: _GraphValue(scene), inputs: inputs)
-//    }
+        for child in mirror.children {
+            guard let childScene = child.value as? any Scene else {
+                continue
+            }
+
+            func build<V>(_ scene: V, inputs: _SceneInputs) -> _SceneOutputs where V : Scene {
+                V._makeScene(scene: _GraphValue(scene), inputs: inputs)
+            }
+
+            let output = build(childScene, inputs: inputs)
+            outputs.children.append(output)
+        }
+
+        return outputs
+    }
 }
