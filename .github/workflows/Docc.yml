@@ -1,0 +1,39 @@
+name: Deploy DocC Documentation
+
+on:
+  push:
+    branches:
+      - develop # Trigger the workflow on pushes to the main branch
+
+jobs:
+  build-and-deploy-docs:
+    runs-on: macos-latest # DocC requires macOS runner for the Swift toolchain/Xcode
+    permissions:
+      contents: write # Allows the action to push to the repository
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build documentation archive using SwiftPM plugin
+        # This command uses the swift-docc-plugin to generate the archive
+        run: |
+          xcrun swift package --allow-writing-to-directory .build \
+            generate-documentation --target OpenSwiftUI \
+            --output-path .build/documentation
+
+      - name: Transform for static hosting
+        # Convert the .doccarchive to a static website format
+        run: |
+          $(xcrun --find docc) process-archive \
+            transform-for-static-hosting .build/documentation/OpenSwiftUI.doccarchive \
+            --hosting-base-path OpenSwiftUI \
+            --output-path docs # Output to a 'docs' directory
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs # The directory to publish
+          # Optional: use a dedicated 'gh-pages' branch
+          # publish_branch: gh-pages
