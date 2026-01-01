@@ -10,6 +10,6 @@ jobs:
     name: Execute tests on Windows
     runs-on: windows-latest
     steps:
-      - uses: compnerd/gha-setup-swift@main
+      # - uses: compnerd/gha-setup-swift@main
       - uses: actions/checkout@v4
       - run: swift build
