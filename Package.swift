@@ -15,13 +15,15 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/OpenCombine/OpenCombine.git", branch: "master"),
+        .package(url: "https://github.com/helbertgs/OpenSpatial", branch: "main"),
         .package(url: "https://github.com/swiftlang/swift-docc-plugin", branch: "main")
     ],
     targets: [
         .target(
             name: "OpenSwiftUI",
             dependencies: [
-                .product(name: "OpenCombine", package: "OpenCombine")
+                .product(name: "OpenCombine", package: "OpenCombine"),
+                .product(name: "OpenSpatial", package: "OpenSpatial")
             ]
         ),
         .executableTarget(
