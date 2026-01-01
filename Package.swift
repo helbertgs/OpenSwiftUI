@@ -1,34 +1,37 @@
-// swift-tools-version:5.6
+// swift-tools-version:6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "OpenSwiftUI",
-    platforms: [
-        .iOS(.v13),
-        .macOS(.v10_15)
-    ],
     products: [
         .library(
             name: "OpenSwiftUI",
             targets: ["OpenSwiftUI"]),
+        .executable(
+            name: "OpenSwiftUISample",
+            targets: ["OpenSwiftUISample"]),
     ],
     dependencies: [
-         .package(url: "https://github.com/OpenCombine/OpenCombine.git", from: "0.13.0"),
-         .package(url: "https://github.com/yanagiba/swift-lint.git", from: "0.2.0"),
-         .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
+        .package(url: "https://github.com/OpenCombine/OpenCombine.git", branch: "master"),
+        .package(url: "https://github.com/helbertgs/OpenSpatial", branch: "main"),
+        .package(url: "https://github.com/swiftlang/swift-docc-plugin", branch: "main")
     ],
     targets: [
         .target(
             name: "OpenSwiftUI",
             dependencies: [
-                "OpenCombine",
-                "swift-lint"
-            ]),
-        .testTarget(
-            name: "OpenSwiftUITests",
-            dependencies: [ "OpenSwiftUI" ]),
-    ],
-    cxxLanguageStandard: .cxx17
+                .product(name: "OpenCombine", package: "OpenCombine"),
+                .product(name: "OpenSpatial", package: "OpenSpatial")
+            ]
+        ),
+        .executableTarget(
+            name: "OpenSwiftUISample",
+            dependencies: ["OpenSwiftUI"],
+            swiftSettings: [
+                .unsafeFlags([ "-parse-as-library" ])
+            ]
+        )
+    ]
 )

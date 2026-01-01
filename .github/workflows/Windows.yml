@@ -1,8 +1,9 @@
 name: Windows 
 
 on:
-  pull_request:
-    branches: [ main ]
+  push:
+    branches: 
+      - develop
 
 jobs:
   Test:
@@ -10,10 +11,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        swift_version: ["5.4.3"]
-    runs-on: windows-2019
+        swift_version: ["6.0"]
+    runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: MaxDesiatov/swift-windows-action@v1
+      - uses: compnerd/gha-setup-swift@main
         with:
-          swift-version: ${{ matrix.swift_version }}
+          branch: swift-6.0-release
+          tag: 6.0-RELEASE
+
+      - uses: actions/checkout@v4
+      - run: swift build
+
+

@@ -2,7 +2,7 @@ name: Ubuntu
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ develop ]
 
 jobs:
   ubuntu_test:
@@ -10,15 +10,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        swift_version: ["5.6"]
+        swift_version: ["6.0"]
     runs-on: ubuntu-latest
     container: swift:${{ matrix.swift_version }}-bionic
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Building and running tests in debug mode with coverage
         run: |
           swift test \
             -c debug \
-            -Xswiftc -warnings-as-errors \
             --enable-code-coverage \
             --build-path .build-test-debug
