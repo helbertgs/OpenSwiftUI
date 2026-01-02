@@ -1,18 +1,24 @@
 import OpenSpatial
 
 /// The outline of a 2D shape.
-public struct Path {
+public struct Path : Equatable, Sendable {
 
     // MARK: - Creating a path
 
     /// Creates an empty path.
     public init() {
+        storage = .empty
+        elements = []
     }
 
     /// Creates an empty path, then executes a closure to add its initial elements.
     /// 
     /// - Parameter callback: The Swift function that will be called to initialize the new path.
     public init(_ callback: (inout Path) -> ()) {
+        storage = .empty
+        elements = []
+
+        callback(&self)
     }
 
     /// Creates a path as an ellipse within the given rectangle.
@@ -29,6 +35,8 @@ public struct Path {
     /// If you supply an affine transform, then the constructed Bézier curves that define the ellipse are transformed before they are added to the path.
     /// - Parameter rect: The rectangle that bounds the ellipse.
     public init(ellipseIn rect: Rect3D) {
+        storage = .ellipse(rect)
+        elements = []
     }
 
     /// Creates a path containing a rounded rectangle.
@@ -40,6 +48,8 @@ public struct Path {
     ///   - cornerRadius: The radius of all corners of the rectangle, specified in user space coordinates.
     ///   - style: The corner style. Defaults to the continous style if not specified.
     public init(roundedRect rect: Rect3D, cornerRadius: Double, style: RoundedCornerStyle = .continuous) {
+        storage = .roundedRect(.init(roundedRect: rect, cornerRadius: cornerRadius, style: style))
+        elements = []
     }
 
     /// Creates a path containing a rounded rectangle.
@@ -51,6 +61,8 @@ public struct Path {
     ///   - cornerSize: The size of the corners, specified in user space coordinates.
     ///   - style: The corner style. Defaults to the continous style if not specified.
     public init(roundedRect rect: Rect3D, cornerSize: Size3D, style: RoundedCornerStyle = .continuous) {
+        storage = .roundedRect(.init(roundedRect: rect, cornerSize: cornerSize, style: style))
+        elements = []
     }
 
     /// Creates a path as the given rounded rectangle, which may have uneven corner radii.
@@ -62,9 +74,17 @@ public struct Path {
     ///   - cornerRadii: The radius of each corner of the rectangle, specified in user space coordinates.
     ///   - style: The corner style. Defaults to the continous style if not specified.
     public init(roundedRect rect: Rect3D, cornerRadii: RectangleCornerRadii, style: RoundedCornerStyle = .continuous) {
+        storage = .roundedRect(.init(roundedRect: rect, cornerRadii: cornerRadii, style: style))
+        elements = []
     }
 
     // MARK: - Getting the path’s characteristics
+
+    /// The storage for the path's data.
+    package var storage: Storage
+
+    /// The elements that make up the path.
+    package var elements: [Element]
 
     /// A rectangle containing all path segments.
     /// 
@@ -86,7 +106,9 @@ public struct Path {
     public var description: String = ""
 
     /// A Boolean value indicating whether the path contains zero elements.
-    public var isEmpty: Bool = false
+    public var isEmpty: Bool {
+        elements.isEmpty && storage == .empty
+    }
 
     // MARK: - Drawing a path
 
@@ -96,6 +118,8 @@ public struct Path {
     /// The current point is set to this start point.
     /// - Parameter end: The point, in user space coordinates, at which to start a new subpath.
     public mutating func move(to end: Point3D) {
+        elements.append(.move(to: end))
+        currentPoint = end
     }
 
     /// Adds an arc of a circle to the path, specified with a radius and angles.
@@ -143,6 +167,8 @@ public struct Path {
     ///   - control1: The first control point of the curve, in user space coordinates.
     ///   - control2: The first control point of the curve, in user space coordinates.
     public mutating func addCurve(to end: Point3D, control1: Point3D, control2: Point3D) {
+        elements.append(.curve(to: end, control1: control1, control2: control2))
+        currentPoint = end
     }
 
     /// Adds an ellipse that fits inside the specified rectangle to the path.
@@ -166,6 +192,8 @@ public struct Path {
     ///   - end: The location, in user space coordinates, for the end of the new line segment.
     ///   - transform: An affine transform to apply to the points before adding to the path. Defaults to the identity transform if not specified.
     public mutating func addLine(to end: Point3D, transform: AffineTransform3D = .identity) {
+        elements.append(.line(to: end))
+        currentPoint = end
     }
 
     /// Adds a sequence of connected straight-line segments to the path.
@@ -176,6 +204,16 @@ public struct Path {
     ///   - lines: An array of values that specify the start and end points of the line segments to draw. Each point in the array specifies a position in user space. The first point in the array specifies the initial starting point.
     ///   - transform: An affine transform to apply to the points before adding to the path. Defaults to the identity transform if not specified.
     public mutating func addLines(_ lines: [Point3D], transform: AffineTransform3D = .identity) {
+        if let first = lines.first {
+            move(to: first)
+            for point in lines.dropFirst() {
+                addLine(to: point)
+            }
+        }
+
+        if let last = lines.last {
+            currentPoint = last
+        }
     }
 
     /// Appends another path value to this path.
@@ -186,6 +224,8 @@ public struct Path {
     ///   - path: The path to add.
     ///   - transform: An affine transform to apply to the path parameter before adding to this path. Defaults to the identity transform if not specified.
     public mutating func addPath(_ path: Path, transform: AffineTransform3D = .identity) {
+        elements.append(contentsOf: path.elements)
+        currentPoint = path.currentPoint
     }
 
     /// Adds a quadratic Bézier curve to the path, with the specified end point and control point.
@@ -253,12 +293,14 @@ public struct Path {
     /// After closing the subpath, your application can begin a new subpath without first calling ``move(to:)``. 
     /// In this case, a new subpath is implicitly created with a starting and current point equal to the previous subpath’s starting point.
     public mutating func closeSubpath() {
+        elements.append(.closeSubpath)
     }
 
     // MARK: - Operating over path elements
 
     /// Calls body with each element in the path.
     public func forEach(_ body: (Path.Element) -> Void) {
+        elements.forEach(body)
     }
 
     // MARK: - Applying a style
@@ -306,5 +348,54 @@ extension Path {
 
         /// A quadratic Bézier curve from the previous current point to the given end-point, using the single control point to define the curve.
         case quadCurve(to: Point3D, control: Point3D)
+    }
+}
+
+extension Path {
+
+    /// The storage for the path's data.
+    @frozen package enum Storage : Equatable, Sendable {
+
+        /// The different kinds of storage for a path.
+        case empty
+
+        /// A rectangle.
+        case rect(Rect3D)
+
+        /// An ellipse.
+        case ellipse(Rect3D)
+
+        /// A rounded rectangle.
+        indirect case roundedRect(FixedRoundedRect)
+
+        /// A custom path.
+        indirect case path(Path.PathBox)
+    }
+}
+
+extension Path {
+
+    /// A box that holds a Path value for storage in Path.Storage.
+    package final class PathBox : Equatable, Sendable {
+
+        /// The path stored in the box.
+        package let path: Path
+
+        /// Creates a box that holds the given path.
+        /// 
+        /// - Parameter path: The path to store in the box.
+        package init(_ path: Path) {
+            self.path = path
+        }
+
+        /// Returns true if two PathBox values contain equal paths.
+        /// 
+        /// - Parameters:
+        ///   - lhs: The left-hand side value to compare.
+        ///   - rhs: The right-hand side value to compare.
+        /// - Returns: True if the two values are equal; otherwise, false.
+        package static func == (lhs: PathBox, rhs: PathBox) -> Bool {
+            lhs.path == rhs.path
+        }
     }
 }
