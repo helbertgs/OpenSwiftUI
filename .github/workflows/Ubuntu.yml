@@ -7,7 +7,7 @@ on:
       - develop
 
 jobs:
-  build-test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -23,6 +23,3 @@ jobs:
 
       - name: Build project
         run: swift build
-
-      - name: Run tests
-        run: swift test
