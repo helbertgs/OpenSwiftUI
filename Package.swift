@@ -16,7 +16,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/OpenCombine/OpenCombine.git", branch: "master"),
         .package(url: "https://github.com/helbertgs/OpenSpatial", branch: "main"),
-        .package(url: "https://github.com/swiftlang/swift-docc-plugin", branch: "main")
+        .package(url: "https://github.com/swiftlang/swift-docc-plugin", from: "1.1.0"),
     ],
     targets: [
         .target(
