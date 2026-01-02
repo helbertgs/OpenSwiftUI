@@ -25,10 +25,9 @@ jobs:
       - name: Transform for static hosting
         # Convert the .doccarchive to a static website format
         run: |
-          $(xcrun --find docc) process-archive \
-            transform-for-static-hosting .build/documentation/OpenSwiftUI.doccarchive \
-            --hosting-base-path OpenSwiftUI \
-            --output-path docs # Output to a 'docs' directory
+          swift package --allow-writing-to-directory ./docs \
+          generate-documentation --target OpenSwiftUI --output-path ./docs \
+          --transform-for-static-hosting --hosting-base-path OpenSwiftUI
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
