@@ -8,15 +8,18 @@ on:
 
 jobs:
   build-test:
-    runs-on: ubuntu-latest # Or ubuntu-22.04, etc.
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Swift
-        uses: swift-actions/setup-swift@v3 # Or your preferred action
+        uses: swift-actions/setup-swift@v3
         with:
-          swift-version: '6.2' # Specify your desired Swift version
+          skip-verify-signature: true
+          swift-version: '6.2'
+      - name: Getting Swift Version
+        run: swift --version
 
       - name: Build project
         run: swift build
