@@ -1,4 +1,5 @@
-name: Ubuntu 
+
+name: Swift on Ubuntu
 
 on:
   push:
@@ -6,19 +7,19 @@ on:
       - develop
 
 jobs:
-  ubuntu_test:
-    name: Execute tests on Ubuntu
-    strategy:
-      fail-fast: false
-      matrix:
-        swift_version: ["6.2"]
-    runs-on: ubuntu-latest
-    container: swift:${{ matrix.swift_version }}-bionic
+  build-test:
+    runs-on: ubuntu-latest # Or ubuntu-22.04, etc.
     steps:
-      - uses: actions/checkout@v4
-      - name: Building and running tests in debug mode with coverage
-        run: |
-          swift test \
-            -c debug \
-            --enable-code-coverage \
-            --build-path .build-test-debug
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Swift
+        uses: swift-actions/setup-swift@v3 # Or your preferred action
+        with:
+          swift-version: '6.2' # Specify your desired Swift version
+
+      - name: Build project
+        run: swift build
+
+      - name: Run tests
+        run: swift test
