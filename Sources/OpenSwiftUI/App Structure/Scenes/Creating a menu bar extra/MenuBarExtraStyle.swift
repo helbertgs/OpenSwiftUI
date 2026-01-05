@@ -1,8 +1,15 @@
-import Swift
+//
+// MenuBarExtraStyle.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Dec 22, 2023.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
+import Foundation
 
 /// A specification for the appearance and behavior of a menu bar extra scene.
-public protocol MenuBarExtraStyle {
-}
+public protocol MenuBarExtraStyle { }
 
 /// A menu bar extra style that renders its contents in a popover-like window.
 ///
@@ -10,7 +17,7 @@ public protocol MenuBarExtraStyle {
 public struct WindowMenuBarExtraStyle : MenuBarExtraStyle {
 
     /// Creates a window menu bar extra style.
-    public init() { }
+    package init() { }
 }
 
 extension MenuBarExtraStyle where Self == WindowMenuBarExtraStyle {
@@ -31,8 +38,7 @@ extension MenuBarExtraStyle where Self == WindowMenuBarExtraStyle {
 public struct PullDownMenuBarExtraStyle : MenuBarExtraStyle {
 
     /// Creates a pull down menu bar extra style.
-    public init() {
-    }
+    package init() { }
 }
 
 extension MenuBarExtraStyle where Self == PullDownMenuBarExtraStyle {
@@ -47,8 +53,7 @@ extension MenuBarExtraStyle where Self == PullDownMenuBarExtraStyle {
 public struct AutomaticMenuBarExtraStyle : MenuBarExtraStyle {
 
     /// Creates an automatic menu bar extra style.
-    public init() {
-    }
+    package init() { }
 }
 
 extension MenuBarExtraStyle where Self == AutomaticMenuBarExtraStyle {

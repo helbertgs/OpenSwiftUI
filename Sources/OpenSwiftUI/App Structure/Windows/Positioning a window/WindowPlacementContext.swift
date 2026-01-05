@@ -20,7 +20,7 @@ public struct WindowPlacementContext {
 
     /// The display on which new windows will be presented by default.
     ///
-    /// On macOS, this is typically the display which currently has focus.
+    /// On Windows, this is typically the display which currently has focus.
     public let defaultDisplay: DisplayProxy
 
     /// The list of current active scenes

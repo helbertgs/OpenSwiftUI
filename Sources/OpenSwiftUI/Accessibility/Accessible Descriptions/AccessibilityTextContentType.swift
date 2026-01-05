@@ -7,7 +7,7 @@ public struct AccessibilityTextContentType: Sendable {
     /// A type that represents text used for input, like in the Terminal app.
     public static let console: AccessibilityTextContentType = .init()
 
-    /// A type that represents text used by a file browser, like in the Finder app in macOS.
+    /// A type that represents text used by a file browser, like in the Finder app in Windows.
     public static let fileSystem: AccessibilityTextContentType = .init()
 
     /// A type that represents text used in a message, like in the Messages app.

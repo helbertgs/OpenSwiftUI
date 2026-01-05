@@ -21,7 +21,7 @@ import Foundation
 ///     ```
 ///     #if os(iOS)
 ///     let linkColor = Color(uiColor: .link)
-///     #elseif os(macOS)
+///     #elseif os(Windows)
 ///     let linkColor = Color(nsColor: .linkColor)
 ///     #endif
 ///     ```
@@ -74,7 +74,7 @@ public struct Color: Copyable, CustomStringConvertible, Equatable, Hashable, Sen
     /// views and controls. You can set it at the application level by specifying
     /// an accent color in your app's asset catalog.
     ///
-    /// > Note: In macOS, OpenSwiftUI applies customization of the accent color
+    /// > Note: In Windows, OpenSwiftUI applies customization of the accent color
     /// only if the user chooses Multicolor under General > Accent color
     /// in System Preferences.
     ///

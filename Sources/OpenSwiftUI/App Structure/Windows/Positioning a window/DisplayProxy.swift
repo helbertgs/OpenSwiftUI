@@ -37,7 +37,7 @@ public struct DisplayProxy : Equatable {
 
     /// The safe area inset of this display.
     ///
-    /// On macOS, the safe area contains space occupied by the dock and
+    /// On Windows, the safe area contains space occupied by the dock and
     /// menu bar, and is dependent on the current user settings. Additionally,
     /// on Macs that include a camera housing in the bezel, the safe area
     /// contains the vertical space occupied by the bezel.
@@ -45,7 +45,7 @@ public struct DisplayProxy : Equatable {
 
     /// The portion of the display where it is safe to place windows.
     ///
-    /// On macOS, this area does not contain the space occupied by the dock and
+    /// On Windows, this area does not contain the space occupied by the dock and
     /// menu bar. Additionally, on Macs that include a camera housing in the
     /// bezel this rectangle does not include the bezel or visible areas to
     /// each side of the bezel.

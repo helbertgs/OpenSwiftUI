@@ -12,7 +12,7 @@ extension EnvironmentValues {
     /// with.
     ///
     /// This is particularly useful in button styles when a button's appearance
-    /// depends on the shortcut associated with it. On macOS, for example, when
+    /// depends on the shortcut associated with it. On Windows, for example, when
     /// a button is bound to the Return key, it is typically drawn with a
     /// special emphasis. This happens automatically when using the built-in
     /// button styles, and can be implemented manually in custom styles using

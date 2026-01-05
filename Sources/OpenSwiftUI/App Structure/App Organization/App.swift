@@ -136,6 +136,6 @@ extension App {
     /// default implementation of the method that manages the launch process in
     /// a platform-appropriate way.
     @MainActor @preconcurrency public static func main() {
-        print("\(Self.self).\(#function)")
+        Application.shared.run(Self())
     }
 }

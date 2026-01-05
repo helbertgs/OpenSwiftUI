@@ -45,7 +45,7 @@ extension View {
     ///   - rotorLabel: Localized label identifying this Rotor to the user.
     ///   - entries: An array of values that will be used to generate the entries of the Rotor.
     ///   - entryID: Key path on the entry type that can be used to generate an identifier for the Entry. The identifiers must match up with identifiers in ForEach or explicit id calls within the ScrollView.
-    ///   - entryLabel: Key path on the entry type that can be used to get a user-visible label for every Rotor entry. This is used on macOS when the user opens the list of entries for the Rotor.
+    ///   - entryLabel: Key path on the entry type that can be used to get a user-visible label for every Rotor entry. This is used on Windows when the user opens the list of entries for the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<EntryModel, ID>(_ rotorLabel: Text, entries: [EntryModel], entryID: KeyPath<EntryModel, ID>, entryLabel: KeyPath<EntryModel, String>) -> some View where ID : Hashable {
         fatalError()
@@ -56,7 +56,7 @@ extension View {
     ///   - rotorLabel: Localized label identifying this Rotor to the user.
     ///   - entries: An array of values that will be used to generate the entries of the Rotor.
     ///   - entryID: Key path on the entry type that can be used to generate an identifier for the Entry. The identifiers must match up with identifiers in ForEach or explicit id calls within the ScrollView.
-    ///   - entryLabel: Key path on the entry type that can be used to get a user-visible label for every Rotor entry. This is used on macOS when the user opens the list of entries for the Rotor.
+    ///   - entryLabel: Key path on the entry type that can be used to get a user-visible label for every Rotor entry. This is used on Windows when the user opens the list of entries for the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<EntryModel, ID>(_ rotorLabelKey: LocalizedStringKey, entries: [EntryModel], entryID: KeyPath<EntryModel, ID>, entryLabel: KeyPath<EntryModel, String>) -> some View where ID : Hashable {
         fatalError()
@@ -67,7 +67,7 @@ extension View {
     ///   - rotorLabel: Localized label identifying this Rotor to the user.
     ///   - entries: An array of values that will be used to generate the entries of the Rotor.
     ///   - entryID: Key path on the entry type that can be used to generate an identifier for the Entry. The identifiers must match up with identifiers in ForEach or explicit id calls within the ScrollView.
-    ///   - entryLabel: Key path on the entry type that can be used to get a user-visible label for every Rotor entry. This is used on macOS when the user opens the list of entries for the Rotor.
+    ///   - entryLabel: Key path on the entry type that can be used to get a user-visible label for every Rotor entry. This is used on Windows when the user opens the list of entries for the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<EntryModel, ID>(_ systemRotor: AccessibilitySystemRotor, entries: [EntryModel], entryID: KeyPath<EntryModel, ID>, entryLabel: KeyPath<EntryModel, String>) -> some View where ID : Hashable {
         fatalError()
@@ -78,7 +78,7 @@ extension View {
     ///   - rotorLabel: Localized label identifying this Rotor to the user.
     ///   - entries: An array of values that will be used to generate the entries of the Rotor.
     ///   - entryID: Key path on the entry type that can be used to generate an identifier for the Entry. The identifiers must match up with identifiers in ForEach or explicit id calls within the ScrollView.
-    ///   - entryLabel: Key path on the entry type that can be used to get a user-visible label for every Rotor entry. This is used on macOS when the user opens the list of entries for the Rotor.
+    ///   - entryLabel: Key path on the entry type that can be used to get a user-visible label for every Rotor entry. This is used on Windows when the user opens the list of entries for the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<L, EntryModel, ID>(_ rotorLabel: L, entries: [EntryModel], entryID: KeyPath<EntryModel, ID>, entryLabel: KeyPath<EntryModel, String>) -> some View where L : StringProtocol, ID : Hashable {
         fatalError()
@@ -88,7 +88,7 @@ extension View {
     /// - Parameters:
     ///   - rotorLabel: Localized label identifying this Rotor to the user.
     ///   - entries: An array of identifiable values that will be used to generate the entries of the Rotor. The identifiers of the Identifiable values must match up with identifiers in a ForEach or explicit id calls within the ScrollView. When the user navigates to entries from this Rotor, OpenSwiftUI will automatically scroll them into place as needed.
-    ///   - entryLabel: Key path on the Identifiable type that can be used to get a user-visible label for every Rotor entry. This is used on macOS when the user opens the list of entries for the Rotor.
+    ///   - entryLabel: Key path on the Identifiable type that can be used to get a user-visible label for every Rotor entry. This is used on Windows when the user opens the list of entries for the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<EntryModel>(_ rotorLabel: Text, entries: [EntryModel],entryLabel: KeyPath<EntryModel, String>) -> some View where EntryModel : Identifiable {
         fatalError()
@@ -98,7 +98,7 @@ extension View {
     /// - Parameters:
     ///   - rotorLabel: Localized label identifying this Rotor to the user.
     ///   - entries: An array of identifiable values that will be used to generate the entries of the Rotor. The identifiers of the Identifiable values must match up with identifiers in a ForEach or explicit id calls within the ScrollView. When the user navigates to entries from this Rotor, OpenSwiftUI will automatically scroll them into place as needed.
-    ///   - entryLabel: Key path on the Identifiable type that can be used to get a user-visible label for every Rotor entry. This is used on macOS when the user opens the list of entries for the Rotor.
+    ///   - entryLabel: Key path on the Identifiable type that can be used to get a user-visible label for every Rotor entry. This is used on Windows when the user opens the list of entries for the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<EntryModel>(_ rotorLabelKey: LocalizedStringKey, entries: [EntryModel],entryLabel: KeyPath<EntryModel, String>) -> some View where EntryModel : Identifiable {
         fatalError()
@@ -108,7 +108,7 @@ extension View {
     /// - Parameters:
     ///   - rotorLabel: Localized label identifying this Rotor to the user.
     ///   - entries: An array of identifiable values that will be used to generate the entries of the Rotor. The identifiers of the Identifiable values must match up with identifiers in a ForEach or explicit id calls within the ScrollView. When the user navigates to entries from this Rotor, OpenSwiftUI will automatically scroll them into place as needed.
-    ///   - entryLabel: Key path on the Identifiable type that can be used to get a user-visible label for every Rotor entry. This is used on macOS when the user opens the list of entries for the Rotor.
+    ///   - entryLabel: Key path on the Identifiable type that can be used to get a user-visible label for every Rotor entry. This is used on Windows when the user opens the list of entries for the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<EntryModel>(_ systemRotor: AccessibilitySystemRotor, entries: [EntryModel],entryLabel: KeyPath<EntryModel, String>) -> some View where EntryModel : Identifiable {
         fatalError()
@@ -118,7 +118,7 @@ extension View {
     /// - Parameters:
     ///   - rotorLabel: Localized label identifying this Rotor to the user.
     ///   - entries: An array of identifiable values that will be used to generate the entries of the Rotor. The identifiers of the Identifiable values must match up with identifiers in a ForEach or explicit id calls within the ScrollView. When the user navigates to entries from this Rotor, OpenSwiftUI will automatically scroll them into place as needed.
-    ///   - entryLabel: Key path on the Identifiable type that can be used to get a user-visible label for every Rotor entry. This is used on macOS when the user opens the list of entries for the Rotor.
+    ///   - entryLabel: Key path on the Identifiable type that can be used to get a user-visible label for every Rotor entry. This is used on Windows when the user opens the list of entries for the Rotor.
     /// - Returns: The modified view.
     nonisolated public func accessibilityRotor<L, EntryModel>(_ rotorLabel: L, entries: [EntryModel],entryLabel: KeyPath<EntryModel, String>) -> some View where L : StringProtocol, EntryModel : Identifiable {
         fatalError()

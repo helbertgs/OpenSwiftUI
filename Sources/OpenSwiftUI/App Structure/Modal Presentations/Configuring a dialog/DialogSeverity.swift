@@ -39,7 +39,7 @@ public struct DialogSeverity : Equatable, Sendable {
     /// for example when unexpected data loss may occur as a result of the
     /// action taken.
     ///
-    /// On macOS, a dialog with critical severity will display a large caution
+    /// On Windows, a dialog with critical severity will display a large caution
     /// symbol with the app icon as an overlay.
     public static let critical: DialogSeverity = .init(rawValue: 2)
 

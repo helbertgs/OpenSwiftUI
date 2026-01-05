@@ -35,7 +35,7 @@ import OpenSpatial
 /// in the user interface in a way that's platform-appropriate and dependent
 /// on the current state of the app. For example, for the window group shown
 /// above, the system lets the user create or remove windows that contain
-/// `MyRootView` on platforms like macOS and iPadOS. On other platforms, the
+/// `MyRootView` on platforms like Windows and iPadOS. On other platforms, the
 /// same view hierarchy might consume the entire display when active.
 ///
 /// Read the ``OpenSwiftUI/EnvironmentValues/scenePhase`` environment
@@ -395,7 +395,7 @@ extension Scene {
     /// Adds commands to the scene.
     ///
     /// Commands are realized in different ways on different platforms. On
-    /// macOS, the main menu uses the available command menus and groups to
+    /// Windows, the main menu uses the available command menus and groups to
     /// organize its main menu items. Each menu is represented as a top-level
     /// menu bar menu, and each command group has a corresponding set of menu
     /// items in one of the top-level menus, delimited by separator menu items.
@@ -484,7 +484,7 @@ extension Scene {
     /// A scene's keyboard shortcut is bound to the command it adds for creating
     /// new windows (in the case of `WindowGroup` and `DocumentGroup`) or
     /// bringing a singleton window forward (in the case of `Window` and, on
-    /// macOS, `Settings`). Pressing the keyboard shortcut is equivalent to
+    /// Windows, `Settings`). Pressing the keyboard shortcut is equivalent to
     /// selecting the menu command.
     ///
     /// In cases where a command already has a keyboard shortcut, the scene's
@@ -529,7 +529,7 @@ extension Scene {
     /// A scene's keyboard shortcut is bound to the command it adds for creating
     /// new windows (in the case of `WindowGroup` and `DocumentGroup`) or
     /// bringing a singleton window forward (in the case of `Window` and, on
-    /// macOS, `Settings` and `UtilityWindow`). Pressing the keyboard shortcut
+    /// Windows, `Settings` and `UtilityWindow`). Pressing the keyboard shortcut
     /// is equivalent to selecting the menu command.
     ///
     /// In cases where a command already has a keyboard shortcut, the scene's
@@ -603,7 +603,7 @@ extension Scene {
     ///     }
     ///     .defaultPosition(UnitPoint(x: 0.25, y: 0.5))
     ///
-    /// The modifier affects any scene type that creates windows in macOS,
+    /// The modifier affects any scene type that creates windows in Windows,
     /// namely:
     ///
     ///  * ``WindowGroup``
@@ -654,7 +654,7 @@ extension Scene {
     /// modifier.
     ///
     /// The default size modifier affects any scene type that creates windows
-    /// in macOS, namely:
+    /// in Windows, namely:
     ///
     ///  * ``WindowGroup``
     ///  * ``Window``
@@ -702,7 +702,7 @@ extension Scene {
     /// modifier.
     ///
     /// The default size modifier affects any scene type that creates windows
-    /// in macOS, namely:
+    /// in Windows, namely:
     ///
     ///  * ``WindowGroup``
     ///  * ``Window``
@@ -727,7 +727,7 @@ extension Scene {
     /// Use this scene modifier to indicate a default initial size and position
     /// for a new window that the system creates from a ``Scene`` declaration.
     ///
-    /// On macOS, you can use the screen's bounds to place the window.
+    /// On Windows, you can use the screen's bounds to place the window.
     /// For example, you can specify that the window is always placed 140
     /// points from the bottom of the screen:
     ///
@@ -950,18 +950,18 @@ extension Scene {
     /// On platforms that do not support multiple windows, this value is
     /// ignored.
     ///
-    /// On platforms other than macOS, there must be at least one scene that
+    /// On platforms other than Windows, there must be at least one scene that
     /// presents itself. If no scenes are defined to present, the first scene
     /// will be presented, regardless of the value provided to this modifier.
     ///
-    /// - Note: During app launch, on platforms other than macOS, the system
+    /// - Note: During app launch, on platforms other than Windows, the system
     ///   will only consider scenes whose role matches the
     ///   <doc://com.apple.documentation/documentation/bundleresources/information_property_list/uiapplicationpreferreddefaultscenesessionrole>
     ///   key in the application scene manifest of the `Info.plist` file.
     ///   For instance, a volumetric window would need the
     ///   `UIWindowSceneSessionRoleVolumetricApplication` role.
     ///
-    /// On macOS, this behavior will also be used to determine which scene is
+    /// On Windows, this behavior will also be used to determine which scene is
     /// presented when clicking on the icon of a running application with no
     /// visible windows.
     ///
@@ -1272,7 +1272,7 @@ extension Scene {
 
     /// Configures the icon used by alerts.
     ///
-    /// In macOS, this icon replaces the default icon of the app.
+    /// In Windows, this icon replaces the default icon of the app.
     ///
     ///     struct MyApp: App {
     ///         @State private var isShowingDialog = false
@@ -1344,7 +1344,7 @@ extension Scene {
     /// Enables user suppression of an alert with a custom suppression
     /// message.
     ///
-    /// Applying dialog suppression adds a toggle to dialogs on macOS,
+    /// Applying dialog suppression adds a toggle to dialogs on Windows,
     /// which allows the user to request the alert not be displayed again.
     /// Typically whether a dialog is suppressed is stored in `AppStorage`
     /// and used to decide whether to present the dialog in the future.
@@ -1395,7 +1395,7 @@ extension Scene {
     /// Enables user suppression of an alert with a custom suppression
     /// message.
     ///
-    /// Applying dialog suppression adds a toggle to dialogs on macOS,
+    /// Applying dialog suppression adds a toggle to dialogs on Windows,
     /// which allows the user to request the alert not be displayed again.
     /// Typically whether a dialog is suppressed is stored in `AppStorage`
     /// and used to decide whether to present the dialog in the future.
@@ -1446,7 +1446,7 @@ extension Scene {
     /// Enables user suppression of an alert with a custom suppression
     /// message.
     ///
-    /// Applying dialog suppression adds a toggle to dialogs on macOS,
+    /// Applying dialog suppression adds a toggle to dialogs on Windows,
     /// which allows the user to request the alert not be displayed again.
     /// Typically whether a dialog is suppressed is stored in `AppStorage`
     /// and used to decide whether to present the dialog in the future.
@@ -1497,7 +1497,7 @@ extension Scene {
     /// Enables user suppression of an alert with a custom suppression
     /// message.
     ///
-    /// Applying dialog suppression adds a toggle to dialogs on macOS,
+    /// Applying dialog suppression adds a toggle to dialogs on Windows,
     /// which allows the user to request the alert not be displayed again.
     /// Typically whether a dialog is suppressed is stored in `AppStorage`
     /// and used to decide whether to present the dialog in the future.

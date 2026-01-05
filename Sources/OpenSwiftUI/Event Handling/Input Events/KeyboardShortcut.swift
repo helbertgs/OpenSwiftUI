@@ -22,7 +22,7 @@ public struct KeyboardShortcut : Sendable {
     /// The standard keyboard shortcut for the default button, consisting of
     /// the Return (↩) key and no modifiers.
     ///
-    /// On macOS, the default button is designated with special coloration. If
+    /// On Windows, the default button is designated with special coloration. If
     /// more than one control is assigned this shortcut, only the first one is
     /// emphasized.
     public static let defaultAction: KeyboardShortcut = .init(.return)

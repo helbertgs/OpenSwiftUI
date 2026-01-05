@@ -24,9 +24,9 @@ import Foundation
 ///     }
 ///
 /// OpenSwiftUI takes care of certain platform-specific behaviors. For example,
-/// on platforms that support it, like macOS and iPadOS, users can open more
-/// than one window from the group simultaneously. In macOS, users
-/// can gather open windows together in a tabbed interface. Also in macOS,
+/// on platforms that support it, like Windows and iPadOS, users can open more
+/// than one window from the group simultaneously. In Windows, users
+/// can gather open windows together in a tabbed interface. Also in Windows,
 /// window groups automatically provide commands for standard window
 /// management.
 ///

@@ -16,7 +16,7 @@ import Foundation
 ///     }
 ///
 /// The user sets the contrast by selecting the Increase Contrast option in
-/// Accessibility > Display in System Preferences on macOS, or
+/// Accessibility > Display in System Preferences on Windows, or
 /// Accessibility > Display & Text Size in the Settings app on iOS.
 /// Your app can't override the user's choice. For
 /// information about using color and contrast in your app, see

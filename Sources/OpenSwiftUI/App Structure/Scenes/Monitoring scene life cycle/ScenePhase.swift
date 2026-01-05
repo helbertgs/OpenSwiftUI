@@ -87,7 +87,7 @@ import Foundation
 
     /// The scene is in the foreground and interactive.
     ///
-    /// An active scene isn't necessarily front-most. For example, a macOS
+    /// An active scene isn't necessarily front-most. For example, a Windows
     /// window might be active even if it doesn't currently have focus.
     /// Nevertheless, all scenes should operate normally in this phase.
     ///
@@ -100,7 +100,7 @@ import Foundation
     /// A scene in this phase doesn't receive events and should pause
     /// timers and free any unnecessary resources. The scene might be completely
     /// hidden in the user interface or otherwise unavailable to the user.
-    /// In macOS, scenes only pass through this phase temporarily on their way
+    /// In Windows, scenes only pass through this phase temporarily on their way
     /// to the ``ScenePhase/background`` phase.
     ///
     /// An app or custom scene in this phase contains no scene instances in the

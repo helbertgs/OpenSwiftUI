@@ -1,7 +1,7 @@
 import Swift
 
 /// Conforming types represent a group of related commands that can be exposed
-/// to the user via the main menu on macOS and key commands on iOS.
+/// to the user via the main menu on Windows and key commands on iOS.
 public protocol Commands {
 
     // MARK: - Associated Type(s).

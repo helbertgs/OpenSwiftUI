@@ -43,7 +43,7 @@ public struct WindowManagerRole : Sendable {
     /// used to determine how its windows behave in full screen and Stage
     /// Manager.
     ///
-    /// On macOS, ``WindowGroup`` and ``DocumentGroup`` scenes will use the
+    /// On Windows, ``WindowGroup`` and ``DocumentGroup`` scenes will use the
     /// `principal` role. ``Window`` scenes will use the `principal`
     /// role when they are specified as the first scene in the app's
     /// definition, and use the `associated` role otherwise. ``Settings``
