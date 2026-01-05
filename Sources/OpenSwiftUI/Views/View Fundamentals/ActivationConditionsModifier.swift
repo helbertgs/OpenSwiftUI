@@ -1,7 +1,7 @@
 import Foundation
 
 @frozen
-public struct ActivationConditionsModifier : _SceneModifier {
+public struct ActivationConditionsModifier : SceneModifier {
     
     // MARK: - Property(ies).
     
@@ -15,7 +15,7 @@ public struct ActivationConditionsModifier : _SceneModifier {
     
     // MARK: - Function(s).
     
-    public func body(content: SceneContent) -> some Scene {
+    public func body(content: Content) -> some Scene {
         fatalError()
     }
     

@@ -1,7 +1,7 @@
 import Swift
 
 @frozen
-public struct _PreferenceTransformModifier<Key> : _SceneModifier {
+public struct _PreferenceTransformModifier<Key> : @MainActor SceneModifier {
     
     // MARK: - Type Alias.
     
@@ -19,7 +19,7 @@ public struct _PreferenceTransformModifier<Key> : _SceneModifier {
     
     // MARK: - Function(s).
     
-    public func body(content: SceneContent) -> Never {
+    public func body(content: Content) -> Never {
         fatalError()
     }
     

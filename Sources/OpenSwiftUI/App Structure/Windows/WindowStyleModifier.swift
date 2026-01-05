@@ -1,6 +1,7 @@
 import Swift
 
-public struct WindowStyleModifier<Style> : _SceneModifier where Style : WindowStyle {
+@available(Windows 11, *)
+public struct WindowStyleModifier<Style> : Sendable, SceneModifier where Style : WindowStyle {
 
     // MARK: - Type Alias.
 
@@ -8,17 +9,17 @@ public struct WindowStyleModifier<Style> : _SceneModifier where Style : WindowSt
 
     // MARK: - Property(ies).
 
-    var style: Style
+    package let style: Style
 
     // MARK: - Constructor(s).
 
-    init(style: Style) {
+    package init(style: Style) {
         self.style = style
     }
     
     // MARK: - Function(s).
     
-    public func body(content: SceneContent) -> Never {
+    public func body(content: Content) -> Never {
         fatalError()
     }
 

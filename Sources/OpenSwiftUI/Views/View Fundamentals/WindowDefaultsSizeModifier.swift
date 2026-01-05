@@ -1,22 +1,22 @@
 import Foundation
 
-public struct WindowDefaultsSizeModifier : _SceneModifier {
+public struct WindowDefaultsSizeModifier : @MainActor SceneModifier {
     
     // MARK: - Property(ies).
     
-    public let width: Float
-    public let height: Float
+    public let width: Double
+    public let height: Double
     
     // MARK: - Constructor(s).
     
-    public init(width: Float, height: Float) {
+    public init(width: Double, height: Double) {
         self.width = width
         self.height = height
     }
     
     // MARK: - Function(s).
     
-    public func body(content: SceneContent) -> Never {
+    public func body(content: Content) -> Never {
         fatalError()
     }
     

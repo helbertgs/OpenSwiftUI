@@ -37,14 +37,14 @@ extension _EnvironmentKeyWritingModifier : ViewModifier {
     }
 }
 
-extension _EnvironmentKeyWritingModifier : _SceneModifier {
-    // MARK: - Function(s).
-    
-    public func body(content: SceneContent) -> Never {
-        fatalError()
-    }
-
-    public static func _makeScene(modifier: _GraphValue<_EnvironmentKeyWritingModifier<Value>>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
-        fatalError()
-    }
-}
+//extension _EnvironmentKeyWritingModifier : SceneModifier {
+//    // MARK: - Function(s).
+//    
+//    public func body(content: Content) -> Never {
+//        fatalError()
+//    }
+//
+//    public static func _makeScene(modifier: _GraphValue<_EnvironmentKeyWritingModifier<Value>>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
+//        fatalError()
+//    }
+//}

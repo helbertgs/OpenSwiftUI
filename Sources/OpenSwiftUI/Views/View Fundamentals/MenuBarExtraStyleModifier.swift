@@ -1,7 +1,7 @@
 import Swift
 
 @frozen
-public struct MenuBarExtraStyleModifier<Style> : _SceneModifier where Style : MenuBarExtraStyle {
+public struct MenuBarExtraStyleModifier<Style> : @MainActor SceneModifier where Style : MenuBarExtraStyle {
     
     // MARK: - Property(ies).
     
@@ -16,7 +16,7 @@ public struct MenuBarExtraStyleModifier<Style> : _SceneModifier where Style : Me
     
     // MARK: - Function(s).
     
-    public func body(content: SceneContent) -> some Scene {
+    public func body(content: Content) -> some Scene {
         fatalError()
     }
     

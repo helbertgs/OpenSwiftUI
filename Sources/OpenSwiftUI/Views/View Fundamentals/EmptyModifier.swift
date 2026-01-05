@@ -45,7 +45,7 @@ import Swift
     ///
     /// `content` is a proxy for the view that will have the modifier
     /// represented by `Self` applied to it.
-    public func body(content: EmptyModifier.Content) -> EmptyModifier.Body {
+    public func body(content: Content) -> Never {
         fatalError()
     }
 
@@ -58,21 +58,6 @@ import Swift
     }
 
     public static func _makeViewList(modifier: _GraphValue<EmptyModifier>, inputs: _ViewListInputs, body: @escaping (_Graph, _ViewListInputs) -> _ViewListOutputs) -> _ViewListOutputs {
-        .init()
-    }
-}
-
-extension EmptyModifier: _SceneModifier {
-    
-    // MARK: - Function(s).
-    
-    public func body(content: SceneContent) -> Never {
-        fatalError()
-    }
-    
-    // MARK: - Static Function(s).
-    
-    public static func _makeScene(modifier: _GraphValue<EmptyModifier>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
         .init()
     }
 }

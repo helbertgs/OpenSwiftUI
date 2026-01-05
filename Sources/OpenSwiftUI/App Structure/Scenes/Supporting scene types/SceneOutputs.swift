@@ -11,7 +11,7 @@ import Swift
     var environmentValues: EnvironmentValues = .init()
 
     /// The modifiers applied to the scene.
-    var modifiers: [any _SceneModifier] = []
+    var modifiers: [any SceneModifier] = []
 
     /// The child scenes of this scene output.
     var children: [_SceneOutputs] = []

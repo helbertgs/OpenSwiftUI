@@ -1,6 +1,6 @@
 import Swift
 
-public struct CommandsModifier<Content> : _SceneModifier where Content : Commands {
+public struct CommandsModifier<Value> : @MainActor SceneModifier where Value : Commands {
 
     // MARK: - Type Alias.
 
@@ -8,23 +8,23 @@ public struct CommandsModifier<Content> : _SceneModifier where Content : Command
 
     // MARK: - Property(ies).
 
-    var content: Content
+    var value : Value
 
     // MARK: - Constructor(s).
 
-    init(content: Content) {
-        self.content = content
+    init(value: Value) {
+        self.value = value
     }
     
     // MARK: - Function(s).
     
-    public func body(content: SceneContent) -> Never {
+    public func body(content: Content) -> Never {
         fatalError()
     }
 
     // MARK: - Static Function(s).
 
-    public static func _makeScene(modifier: _GraphValue<CommandsModifier<Content>>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
+    nonisolated public static func _makeScene(modifier: _GraphValue<CommandsModifier<Value>>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
         fatalError()
     }
 }

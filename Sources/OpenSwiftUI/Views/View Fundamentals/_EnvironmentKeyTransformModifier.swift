@@ -1,7 +1,7 @@
 import Swift
 
-@frozen public struct _EnvironmentKeyTransformModifier<V> : _SceneModifier {
-    
+@frozen public struct _EnvironmentKeyTransformModifier<V> : @MainActor SceneModifier {
+
     // MARK: - Property(ies).
     
     @usableFromInline
@@ -20,7 +20,7 @@ import Swift
     
     // MARK: - Function(s).
     
-    public func body(content: SceneContent) -> some Scene {
+    public func body(content: Content) -> some Scene {
         fatalError()
     }
     

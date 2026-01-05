@@ -1,5 +1,6 @@
 import Swift
 
+/// A value with a modifier applied to it.
 @frozen public struct ModifiedContent<Content, Modifier> {
 
     // MARK: - Type Alias.

@@ -37,7 +37,7 @@ import Foundation
 ///
 /// You typically use a window group for the main interface of an app that isn't
 /// document-based. For document-based apps, use a ``DocumentGroup`` instead.
-@frozen public struct WindowGroup<Content> : Scene where Content : View {
+@frozen public struct WindowGroup<Content> : @MainActor Scene where Content : View {
     
     // MARK: - Type Alias.
 

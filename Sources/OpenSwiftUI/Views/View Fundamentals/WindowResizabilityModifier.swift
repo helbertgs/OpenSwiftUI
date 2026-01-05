@@ -1,8 +1,8 @@
 import Swift
 
 @frozen
-public struct WindowResizabilityModifier : _SceneModifier {
-    
+public struct WindowResizabilityModifier : @MainActor SceneModifier {
+
     // MARK: - Property(ies).
     
     public let resizability: WindowResizability
@@ -16,7 +16,7 @@ public struct WindowResizabilityModifier : _SceneModifier {
     
     // MARK: - Function(s).
     
-    public func body(content: SceneContent) -> some Scene {
+    public func body(content: Content) -> some Scene {
         fatalError()
     }
 

@@ -9,7 +9,7 @@ public struct _SceneInputs {
     var environmentValues: EnvironmentValues = .init()
 
     /// The modifiers applied to the scene.
-    var modifiers: [any _SceneModifier] = []
+    var modifiers: [any SceneModifier] = []
 
     /// The content of the scene, if any.
     var content: (any View)? = nil

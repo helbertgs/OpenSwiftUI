@@ -1,8 +1,8 @@
 import Swift
 
 @frozen
-public struct BackgroundTaskModifier<Request, Response> : _SceneModifier {
-    
+public struct BackgroundTaskModifier<Request, Response> : @MainActor SceneModifier {
+
     // MARK: - Property(ies).
     public let task: BackgroundTask<Request, Response>
     public let storage: Any
@@ -16,7 +16,7 @@ public struct BackgroundTaskModifier<Request, Response> : _SceneModifier {
     
     // MARK: - Function(s).
     
-    public func body(content: SceneContent) -> some Scene {
+    public func body(content: Content) -> some Scene {
         fatalError()
     }
     

@@ -1,7 +1,7 @@
 import Foundation
 
 @frozen
-public struct _ValueActionModifier2<V> : _SceneModifier {
+public struct _ValueActionModifier2<V> : @MainActor SceneModifier {
 
     // MARK: - Property(ies).
 
@@ -22,7 +22,7 @@ public struct _ValueActionModifier2<V> : _SceneModifier {
 
     // MARK: - Function(s).
 
-    public func body(content: SceneContent) -> some Scene {
+    public func body(content: Content) -> some Scene {
         fatalError()
     }
 

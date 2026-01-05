@@ -1,8 +1,8 @@
 import Foundation
 
 @frozen
-public struct CommandsRemovedModifier : _SceneModifier {
-    
+public struct CommandsRemovedModifier : @MainActor SceneModifier {
+
     // MARK: - Constructor(s).
     
     @inlinable
@@ -10,7 +10,7 @@ public struct CommandsRemovedModifier : _SceneModifier {
     
     // MARK: - Function(s).
     
-    public func body(content: SceneContent) -> some Scene {
+    public func body(content: Content) -> some Scene {
         fatalError()
     }
     

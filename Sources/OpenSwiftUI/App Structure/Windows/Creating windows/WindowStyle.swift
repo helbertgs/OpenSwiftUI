@@ -9,7 +9,7 @@
 import Swift
 
 /// A specification for the appearance and interaction of a window.
-public protocol WindowStyle {
+@MainActor @preconcurrency public protocol WindowStyle {
     associatedtype _Body : View
 }
 

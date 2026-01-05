@@ -1,6 +1,7 @@
 import Swift
 
-public struct WindowToolbarStyleModifier<Style> : _SceneModifier where Style : WindowToolbarStyle {
+@available(Windows 11, *)
+@MainActor @preconcurrency public struct WindowToolbarStyleModifier<Style> : SceneModifier where Style : WindowToolbarStyle {
 
     // MARK: - Type Alias.
 
@@ -18,7 +19,7 @@ public struct WindowToolbarStyleModifier<Style> : _SceneModifier where Style : W
     
     // MARK: - Function(s).
     
-    public func body(content: SceneContent) -> Never {
+    public func body(content: Content) -> Never {
         fatalError()
     }
 

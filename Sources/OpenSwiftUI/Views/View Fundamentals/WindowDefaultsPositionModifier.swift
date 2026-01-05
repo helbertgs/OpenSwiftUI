@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WindowDefaultsPositionModifier : _SceneModifier {
+public struct WindowDefaultsPositionModifier : @MainActor SceneModifier {
     
     // MARK: - Property(ies).
     
@@ -14,7 +14,7 @@ public struct WindowDefaultsPositionModifier : _SceneModifier {
 
     // MARK: - Function(s).
     
-    public func body(content: SceneContent) -> Never {
+    public func body(content: Content) -> Never {
         fatalError()
     }
     
