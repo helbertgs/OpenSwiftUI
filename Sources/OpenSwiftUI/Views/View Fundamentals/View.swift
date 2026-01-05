@@ -130,7 +130,7 @@ extension View {
 
     /// Adds an action to perform before this view appears.
     ///
-    /// The exact moment that SwiftUI calls this method
+    /// The exact moment that OpenSwiftUI calls this method
     /// depends on the specific view type that you apply it to, but
     /// the `action` closure completes before the first
     /// rendered frame appears.
@@ -145,7 +145,7 @@ extension View {
 
     /// Adds an action to perform after this view disappears.
     ///
-    /// The exact moment that SwiftUI calls this method
+    /// The exact moment that OpenSwiftUI calls this method
     /// depends on the specific view type that you apply it to, but
     /// the `action` closure doesn't execute until the view
     /// disappears from the interface.

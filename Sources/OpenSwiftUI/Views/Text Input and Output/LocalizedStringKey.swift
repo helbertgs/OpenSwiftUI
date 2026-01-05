@@ -3,10 +3,10 @@ import Foundation
 /// The key used to look up an entry in a strings file or strings dictionary
 /// file.
 ///
-/// Initializers for several SwiftUI types -- such as ``Text``, ``Toggle``,
+/// Initializers for several OpenSwiftUI types -- such as ``Text``, ``Toggle``,
 /// ``Picker`` and others --  implicitly look up a localized string when you
 /// provide a string literal. When you use the initializer `Text("Hello")`,
-/// SwiftUI creates a `LocalizedStringKey` for you and uses that to look up a
+/// OpenSwiftUI creates a `LocalizedStringKey` for you and uses that to look up a
 /// localization of the `Hello` string. This works because `LocalizedStringKey`
 /// conforms to
 /// <doc://com.apple.documentation/documentation/Swift/ExpressibleByStringLiteral>.
@@ -24,7 +24,7 @@ import Foundation
 ///
 /// The following example shows how to create ``Text`` instances both
 /// with and without localization. The title parameter provided to the
-/// ``Section`` is a literal string, so SwiftUI creates a
+/// ``Section`` is a literal string, so OpenSwiftUI creates a
 /// `LocalizedStringKey` for it. However, the string entries in the
 /// `messageStore.today` array are `String` variables, so the ``Text`` views
 /// in the list use the string values verbatim.
@@ -51,7 +51,7 @@ import Foundation
 /// ![A list with a single section header displayed in Japanese.
 /// The items in the list are all in English: New for Monday, Account update,
 /// and Server
-/// maintenance.](SwiftUI-LocalizedStringKey-Today-List-Japanese.png)
+/// maintenance.](OpenSwiftUI-LocalizedStringKey-Today-List-Japanese.png)
 @frozen public struct LocalizedStringKey: Equatable, ExpressibleByExtendedGraphemeClusterLiteral, ExpressibleByStringInterpolation, ExpressibleByStringLiteral, ExpressibleByUnicodeScalarLiteral, Sendable {
 
     /// A type that represents an extended grapheme cluster literal.
@@ -97,7 +97,7 @@ import Foundation
     /// the `\()` string interpolation syntax. Swift matches the parameter
     /// types in the expression to one of the `appendInterpolation` methods
     /// in ``LocalizedStringKey/StringInterpolation``. The interpolated
-    /// types can include numeric values, Foundation types, and SwiftUI
+    /// types can include numeric values, Foundation types, and OpenSwiftUI
     /// ``Text`` and ``Image`` instances.
     ///
     /// The following example uses a string interpolation with two arguments:

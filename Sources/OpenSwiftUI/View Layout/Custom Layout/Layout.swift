@@ -194,7 +194,7 @@ public protocol Layout {
     ///
     /// You can optionally use a cache to preserve calculated values across
     /// calls to a layout container's methods. Many layout types don't need
-    /// a cache, because SwiftUI automatically reuses both the results of
+    /// a cache, because OpenSwiftUI automatically reuses both the results of
     /// calls into the layout and the values that the layout reads from its
     /// subviews. Rely on the protocol's default implementation of this method
     /// if you don't need a cache.
@@ -229,7 +229,7 @@ public protocol Layout {
     /// You can use any storage type that makes sense for your layout
     /// algorithm, but be sure that you only store data that you derive
     /// from the layout and its subviews (lazily, if possible). For this to
-    /// work correctly, SwiftUI needs to be able to call this method to
+    /// work correctly, OpenSwiftUI needs to be able to call this method to
     /// recreate the cache without changing the layout result.
     ///
     /// When you return a cache from this method, you implicitly define a type
@@ -239,7 +239,7 @@ public protocol Layout {
     ///
     /// ### Update the cache
     ///
-    /// If the layout container or any of its subviews change, SwiftUI
+    /// If the layout container or any of its subviews change, OpenSwiftUI
     /// calls the ``updateCache(_:subviews:)-9hkj9`` method so you can
     /// modify or invalidate the contents of the
     /// cache. The default implementation of that method calls the
@@ -260,7 +260,7 @@ public protocol Layout {
     /// Updates the layout's cache when something changes.
     ///
     /// If your custom layout container creates a cache by implementing the
-    /// ``makeCache(subviews:)-23agy`` method, SwiftUI calls the update method
+    /// ``makeCache(subviews:)-23agy`` method, OpenSwiftUI calls the update method
     /// when your layout or its subviews change, giving you an opportunity
     /// to modify or invalidate the contents of the cache.
     /// The method's default implementation recreates the
@@ -376,7 +376,7 @@ public protocol Layout {
     /// Because this example isn't flexible, it ignores its size proposal
     /// input and always returns the same value for a given set of subviews.
     ///
-    /// SwiftUI views choose their own size, so the layout engine always
+    /// OpenSwiftUI views choose their own size, so the layout engine always
     /// uses a value that you return from this method as the actual size of the
     /// composite view. That size factors into the construction of the `bounds`
     /// input to the ``placeSubviews(in:proposal:subviews:cache:)`` method.
@@ -400,7 +400,7 @@ public protocol Layout {
 
     /// Assigns positions to each of the layout's subviews.
     ///
-    /// SwiftUI calls your implementation of this method to tell your
+    /// OpenSwiftUI calls your implementation of this method to tell your
     /// custom layout container to place its subviews. From this method, call
     /// the ``LayoutSubview/place(at:anchor:proposal:)`` method on each
     /// element in `subviews` to tell the subviews where to appear in the
@@ -673,7 +673,7 @@ extension Layout {
     /// Combines the specified views into a single composite view using
     /// the layout algorithms of the custom layout container.
     ///
-    /// Don't call this method directly. SwiftUI calls it when you
+    /// Don't call this method directly. OpenSwiftUI calls it when you
     /// instantiate a custom layout that conforms to the ``Layout``
     /// protocol:
     ///

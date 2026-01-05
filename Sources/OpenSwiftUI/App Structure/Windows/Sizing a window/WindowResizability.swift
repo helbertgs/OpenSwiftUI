@@ -50,7 +50,7 @@ public struct WindowResizability: Copyable, Equatable, Hashable, Sendable {
     
     /// The automatic window resizability.
     ///
-    /// When you use automatic resizability, SwiftUI applies a resizing
+    /// When you use automatic resizability, OpenSwiftUI applies a resizing
     /// strategy that's appropriate for the scene type:
     /// * Windows from ``WindowGroup``, ``Window``, and ``DocumentGroup``
     ///   scene declarations use the ``contentMinSize`` strategy.

@@ -2,7 +2,7 @@ import Swift
 
 /// A proposal for the size of a view.
 ///
-/// During layout in SwiftUI, views choose their own size, but they do that
+/// During layout in OpenSwiftUI, views choose their own size, but they do that
 /// in response to a size proposal from their parent view. When you create
 /// a custom layout using the ``Layout`` protocol, your layout container
 /// participates in this process using `ProposedViewSize` instances.

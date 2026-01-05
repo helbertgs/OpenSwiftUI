@@ -13,13 +13,13 @@ import OpenSpatial
 /// A part of an app's user interface with a life cycle managed by the
 /// system.
 ///
-/// You create an ``SwiftUI/App`` by combining one or more instances
+/// You create an ``OpenSwiftUI/App`` by combining one or more instances
 /// that conform to the `Scene` protocol in the app's
-/// ``SwiftUI/App/body-swift.property``. You can use the built-in scenes that
-/// SwiftUI provides, like ``SwiftUI/WindowGroup``, along with custom scenes
+/// ``OpenSwiftUI/App/body-swift.property``. You can use the built-in scenes that
+/// OpenSwiftUI provides, like ``OpenSwiftUI/WindowGroup``, along with custom scenes
 /// that you compose from other scenes. To create a custom scene, declare a
 /// type that conforms to the `Scene` protocol. Implement the required
-/// ``SwiftUI/Scene/body-swift.property`` computed property and provide the
+/// ``OpenSwiftUI/Scene/body-swift.property`` computed property and provide the
 /// content for your custom scene:
 ///
 ///     struct MyScene: Scene {
@@ -38,11 +38,11 @@ import OpenSpatial
 /// `MyRootView` on platforms like macOS and iPadOS. On other platforms, the
 /// same view hierarchy might consume the entire display when active.
 ///
-/// Read the ``SwiftUI/EnvironmentValues/scenePhase`` environment
+/// Read the ``OpenSwiftUI/EnvironmentValues/scenePhase`` environment
 /// value from within a scene or one of its views to check whether a scene is
 /// active or in some other state. You can create a property that contains the
-/// scene phase, which is one of the values in the ``SwiftUI/ScenePhase``
-/// enumeration, using the ``SwiftUI/Environment`` attribute:
+/// scene phase, which is one of the values in the ``OpenSwiftUI/ScenePhase``
+/// enumeration, using the ``OpenSwiftUI/Environment`` attribute:
 ///
 ///     struct MyScene: Scene {
 ///         @Environment(\.scenePhase) private var scenePhase
@@ -52,7 +52,7 @@ import OpenSpatial
 ///
 /// The `Scene` protocol provides scene modifiers, defined as protocol methods
 /// with default implementations, that you use to configure a scene. For
-/// example, you can use the ``SwiftUI/Scene/onChange(of:perform:)`` modifier to
+/// example, you can use the ``OpenSwiftUI/Scene/onChange(of:perform:)`` modifier to
 /// trigger an action when a value changes. The following code empties a cache
 /// when all of the scenes in the window group have moved to the background:
 ///
@@ -95,7 +95,7 @@ import OpenSpatial
     /// The type of scene that represents the body of this scene.
     ///
     /// When you create a custom scene, Swift infers this type from your
-    /// implementation of the required ``SwiftUI/Scene/body-swift.property``
+    /// implementation of the required ``OpenSwiftUI/Scene/body-swift.property``
     /// property.
     associatedtype Body : Scene
 
@@ -103,14 +103,14 @@ import OpenSpatial
     ///
     /// For any scene that you create, provide a computed `body` property that
     /// defines the scene as a composition of other scenes. You can assemble a
-    /// scene from built-in scenes that SwiftUI provides, as well as other
+    /// scene from built-in scenes that OpenSwiftUI provides, as well as other
     /// scenes that you've defined.
     ///
-    /// Swift infers the scene's ``SwiftUI/Scene/Body-swift.associatedtype``
+    /// Swift infers the scene's ``OpenSwiftUI/Scene/Body-swift.associatedtype``
     /// associated type based on the contents of the `body` property.
     @SceneBuilder @MainActor @preconcurrency var body: Self.Body { get }
 
-    /// Creates the scene's representation in the SwiftUI scene graph.
+    /// Creates the scene's representation in the OpenSwiftUI scene graph.
     ///
     /// - Parameters:
     ///   - scene: The scene to create.
@@ -126,8 +126,8 @@ extension Scene {
     /// Adds an action to perform when the given value changes.
     ///
     /// Use this modifier to trigger a side effect when a value changes, like
-    /// the value associated with an ``SwiftUI/Environment`` key or a
-    /// ``SwiftUI/Binding``. For example, you can clear a cache when you notice
+    /// the value associated with an ``OpenSwiftUI/Environment`` key or a
+    /// ``OpenSwiftUI/Binding``. For example, you can clear a cache when you notice
     /// that a scene moves to the background:
     ///
     ///     struct MyScene: Scene {
@@ -183,8 +183,8 @@ extension Scene {
     /// Adds an action to perform when the given value changes.
     ///
     /// Use this modifier to trigger a side effect when a value changes, like
-    /// the value associated with an ``SwiftUI/Environment`` key or a
-    /// ``SwiftUI/Binding``. For example, you can clear a cache when you notice
+    /// the value associated with an ``OpenSwiftUI/Environment`` key or a
+    /// ``OpenSwiftUI/Binding``. For example, you can clear a cache when you notice
     /// that a scene moves to the background:
     ///
     ///     struct MyScene: Scene {
@@ -229,11 +229,11 @@ extension Scene {
         modifier(_ValueActionModifier2(value: value, action: action))
     }
 
-    /// Specifies the external events for which SwiftUI opens a new instance
+    /// Specifies the external events for which OpenSwiftUI opens a new instance
     /// of the modified scene.
     ///
     /// When your app receives an external event like a user activity or a
-    /// URL, SwiftUI routes the event to a scene for processing. SwiftUI
+    /// URL, OpenSwiftUI routes the event to a scene for processing. OpenSwiftUI
     /// selects the scene that receives the event according to the following
     /// rules, which it evaluates in order until it finds a destination scene:
     ///
@@ -258,21 +258,21 @@ extension Scene {
     ///
     /// Don't confuse the `handlesExternalEvents(matching:)` scene
     /// modifier with the ``View/handlesExternalEvents(preferring:allowing:)``
-    /// _view_ modifier. You use the scene modifier to help SwiftUI choose a
+    /// _view_ modifier. You use the scene modifier to help OpenSwiftUI choose a
     /// new scene to open when no open scene handles an external event,
     /// whereas you use the view modifier to indicate that an open scene can
     /// or prefers to handle certain events.
     ///
     /// ### Matching an event
     ///
-    /// To find a scene type that handles a particular external event, SwiftUI
+    /// To find a scene type that handles a particular external event, OpenSwiftUI
     /// compares a property of the event against the strings that you specify
-    /// in the `conditions` set. SwiftUI examines the following event
+    /// in the `conditions` set. OpenSwiftUI examines the following event
     /// properties to perform the comparison:
     ///
     /// * For an
     ///   <doc://com.apple.documentation/documentation/Foundation/NSUserActivity>,
-    ///   like when your app handles Handoff, SwiftUI uses the activity's
+    ///   like when your app handles Handoff, OpenSwiftUI uses the activity's
     ///   <doc://com.apple.documentation/documentation/Foundation/NSUserActivity/3238062-targetContentIdentifier>
     ///   property, or if that's `nil`, its
     ///   <doc://com.apple.documentation/documentation/Foundation/NSUserActivity/1418086-webpageurl>
@@ -281,7 +281,7 @@ extension Scene {
     /// * For a
     ///   <doc://com.apple.documentation/documentation/Foundation/URL>,
     ///   like when another process opens a URL that your app handles,
-    ///   SwiftUI uses the URL's
+    ///   OpenSwiftUI uses the URL's
     ///   <doc://com.apple.documentation/documentation/Foundation/URL/1779984-absoluteString>.
     ///
     /// An empty set of strings never matches. Similarly, empty strings never
@@ -321,12 +321,12 @@ extension Scene {
     /// the second type. Other events, if not handled by an open scene,
     /// cause the creation of a new browser window instead.
     ///
-    /// - Parameter conditions: A set of strings that SwiftUI compares against
-    ///   the incoming user activity or URL to see if SwiftUI
+    /// - Parameter conditions: A set of strings that OpenSwiftUI compares against
+    ///   the incoming user activity or URL to see if OpenSwiftUI
     ///   can open a new scene instance to handle the external event.
     ///
     /// - Returns: A scene type that limits the kinds of external events for
-    ///   which SwiftUI opens a new instance.
+    ///   which OpenSwiftUI opens a new instance.
     public func handlesExternalEvents(matching conditions: Set<String>) -> some Scene {
         modifier(ActivationConditionsModifier(conditions: conditions))
     }
@@ -555,7 +555,7 @@ extension Scene {
     ///     }
     ///
     /// If `shortcut` is `nil`, the scene's presentation command will not be
-    /// associated with a keyboard shortcut, even if SwiftUI normally assigns
+    /// associated with a keyboard shortcut, even if OpenSwiftUI normally assigns
     /// one automatically.
     ///
     /// - Parameters:

@@ -32,7 +32,7 @@ import Foundation
 
     // MARK: - Static Function(s).
 
-    /// Creates the scene's modifier representation in the SwiftUI scene graph.
+    /// Creates the scene's modifier representation in the OpenSwiftUI scene graph.
     /// 
     /// - Parameters:
     ///   - scene: The modifier to create.

@@ -9,7 +9,7 @@ public struct AccessibilityRotorEntry<ID> where ID : Hashable {
     /// - Parameters:
     ///   - label: Optional localized string used to show this Rotor entry to users. If no label is specified, the Rotor entry will be labeled based on the text at that range.
     ///   - textRange: Optional range of text associated with this Rotor entry. This should be a range within text that is set as the either label or accessibility value of the associated element.
-    ///   - prepare: Optional closure to run before a Rotor entry is navigated to, to prepare the UI as needed. This can be used to bring the UI element or text on-screen if it isn’t already, and SwiftUI not able to automatically scroll to it.
+    ///   - prepare: Optional closure to run before a Rotor entry is navigated to, to prepare the UI as needed. This can be used to bring the UI element or text on-screen if it isn’t already, and OpenSwiftUI not able to automatically scroll to it.
     public init(_ label: Text? = nil, textRange: Range<String.Index>, prepare: @escaping (() -> Void) = {}) where ID == Never {
     }
 
@@ -17,7 +17,7 @@ public struct AccessibilityRotorEntry<ID> where ID : Hashable {
     /// - Parameters:
     ///   - label: Optional localized string used to show this Rotor entry to users. If no label is specified, the Rotor entry will be labeled based on the text at that range.
     ///   - textRange: Optional range of text associated with this Rotor entry. This should be a range within text that is set as the either label or accessibility value of the associated element.
-    ///   - prepare: Optional closure to run before a Rotor entry is navigated to, to prepare the UI as needed. This can be used to bring the UI element or text on-screen if it isn’t already, and SwiftUI not able to automatically scroll to it.
+    ///   - prepare: Optional closure to run before a Rotor entry is navigated to, to prepare the UI as needed. This can be used to bring the UI element or text on-screen if it isn’t already, and OpenSwiftUI not able to automatically scroll to it.
     public init(_ labelKey: LocalizedStringKey, textRange: Range<String.Index>, prepare: @escaping (() -> Void) = {}) {
     }
 
@@ -25,7 +25,7 @@ public struct AccessibilityRotorEntry<ID> where ID : Hashable {
     /// - Parameters:
     ///   - label: Optional localized string used to show this Rotor entry to users. If no label is specified, the Rotor entry will be labeled based on the text at that range.
     ///   - textRange: Optional range of text associated with this Rotor entry. This should be a range within text that is set as the either label or accessibility value of the associated element.
-    ///   - prepare: Optional closure to run before a Rotor entry is navigated to, to prepare the UI as needed. This can be used to bring the UI element or text on-screen if it isn’t already, and SwiftUI not able to automatically scroll to it.
+    ///   - prepare: Optional closure to run before a Rotor entry is navigated to, to prepare the UI as needed. This can be used to bring the UI element or text on-screen if it isn’t already, and OpenSwiftUI not able to automatically scroll to it.
     public init<L>(_ label: L, textRange: Range<String.Index>, prepare: @escaping (() -> Void) = {}) where ID == Never, L : StringProtocol     {
     }
 
@@ -34,7 +34,7 @@ public struct AccessibilityRotorEntry<ID> where ID : Hashable {
     ///   - labelKey: Localized string used to show this Rotor entry to users.
     ///   - id: Used to find the UI element associated with this Rotor entry. This identifier should be used within a scrollView, either in a ForEach or using an id call.
     ///   - textRange: Optional range of text associated with this Rotor entry. This should be a range within text that is set as the either label or accessibility value of the associated element.
-    ///   - prepare: Optional closure to run before a Rotor entry is navigated to, to prepare the UI as needed. This can be used to bring the UI element on-screen if it isn’t already, and SwiftUI is not able to automatically scroll to it.
+    ///   - prepare: Optional closure to run before a Rotor entry is navigated to, to prepare the UI as needed. This can be used to bring the UI element on-screen if it isn’t already, and OpenSwiftUI is not able to automatically scroll to it.
     public init(_ label: Text, id: ID, textRange: Range<String.Index>? = nil, prepare: @escaping (() -> Void) = {}) {
     }
 
@@ -43,7 +43,7 @@ public struct AccessibilityRotorEntry<ID> where ID : Hashable {
     ///   - labelKey: Localized string used to show this Rotor entry to users.
     ///   - id: Used to find the UI element associated with this Rotor entry. This identifier should be used within a scrollView, either in a ForEach or using an id call.
     ///   - textRange: Optional range of text associated with this Rotor entry. This should be a range within text that is set as the either label or accessibility value of the associated element.
-    ///   - prepare: Optional closure to run before a Rotor entry is navigated to, to prepare the UI as needed. This can be used to bring the UI element on-screen if it isn’t already, and SwiftUI is not able to automatically scroll to it.
+    ///   - prepare: Optional closure to run before a Rotor entry is navigated to, to prepare the UI as needed. This can be used to bring the UI element on-screen if it isn’t already, and OpenSwiftUI is not able to automatically scroll to it.
     public init(_ labelKey: LocalizedStringKey, id: ID, textRange: Range<String.Index>? = nil, prepare: @escaping (() -> Void) = {}) {
     }
 
@@ -52,7 +52,7 @@ public struct AccessibilityRotorEntry<ID> where ID : Hashable {
     ///   - labelKey: Localized string used to show this Rotor entry to users.
     ///   - id: Used to find the UI element associated with this Rotor entry. This identifier should be used within a scrollView, either in a ForEach or using an id call.
     ///   - textRange: Optional range of text associated with this Rotor entry. This should be a range within text that is set as the either label or accessibility value of the associated element.
-    ///   - prepare: Optional closure to run before a Rotor entry is navigated to, to prepare the UI as needed. This can be used to bring the UI element on-screen if it isn’t already, and SwiftUI is not able to automatically scroll to it.
+    ///   - prepare: Optional closure to run before a Rotor entry is navigated to, to prepare the UI as needed. This can be used to bring the UI element on-screen if it isn’t already, and OpenSwiftUI is not able to automatically scroll to it.
     public init<L>(_ label: L, id: ID, textRange: Range<String.Index>? = nil, prepare: @escaping (() -> Void) = {}) where L : StringProtocol {
     }
 

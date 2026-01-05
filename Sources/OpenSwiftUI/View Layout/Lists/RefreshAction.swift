@@ -20,7 +20,7 @@ import Swift
 /// On iOS and iPadOS, the ``List`` in the example above offers a
 /// pull to refresh gesture because it detects the refresh action. When
 /// the user drags the list down and releases, the list calls the action's
-/// handler. Because SwiftUI declares the handler as asynchronous, it can
+/// handler. Because OpenSwiftUI declares the handler as asynchronous, it can
 /// safely make long-running asynchronous calls, like fetching network data.
 ///
 /// ### Refreshing Custom Views
@@ -77,7 +77,7 @@ public struct RefreshAction {
 
     /// Initiates a refresh action.
     ///
-    /// Don't call this method directly. SwiftUI calls it when you
+    /// Don't call this method directly. OpenSwiftUI calls it when you
     /// call the ``RefreshAction`` structure that you get from the
     /// ``Environment``:
     ///

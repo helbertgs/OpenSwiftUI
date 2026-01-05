@@ -22,7 +22,7 @@ public struct WindowLevel : Equatable, Hashable, Sendable {
 
     /// Automatic window level.
     ///
-    /// SwiftUI will use applicable level accordingly based on factors like
+    /// OpenSwiftUI will use applicable level accordingly based on factors like
     /// scene type and window style.
     public static let automatic: WindowLevel = .init(storage: .automatic)
 

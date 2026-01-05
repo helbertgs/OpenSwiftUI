@@ -21,7 +21,7 @@ public struct ResetFocusAction {
     /// The focus system reevaluates default focus when the currently-focused
     /// item is within the provided namespace.
     ///
-    /// - Parameter namespace: The namespace inside which SwiftUI should
+    /// - Parameter namespace: The namespace inside which OpenSwiftUI should
     ///   reevaluate default focus. The namespace should match the
     ///   ``View/focusScope(_:)`` block where focus requires reevaluation.
     public func callAsFunction(in namespace: Namespace.ID) {

@@ -15,7 +15,7 @@ extension EnvironmentValues {
     /// it defines a ``DismissSearchAction/callAsFunction()`` method that Swift
     /// calls when you call the instance.
     ///
-    /// When you dismiss search, SwiftUI:
+    /// When you dismiss search, OpenSwiftUI:
     ///
     /// * Sets ``EnvironmentValues/isSearching`` to `false`.
     /// * Clears any text from the search field.
@@ -63,7 +63,7 @@ extension EnvironmentValues {
     ///     }
     ///
     /// The button becomes visible only after the user enters search text
-    /// that produces a match. When the user taps the button, SwiftUI shows
+    /// that produces a match. When the user taps the button, OpenSwiftUI shows
     /// a sheet that provides more information about the item, including
     /// an Add button for adding the item to a stored list of items:
     ///

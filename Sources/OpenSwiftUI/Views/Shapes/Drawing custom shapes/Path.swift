@@ -261,7 +261,7 @@ public struct Path : Equatable, Sendable {
     /// This method calculates starting and ending points using the radius and angles you specify, uses a sequence of cubic Bézier curves to approximate a segment of a circle between those points, and then appends those curves to the path.
     /// 
     /// The delta parameter determines both the length of the arc the direction in which the arc is created; the actual direction of the final path is dependent on the transform parameter and the current transform of a context where the path is drawn. 
-    /// However, because SwiftUI by default uses a vertically-flipped coordinate system (with the origin in the top-left of the view), specifying a clockwise arc results in a counterclockwise arc after the transformation is applied.
+    /// However, because OpenSwiftUI by default uses a vertically-flipped coordinate system (with the origin in the top-left of the view), specifying a clockwise arc results in a counterclockwise arc after the transformation is applied.
     /// 
     /// If the path ends with an unclosed subpath, this method adds a line connecting the current point to the starting point of the arc. 
     /// If there is no unclosed subpath, this method creates a new subpath whose starting point is the starting point of the arc. 

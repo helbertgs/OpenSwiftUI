@@ -8,7 +8,7 @@ import Swift
 /// directly because it defines a ``DismissSearchAction/callAsFunction()``
 /// method that Swift calls when you call the instance.
 ///
-/// When you dismiss search, SwiftUI:
+/// When you dismiss search, OpenSwiftUI:
 ///
 /// * Sets ``EnvironmentValues/isSearching`` to `false`.
 /// * Clears any text from the search field.
@@ -56,7 +56,7 @@ import Swift
 ///     }
 ///
 /// The button becomes visible only after the user enters search text
-/// that produces a match. When the user taps the button, SwiftUI shows
+/// that produces a match. When the user taps the button, OpenSwiftUI shows
 /// a sheet that provides more information about the item, including
 /// an Add button for adding the item to a stored list of items:
 ///
@@ -103,7 +103,7 @@ public struct DismissSearchAction {
 
     /// Dismisses the current search operation, if any.
     ///
-    /// Don't call this method directly. SwiftUI calls it for you when you
+    /// Don't call this method directly. OpenSwiftUI calls it for you when you
     /// call the ``DismissSearchAction`` structure that you get from the
     /// ``Environment``:
     ///

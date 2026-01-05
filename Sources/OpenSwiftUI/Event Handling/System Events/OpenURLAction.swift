@@ -55,7 +55,7 @@ import Swift
 ///             return .handled
 ///         })
 ///
-/// SwiftUI translates the value that your custom action's handler
+/// OpenSwiftUI translates the value that your custom action's handler
 /// returns into an appropriate Boolean result for the action call.
 /// For example, a view that uses the action declared above
 /// receives `true` when calling the action, because the
@@ -73,9 +73,9 @@ public struct OpenURLAction {
     ///
     /// * Use ``handled`` to indicate that the handler opened the URL.
     /// * Use ``discarded`` to indicate that the handler discarded the URL.
-    /// * Use ``systemAction`` without an argument to ask SwiftUI
+    /// * Use ``systemAction`` without an argument to ask OpenSwiftUI
     ///   to open the URL with the system handler.
-    /// * Use ``systemAction(_:)`` with a URL argument to ask SwiftUI
+    /// * Use ``systemAction(_:)`` with a URL argument to ask OpenSwiftUI
     ///   to open the specified URL with the system handler.
     ///
     /// You can use the last option to transform URLs, while
@@ -152,7 +152,7 @@ public struct OpenURLAction {
     /// built-in ``Link`` view and ``Text`` views with markdown links, or
     /// links in attributed strings, use your action.
     ///
-    /// SwiftUI translates the value that your custom action's handler
+    /// OpenSwiftUI translates the value that your custom action's handler
     /// returns into an appropriate Boolean result for the action call.
     /// For example, a view that uses the action declared above
     /// receives `true` when calling the action, because the
@@ -167,7 +167,7 @@ public struct OpenURLAction {
 
     /// Opens a URL, following system conventions.
     ///
-    /// Don't call this method directly. SwiftUI calls it when you
+    /// Don't call this method directly. OpenSwiftUI calls it when you
     /// call the ``OpenURLAction`` structure that you get from the
     /// ``Environment``, using a URL as an argument:
     ///
@@ -197,7 +197,7 @@ public struct OpenURLAction {
 
     /// Asynchronously opens a URL, following system conventions.
     ///
-    /// Don't call this method directly. SwiftUI calls it when you
+    /// Don't call this method directly. OpenSwiftUI calls it when you
     /// call the ``OpenURLAction`` structure that you get from the
     /// ``Environment``, using a URL and a completion handler as arguments:
     ///

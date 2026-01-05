@@ -82,7 +82,7 @@ public struct LayoutSubview : Equatable {
     /// <doc://com.apple.documentation/documentation/CoreFoundation/CGSize>
     /// instance.
     ///
-    /// - Parameter proposal: A proposed size for the subview. In SwiftUI,
+    /// - Parameter proposal: A proposed size for the subview. In OpenSwiftUI,
     ///   views choose their own size, but can take a size proposal from
     ///   their parent view into account when doing so.
     ///
@@ -114,7 +114,7 @@ public struct LayoutSubview : Equatable {
     /// If you need only the view's height and width, you can use the
     /// ``sizeThatFits(_:)`` method instead.
     ///
-    /// - Parameter proposal: A proposed size for the subview. In SwiftUI,
+    /// - Parameter proposal: A proposed size for the subview. In OpenSwiftUI,
     ///   views choose their own size, but can take a size proposal from
     ///   their parent view into account when doing so.
     ///
@@ -171,7 +171,7 @@ public struct LayoutSubview : Equatable {
     ///   - anchor: The unit point on the subview that appears at `position`.
     ///     You can use a built-in point, like ``UnitPoint/center``, or
     ///     you can create a custom ``UnitPoint``.
-    ///   - proposal: A proposed size for the subview. In SwiftUI,
+    ///   - proposal: A proposed size for the subview. In OpenSwiftUI,
     ///     views choose their own size, but can take a size proposal from
     ///     their parent view into account when doing so.
     public func place(at position: Point, anchor: UnitPoint = .topLeading, proposal: ProposedViewSize) {
@@ -228,12 +228,12 @@ public struct LayoutSubviews : Equatable, RandomAccessCollection {
 
     /// The layout direction inherited by the container view.
     ///
-    /// SwiftUI supports both left-to-right and right-to-left directions.
+    /// OpenSwiftUI supports both left-to-right and right-to-left directions.
     /// Read this property within a custom layout container
     /// to find out which environment the container is in.
     ///
     /// In most cases, you don't need to take any action based on this
-    /// value. SwiftUI horizontally flips the x position of each view within its
+    /// value. OpenSwiftUI horizontally flips the x position of each view within its
     /// parent when the mode switches, so layout calculations automatically
     /// produce the desired effect for both directions.
     public var layoutDirection: LayoutDirection

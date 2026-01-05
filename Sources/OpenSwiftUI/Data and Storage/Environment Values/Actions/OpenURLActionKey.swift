@@ -62,7 +62,7 @@ extension EnvironmentValues {
     ///             return .handled
     ///         })
     ///
-    /// SwiftUI translates the value that your custom action's handler
+    /// OpenSwiftUI translates the value that your custom action's handler
     /// returns into an appropriate Boolean result for the action call.
     /// For example, a view that uses the action declared above
     /// receives `true` when calling the action, because the

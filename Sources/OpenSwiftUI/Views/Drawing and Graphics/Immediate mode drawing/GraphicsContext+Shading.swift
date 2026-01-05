@@ -68,7 +68,7 @@ extension GraphicsContext {
         /// 
         /// - Parameters:
         ///   - gradient: A Gradient instance that defines the colors of the gradient.
-        ///   - center: The point in the current user space on which SwiftUI centers the gradient.
+        ///   - center: The point in the current user space on which OpenSwiftUI centers the gradient.
         ///   - startRadius: The distance from the center where the gradient starts.
         ///   - endRadius: The distance from the center where the gradient ends.
         ///   - options: Options that you use to configure the gradient.
@@ -81,8 +81,8 @@ extension GraphicsContext {
         /// 
         /// - Parameters:
         ///   - gradient: A Gradient instance that defines the colors of the gradient.
-        ///   - center: The point in the current user space on which SwiftUI centers the gradient.
-        ///   - angle: The angle about the center that SwiftUI uses to start and finish the gradient. The gradient sweeps all the way around the center.
+        ///   - center: The point in the current user space on which OpenSwiftUI centers the gradient.
+        ///   - angle: The angle about the center that OpenSwiftUI uses to start and finish the gradient. The gradient sweeps all the way around the center.
         ///   - options: Options that you use to configure the gradient.
         /// - Returns: A shading instance filled with a conic gradient.
         public static func conicGradient(_ gradient: Gradient, center: Point3D, angle: Angle2D = .init(), options: GraphicsContext.GradientOptions = GradientOptions()) -> GraphicsContext.Shading {
@@ -113,7 +113,7 @@ extension GraphicsContext {
         /// 
         /// - Parameters:
         ///   - image: An Image to use as fill.
-        ///   - origin: The point in the current user space where SwiftUI places the bottom left corner of the part of the image defined by sourceRect. The image repeats as needed.
+        ///   - origin: The point in the current user space where OpenSwiftUI places the bottom left corner of the part of the image defined by sourceRect. The image repeats as needed.
         ///   - sourceRect: A unit space subregion of the image. The default is a unit rectangle, which selects the whole image.
         ///   - scale: A factor that you can use to control the image size.
         /// - Returns: A shading instance filled with a tiled image.

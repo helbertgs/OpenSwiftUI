@@ -25,7 +25,7 @@ import Foundation
 ///     }
 ///
 /// ![Ten text views, named Item 1 through Item 10, arranged in a
-/// vertical line.](SwiftUI-VStack-simple.png)
+/// vertical line.](OpenSwiftUI-VStack-simple.png)
 ///
 /// > Note: If you need a vertical stack that conforms to the ``Layout``
 /// protocol, like when you want to create a conditional layout using

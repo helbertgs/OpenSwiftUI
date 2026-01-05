@@ -30,7 +30,7 @@ import Swift
 ///
 /// You can perform this calculation yourself if you happen to know a view's
 /// size, or if you want to use the unit point for some custom purpose, but
-/// SwiftUI typically does this for you to carry out operations that
+/// OpenSwiftUI typically does this for you to carry out operations that
 /// you request, like when you:
 ///
 /// * Transform a shape using a shape modifier. For example, to rotate a
@@ -45,7 +45,7 @@ import Swift
 ///   ``ShapeStyle``.
 ///
 /// You can create custom unit points with explicit values, like the example
-/// above, or you can use one of the built-in unit points that SwiftUI provides,
+/// above, or you can use one of the built-in unit points that OpenSwiftUI provides,
 /// like ``zero``, ``center``, or ``topTrailing``. The built-in values
 /// correspond to the alignment positions of the similarly named, built-in
 /// ``Alignment`` types.
@@ -60,7 +60,7 @@ import Swift
 /// with positive x toward the right and positive y toward the bottom of the
 /// view. In a right-to-left environment, the origin moves to the upper-right
 /// corner, and the positive x direction changes to be toward the left. You
-/// don't typically need to do anything to handle this change, because SwiftUI
+/// don't typically need to do anything to handle this change, because OpenSwiftUI
 /// applies the change to all aspects of the system. For example, see the
 /// discussion about layout direction in ``HorizontalAlignment``.
 ///
