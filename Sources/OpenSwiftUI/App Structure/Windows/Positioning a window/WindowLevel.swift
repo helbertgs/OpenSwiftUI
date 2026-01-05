@@ -10,7 +10,7 @@
 ///
 /// Use this in conjunction with the `.windowLevel(_:)` modifier to control
 /// window levels.
-@available(Windows 11, *)
+@available(Windows 10, *)
 public struct WindowLevel : Equatable, Hashable, Sendable {
 
     // MARK: - Checking characteristics

@@ -9,7 +9,7 @@
 import Foundation
 
 /// A Scene created from a swift tuple of Scene values.
-@available(Windows 11, *)
+@available(Windows 10, *)
 @frozen public struct _TupleScene<T> {
 
     // MARK: - Checking characteristics.
@@ -27,7 +27,7 @@ import Foundation
     }
 }
 
-@available(Windows 11, *)
+@available(Windows 10, *)
 extension _TupleScene: Scene {
 
     /// The type of scene body.

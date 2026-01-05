@@ -29,7 +29,7 @@ import OpenSpatial
 ///         return WindowPlacement(position: position, size: size)
 ///     }
 ///
-@available(Windows 11, *)
+@available(Windows 10, *)
 public struct DisplayProxy : Equatable {
 
     /// The full dimensions of the display, including any space occupied by

@@ -87,7 +87,7 @@ import OpenSpatial
 ///         // `nonisolated` by default
 ///     }
 ///
-@available(Windows 11, *)
+@available(Windows 10, *)
 @MainActor @preconcurrency public protocol Scene {
 
     // MARK: - Creating a scene
@@ -118,7 +118,7 @@ import OpenSpatial
     nonisolated static func _makeScene(scene: _GraphValue<Self>, inputs: _SceneInputs) -> _SceneOutputs
 }
 
-@available(Windows 11, *)
+@available(Windows 10, *)
 extension Scene {
 
     // MARK: - Watching for changes
@@ -332,7 +332,7 @@ extension Scene {
     }
 }
 
-@available(Windows 11, *)
+@available(Windows 10, *)
 extension Scene {
 
     // MARK: - Creating background tasks
@@ -373,7 +373,7 @@ extension Scene {
     }
 }
 
-@available(Windows 11, *)
+@available(Windows 10, *)
 extension Scene {
 
     // MARK: - Managing app storage
@@ -392,7 +392,7 @@ extension Scene {
     }
 }
 
-@available(Windows 11, *)
+@available(Windows 10, *)
 extension Scene {
 
     // MARK: - Settings commands
@@ -566,7 +566,7 @@ extension Scene {
     }
 }
 
-@available(Windows 11, *)
+@available(Windows 10, *)
 extension Scene {
 
     /// Sets a default position for a window.
@@ -944,7 +944,7 @@ extension Scene {
     }
 }
 
-@available(Windows 11, *)
+@available(Windows 10, *)
 extension Scene {
 
     // MARK: - Configuring scene visibility
@@ -1070,7 +1070,7 @@ extension Scene {
     }
 }
 
-@available(Windows 11, *)
+@available(Windows 10, *)
 extension Scene {
 
     // MARK: - Styling the scene
@@ -1148,7 +1148,7 @@ extension Scene {
     }
 }
 
-@available(Windows 11, *)
+@available(Windows 10, *)
 extension Scene {
 
     // MARK - Managing the environment
@@ -1275,7 +1275,7 @@ extension Scene {
     }
 }
 
-@available(Windows 11, *)
+@available(Windows 10, *)
 extension Scene {
 
     // MARK: - Interacting with dialogs
@@ -1553,7 +1553,7 @@ extension Scene {
     }
 }
 
-@available(Windows 11, *)
+@available(Windows 10, *)
 extension Scene {
 
     // MARK: - Instance Methods
@@ -1564,7 +1564,7 @@ extension Scene {
     }
 }
 
-@available(Windows 11, *)
+@available(Windows 10, *)
 extension Scene {
     nonisolated package func modifier<T>(_ modifier: T) -> ModifiedContent<Self, T> {
         .init(content: self, modifier: modifier)

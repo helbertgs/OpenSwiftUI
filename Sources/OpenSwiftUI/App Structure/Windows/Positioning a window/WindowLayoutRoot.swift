@@ -14,7 +14,7 @@ import OpenSpatial
 /// The ``Scene.defaultWindowPlacement(_:)`` modifier receives an instance of this type, representing the contents of the window being created.
 /// 
 /// Use this proxy to get information about the window’s contents, like it’s size.
-@available(Windows 11, *)
+@available(Windows 10, *)
 public struct WindowLayoutRoot {
 
     // MARK: - Instance Methods

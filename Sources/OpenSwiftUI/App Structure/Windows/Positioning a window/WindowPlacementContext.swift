@@ -14,7 +14,7 @@ import Foundation
 /// The placement context provides information to be used when providing a new
 /// placement via the closure provided to the `defaultWindowPlacement(_:)`
 /// modifier.
-@available(Windows 11, *)
+@available(Windows 10, *)
 public struct WindowPlacementContext {
 
     // MARK: - Instance Properties

@@ -1,6 +1,6 @@
 import Swift
 
-@available(Windows 11, *)
+@available(Windows 10, *)
 public struct WindowStyleModifier<Style> : Sendable, SceneModifier where Style : WindowStyle {
 
     // MARK: - Type Alias.

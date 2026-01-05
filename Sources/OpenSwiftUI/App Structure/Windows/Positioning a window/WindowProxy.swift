@@ -7,7 +7,7 @@
 // SPDX-License-Identifier: MIT 
 
 /// The proxy for an open window in the app.
-@available(Windows 11, *)
+@available(Windows 10, *)
 public struct WindowProxy : Equatable {
 
     // MARK: - Instance Property

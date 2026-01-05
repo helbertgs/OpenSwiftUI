@@ -9,7 +9,7 @@
 import Foundation
 
 /// A result builder for composing a collection of scenes into a single composite scene.
-@available(Windows 11, *)
+@available(Windows 10, *)
 @resultBuilder public struct SceneBuilder {
 
     /// Builds a scene from a single content.

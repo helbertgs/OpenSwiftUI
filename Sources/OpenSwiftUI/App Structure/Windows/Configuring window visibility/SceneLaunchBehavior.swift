@@ -29,7 +29,7 @@
 ///             .defaultLaunchBehavior(.presented)
 ///         }
 ///     }
-@available(Windows 11, *)
+@available(Windows 10, *)
 public struct SceneLaunchBehavior : Sendable {
 
     // MARK: - Checking characteristics

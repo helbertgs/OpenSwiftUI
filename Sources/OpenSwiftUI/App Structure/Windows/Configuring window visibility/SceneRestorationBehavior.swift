@@ -30,7 +30,7 @@ import Foundation
 ///             .restorationBehavior(.disabled)
 ///         }
 ///     }
-@available(Windows 11, *)
+@available(Windows 10, *)
 public struct SceneRestorationBehavior : Sendable {
 
     // MARK: - Checking characteristics

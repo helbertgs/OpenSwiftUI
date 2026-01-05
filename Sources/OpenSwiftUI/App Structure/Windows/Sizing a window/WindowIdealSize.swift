@@ -26,7 +26,7 @@ import Foundation
 ///             .windowIdealSize(.fitToContent)
 ///         }
 ///     }
-@available(Windows 11, *)
+@available(Windows 10, *)
 public struct WindowIdealSize : Sendable {
 
     // MARK: - Checking characteristics

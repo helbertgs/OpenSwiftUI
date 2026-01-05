@@ -38,7 +38,7 @@ import Foundation
 /// ``WindowResizability/automatic``. With that strategy, ``Settings``
 /// windows use the ``WindowResizability/contentSize`` strategy, while
 /// all others use ``WindowResizability/contentMinSize``.
-@available(Windows 11, *)
+@available(Windows 10, *)
 public struct WindowResizability: Copyable, Equatable, Hashable, Sendable {
     
     // MARK: - Property(ies).

@@ -33,7 +33,7 @@ import OpenSpatial
 ///         return WindowPlacement(position: position, size: size)
 ///     }
 ///
-@available(Windows 11, *)
+@available(Windows 10, *)
 public struct WindowPlacement : Equatable  {
 
     // MARK: - Checking characteristics
