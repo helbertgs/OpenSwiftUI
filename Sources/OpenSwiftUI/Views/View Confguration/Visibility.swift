@@ -1,3 +1,11 @@
+//
+// Visibility.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Oct 11, 2023.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT 
+
 import Swift
 
 /// The visibility of a UI element, chosen automatically based on
@@ -34,45 +42,4 @@ import Swift
     /// modifier may not always hide the dialog title, which is required on
     /// some platforms.
     case hidden
-
-    // MARK: - Case Interable.
-
-    /// A type that can represent a collection of all values of this type.
-    public typealias AllCases = [Visibility]
-
-    /// A collection of all values of this type.
-    public static var allCases: [Visibility] { [ .automatic, .visible ] }
-
-    // MARK: - Equatable.
-
-    /// Returns a Boolean value indicating whether two values are equal.
-    ///
-    /// Equality is the inverse of inequality. For any values `a` and `b`,
-    /// `a == b` implies that `a != b` is `false`.
-    ///
-    /// - Parameters:
-    ///   - lhs: A value to compare.
-    ///   - rhs: Another value to compare.
-    public static func == (lhs: Visibility, rhs: Visibility) -> Bool {
-        lhs.rawValue == rhs.rawValue
-    }
-
-    // MARK: - Hashable.
-
-    /// Hashes the essential components of this value by feeding them into the
-    /// given hasher.
-    ///
-    /// Implement this method to conform to the `Hashable` protocol. The
-    /// components used for hashing must be the same as the components compared
-    /// in your type's `==` operator implementation. Call `hasher.combine(_:)`
-    /// with each of these components.
-    ///
-    /// - Important: Never call `finalize()` on `hasher`. Doing so may become a
-    ///   compile-time error in the future.
-    ///
-    /// - Parameter hasher: The hasher to use when combining the components
-    ///   of this instance.
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(rawValue)
-    }
 }

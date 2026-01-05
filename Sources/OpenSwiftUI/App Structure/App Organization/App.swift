@@ -1,3 +1,11 @@
+//
+// App.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Oct 11, 2023.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT 
+
 import Foundation
 
 /// A type that represents the structure and behavior of an app.
@@ -60,10 +68,24 @@ import Foundation
 ///             }
 ///         }
 ///     }
-@MainActor @preconcurrency
-public protocol App {
+///
+/// A type conforming to this protocol inherits `@preconcurrency @MainActor`
+/// isolation from the protocol if the conformance is included in the type's
+/// base declaration:
+///
+///     struct MyCustomType: Transition {
+///         // `@preconcurrency @MainActor` isolation by default
+///     }
+///
+/// Isolation to the main actor is the default, but it's not required. Declare
+/// the conformance in an extension to opt out of main actor isolation:
+///
+///     extension MyCustomType: Transition {
+///         // `nonisolated` by default
+///     }
+@MainActor @preconcurrency public protocol App {
 
-    // MARK: - Associated Type(s).
+    // MARK: - Implementing a app.
 
     /// The type of scene representing the content of the app.
     ///
@@ -71,8 +93,6 @@ public protocol App {
     /// implementation of the required ``OpenSwiftUI/App/body-swift.property``
     /// property.
     associatedtype Body : Scene
-
-    // MARK: - Property(ies).
 
     /// The content and behavior of the app.
     ///
@@ -92,10 +112,9 @@ public protocol App {
     ///
     /// Swift infers the app's ``OpenSwiftUI/App/Body-swift.associatedtype``
     /// associated type based on the scene provided by the `body` property.
-    @SceneBuilder @MainActor @preconcurrency
-    var body: Self.Body { get }
+    @SceneBuilder @MainActor @preconcurrency var body: Self.Body { get }
 
-    // MARK: - Constructor(s).
+    // MARK: - Running a app.
 
     /// Creates an instance of the app using the body that you define for its
     /// content.
@@ -103,11 +122,12 @@ public protocol App {
     /// Swift synthesizes a default initializer for structures that don't
     /// provide one. You typically rely on the default initializer for
     /// your app.
-    @MainActor @preconcurrency
-    init()
+    @MainActor @preconcurrency init()
+}
 
-    // MARK: - Static Function(s).
-
+@available(Windows 11, *)
+extension App {
+    
     /// Initializes and runs the app.
     ///
     /// If you precede your ``OpenSwiftUI/App`` conformer's declaration with the
@@ -116,13 +136,7 @@ public protocol App {
     /// the app. OpenSwiftUI provides a
     /// default implementation of the method that manages the launch process in
     /// a platform-appropriate way.
-    @MainActor @preconcurrency
-    static func main()
-}
-
-extension App {
-    @MainActor @preconcurrency
-    public static func main() {
+    @MainActor @preconcurrency public static func main() {
         print("\(Self.self).\(#function)")
     }
 }

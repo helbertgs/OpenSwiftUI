@@ -1,3 +1,11 @@
+//
+// UnitPoint.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Dec 22, 2023.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT 
+
 import Swift
 
 /// A normalized 2D point in a view's coordinate space.
@@ -63,11 +71,11 @@ import Swift
 
     /// The normalized distance from the origin to the point in the horizontal
     /// direction.
-    public var x: Float
+    public var x: Double
 
     /// The normalized distance from the origin to the point in the vertical
     /// dimension.
-    public var y: Float
+    public var y: Double
 
     /// Creates a unit point with the specified horizontal and vertical offsets.
     ///
@@ -78,7 +86,7 @@ import Swift
     ///     horizontal direction.
     ///   - y: The normalized distance from the origin to the point in the
     ///     vertical direction.
-    @inlinable public init(x: Float, y: Float) {
+    @inlinable public init(x: Double, y: Double) {
         self.x = x
         self.y = y
     }

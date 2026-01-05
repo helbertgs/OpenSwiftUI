@@ -1,4 +1,12 @@
-import Swift
+//
+// WindowResizability.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Dec 22, 2023.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT 
+
+import Foundation
 
 /// The resizability of a window.
 ///
@@ -30,12 +38,13 @@ import Swift
 /// ``WindowResizability/automatic``. With that strategy, ``Settings``
 /// windows use the ``WindowResizability/contentSize`` strategy, while
 /// all others use ``WindowResizability/contentMinSize``.
-@frozen public struct WindowResizability: Copyable, Equatable, Hashable, Sendable {
+@available(Windows 11, *)
+public struct WindowResizability: Copyable, Equatable, Hashable, Sendable {
     
     // MARK: - Property(ies).
     
-    @usableFromInline
-    var role: Role
+    /// The role of the window resizability.
+    package let role: Role
 
     // MARK: - Static Property(ies).
     
@@ -69,16 +78,27 @@ import Swift
     
     // MARK: - Constructor(s).
     
-    @inlinable
-    public init(role: Role) {
+    /// Creates a window resizability with the given role.
+    /// 
+    /// - Parameter role: The role of the window resizability.
+    package init(role: Role) {
         self.role = role
     }
-    
-    // MARK: - Enum
+}
 
-    public enum Role: Equatable, Hashable, Sendable {
+extension WindowResizability {
+    
+    /// The role of the window resizability.
+    package enum Role: Sendable {
+        
+        /// The automatic window resizability.
         case automatic
-        case contentMinSize
+        
+        /// A window resizability that's derived from the window's content.
         case contentSize
+        
+        /// A window resizability that's partially derived from the window's
+        /// content.
+        case contentMinSize
     }
 }
