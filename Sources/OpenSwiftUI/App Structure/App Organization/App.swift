@@ -125,7 +125,6 @@ import Foundation
     @MainActor @preconcurrency init()
 }
 
-@available(Windows 10, *)
 extension App {
     
     /// Initializes and runs the app.

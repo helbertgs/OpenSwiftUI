@@ -13,7 +13,6 @@ import Foundation
 /// Use this type in conjunction with modifiers like ``Scene/windowToolbarLabelStyle(fixed:)``
 /// and ``Scene/windowToolbarLabelStyle(_:)`` to customize the appearance of window toolbars
 /// managed by OpenSwiftUI.
-@available(Windows 10, *)
 public struct ToolbarLabelStyle : Sendable, Equatable {
 
     // MARK: - Checking characteristics

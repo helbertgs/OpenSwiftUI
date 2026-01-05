@@ -9,7 +9,6 @@
 import Foundation
 
 /// A modifier that you apply to a scene or another scene modifier, producing a different version of the original
-@available(Windows 10, *)
 @MainActor @preconcurrency public protocol SceneModifier {
 
     // MARK: - Associated Type(s).

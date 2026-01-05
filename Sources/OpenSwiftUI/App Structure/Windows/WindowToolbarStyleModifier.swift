@@ -1,6 +1,5 @@
 import Swift
 
-@available(Windows 10, *)
 @MainActor @preconcurrency public struct WindowToolbarStyleModifier<Style> : SceneModifier where Style : WindowToolbarStyle {
 
     // MARK: - Type Alias.

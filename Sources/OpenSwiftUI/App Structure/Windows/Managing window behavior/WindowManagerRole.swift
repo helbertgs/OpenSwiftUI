@@ -30,7 +30,6 @@ import Foundation
 ///         }
 ///     }
 ///
-@available(Windows 10, *)
 public struct WindowManagerRole : Sendable {
 
     // MARK: - Checking characteristics

@@ -13,7 +13,6 @@ import Foundation
 /// You can use dialog severity to indicate that people need to take extra
 /// care when interacting with the dialog, like when an action taken from
 /// the dialog permanently deletes data.
-@available(Windows 10, *)
 public struct DialogSeverity : Equatable, Sendable {
 
     // MARK: - Accessing the Raw Value
