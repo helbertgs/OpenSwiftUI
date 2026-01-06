@@ -95,14 +95,14 @@ import Foundation
 /// uses the ``EnvironmentValues/dismiss`` property to dismiss the sheet,
 /// and the ``EnvironmentValues/dismissSearch`` property to reset the
 /// search field.
-public struct DismissSearchAction {
+public struct DismissSearchAction : Equatable {
 
-    // MARK: - Property(ies).
+    // MARK: - Checking characteristics
 
     /// The action to perform when the search is dismissed.
     package let onDismiss: (() -> Void)?
 
-    // MARK: - Constructor(s).
+    // MARK: - Creating a dismiss search action
 
     /// Creates a dismiss search action with the given action.
     ///
@@ -111,7 +111,7 @@ public struct DismissSearchAction {
         self.onDismiss = onDismiss
     }
 
-    // MARK: - Function(s).
+    // MARK: - Performing a dismiss search action
 
     /// Dismisses the current search operation, if any.
     ///
@@ -135,6 +135,18 @@ public struct DismissSearchAction {
     /// in *The Swift Programming Language*.
     public func callAsFunction() {
         onDismiss?()
+    }
+
+    // MARK: - Checking equality
+
+    /// Checks if two dismiss search actions are equal.
+    ///
+    /// - Parameters:
+    ///   - lhs: The left-hand side of the equality check.
+    ///   - rhs: The right-hand side of the equality check.
+    /// - Returns: `true` if the two dismiss search actions are equal, `false` otherwise.
+    public static func == (lhs: DismissSearchAction, rhs: DismissSearchAction) -> Bool {
+        ObjectIdentifier(type(of: lhs.self)) == ObjectIdentifier(type(of: rhs.self))
     }
 }
 
