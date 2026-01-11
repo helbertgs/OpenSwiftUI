@@ -3,6 +3,12 @@
 
 import PackageDescription
 
+#if os(macOS)
+let branch = "macos"
+#else
+let branch = "main"
+#endif
+
 let package = Package(
     name: "OpenSwiftUI",
     products: [
@@ -15,6 +21,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/OpenCombine/OpenCombine.git", branch: "master"),
+        .package(url: "https://github.com/helbertgs/OpenGLAD", branch: branch),
+        .package(url: "https://github.com/helbertgs/OpenGLFW", branch: "main"),
         .package(url: "https://github.com/helbertgs/OpenSpatial", branch: "main"),
         .package(url: "https://github.com/swiftlang/swift-docc-plugin", from: "1.1.0"),
     ],
@@ -23,7 +31,9 @@ let package = Package(
             name: "OpenSwiftUI",
             dependencies: [
                 .product(name: "OpenCombine", package: "OpenCombine"),
-                .product(name: "OpenSpatial", package: "OpenSpatial")
+                .product(name: "OpenGLAD", package: "OpenGLAD"),
+                .product(name: "OpenGLFW", package: "OpenGLFW"),
+                .product(name: "OpenSpatial", package: "OpenSpatial"),
             ]
         ),
         .executableTarget(

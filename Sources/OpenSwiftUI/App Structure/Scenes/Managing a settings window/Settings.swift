@@ -139,12 +139,6 @@ public struct Settings<Content> : Scene where Content : View {
     ///   - inputs: The inputs for the scene.
     /// - Returns: The outputs for the scene.
     nonisolated public static func _makeScene(scene: _GraphValue<Settings<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = _SceneOutputs()
-        outputs.type = Self.self
-        outputs.scene = scene.value
-        outputs.environmentValues = inputs.environmentValues
-        outputs.content = type(of: scene.value.content)._makeView(view: .init(scene.value.content), inputs: .init())
-
-        return outputs
+        fatalError("not implemented yet")
     }
 }

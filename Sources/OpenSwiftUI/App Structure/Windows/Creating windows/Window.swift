@@ -191,8 +191,10 @@ public struct Window<Content> : Scene where Content : View {
     ///   - id: A unique string identifier that you can use to
     ///     open the window.
     ///   - content: The view content to display in the window.
-    public init<S>(_ title: S, id: String, @ViewBuilder content: () -> Content) where S : StringProtocol {
-        fatalError("not implemented yet")
+    public init(_ title: String, id: String, @ViewBuilder content: () -> Content) {
+        self.title = Text(title)
+        self.id = id
+        self.content = content()
     }
 
     // MARK: - Creating a window's representation in the OpenSwiftUI scene graph.
@@ -204,11 +206,16 @@ public struct Window<Content> : Scene where Content : View {
     ///   - inputs: The inputs for the scene.
     /// - Returns: The outputs for the scene.
     public static func _makeScene(scene: _GraphValue<Window<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = _SceneOutputs()
-        outputs.type = Self.self
-        outputs.scene = scene.value
-        outputs.environmentValues = inputs.environmentValues
-        outputs.content = type(of: scene.value.content)._makeView(view: .init(scene.value.content), inputs: .init())
+        var outputs = _SceneOutputs(
+            "\(Self.self)",
+            inputs: inputs,
+            scene: scene.value,
+            environmentValues: inputs.environmentValues,
+            content: type(of: scene.value.content)._makeView(view: .init(scene.value.content), inputs: .init()),
+            title: "\(Self.self)",
+        )
+
+        outputs.id = scene.value.id
 
         return outputs
     }

@@ -7,4 +7,7 @@ public struct Text: Equatable, Sendable {
 
     public init(_ key: LocalizedStringKey, tableName: String? = nil, bundle: Bundle? = nil, comment: StaticString? = nil) {
     }
+
+    public init(_ text: String) {
+    }
 }

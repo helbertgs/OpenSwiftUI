@@ -1,26 +1,28 @@
 import Foundation
 
 /// An object that manages an app’s main event loop and resources used by all of that app’s objects.
-@MainActor public class Application {
+@MainActor package class Application {
 
-    private var environmentValues = EnvironmentValues()
+    package var globalEnvironmentValues = EnvironmentValues()
 
     // MARK: - Getting the shared app object
 
     /// Accessing the shared application
-    public static let shared = Application()
+    package static let shared = Application()
+
+    package var appGraph: GraphHost? = nil
 
     // MARK: - Managing the event loop
 
     /// A Boolean value indicating whether the main event loop is running.
-    public var isRunning: Bool = false
+    package var isRunning: Bool = false
 
     /// Starts the main event loop.
-    public func run<T: App>(_ app: T) {
+    package func run<T: App>(_ app: T) {
         print("\(Self.self).\(#function)")
-
-        var inputs = _SceneInputs()
-        inputs.environmentValues = environmentValues
+        
+        // Build the runtime graph (pure outputs -> runtime objects).
+        self.appGraph = AppGraph(app, environmentValues: globalEnvironmentValues)
 
         mainLoop: while true {
             // Process all messages in thread's message queue; for GUI applications UI
@@ -47,7 +49,7 @@ import Foundation
     // MARK: - Terminating the app
 
     /// Terminates the receiver.
-    public func terminate(_ sender: Any?) {
+    package func terminate(_ sender: Any?) {
         isRunning = false
     }
 }

@@ -25,11 +25,6 @@ public struct WindowStyleModifier<Style> : Sendable, SceneModifier where Style :
     // MARK: - Static Function(s).
 
     public static func _makeScene(modifier: _GraphValue<WindowStyleModifier<Style>>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
-        var outputs = _SceneOutputs()
-        outputs.type = Self.self
-        outputs.modifiers = inputs.modifiers
-        outputs.modifiers.append(modifier.value)
-
-        return outputs
+        fatalError("not implemented yet")
     }
 }

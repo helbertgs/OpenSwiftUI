@@ -21,12 +21,7 @@ public struct BackgroundTaskModifier<Request, Response> : @MainActor SceneModifi
     }
     
     public static func _makeScene(modifier: _GraphValue<BackgroundTaskModifier<Request, Response>>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
-        var outputs = _SceneOutputs()
-        outputs.type = Self.self
-        outputs.modifiers = inputs.modifiers
-        outputs.modifiers.append(modifier.value)
-
-        return outputs
+        fatalError("not implemented yet")
     }
 }
 

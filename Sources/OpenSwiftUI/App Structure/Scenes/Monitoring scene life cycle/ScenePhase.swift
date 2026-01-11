@@ -118,3 +118,22 @@ import Foundation
     /// Expect an app that enters the `background` phase to terminate.
     case background
 }
+
+package struct ScenePhaseKey : EnvironmentKey {
+
+    /// The default value for the scene phase environment key.
+    package static let defaultValue: ScenePhase = .inactive
+}
+
+extension EnvironmentValues {
+
+    /// The current phase of the scene.
+    /// 
+    /// The system sets this value to provide an indication of the operational state of a scene or collection of scenes. 
+    /// The exact meaning depends on where you access the value. 
+    /// For more information, see ``ScenePhase``.
+    public var scenePhase: ScenePhase {
+        get { self[ScenePhaseKey.self] }
+        set { self[ScenePhaseKey.self] = newValue }
+    }
+}
