@@ -3,42 +3,43 @@ import OpenCombine
 import OpenSpatial
 
 /// A graph host for a scene.
-package final class SceneGraph : GraphHost {
+@MainActor 
+class SceneGraph : GraphHost {
 
     // MARK: - Represented object
 
     /// The scene outputs snapshot for this node.
-    package private(set) var outputs: _SceneOutputs
+    private(set) var outputs: _SceneOutputs
 
     // MARK : - Window Associated objects
 
     /// Runtime window for renderable scenes (e.g. `Window`).
-    package private(set) var window: _Window? = nil
+    private(set) var window: _Window? = nil
 
     // MARK: - Runtime Associated objects
 
     /// The environment values for the scene.
-    package var environmentValues: EnvironmentValues
+    var environmentValues: EnvironmentValues
 
     /// Whether this scene is the main scene.
-    package var isMain: Bool = false
+    var isMain: Bool = false
 
     /// The title of the scene.
-    package var title: PassthroughSubject<String, Never> = PassthroughSubject<String, Never>()
+    var title: PassthroughSubject<String, Never> = PassthroughSubject<String, Never>()
 
     /// The phase of the scene.
-    package var scenePhase: PassthroughSubject<ScenePhase, Never> = PassthroughSubject<ScenePhase, Never>()
+    var scenePhase: PassthroughSubject<ScenePhase, Never> = PassthroughSubject<ScenePhase, Never>()
 
     /// The runtime subscriptions for this node.
-    private var cancellables: Set<AnyCancellable> = []
+    var cancellables: Set<AnyCancellable> = []
 
     /// The runtime view graph for this scene's root view.
-    @MainActor package private(set) var viewGraph: ViewGraph? = nil
+    private(set) var viewGraph: ViewGraph? = nil
 
     /// Creates a scene graph with the given outputs.
     ///
     /// - Parameter outputs: The outputs of the scene.
-    package init(outputs: _SceneOutputs) {
+    init(outputs: _SceneOutputs) {
         self.outputs = outputs
         self.environmentValues = outputs.environmentValues
 
@@ -61,7 +62,7 @@ package final class SceneGraph : GraphHost {
     // MARK: - Runtime lifecycle
 
     /// Creates runtime objects for this scene node and its descendants.
-    @MainActor package func mountRuntime() {
+    func mountRuntime() {
         if let content = outputs.content {
             // Create window from scene outputs (runtime lives in the graph, not in outputs).
             let title = outputs.title ?? String(describing: outputs.type)
@@ -88,7 +89,7 @@ package final class SceneGraph : GraphHost {
         }
     }
 
-    @MainActor package func unmountRuntime() {
+    func unmountRuntime() {
         cancellables.removeAll()
         if let w = window {
             w.destroy()
@@ -101,7 +102,7 @@ package final class SceneGraph : GraphHost {
         }
     }
 
-    override package func mount() {
+    override func mount() {
         let window = _Window(frame: Rect3D(center: Point3D.zero, size: Size3D(width: 900, height: 450, depth: 0)), title: "\(Self.self)")
         self.window = window
         window.delegate = self
@@ -116,7 +117,7 @@ package final class SceneGraph : GraphHost {
     /// Reconciles this node with a new `_SceneOutputs` snapshot.
     ///
     /// Identity is based on `outputs.id`. For nodes without stable IDs, this will recreate.
-    @MainActor package func reconcile(newOutputs: _SceneOutputs) {
+    func reconcile(newOutputs: _SceneOutputs) {
         let oldHadWindow = (outputs.content != nil)
         let newHasWindow = (newOutputs.content != nil)
 
@@ -186,7 +187,7 @@ package final class SceneGraph : GraphHost {
 
     // MARK: - Queries
 
-    @MainActor package func firstWindow() -> _Window? {
+    func firstWindow() -> _Window? {
         if let w = window { return w }
         for child in children {
             if let w = (child as? SceneGraph)?.firstWindow() { return w }
@@ -194,7 +195,7 @@ package final class SceneGraph : GraphHost {
         return nil
     }
 
-    @MainActor package func collectWindowScenes(into result: inout [SceneGraph]) {
+    func collectWindowScenes(into result: inout [SceneGraph]) {
         if window != nil {
             result.append(self)
         }
@@ -204,7 +205,7 @@ package final class SceneGraph : GraphHost {
     }
 }
 
-extension SceneGraph : CustomStringConvertible {
+extension SceneGraph : @MainActor CustomStringConvertible {
     package var description: String {
         """
         - SceneGraph<outputs: \(outputs.type)>
@@ -214,7 +215,7 @@ extension SceneGraph : CustomStringConvertible {
     }
 }
 
-extension SceneGraph : WindowDelegate {
+extension SceneGraph : @MainActor WindowDelegate {
 
     /// Tells the delegate that the window is about to be minimized.
     package func windowWillMiniaturize(_ window: _Window) {

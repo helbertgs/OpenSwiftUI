@@ -1,27 +1,27 @@
 import Foundation
 
 /// A graph host for a view.
-package final class ViewGraph : GraphHost {
+class ViewGraph : GraphHost {
 
     /// The last built outputs snapshot.
-    package private(set) var outputs: _ViewOutputs
+    private(set) var outputs: _ViewOutputs
 
     /// Whether this view graph needs to be re-built/re-rendered.
-    package var isDirty: Bool = true
+    var isDirty: Bool = true
 
-    package init(outputs: _ViewOutputs) {
+    init(outputs: _ViewOutputs) {
         self.outputs = outputs
     }
 
-    package func markDirty() {
+    func markDirty() {
         isDirty = true
     }
 
-    package func clearDirty() {
+    func clearDirty() {
         isDirty = false
     }
 
-    package func updateOutputs(_ newOutputs: _ViewOutputs) {
+    func updateOutputs(_ newOutputs: _ViewOutputs) {
         outputs = newOutputs
         markDirty()
     }

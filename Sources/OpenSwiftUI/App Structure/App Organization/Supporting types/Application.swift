@@ -3,24 +3,24 @@ import OpenGLFW
 import OpenSpatial
 
 /// An object that manages an app’s main event loop and resources used by all of that app’s objects.
-@MainActor package class Application {
+@MainActor class Application {
 
-    package var globalEnvironmentValues = EnvironmentValues()
+    var globalEnvironmentValues = EnvironmentValues()
 
     // MARK: - Getting the shared app object
 
     /// Accessing the shared application
-    package static let shared = Application()
+    static let shared = Application()
 
-    package var appGraph: GraphHost? = nil
+    var appGraph: GraphHost? = nil
 
     // MARK: - Managing the event loop
 
     /// A Boolean value indicating whether the main event loop is running.
-    package var isRunning: Bool = false
+    var isRunning: Bool = false
 
     /// Starts the main event loop.
-    package func run<T: App>(_ app: T) {
+    func run<T: App>(_ app: T) {
         print("\(Self.self).\(#function)")
 
         guard glfwInit() == GLFW_TRUE else {
@@ -65,7 +65,7 @@ import OpenSpatial
     // MARK: - Terminating the app
 
     /// Terminates the receiver.
-    package func terminate(_ sender: Any?) {
+    func terminate(_ sender: Any?) {
         isRunning = false
     }
 }

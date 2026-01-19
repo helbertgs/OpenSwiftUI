@@ -3,13 +3,14 @@ import OpenCombine
 import OpenSpatial
 
 /// A graph host for an app.
-package final class AppGraph<AppType: App> : GraphHost {
+@MainActor
+class AppGraph<AppType: App> : GraphHost {
 
     /// The app instance.
-    package let app: AppType
+    let app: AppType
 
     /// The environment values for the app.
-    package var environmentValues: EnvironmentValues
+    let environmentValues: EnvironmentValues
 
     // /// The root scene graph for the app (built from `app.body`).
     // package private(set) var sceneGraph: SceneGraph? = nil
@@ -17,7 +18,7 @@ package final class AppGraph<AppType: App> : GraphHost {
     /// Creates an app graph with the given value.
     ///
     /// - Parameter value: The value of the app graph.
-    package init(_ app: AppType, environmentValues: EnvironmentValues) {
+    init(_ app: AppType, environmentValues: EnvironmentValues) {
         self.app = app
         self.environmentValues = environmentValues
         super.init()
@@ -25,7 +26,7 @@ package final class AppGraph<AppType: App> : GraphHost {
         self.mount()
     }
 
-    override package func mount() {
+    override func mount() {
         var inputs = _SceneInputs()
         inputs.environmentValues = environmentValues
         
