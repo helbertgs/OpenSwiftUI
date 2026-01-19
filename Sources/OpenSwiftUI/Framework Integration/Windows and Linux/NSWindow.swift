@@ -1,0 +1,265 @@
+@preconcurrency 
+import OpenGLAD
+import OpenGLFW
+import OpenSpatial
+
+@MainActor class NSWindow : NSResponder {
+
+    private let pointer: OpaquePointer
+
+    init(frame: Rect3D) {
+        self.frame = frame
+        guard let pointer = glfwCreateWindow(Int32(frame.size.width), Int32(frame.size.height), "NSWindow", nil, nil) else {
+            fatalError()
+        }
+        
+        self.pointer = pointer
+        super.init()
+        self.setupCallbacks()
+    }
+
+    @MainActor deinit {
+        destroy()
+        terminate()
+    }
+
+    // MARK: - Sizing Windows
+
+    /// The window’s frame rectangle in screen coordinates, including the title bar.
+    var frame: Rect3D
+
+    // MARK: - Managing Window Visibility and Occlusion State
+
+    /// Removes the window from the screen list, which hides the window.
+    func orderOut(_ sender: Any?) {
+    }
+
+    /// Moves the window to the back of its level in the screen list, without changing either the key window or the main window.
+    func orderBack(_ sender: Any?) {
+    }
+
+    /// Moves the window to the front of its level in the screen list, without changing either the key window or the main window.
+    func orderFront(_ sender: Any?) {
+        show()
+    }
+    
+    // MARK: - Managing Window Layers
+
+    /// A Boolean value that indicates whether the window is visible onscreen (even when it’s obscured by other windows).
+    var isVisible: Bool {
+        glfwGetWindowAttrib(pointer, GLFW_VISIBLE) == GLFW_TRUE
+    }
+
+    // MARK: - Managing Key Status
+
+    /// A Boolean value that indicates whether the window is the key window for the application.
+    var isKeyWindow: Bool = false {
+        didSet { 
+            oldValue == true ? becomeKey() : resignKey()
+        }
+    }
+
+    /// A Boolean value that indicates whether the window can become the key window.
+    var canBecomeKey: Bool = true
+
+    /// Makes the window the key window.
+    func makeKey() {
+        guard canBecomeKey else { return }
+        isKeyWindow = true
+    }
+
+    /// Moves the window to the front of the screen list, within its level, and makes it the key window; that is, it shows the window.
+    func makeKeyAndOrderFront(_ sender: Any?) {
+        makeKey()
+        orderFront(sender)
+        run()
+    }
+
+    /// Informs the window that it has become the key window.
+    func becomeKey() {
+
+    }
+
+    /// Resigns the window’s key window status.
+    func resignKey() {
+
+    }
+
+    // MARK: - Updating Windows
+
+    /// Updates the window.
+    func update() {
+    }
+
+    // MARK: - Closing Windows
+
+    /// A Boolean value that indicates whether the window is released when it receives the close message.
+    var isReleasedWhenClosed: Bool = false
+
+    /// A Boolean value that indicates whether the window should close.
+    var isShouldClose: Bool {
+        glfwWindowShouldClose(pointer) == GLFW_TRUE
+    }
+
+    /// Simulates the user clicking the close button by momentarily highlighting the button and then closing the window.
+    func performClose(_ sender: Any?) {
+        close()
+    }
+    
+    /// Removes the window from the screen.
+    func close() {
+        glfwSetWindowShouldClose(pointer, GLFW_TRUE)
+    }
+
+    // MARK: - Managing Titles
+    
+    /// The string that appears in the title bar of the window or the path to the represented file.
+    var title: String { 
+        get { 
+            if let cString = glfwGetWindowTitle(pointer) {
+                return String(cString: cString)
+            }
+            return ""
+        } set {
+            glfwSetWindowTitle(pointer, newValue)
+        }
+    }
+
+    // MARK: - Accessing Screen Information
+
+    /// The screen the window is on.
+    var screen: NSScreen? {
+        guard let monitor = glfwGetWindowMonitor(pointer) else {
+            return nil
+        }
+
+        return NSScreen(monitor)
+    }
+
+    // MARK: - GLFW Function(s)
+
+    private func makeContextCurrent() {
+        glfwMakeContextCurrent(pointer)
+    }
+
+    private func destroy() {
+        glfwDestroyWindow(pointer)
+    }
+
+    private func terminate() {
+        glfwTerminate()
+    }
+
+    private func hide() {
+        glfwHideWindow(pointer)
+    }
+
+    private func show() {
+        glfwShowWindow(pointer)
+    }
+
+    private func swapBuffers() {
+        glfwSwapBuffers(pointer)
+    }
+
+    private func swapInterval(_ interval: Int) {
+        glfwSwapInterval(Int32(interval))
+    }
+
+    private func pollEvents() {
+        glfwPollEvents()
+    }
+
+    private func waitEvents() {
+        glfwWaitEvents()
+    }
+
+    private func run() {
+        while !isShouldClose {
+            pollEvents()
+            swapBuffers()
+        }
+    }
+
+    // MARK: - GLFW Callbacks
+
+    /// Sets up the callbacks for the window.
+    private func setupCallbacks() {
+        makeContextCurrent()
+        setupUserPointer()
+        setWindowCloseCallback()
+        setWindowSizeCallback()
+        setFramebufferSizeCallback()
+        setWindowPosCallback()
+        setWindowIconifyCallback()
+        setWindowMaximizeCallback()
+        setWindowFocusCallback()
+        setWindowRefreshCallback()
+    }
+
+    /// Sets up the user pointer for the window.
+    private func setupUserPointer() {
+        glfwSetWindowUserPointer(pointer, Unmanaged.passUnretained(self).toOpaque())
+    }
+
+    /// Sets the close callback of the window.
+    private func setWindowCloseCallback() {
+        glfwSetWindowCloseCallback(pointer) { pointer in
+            let window = Unmanaged<NSWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
+            print("Window \(window.title) is closing.")
+        }
+    }
+
+    /// Sets the size callback of the window.
+    private func setWindowSizeCallback() {
+        glfwSetWindowSizeCallback(pointer) { pointer, width, height in
+            let window = Unmanaged<NSWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
+            window.frame = Rect3D(origin: window.frame.origin, size: Size3D(width: Double(width), height: Double(height)))
+        }
+    }
+
+    /// Sets the framebuffer size callback of the window.
+    private func setFramebufferSizeCallback() {
+        glfwSetFramebufferSizeCallback(pointer) { pointer, width, height in
+            glad_glViewport(0, 0, width, height)
+        }
+    }
+
+    /// Sets the position callback of the window.
+    private func setWindowPosCallback() {
+        glfwSetWindowPosCallback(pointer) { pointer, x, y in
+            let window = Unmanaged<NSWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
+            window.frame = Rect3D(origin: Point3D(x: Double(x), y: Double(y)), size: window.frame.size)
+        }
+    }
+
+    /// Sets the iconify callback of the window.
+    private func setWindowIconifyCallback() {
+        glfwSetWindowIconifyCallback(pointer) { pointer, iconified in
+            let window = Unmanaged<NSWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
+            print("Window \(window.title) is " + (iconified == GLFW_TRUE ? " minimized" : " restored"))
+        }
+    }
+
+    /// Sets the maximize callback of the window.
+    private func setWindowMaximizeCallback() {
+        glfwSetWindowMaximizeCallback(pointer) { pointer, maximized in
+            let window = Unmanaged<NSWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
+            print("Window \(window.title) is " + (maximized == GLFW_TRUE ? " maximized" : " unmaximized"))
+        }
+    }
+
+    /// Sets the focus callback of the window.
+    private func setWindowFocusCallback() {
+        glfwSetWindowFocusCallback(pointer) { pointer, focused in
+            let window = Unmanaged<NSWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
+            print("Window \(window.title) is " + (focused == GLFW_TRUE ? " focused" : " unfocused"))
+            print(dump(NSScreen.main) ?? "No Main Screen")
+        }
+    }
+
+    private func setWindowRefreshCallback() {
+        glfwSetWindowRefreshCallback(pointer) { pointer in
+        }
+    }
+}

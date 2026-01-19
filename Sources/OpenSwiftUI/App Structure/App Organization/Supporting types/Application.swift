@@ -1,4 +1,6 @@
 import Foundation
+import OpenGLFW
+import OpenSpatial
 
 /// An object that manages an app’s main event loop and resources used by all of that app’s objects.
 @MainActor package class Application {
@@ -20,9 +22,23 @@ import Foundation
     /// Starts the main event loop.
     package func run<T: App>(_ app: T) {
         print("\(Self.self).\(#function)")
+
+        guard glfwInit() == GLFW_TRUE else {
+            fatalError("Failed to initialize GLFW")
+        }
+
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API)
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3)
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3)
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE)
+        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE)
         
         // Build the runtime graph (pure outputs -> runtime objects).
-        self.appGraph = AppGraph(app, environmentValues: globalEnvironmentValues)
+        // self.appGraph = AppGraph(app, environmentValues: globalEnvironmentValues)
+
+        let window = NSWindow(frame: .init(origin: Point3D.zero, size: Size3D(width: 900, height: 450)))
+        window.title = "OpenSwiftUI Application"
+        window.makeKeyAndOrderFront(self)
 
         mainLoop: while true {
             // Process all messages in thread's message queue; for GUI applications UI

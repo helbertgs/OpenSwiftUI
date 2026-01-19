@@ -1,5 +1,6 @@
 import Foundation
 import OpenCombine
+import OpenSpatial
 
 /// A graph host for a scene.
 package final class SceneGraph : GraphHost {
@@ -12,12 +13,12 @@ package final class SceneGraph : GraphHost {
     // MARK : - Window Associated objects
 
     /// Runtime window for renderable scenes (e.g. `Window`).
-    @MainActor package private(set) var window: _Window? = nil
+    package private(set) var window: _Window? = nil
 
     // MARK: - Runtime Associated objects
 
     /// The environment values for the scene.
-    package var environmentValues: EnvironmentValues = EnvironmentValues()
+    package var environmentValues: EnvironmentValues
 
     /// Whether this scene is the main scene.
     package var isMain: Bool = false
@@ -47,6 +48,7 @@ package final class SceneGraph : GraphHost {
 
         scenePhase.sink { [weak self] in 
             self?.environmentValues.scenePhase = $0
+            print($0)
         }
         .store(in: &cancellables)
 
@@ -70,11 +72,11 @@ package final class SceneGraph : GraphHost {
             self.viewGraph = ViewGraph(outputs: content)
 
             // When the window changes (e.g. resize), mark views dirty.
-            win.size
-                .sink { [weak self] _ in
-                    self?.viewGraph?.markDirty()
-                }
-                .store(in: &cancellables)
+            // win.size
+            //     .sink { [weak self] _ in
+            //         self?.viewGraph?.markDirty()
+            //     }
+            //     .store(in: &cancellables)
 
             // Create the native window (GLFW) but do not block; the loop is managed by WindowManager.
             win.loadIfNeeded()
@@ -96,6 +98,16 @@ package final class SceneGraph : GraphHost {
 
         for child in children {
             (child as? SceneGraph)?.unmountRuntime()
+        }
+    }
+
+    override package func mount() {
+        let window = _Window(frame: Rect3D(center: Point3D.zero, size: Size3D(width: 900, height: 450, depth: 0)), title: "\(Self.self)")
+        self.window = window
+        window.delegate = self
+        
+        if isMain {
+            window.run()
         }
     }
 
@@ -199,5 +211,33 @@ extension SceneGraph : CustomStringConvertible {
             - isMain: \(isMain)
             - children: \(children.count)
         """
+    }
+}
+
+extension SceneGraph : WindowDelegate {
+
+    /// Tells the delegate that the window is about to be minimized.
+    package func windowWillMiniaturize(_ window: _Window) {
+    }
+
+    /// Tells the delegate that the window has been minimized.
+    package func windowDidMiniaturize(_ window: _Window) {
+        scenePhase.send(.background)
+    }
+
+    /// Tells the delegate that the window has been deminimized.
+    package func windowDidDeminiaturize(_ window: _Window) {
+        scenePhase.send(.active)
+    }
+
+    /// Tells the delegate that the window has been resized.
+    package func windowDidResize(_ window: _Window, to size: Size3D) {
+        print(window.id, size)
+        // viewGraph?.markDirty()
+    }
+
+    /// Tells the delegate that the window has been loaded.
+    package func windowLoaded(_ window: _Window) {
+        scenePhase.send(.active)
     }
 }

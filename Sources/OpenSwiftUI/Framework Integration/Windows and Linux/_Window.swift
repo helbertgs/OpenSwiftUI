@@ -11,6 +11,26 @@ import OpenCombine
 import OpenSpatial
 import OpenGLFW
 
+package protocol WindowDelegate : AnyObject {
+
+    // MARK: - Minimizing Windows
+
+    /// Tells the delegate that the window is about to be minimized.
+    func windowWillMiniaturize(_ window: _Window)
+
+    /// Tells the delegate that the window has been minimized.
+    func windowDidMiniaturize(_ window: _Window)
+
+    /// Tells the delegate that the window has been deminimized.
+    func windowDidDeminiaturize(_ window: _Window)
+
+    /// Tells the delegate that the window has been resized.
+    func windowDidResize(_ window: _Window, to size: Size3D)
+
+    /// Tells the delegate that the window has been loaded.
+    func windowLoaded(_ window: _Window)
+}
+
 /// A controller for a window.
 @MainActor @preconcurrency 
 package class _Window {
@@ -41,16 +61,13 @@ package class _Window {
     /// The title of the window.
     package var title: String = ""
 
-    /// The level of the window.
-    package var level: WindowLevel = .normal
-
-    /// The action to perform when the size of the window changes.
-    package var onChangeSize: (Size3D) -> Void = { _ in }
-
     // MARK: - Representing a window
 
     /// The represented object of the window.
     package var representedObject: OpaquePointer?
+
+    /// The delegate of the window.
+    package weak var delegate: WindowDelegate?
 
     // MARK: - Creating a window controller
 
@@ -85,7 +102,9 @@ package class _Window {
 
         setupUserPointer()
         setupFramebufferSizeCallback()
+        setWindowIconifyCallback()
         // setWindowResizeCallback()
+        delegate?.windowLoaded(self)
     }
 
     // MARK: - Closing a window
@@ -115,12 +134,23 @@ package class _Window {
     /// Shows the window.
     nonisolated package func show() {
         glfwShowWindow(representedObject)
+        delegate?.windowDidDeminiaturize(self)
+    }
+
+    nonisolated package func run() {
+        loadIfNeeded()
+        show()
+
+        while !isShouldClose {
+            pollEvents()
+            swapBuffers()
+        }
     }
 
     /// Polls for events.
     /// 
     /// This function fetches all events that have been generated since the last call to this function.
-    nonisolated package static func pollEvents() {
+    nonisolated package func pollEvents() {
         glfwPollEvents()
     }
 
@@ -160,8 +190,8 @@ package class _Window {
         guard let representedObject else { return }
         glfwSetFramebufferSizeCallback(representedObject) { pointer, width, height in
             // glad_glViewport(0, 0, width, height)
-            let window = Unmanaged<_Window>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
-            window.size.send(Size3D(width: Double(width), height: Double(height), depth: 0))
+            // let window = Unmanaged<_Window>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
+            /// window.size.send(Size3D(width: Double(width), height: Double(height), depth: 0))
         }
     }
        
@@ -171,7 +201,20 @@ package class _Window {
         guard let representedObject else { return }
         glfwSetWindowSizeCallback(representedObject) { pointer, width, height in
             let window: _Window = Unmanaged<_Window>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
-            window.size.send(Size3D(width: Double(width), height: Double(height), depth: 0))
+            window.delegate?.windowDidResize(window, to: Size3D(width: Double(width), height: Double(height), depth: 0))
+        }
+    }
+
+    nonisolated package func setWindowIconifyCallback() {
+        guard let representedObject else { return }
+        glfwSetWindowIconifyCallback(representedObject) { pointer, iconified in
+            let window: _Window = Unmanaged<_Window>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
+            if iconified == GLFW_TRUE {
+                window.delegate?.windowWillMiniaturize(window)
+                window.delegate?.windowDidMiniaturize(window)
+            } else {
+                window.delegate?.windowDidDeminiaturize(window)
+            }
         }
     }
 

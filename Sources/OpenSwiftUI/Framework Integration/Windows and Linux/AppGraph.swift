@@ -46,8 +46,10 @@ package final class AppGraph<AppType: App> : GraphHost {
             self.children.append(child)
         }
 
-        print("\(Self.self)")
         self.children
-            .forEach { print("\($0)") }
+            .first(where: { window in
+                (window as? SceneGraph)?.isMain == true
+            })?
+            .mount()
     }
 }
