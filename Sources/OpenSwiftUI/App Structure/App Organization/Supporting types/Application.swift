@@ -33,12 +33,8 @@ import OpenSpatial
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE)
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE)
         
-        // Build the runtime graph (pure outputs -> runtime objects).
-        // self.appGraph = AppGraph(app, environmentValues: globalEnvironmentValues)
-
-        let window = NSWindow(frame: .init(origin: Point3D.zero, size: Size3D(width: 900, height: 450)))
-        window.title = "OpenSwiftUI Application"
-        window.makeKeyAndOrderFront(self)
+        /// Build the runtime graph (pure outputs -> runtime objects).
+        self.appGraph = AppGraph(app, environmentValues: globalEnvironmentValues)
 
         mainLoop: while true {
             // Process all messages in thread's message queue; for GUI applications UI

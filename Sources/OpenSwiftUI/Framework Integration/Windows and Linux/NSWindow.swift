@@ -7,6 +7,8 @@ import OpenSpatial
 
     private let pointer: OpaquePointer
 
+    weak var delegate: NSWindowDelegate?
+
     init(frame: Rect3D) {
         self.frame = frame
         guard let pointer = glfwCreateWindow(Int32(frame.size.width), Int32(frame.size.height), "NSWindow", nil, nil) else {
@@ -77,12 +79,36 @@ import OpenSpatial
 
     /// Informs the window that it has become the key window.
     func becomeKey() {
-
     }
 
     /// Resigns the window’s key window status.
     func resignKey() {
+    }
 
+    // MARK: - Managing Main Status
+    
+    /// A Boolean value that indicates whether the window is the application’s main window.
+    private(set) var isMainWindow: Bool = false {
+        didSet {
+            oldValue == true ? becomeMain() : resignMain()
+        }
+    }
+    
+    /// A Boolean value that indicates whether the window can become the application’s main window.
+    private(set) var canBecomeMain: Bool = true
+    
+    /// Makes the window the main window.
+    func makeMain() {
+        guard canBecomeMain else { return }
+        isMainWindow = true
+    }
+    
+    /// Informs the window that it has become the main window.
+    func becomeMain() {
+    }
+    
+    /// Resigns the window’s main window status.
+    func resignMain() {
     }
 
     // MARK: - Updating Windows
@@ -221,7 +247,7 @@ import OpenSpatial
     /// Sets the framebuffer size callback of the window.
     private func setFramebufferSizeCallback() {
         glfwSetFramebufferSizeCallback(pointer) { pointer, width, height in
-            glad_glViewport(0, 0, width, height)
+            // glad_glViewport(0, 0, width, height)
         }
     }
 
@@ -262,4 +288,24 @@ import OpenSpatial
         glfwSetWindowRefreshCallback(pointer) { pointer in
         }
     }
+}
+
+protocol NSWindowDelegate : AnyObject {
+
+    // MARK: - Minimizing Windows
+
+    /// Tells the delegate that the window is about to be minimized.
+    func windowWillMiniaturize(_ window: NSWindow)
+
+    /// Tells the delegate that the window has been minimized.
+    func windowDidMiniaturize(_ window: NSWindow)
+
+    /// Tells the delegate that the window has been deminimized.
+    func windowDidDeminiaturize(_ window: NSWindow)
+
+    /// Tells the delegate that the window has been resized.
+    func windowDidResize(_ window: NSWindow, to size: Size3D)
+
+    /// Tells the delegate that the window has been loaded.
+    func windowLoaded(_ window: NSWindow)
 }
