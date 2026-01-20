@@ -37,14 +37,11 @@ extension _EnvironmentKeyWritingModifier : ViewModifier {
     }
 }
 
-//extension _EnvironmentKeyWritingModifier : SceneModifier {
-//    // MARK: - Function(s).
-//    
-//    public func body(content: Content) -> Never {
-//        fatalError()
-//    }
-//
-//    public static func _makeScene(modifier: _GraphValue<_EnvironmentKeyWritingModifier<Value>>, inputs: _SceneInputs) -> _SceneOutputs {
-//        fatalError()
-//    }
-//}
+extension _EnvironmentKeyWritingModifier : SceneModifier {
+    public static func _makeScene(modifier: _GraphValue<_EnvironmentKeyWritingModifier<Value>>, inputs: _SceneInputs) -> _SceneOutputs {
+        var outputs = inputs
+        outputs.environmentValues[keyPath: modifier.value.keyPath] = modifier.value.value
+        
+        return outputs
+    }
+}
