@@ -2,9 +2,11 @@
 import OpenGLAD
 import OpenGLFW
 import OpenSpatial
+import Foundation
 
 @MainActor class NSWindow : NSResponder {
 
+    var id: String = UUID().uuidString
     private let pointer: OpaquePointer
 
     weak var delegate: NSWindowDelegate?
@@ -34,6 +36,7 @@ import OpenSpatial
 
     /// Removes the window from the screen list, which hides the window.
     func orderOut(_ sender: Any?) {
+        hide()
     }
 
     /// Moves the window to the back of its level in the screen list, without changing either the key window or the main window.
@@ -66,23 +69,27 @@ import OpenSpatial
 
     /// Makes the window the key window.
     func makeKey() {
+
         guard canBecomeKey else { return }
         isKeyWindow = true
+        makeContextCurrent()
     }
 
     /// Moves the window to the front of the screen list, within its level, and makes it the key window; that is, it shows the window.
     func makeKeyAndOrderFront(_ sender: Any?) {
         makeKey()
         orderFront(sender)
-        run()
+        Application.shared.isRunning = true
     }
 
     /// Informs the window that it has become the key window.
     func becomeKey() {
+
     }
 
     /// Resigns the window’s key window status.
     func resignKey() {
+
     }
 
     // MARK: - Managing Main Status
@@ -105,16 +112,44 @@ import OpenSpatial
     
     /// Informs the window that it has become the main window.
     func becomeMain() {
+
     }
     
     /// Resigns the window’s main window status.
     func resignMain() {
+
     }
+
+    // MARK: - Drawing Windows
+
+    /// Passes a display message down the window’s view hierarchy, thus redrawing all views within the window.
+    func display() {
+
+    }
+
+    /// Passes a display message down the window’s view hierarchy, thus redrawing all views that need displaying.
+    func displayIfNeeded() {
+    }
+
+    /// A Boolean value that indicates whether any of the window’s views need to be displayed.
+    var viewsNeedDisplay: Bool = false
+
+    /// A Boolean value that indicates whether the window allows multithreaded view drawing.
+    var allowsConcurrentViewDrawing: Bool = false
 
     // MARK: - Updating Windows
 
     /// Updates the window.
     func update() {
+        if isShouldClose {
+            close()
+            terminate()
+            Application.shared.windows.removeAll { $0 === self }
+
+            if Application.shared.windows.count == 0 {
+                Application.shared.terminate()
+            }
+        }
     }
 
     // MARK: - Closing Windows
@@ -135,6 +170,26 @@ import OpenSpatial
     /// Removes the window from the screen.
     func close() {
         glfwSetWindowShouldClose(pointer, GLFW_TRUE)
+    }
+
+    // MARK: - Minimizing Windows
+
+    /// A Boolean value that indicates whether the window is minimized.
+    private(set) var isMiniaturized: Bool = false
+
+    /// Simulates the user clicking the minimize button by momentarily highlighting the button, then minimizing the window.
+    func performMiniaturize(_ sender: Any?) {
+        miniaturize(sender)
+    }
+
+    /// Removes the window from the screen list and displays the minimized window in the Dock.
+    func miniaturize(_ sender: Any?) {
+        glfwIconifyWindow(pointer)
+    }
+
+    /// De-minimizes the window.
+    func deminiaturize(_ sender: Any?) {
+        glfwRestoreWindow(pointer)
     }
 
     // MARK: - Managing Titles
@@ -184,7 +239,7 @@ import OpenSpatial
         glfwShowWindow(pointer)
     }
 
-    private func swapBuffers() {
+    func swapBuffers() {
         glfwSwapBuffers(pointer)
     }
 
@@ -192,19 +247,12 @@ import OpenSpatial
         glfwSwapInterval(Int32(interval))
     }
 
-    private func pollEvents() {
+    func pollEvents() {
         glfwPollEvents()
     }
 
     private func waitEvents() {
         glfwWaitEvents()
-    }
-
-    private func run() {
-        while !isShouldClose {
-            pollEvents()
-            swapBuffers()
-        }
     }
 
     // MARK: - GLFW Callbacks
@@ -231,8 +279,7 @@ import OpenSpatial
     /// Sets the close callback of the window.
     private func setWindowCloseCallback() {
         glfwSetWindowCloseCallback(pointer) { pointer in
-            let window = Unmanaged<NSWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
-            print("Window \(window.title) is closing.")
+            let _ = Unmanaged<NSWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
         }
     }
 
@@ -263,24 +310,21 @@ import OpenSpatial
     private func setWindowIconifyCallback() {
         glfwSetWindowIconifyCallback(pointer) { pointer, iconified in
             let window = Unmanaged<NSWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
-            print("Window \(window.title) is " + (iconified == GLFW_TRUE ? " minimized" : " restored"))
+            window.isMiniaturized = iconified == GLFW_TRUE
         }
     }
 
     /// Sets the maximize callback of the window.
     private func setWindowMaximizeCallback() {
         glfwSetWindowMaximizeCallback(pointer) { pointer, maximized in
-            let window = Unmanaged<NSWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
-            print("Window \(window.title) is " + (maximized == GLFW_TRUE ? " maximized" : " unmaximized"))
+            let _ = Unmanaged<NSWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
         }
     }
 
     /// Sets the focus callback of the window.
     private func setWindowFocusCallback() {
         glfwSetWindowFocusCallback(pointer) { pointer, focused in
-            let window = Unmanaged<NSWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
-            print("Window \(window.title) is " + (focused == GLFW_TRUE ? " focused" : " unfocused"))
-            print(dump(NSScreen.main) ?? "No Main Screen")
+            let _ = Unmanaged<NSWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
         }
     }
 

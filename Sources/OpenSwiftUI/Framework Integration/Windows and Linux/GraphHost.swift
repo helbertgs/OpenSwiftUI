@@ -1,3 +1,11 @@
+//
+// GraphHost.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Jan 19, 2026.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT 
+
 import Foundation
 
 /// A graph host.
@@ -15,11 +23,26 @@ import Foundation
     }
 
     func mount() {
+        children.forEach { $0.mount() }
     }
 
     func unmount() {
+        children.forEach { $0.unmount() }
     }
 
     func update() {
+        children.forEach { $0.update() }
+    }
+
+    func processEvents() {
+        children.forEach { $0.processEvents() }
+    }
+
+    func render() {
+        children.forEach { $0.render() }
+    }
+
+    func swapBuffers() {
+        children.forEach { $0.swapBuffers() }
     }
 }

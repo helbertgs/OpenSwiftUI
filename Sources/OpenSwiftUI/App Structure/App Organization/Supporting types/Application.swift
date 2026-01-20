@@ -10,7 +10,7 @@ import OpenSpatial
     // MARK: - Getting the shared app object
 
     /// Accessing the shared application
-    static let shared = Application()
+    @MainActor static let shared = Application()
 
     var appGraph: GraphHost? = nil
 
@@ -21,8 +21,6 @@ import OpenSpatial
 
     /// Starts the main event loop.
     func run<T: App>(_ app: T) {
-        print("\(Self.self).\(#function)")
-
         guard glfwInit() == GLFW_TRUE else {
             fatalError("Failed to initialize GLFW")
         }
@@ -33,16 +31,26 @@ import OpenSpatial
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE)
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE)
         
+        globalEnvironmentValues.openWindow = .init({ id in self.openWindow(id) })
+
         /// Build the runtime graph (pure outputs -> runtime objects).
         self.appGraph = AppGraph(app, environmentValues: globalEnvironmentValues)
 
+        // isRunning = true
+
         mainLoop: while true {
-            // Process all messages in thread's message queue; for GUI applications UI
-            // events must have high priority.
+            updateWindows()
 
             if !isRunning {
                 break mainLoop
-            }
+            }          
+
+            // Process all messages in thread's message queue; for GUI applications UI
+            // events must have high priority.
+
+            appGraph?.processEvents()
+            appGraph?.render()
+            appGraph?.swapBuffers()
 
             var time: Date? = nil
             repeat {
@@ -50,7 +58,7 @@ import OpenSpatial
                 // fires.  At this point handle all Foundation.RunLoop timers, sources and
                 // Dispatch.DispatchQueue.main tasks
                 time = RunLoop.main.limitDate(forMode: .default)
-
+                
                 // If Foundation.RunLoop doesn't contain any timers or the timers should
                 // not be running right now, we interrupt the current loop or otherwise
                 // continue to the next iteration.
@@ -61,7 +69,46 @@ import OpenSpatial
     // MARK: - Terminating the app
 
     /// Terminates the receiver.
-    func terminate(_ sender: Any?) {
+    func terminate(_ sender: Any? = nil) {
         isRunning = false
+    }
+
+    // MARK: - Managing App Windows
+
+    /// An array of the app’s window objects.
+    var windows: [NSWindow] = []
+
+    // MARK: - Minimizing Windows
+
+    /// Miniaturizes all the receiver’s windows.
+    func miniaturizeAll(_ sender: Any?) {
+        windows.forEach { $0.miniaturize(sender) }
+    }
+
+    // MARK: - Hiding Windows
+
+    /// A Boolean value indicating whether the app is hidden.
+    var isHidden: Bool = false
+
+    /// Hides all the receiver’s windows, and the next app in line is activated.
+    func hide(_ sender: Any?) {
+        windows.forEach { $0.orderOut(sender) }
+    }
+
+    /// Restores hidden windows to the screen and makes the receiver active.
+    func unhide(_ sender: Any?) {
+        windows.forEach { $0.orderFront(sender) }
+    }
+
+    // MARK: - Updating Windows
+    
+    /// Sends an update() message to each onscreen window.
+    func updateWindows() {
+        windows.forEach { $0.update() }
+    }
+
+    @MainActor func openWindow(_ id: String) {
+        guard let window = windows.first(where: { $0.id == id }) else { return }
+        window.makeKeyAndOrderFront(nil)
     }
 }

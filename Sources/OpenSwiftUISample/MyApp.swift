@@ -6,8 +6,7 @@ struct MyApp : App {
         Window("OpenSwiftUI", id: "open-swiftui") {
             EmptyView()
         }
-        Window("OpenSwiftUI", id: "open-swiftui-2") {
-            EmptyView()
-        }
+        .defaultSize(.init(width: 400, height: 300))
+        .windowStyle(.hiddenTitleBar)
     }
 }

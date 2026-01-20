@@ -26,7 +26,7 @@ public struct _ValueActionModifier2<V> : @MainActor SceneModifier {
         fatalError()
     }
 
-    public static func _makeScene(modifier: _GraphValue<_ValueActionModifier2<V>>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
+    public static func _makeScene(modifier: _GraphValue<_ValueActionModifier2<V>>, inputs: _SceneInputs) -> _SceneOutputs {
         fatalError("not implemented yet")
     }
 }

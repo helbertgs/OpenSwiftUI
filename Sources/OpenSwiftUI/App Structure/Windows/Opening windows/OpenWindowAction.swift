@@ -6,7 +6,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // SPDX-License-Identifier: MIT 
 
-import Swift
+import Foundation
 
 /// An action that presents a window.
 ///
@@ -48,6 +48,16 @@ import Swift
 /// the value's identifier makes a good presentation value.
 public struct OpenWindowAction {
 
+    /// The action to perform when the window is opened.
+    private let action: ((String) -> Void)
+
+    /// Creates a new open window action.
+    ///
+    /// - Parameter action: The action to perform when the window is opened.
+    public init(_ action: @escaping ((String) -> Void)) {
+        self.action = action
+    }
+
     /// Presents a window for the ``WindowGroup`` scene that handles the type of
     /// the presented value.
     ///
@@ -75,7 +85,7 @@ public struct OpenWindowAction {
     ///
     /// - Parameter id: The identifier of the scene to present.
     public func callAsFunction(id: String) {
-        fatalError()
+        action(id)
     }
 
     /// Presents a window for the `WindowGroup` scene with the specified

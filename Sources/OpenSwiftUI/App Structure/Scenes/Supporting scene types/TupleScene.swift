@@ -38,14 +38,10 @@ extension _TupleScene: Scene {
     ///   - inputs: The inputs for the scene.
     /// - Returns: The outputs of the scene.
     nonisolated public static func _makeScene(scene: _GraphValue<_TupleScene<T>>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = _SceneOutputs(
-            "_TupleScene",
-            inputs: inputs,
-            scene: scene.value,
-            environmentValues: inputs.environmentValues,
-            children: [],
-            content: nil
-        )
+        var outputs = inputs
+        outputs.type = "\(Self.self)"
+        outputs.scene = scene.value
+        outputs.environmentValues = inputs.environmentValues
 
         // Expand the tuple produced by `@SceneBuilder` into child scene outputs.
         // Note: Swift doesn't provide a first-class "tuple iterator", so we use reflection.

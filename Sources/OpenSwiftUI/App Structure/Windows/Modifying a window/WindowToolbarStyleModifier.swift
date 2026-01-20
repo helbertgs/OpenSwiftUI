@@ -24,7 +24,7 @@ import Swift
 
     // MARK: - Static Function(s).
 
-    public static func _makeScene(modifier: _GraphValue<WindowToolbarStyleModifier<Style>>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
+    public static func _makeScene(modifier: _GraphValue<WindowToolbarStyleModifier<Style>>, inputs: _SceneInputs) -> _SceneOutputs {
         fatalError("not implemented yet")
     }
 }

@@ -1,3 +1,11 @@
+//
+// AppGraph.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Jan 19, 2026.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT 
+
 import Foundation
 import OpenCombine
 import OpenSpatial
@@ -29,20 +37,20 @@ class AppGraph<AppType: App> : GraphHost {
     override func mount() {
         var inputs = _SceneInputs()
         inputs.environmentValues = environmentValues
-        
+
         let outputs =  AppType.Body._makeScene(scene: .init(app.body), inputs: inputs)
         if outputs.children.count > 0 {
             outputs
                 .children
                 .enumerated()
                 .forEach { index, value in
-                    let child = SceneGraph(outputs: value)
+                    let child = SceneGraph(data: value)
                     child.isMain = index == 0
                     self.children.append(child)
                 }
             }
         else { 
-            let child = SceneGraph(outputs: outputs)
+            let child = SceneGraph(data: outputs)
             child.isMain = true
             self.children.append(child)
         }

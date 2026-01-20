@@ -20,7 +20,7 @@ public struct WindowResizabilityModifier : @MainActor SceneModifier {
         fatalError()
     }
 
-    public static func _makeScene(modifier: _GraphValue<WindowResizabilityModifier>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
+    public static func _makeScene(modifier: _GraphValue<WindowResizabilityModifier>, inputs: _SceneInputs) -> _SceneOutputs {
         fatalError("not implemented yet")
     }
 }

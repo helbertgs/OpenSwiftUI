@@ -14,7 +14,7 @@ public struct CommandsRemovedModifier : @MainActor SceneModifier {
         fatalError()
     }
     
-    public static func _makeScene(modifier: _GraphValue<CommandsRemovedModifier>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
+    public static func _makeScene(modifier: _GraphValue<CommandsRemovedModifier>, inputs: _SceneInputs) -> _SceneOutputs {
         fatalError("not implemented yet")
     }
 }

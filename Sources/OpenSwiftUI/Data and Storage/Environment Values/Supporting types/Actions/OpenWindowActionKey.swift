@@ -1,8 +1,16 @@
+//
+// OpenWindowAction.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Oct 11, 2023.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT 
+
 import Swift
 
 @frozen public struct OpenWindowActionKey : EnvironmentKey {
     public static var defaultValue: OpenWindowAction {
-        .init()
+        .init({ _ in }) 
     }
 }
 
@@ -42,7 +50,8 @@ extension EnvironmentValues {
     ///         }
     ///     }
     ///
-    public var openWindow: OpenWindowAction {
+    public internal(set) var openWindow: OpenWindowAction {
         get { self[OpenWindowActionKey.self] }
+        set { self[OpenWindowActionKey.self] = newValue }
     }
 }

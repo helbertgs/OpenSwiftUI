@@ -21,7 +21,7 @@ public struct ActivationConditionsModifier : SceneModifier {
     
     // MARK: - Static Function(s).
     
-    public static func _makeScene(modifier: _GraphValue<ActivationConditionsModifier>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
+    public static func _makeScene(modifier: _GraphValue<ActivationConditionsModifier>, inputs: _SceneInputs) -> _SceneOutputs {
         fatalError("not implemented yet")
     }
 }

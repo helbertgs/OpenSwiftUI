@@ -118,7 +118,7 @@ public struct Window<Content> : Scene where Content : View {
     // MARK: - Checking characteristics.
 
     /// The content of the window.
-    package let content: Content
+    package let content: () -> Content
 
     /// The title of the window.
     package let title: Text
@@ -157,10 +157,10 @@ public struct Window<Content> : Scene where Content : View {
     ///   - id: A unique string identifier that you can use to
     ///     open the window.
     ///   - content: The view content to display in the window.
-    public init(_ title: Text, id: String, @ViewBuilder content: () -> Content) {
+    public init(_ title: Text, id: String, @ViewBuilder content: @escaping () -> Content) {
         self.title = title
         self.id = id
-        self.content = content()
+        self.content = content
     }
 
     /// Creates a window with a localized title and an identifier.
@@ -174,10 +174,10 @@ public struct Window<Content> : Scene where Content : View {
     ///   - id: A unique string identifier that you can use to
     ///     open the window.
     ///   - content: The view content to display in the window.
-    public init(_ titleKey: LocalizedStringKey, id: String, @ViewBuilder content: () -> Content) {
+    public init(_ titleKey: LocalizedStringKey, id: String, @ViewBuilder content: @escaping () -> Content) {
         self.title = Text(titleKey)
         self.id = id
-        self.content = content()
+        self.content = content
     }
 
     /// Creates a window with a title string and an identifier.
@@ -191,10 +191,10 @@ public struct Window<Content> : Scene where Content : View {
     ///   - id: A unique string identifier that you can use to
     ///     open the window.
     ///   - content: The view content to display in the window.
-    public init(_ title: String, id: String, @ViewBuilder content: () -> Content) {
+    public init(_ title: String, id: String, @ViewBuilder content: @escaping () -> Content) {
         self.title = Text(title)
         self.id = id
-        self.content = content()
+        self.content = content
     }
 
     // MARK: - Creating a window's representation in the OpenSwiftUI scene graph.
@@ -206,16 +206,12 @@ public struct Window<Content> : Scene where Content : View {
     ///   - inputs: The inputs for the scene.
     /// - Returns: The outputs for the scene.
     public static func _makeScene(scene: _GraphValue<Window<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = _SceneOutputs(
-            "\(Self.self)",
-            inputs: inputs,
-            scene: scene.value,
-            environmentValues: inputs.environmentValues,
-            content: type(of: scene.value.content)._makeView(view: .init(scene.value.content), inputs: .init()),
-            title: "\(Self.self)",
-        )
-
+        var outputs = inputs
+        outputs.type = "\(Self.self)"
+        outputs.scene = scene.value
         outputs.id = scene.value.id
+        outputs.environmentValues = inputs.environmentValues
+        outputs.title = ""
 
         return outputs
     }

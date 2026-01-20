@@ -24,7 +24,7 @@ public struct CommandsModifier<Value> : @MainActor SceneModifier where Value : C
 
     // MARK: - Static Function(s).
 
-    nonisolated public static func _makeScene(modifier: _GraphValue<CommandsModifier<Value>>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs {
+    nonisolated public static func _makeScene(modifier: _GraphValue<CommandsModifier<Value>>, inputs: _SceneInputs) -> _SceneOutputs {
         fatalError()
     }
 }

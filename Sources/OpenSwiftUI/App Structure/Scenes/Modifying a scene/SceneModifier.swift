@@ -36,7 +36,7 @@ import Foundation
     /// - Parameters:
     ///   - scene: The modifier to create.
     ///   - inputs: The inputs for the scene.
-    static func _makeScene(modifier: _GraphValue<Self>, inputs: _SceneInputs, body: @escaping (_Graph, _SceneInputs) -> _SceneOutputs) -> _SceneOutputs
+    nonisolated static func _makeScene(modifier: _GraphValue<Self>, inputs: _SceneInputs) -> _SceneOutputs
 }
 
 extension SceneModifier {
