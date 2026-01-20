@@ -67,7 +67,11 @@ public struct _SceneData {
     var style: any WindowStyle = DefaultWindowStyle()
 
     /// The toolbar style of the scene.
-    var toolbarStyle: any WindowToolbarStyle = .automatic
+    var windowToolbarStyle: any WindowToolbarStyle = .automatic
+
+    var toolbarLabelStyle: ToolbarLabelStyle = .automatic
+
+    var menuBarExtraStyle: MenuBarExtraStyle = .automatic
 
     // MARK: - Managing the environment
 

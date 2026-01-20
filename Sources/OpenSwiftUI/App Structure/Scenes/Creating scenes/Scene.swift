@@ -175,7 +175,12 @@ extension Scene {
     ///
     /// - Returns: A scene that triggers an action in response to a change.
     public func onChange<V>(of value: V, initial: Bool = false, _ action: @escaping (_ oldValue: V, _ newValue: V) -> Void) -> some Scene where V : Equatable {
-        modifier(_ValueActionModifier2(value: value, action: action))
+        modifier(
+            _ValueActionModifier2(
+                value: value, 
+                action: action
+            )
+        )
     }
 
     /// Adds an action to perform when the given value changes.
@@ -224,7 +229,12 @@ extension Scene {
     ///
     /// - Returns: A scene that triggers an action in response to a change.
     public func onChange<V>(of value: V, initial: Bool = false, _ action: @escaping () -> Void) -> some Scene where V : Equatable {
-        modifier(_ValueActionModifier2(value: value, action: action))
+        modifier(
+            _ValueActionModifier2(
+                value: value, 
+                action: action
+            )
+        )
     }
 
     /// Specifies the external events for which OpenSwiftUI opens a new instance
@@ -326,7 +336,11 @@ extension Scene {
     /// - Returns: A scene type that limits the kinds of external events for
     ///   which OpenSwiftUI opens a new instance.
     public func handlesExternalEvents(matching conditions: Set<String>) -> some Scene {
-        modifier(ActivationConditionsModifier(conditions: conditions))
+        modifier(
+            ActivationConditionsModifier(
+                conditions: conditions
+            )
+        )
     }
 }
 
@@ -366,7 +380,12 @@ extension Scene {
     ///   - action: An async closure that the system runs for the specified task
     ///     type.
     public func backgroundTask<D, R>(_ task: BackgroundTask<D, R>, action: @escaping @Sendable (D) async -> R) -> some Scene where D : Sendable, R : Sendable {
-        modifier(BackgroundTaskModifier(task: task, storage: action))
+        modifier(
+            BackgroundTaskModifier(
+                task: task, 
+                storage: action
+            )
+        )
     }
 }
 
@@ -476,7 +495,11 @@ extension Scene {
     /// - Returns: A scene that replaces any commands defined by its children
     ///   with alternative content.
     public func commandsReplaced<Content>(@CommandsBuilder content: () -> Content) -> some Scene where Content : Commands {
-        modifier(CommandsModifier(value: content()))
+        modifier(
+            CommandsModifier(
+                value: content()
+            )
+        )
     }
 
     /// Defines a keyboard shortcut for opening new scene windows.
@@ -521,7 +544,15 @@ extension Scene {
     ///   - localization: The localization style to apply to the shortcut.
     /// - Returns: A scene that can be presented with a keyboard shortcut.
     public func keyboardShortcut(_ key: KeyEquivalent, modifiers: EventModifiers = .command, localization: KeyboardShortcut.Localization = .automatic) -> some Scene {
-        modifier(_PreferenceTransformModifier(key: KeyboardShortcut(key, modifiers: modifiers, localization: localization)))
+        modifier(
+            _PreferenceTransformModifier(
+                key: KeyboardShortcut(
+                    key, 
+                    modifiers: modifiers, 
+                    localization: localization
+                )
+            )
+        )
     }
 
     /// Defines a keyboard shortcut for opening new scene windows.
@@ -557,7 +588,11 @@ extension Scene {
     ///   - shortcut: The keyboard shortcut for presenting the scene, or `nil`.
     /// - Returns: A scene that can be presented with a keyboard shortcut.
     public func keyboardShortcut(_ shortcut: KeyboardShortcut?) -> some Scene {
-        modifier(_PreferenceTransformModifier(key: shortcut))
+        modifier(
+            _PreferenceTransformModifier(
+                key: shortcut
+            )
+        )
     }
 }
 
@@ -620,7 +655,13 @@ extension Scene {
     ///
     /// - Returns: A scene that uses a default position for new windows.
     public func defaultPosition(_ position: UnitPoint) -> some Scene {
-        modifier(WindowDefaultsPositionModifier(position))
+        modifier(
+            TransformSceneListModifier({
+                Application
+                    .shared
+                    .globalEnvironmentValues[keyPath: \.defaultScenePosition] = position
+            })
+        )
     }
 
     /// Sets a default size for a window.
@@ -668,7 +709,13 @@ extension Scene {
     ///
     /// - Returns: A scene that uses a default size for new windows.
     public func defaultSize(_ size: Size3D) -> some Scene {
-        modifier(WindowDefaultsSizeModifier(width: size.width, height: size.height))
+        modifier(
+            TransformSceneListModifier({
+                Application
+                    .shared
+                    .globalEnvironmentValues[keyPath: \.defaultSceneSize] = size
+            })
+        )
     }
 
     /// Sets a default width and height for a window.
@@ -718,7 +765,17 @@ extension Scene {
     ///
     /// - Returns: A scene that uses a default size for new windows.
     public func defaultSize(_ width: Double, _ height: Double, _ depth: Double = 0) -> some Scene {
-        modifier(WindowDefaultsSizeModifier(width: width, height: height))
+        modifier(
+            TransformSceneListModifier({
+                Application
+                    .shared
+                    .globalEnvironmentValues[keyPath: \.defaultSceneSize] = .init(
+                        width: width, 
+                        height: height, 
+                        depth: depth
+                    )
+            })
+        )
     }
 
     /// Defines a function used for determining the default placement
@@ -800,7 +857,13 @@ extension Scene {
     ///   - context: An instance of a ``WindowPlacementContext`` that provides
     ///     contextual information used to size and position windows.
     public func defaultWindowPlacement(_ makePlacement: @escaping (_ content: WindowLayoutRoot, _ context: WindowPlacementContext) -> WindowPlacement) -> some Scene {
-        fatalError("not implemented yet")
+        modifier(
+            TransformSceneListModifier({
+                Application
+                    .shared
+                    .globalEnvironmentValues[keyPath: \.defaultSceneWindowPlacement] = makePlacement
+            })
+        )
     }
 
     /// Sets the kind of resizability to use for a window.
@@ -839,7 +902,11 @@ extension Scene {
     ///
     /// - Returns: A scene that uses the specified resizability strategy.
     public func windowResizability(_ resizability: WindowResizability) -> some Scene {
-        modifier(WindowResizabilityModifier(resizability: resizability))
+        modifier(
+            WindowResizabilityModifier(
+                resizability: resizability
+            )
+        )
     }
 
     /// Specifies how windows derived form this scene should determine their
@@ -865,9 +932,14 @@ extension Scene {
     ///
     /// - Parameter idealSize: A value which determines how windows derived from
     ///   this scene should size themselves when zooming.
-    nonisolated public func windowIdealSize(_ idealSize: WindowIdealSize) -> some Scene {
-        fatalError("not implemented yet")
-        // modifier(WindowIdealSizeModifier(idealSize: idealSize))
+    public func windowIdealSize(_ idealSize: WindowIdealSize) -> some Scene {
+        modifier(
+            TransformSceneListModifier({
+                Application
+                    .shared
+                    .globalEnvironmentValues[keyPath: \.defaultSceneIdealSize] = idealSize
+            })
+        )
     }
 
     /// Provides a function which determines a placement to use when windows
@@ -905,7 +977,13 @@ extension Scene {
     ///   - context: An instance of a ``WindowPlacementContext`` that provides
     ///     contextual information used to size and position windows.
     public func windowIdealPlacement(_ makePlacement: @escaping (_ content: WindowLayoutRoot, _ context: WindowPlacementContext) -> WindowPlacement) -> some Scene {
-        fatalError("not implemented yet")
+        modifier(
+            TransformSceneListModifier({
+                Application
+                    .shared
+                    .globalEnvironmentValues[keyPath: \.defaultSceneWindowIdealPlacement] = makePlacement
+            })
+        )
     }
 
     /// Configures the role for windows derived from `self` when
@@ -934,7 +1012,13 @@ extension Scene {
     ///     }
     ///
     public func windowManagerRole(_ role: WindowManagerRole) -> some Scene {
-        fatalError("not implemented yet")
+        modifier(
+            TransformSceneListModifier({
+                Application
+                    .shared
+                    .globalEnvironmentValues[keyPath: \.windowManagerRole] = role
+            })
+        )
     }
 }
 
@@ -992,8 +1076,13 @@ extension Scene {
     /// will only present itself if it is the first scene defined by the app,
     /// and no other scenes have presented themselves.
     public func defaultLaunchBehavior(_ behavior: SceneLaunchBehavior) -> some Scene {
-        fatalError("not implemented yet")
-        // modifier(SceneLaunchBehaviorModifier(behavior: behavior))
+        modifier(
+            TransformSceneListModifier({
+                Application
+                    .shared
+                    .globalEnvironmentValues[keyPath: \.sceneLaunchBehavior] = behavior
+            })
+        )
     }
 
     /// Sets the restoration behavior for this scene.
@@ -1022,7 +1111,13 @@ extension Scene {
     /// ``SceneRestorationBehavior/automatic``. With that strategy, scenes will
     /// restore themselves depending on the default behavior for the platform.
     public func restorationBehavior(_ behavior: SceneRestorationBehavior) -> some Scene {
-        fatalError("not implemented yet")
+        modifier(
+            TransformSceneListModifier({
+                Application
+                    .shared
+                    .globalEnvironmentValues[keyPath: \.sceneRestorationBehavior] = behavior
+            })
+        )
     }
 
     // Sets the preferred visibility of the non-transient system views
@@ -1058,8 +1153,13 @@ extension Scene {
     /// - Parameter visibility: A value that indicates the visibility of the
     /// non-transient system views overlaying the app.
     public func persistentSystemOverlays(_ preferredVisibility: Visibility) -> some Scene{
-        fatalError("not implemented yet")
-        // modifier(PersistentSystemOverlaysModifier(visibility: visibility))
+        modifier(
+            TransformSceneListModifier({
+                Application
+                    .shared
+                    .globalEnvironmentValues[keyPath: \.defaultPersistentSystemOverlays] = preferredVisibility
+            })
+        )
     }
 }
 
@@ -1069,7 +1169,11 @@ extension Scene {
 
     /// Sets the style for windows created by this scene.
     public func windowStyle<S>(_ style: S) -> some Scene where S : WindowStyle {
-        modifier(WindowStyleModifier(style: style))
+        modifier(
+            WindowStyleModifier(
+                style: style
+            )
+        )
     }
 
     /// Sets the window level of this scene.
@@ -1081,12 +1185,22 @@ extension Scene {
     ///
     /// - Parameter level: The desired window level
     public func windowLevel(_ level: WindowLevel) -> some Scene {
-        fatalError("not implemented yet") // modifier(WindowLevelModifier(level: level))
+        modifier(
+            TransformSceneListModifier({
+                Application
+                    .shared
+                    .globalEnvironmentValues[keyPath: \.defaulScenetWindowLevel] = level
+            })
+        )
     }
 
     /// Sets the style for the toolbar defined within this scene.
     public func windowToolbarStyle<S>(_ style: S) -> some Scene where S : WindowToolbarStyle {
-        fatalError("not implemented yet") // modifier(WindowToolbarStyleModifier(style: style))
+        modifier(
+            WindowToolbarStyleModifier(
+                style: style
+            )
+        )
     }
 
     /// Sets the label style of items in a toolbar.
@@ -1108,8 +1222,12 @@ extension Scene {
     ///         }
     ///
     /// - Parameter toolbarLabelStyle: The style to apply.
-    public func windowToolbarLabelStyle(fixed: ToolbarLabelStyle) -> some Scene {
-        fatalError("not implemented yet")
+    public func windowToolbarLabelStyle(fixed style: ToolbarLabelStyle) -> some Scene {
+        modifier(
+            WindowToolbarLabelStyleModifier(
+                data: .fixed(style)
+            )
+        )
     }
 
 
@@ -1136,7 +1254,11 @@ extension Scene {
     ///
     /// - Parameter toolbarLabelStyle: The label style to apply.
     public func windowToolbarLabelStyle(_ toolbarLabelStyle: Binding<ToolbarLabelStyle>) -> some Scene {
-        fatalError("not implemented yet")
+        modifier(
+            WindowToolbarLabelStyleModifier(
+                data: .variable(toolbarLabelStyle)
+            )
+        )
     }
 }
 
@@ -1257,12 +1379,22 @@ extension Scene {
     ///
     /// - Returns: A view that has the given value set in its environment.
     public func environment<V>(_ keyPath: WritableKeyPath<EnvironmentValues, V>, _ value: V) -> some Scene {
-        fatalError("not implemented yet") // modifier(_EnvironmentKeyWritingModifier(keyPath: keyPath, value: value))
+        modifier(
+            _EnvironmentKeyWritingModifier(
+                keyPath: keyPath, 
+                value: value
+            )
+        )
     }
 
     /// Transforms the environment value of the specified key path with the given function.
     public func transformEnvironment<V>(_ keyPath: WritableKeyPath<EnvironmentValues, V>, transform: @escaping (inout V) -> Void) -> some Scene {
-        fatalError("not implemented yet") // modifier(_EnvironmentKeyTransformModifier(keyPath: keyPath, transform: transform))
+        modifier(
+            _EnvironmentKeyTransformModifier(
+                keyPath: keyPath, 
+                transform: transform
+            )
+        )
     }
 }
 
@@ -1302,7 +1434,12 @@ extension Scene {
     /// - Parameter icon: The custom icon to use for the alert.
     ///   Passing `nil` will use the default app icon.
     public func dialogIcon(_ icon: Image?) -> some Scene {
-        fatalError("not implemented yet")
+        modifier(
+            _EnvironmentKeyWritingModifier(
+                keyPath: \.dialogIcon, 
+                value: icon
+            )
+        )
     }
 
     /// Sets the severity for alerts.
@@ -1338,7 +1475,12 @@ extension Scene {
     ///
     /// - Parameter severity: The severity to use for alerts.
     public func dialogSeverity(_ severity: DialogSeverity) -> some Scene {
-        fatalError("not implemented yet")
+        modifier(
+            _EnvironmentKeyWritingModifier(
+                keyPath: \.dialogSeverity, 
+                value: severity
+            )
+        )
     }
 
     /// Enables user suppression of an alert with a custom suppression
@@ -1549,7 +1691,7 @@ extension Scene {
 
     /// Sets the style for menu bar extra created by this scene.
     public func menuBarExtraStyle<S>(_ style: S) -> some Scene where S : MenuBarExtraStyle {
-        fatalError("not implemented yet") // modifier(MenuBarExtraStyleModifier(style: style))
+        modifier(MenuBarExtraStyleModifier(style: style))
     }
 }
 

@@ -46,3 +46,14 @@ extension SceneModifier {
         .init(content: self, modifier: modifier)
     }
 }
+
+extension SceneModifier where Body == Never {
+
+    /// Gets the current body of the caller.
+    ///
+    /// `content` is a proxy for the view that will have the modifier
+    /// represented by `Self` applied to it.
+    public func body(content: Self.Content) -> Self.Body {
+        fatalError()
+    }
+}
