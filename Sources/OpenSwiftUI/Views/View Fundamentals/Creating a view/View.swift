@@ -1,3 +1,11 @@
+//
+// View.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Oct 11, 2023.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT 
+
 import Foundation
 import OpenCombine
 
@@ -37,8 +45,9 @@ import OpenCombine
 /// and respond to <doc:View-Input-and-Events>.
 /// You can also collect groups of default modifiers into new,
 /// custom view modifiers for easy reuse.
-@_typeEraser(AnyView)
-public protocol View {
+@_typeEraser(DebugReplaceableView) 
+@_typeEraser(AnyView) 
+@MainActor @preconcurrency public protocol View {
 
     // MARK: - Associated Type(s).
     /// The type of view representing the body of this view.
@@ -63,13 +72,18 @@ public protocol View {
     ///
     /// For more information about composing views and a view hierarchy,
     /// see <doc:Declaring-a-Custom-View>.
-    @ViewBuilder var body: Self.Body { get }
+    @ViewBuilder @MainActor @preconcurrency var body: Self.Body { get }
 
-    static func _makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs
+    /// Creates the view's representation in the OpenSwiftUI view graph.
+    /// 
+    /// - Parameters:
+    ///   - view: The view to create.
+    ///   - inputs: The inputs for the view.
+    @MainActor @preconcurrency static func _makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs
 }
 
 extension View {
-    public static func _makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs {
+    @MainActor @preconcurrency public static func _makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs {
         guard Self.Body.self != Never.self else {
             fatalError("Unsupported view type \(Self.self)")
         }
@@ -121,7 +135,7 @@ extension View {
     ///  rectangle.](OpenSwiftUI-View-ViewModifier.png)
     ///
     /// - Parameter modifier: The modifier to apply to this view.
-    @inlinable public func modifier<T>(_ modifier: T) -> ModifiedContent<Self, T> {
+    @MainActor @preconcurrency public func modifier<T>(_ modifier: T) -> ModifiedContent<Self, T> {
         .init(content: self, modifier: modifier)
     }
 }

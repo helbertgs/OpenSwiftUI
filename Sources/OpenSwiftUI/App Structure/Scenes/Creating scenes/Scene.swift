@@ -114,7 +114,7 @@ import OpenSpatial
     /// - Parameters:
     ///   - scene: The scene to create.
     ///   - inputs: The inputs for the scene.
-    nonisolated static func _makeScene(scene: _GraphValue<Self>, inputs: _SceneInputs) -> _SceneOutputs
+    @MainActor @preconcurrency static func _makeScene(scene: _GraphValue<Self>, inputs: _SceneInputs) -> _SceneOutputs
 }
 
 extension Scene {
@@ -1702,6 +1702,7 @@ extension Scene {
 }
 
 extension Scene {
+    @MainActor @preconcurrency
     public static func _makeScene(scene: _GraphValue<Self>, inputs: _SceneInputs) -> _SceneOutputs {
         guard Self.Body.self != Never.self else {
             fatalError("Unsupported scene type \(Self.self)")

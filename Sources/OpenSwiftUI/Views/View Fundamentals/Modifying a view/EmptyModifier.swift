@@ -40,24 +40,4 @@ import Swift
     public typealias Body = Never
 
     @inlinable public init() { }
-
-    /// Gets the current body of the caller.
-    ///
-    /// `content` is a proxy for the view that will have the modifier
-    /// represented by `Self` applied to it.
-    public func body(content: Content) -> Never {
-        fatalError()
-    }
-
-    public static func _viewListCount(inputs: _ViewListCountInputs, body: (_ViewListCountInputs) -> Int?) -> Int? {
-        nil
-    }
-
-    public static func _makeView(modifier: _GraphValue<EmptyModifier>, inputs: _ViewInputs, body: @escaping (_Graph, _ViewInputs) -> _ViewOutputs) -> _ViewOutputs {
-        .init()
-    }
-
-    public static func _makeViewList(modifier: _GraphValue<EmptyModifier>, inputs: _ViewListInputs, body: @escaping (_Graph, _ViewListInputs) -> _ViewListOutputs) -> _ViewListOutputs {
-        .init()
-    }
 }

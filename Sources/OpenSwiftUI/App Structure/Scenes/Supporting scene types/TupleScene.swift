@@ -9,12 +9,12 @@
 import Foundation
 
 /// A Scene created from a swift tuple of Scene values.
-@frozen public struct _TupleScene<T> {
+@frozen public struct _TupleScene<T>: @unchecked Sendable {
 
     // MARK: - Checking characteristics.
 
     /// The value of the tuple scene.
-    public var value: T
+    public let value: T
 
     // MARK: - Creating a tuple scene.
 
@@ -37,7 +37,7 @@ extension _TupleScene: Scene {
     ///   - scene: The scene to create.
     ///   - inputs: The inputs for the scene.
     /// - Returns: The outputs of the scene.
-    nonisolated public static func _makeScene(scene: _GraphValue<_TupleScene<T>>, inputs: _SceneInputs) -> _SceneOutputs {
+    public static func _makeScene(scene: _GraphValue<_TupleScene<T>>, inputs: _SceneInputs) -> _SceneOutputs {
         var outputs = inputs
         outputs.type = "\(Self.self)"
         outputs.scene = scene.value

@@ -1,4 +1,12 @@
-import Swift
+//
+// EnvironmentValues.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Apr 21, 2022.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT 
+
+import Foundation
 
 // A collection of environment values propagated through a view hierarchy.
 ///
@@ -73,7 +81,7 @@ import Swift
 /// Clients of your value then access the value in the usual way, reading it
 /// with the ``Environment`` property wrapper, and setting it with the
 /// `myCustomValue` view modifier.
-public struct EnvironmentValues : CustomStringConvertible, DynamicProperty {
+public struct EnvironmentValues : CustomStringConvertible, DynamicProperty, Sendable {
 
     // MARK: - Type Alias.
 

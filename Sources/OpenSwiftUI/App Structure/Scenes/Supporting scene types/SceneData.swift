@@ -91,7 +91,7 @@ public struct _SceneData {
     /// The children of the scene.
     var children: [_SceneOutputs] = []
 
-    // var content: (any View)?  = nil
+    var content: _ViewOutputs? = nil
 }
 
 // DisplaysKey = [SwiftUI.DisplayProxy(bounds: (0.0, 0.0, 3840.0, 2160.0), safeAreaInsets: SwiftUI.EdgeInsets(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 0.0), visibleRect: (0.0, 25.0, 3840.0, 2135.0)), SwiftUI.DisplayProxy(bounds: (0.0, 0.0, 1080.0, 1920.0), safeAreaInsets: SwiftUI.EdgeInsets(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 0.0), visibleRect: (0.0, 25.0, 1080.0, 1895.0))]

@@ -1,12 +1,12 @@
-import Swift
+import Foundation
+ 
+class AnyEnvironmentPropertyKey: @unchecked Sendable { }
 
-class AnyEnvironmentPropertyKey { }
-
-class EnvironmentPropertyKey<Key> : AnyEnvironmentPropertyKey, CustomStringConvertible where Key : EnvironmentKey {
+final class EnvironmentPropertyKey<Key>: AnyEnvironmentPropertyKey, CustomStringConvertible, @unchecked Sendable where Key: EnvironmentKey {
 
     // MARK: - Property(ies).
 
-    var value : Key.Value
+    let value: Key.Value
 
     // MARK: - Constructor(s).
 

@@ -11,6 +11,9 @@ import Foundation
 
     weak var delegate: NSWindowDelegate?
 
+    /// A Boolean value indicating whether the GLFW window has been destroyed.
+    private var isDestroyed: Bool = false
+
     init(frame: Rect3D) {
         self.frame = frame
         guard let pointer = glfwCreateWindow(Int32(frame.size.width), Int32(frame.size.height), "NSWindow", nil, nil) else {
@@ -24,7 +27,6 @@ import Foundation
 
     @MainActor deinit {
         destroy()
-        terminate()
     }
 
     // MARK: - Sizing Windows
@@ -50,9 +52,10 @@ import Foundation
     
     // MARK: - Managing Window Layers
 
-    /// A Boolean value that indicates whether the window is visible onscreen (even when it’s obscured by other windows).
+    /// A Boolean value that indicates whether the window is visible onscreen (even when it's obscured by other windows).
     var isVisible: Bool {
-        glfwGetWindowAttrib(pointer, GLFW_VISIBLE) == GLFW_TRUE
+        guard !isDestroyed else { return false }
+        return glfwGetWindowAttrib(pointer, GLFW_VISIBLE) == GLFW_TRUE
     }
 
     // MARK: - Managing Key Status
@@ -60,7 +63,11 @@ import Foundation
     /// A Boolean value that indicates whether the window is the key window for the application.
     var isKeyWindow: Bool = false {
         didSet { 
-            oldValue == true ? becomeKey() : resignKey()
+            if isKeyWindow && !oldValue {
+                becomeKey()
+            } else if !isKeyWindow && oldValue {
+                resignKey()
+            }
         }
     }
 
@@ -79,7 +86,7 @@ import Foundation
     func makeKeyAndOrderFront(_ sender: Any?) {
         makeKey()
         orderFront(sender)
-        Application.shared.isRunning = true
+        Application.shared.start()
     }
 
     /// Informs the window that it has become the key window.
@@ -94,10 +101,14 @@ import Foundation
 
     // MARK: - Managing Main Status
     
-    /// A Boolean value that indicates whether the window is the application’s main window.
+    /// A Boolean value that indicates whether the window is the application's main window.
     private(set) var isMainWindow: Bool = false {
         didSet {
-            oldValue == true ? becomeMain() : resignMain()
+            if isMainWindow && !oldValue {
+                becomeMain()
+            } else if !isMainWindow && oldValue {
+                resignMain()
+            }
         }
     }
     
@@ -141,12 +152,14 @@ import Foundation
 
     /// Updates the window.
     func update() {
+        // Don't process updates for destroyed windows
+        guard !isDestroyed else { return }
+        
         if isShouldClose {
-            close()
-            terminate()
-            Application.shared.windows.removeAll { $0 === self }
+            destroy()
+            Application.shared.unregisterWindow(self)
 
-            if Application.shared.windows.count == 0 {
+            if Application.shared.windows.isEmpty {
                 Application.shared.terminate()
             }
         }
@@ -159,7 +172,8 @@ import Foundation
 
     /// A Boolean value that indicates whether the window should close.
     var isShouldClose: Bool {
-        glfwWindowShouldClose(pointer) == GLFW_TRUE
+        guard !isDestroyed else { return true }
+        return glfwWindowShouldClose(pointer) == GLFW_TRUE
     }
 
     /// Simulates the user clicking the close button by momentarily highlighting the button and then closing the window.
@@ -169,6 +183,7 @@ import Foundation
     
     /// Removes the window from the screen.
     func close() {
+        guard !isDestroyed else { return }
         glfwSetWindowShouldClose(pointer, GLFW_TRUE)
     }
 
@@ -184,11 +199,13 @@ import Foundation
 
     /// Removes the window from the screen list and displays the minimized window in the Dock.
     func miniaturize(_ sender: Any?) {
+        guard !isDestroyed else { return }
         glfwIconifyWindow(pointer)
     }
 
     /// De-minimizes the window.
     func deminiaturize(_ sender: Any?) {
+        guard !isDestroyed else { return }
         glfwRestoreWindow(pointer)
     }
 
@@ -197,11 +214,13 @@ import Foundation
     /// The string that appears in the title bar of the window or the path to the represented file.
     var title: String { 
         get { 
+            guard !isDestroyed else { return "" }
             if let cString = glfwGetWindowTitle(pointer) {
                 return String(cString: cString)
             }
             return ""
         } set {
+            guard !isDestroyed else { return }
             glfwSetWindowTitle(pointer, newValue)
         }
     }
@@ -210,6 +229,7 @@ import Foundation
 
     /// The screen the window is on.
     var screen: NSScreen? {
+        guard !isDestroyed else { return nil }
         guard let monitor = glfwGetWindowMonitor(pointer) else {
             return nil
         }
@@ -220,38 +240,44 @@ import Foundation
     // MARK: - GLFW Function(s)
 
     private func makeContextCurrent() {
+        guard !isDestroyed else { return }
         glfwMakeContextCurrent(pointer)
     }
 
-    private func destroy() {
+    /// Destroys the GLFW window. Safe to call multiple times.
+    func destroy() {
+        guard !isDestroyed else { return }
+        isDestroyed = true
         glfwDestroyWindow(pointer)
     }
 
-    private func terminate() {
-        glfwTerminate()
-    }
-
     private func hide() {
+        guard !isDestroyed else { return }
         glfwHideWindow(pointer)
     }
 
     private func show() {
+        guard !isDestroyed else { return }
         glfwShowWindow(pointer)
     }
 
     func swapBuffers() {
+        guard !isDestroyed else { return }
         glfwSwapBuffers(pointer)
     }
 
     private func swapInterval(_ interval: Int) {
+        guard !isDestroyed else { return }
         glfwSwapInterval(Int32(interval))
     }
 
     func pollEvents() {
+        // pollEvents is global, doesn't need destroyed check
         glfwPollEvents()
     }
 
     private func waitEvents() {
+        // waitEvents is global, doesn't need destroyed check
         glfwWaitEvents()
     }
 
@@ -269,6 +295,9 @@ import Foundation
         setWindowMaximizeCallback()
         setWindowFocusCallback()
         setWindowRefreshCallback()
+        
+        // Notifica que a janela foi carregada
+        delegate?.windowLoaded(self)
     }
 
     /// Sets up the user pointer for the window.
@@ -287,7 +316,9 @@ import Foundation
     private func setWindowSizeCallback() {
         glfwSetWindowSizeCallback(pointer) { pointer, width, height in
             let window = Unmanaged<NSWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
-            window.frame = Rect3D(origin: window.frame.origin, size: Size3D(width: Double(width), height: Double(height)))
+            let newSize = Size3D(width: Double(width), height: Double(height))
+            window.frame = Rect3D(origin: window.frame.origin, size: newSize)
+            window.delegate?.windowDidResize(window, to: newSize)
         }
     }
 
@@ -310,7 +341,17 @@ import Foundation
     private func setWindowIconifyCallback() {
         glfwSetWindowIconifyCallback(pointer) { pointer, iconified in
             let window = Unmanaged<NSWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
-            window.isMiniaturized = iconified == GLFW_TRUE
+            let wasMiniaturized = window.isMiniaturized
+            let isNowMiniaturized = iconified == GLFW_TRUE
+            
+            if isNowMiniaturized && !wasMiniaturized {
+                window.delegate?.windowWillMiniaturize(window)
+                window.isMiniaturized = true
+                window.delegate?.windowDidMiniaturize(window)
+            } else if !isNowMiniaturized && wasMiniaturized {
+                window.isMiniaturized = false
+                window.delegate?.windowDidDeminiaturize(window)
+            }
         }
     }
 

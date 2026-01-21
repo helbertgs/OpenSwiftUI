@@ -1,4 +1,12 @@
-import Swift
+//
+// ViewModifier.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Oct 11, 2023.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT 
+
+import Foundation
 
 /// A modifier that you apply to a view or another view modifier, producing a
 /// different version of the original value.
@@ -43,6 +51,7 @@ import Swift
 /// Downtown Bus. A view extension, using custom a modifier, renders the
 ///  caption in blue text surrounded by a rounded
 ///  rectangle.](OpenSwiftUI-View-ViewModifier.png)
+@MainActor @preconcurrency
 public protocol ViewModifier {
 
     // MARK: - Associated Type(s).
@@ -60,9 +69,12 @@ public protocol ViewModifier {
     /// represented by `Self` applied to it.
     @ViewBuilder @preconcurrency func body(content: Self.Content) -> Self.Body
 
-    static func _makeView(modifier: _GraphValue<Self>, inputs: _ViewInputs, body: @escaping (_Graph, _ViewInputs) -> _ViewOutputs) -> _ViewOutputs
-    static func _makeViewList(modifier: _GraphValue<Self>, inputs: _ViewListInputs, body: @escaping (_Graph, _ViewListInputs) -> _ViewListOutputs) -> _ViewListOutputs
-    static func _viewListCount(inputs: _ViewListCountInputs, body: (_ViewListCountInputs) -> Int?) -> Int?
+    /// Creates the view's modifier representation in the OpenSwiftUI view graph.
+    /// 
+    /// - Parameters:
+    ///   - modifier: The modifier to create.
+    ///   - inputs: The inputs for the view.
+    nonisolated static func _makeView(modifier: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs
 }
 
 extension ViewModifier where Self.Body == Never {
@@ -71,20 +83,12 @@ extension ViewModifier where Self.Body == Never {
     ///
     /// `content` is a proxy for the view that will have the modifier
     /// represented by `Self` applied to it.
-    public func body(content: Self.Content) -> Self.Body {
+     @MainActor @preconcurrency public func body(content: Self.Content) -> Self.Body {
         fatalError()
     }
 
-    static func _makeView(modifier: _GraphValue<Self>, inputs: _ViewInputs, body: @escaping (_Graph, _ViewInputs) -> _ViewOutputs) -> _ViewOutputs {
+    nonisolated public static func _makeView(modifier: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs {
         fatalError()
-    }
-
-    static func _makeViewList(modifier: _GraphValue<Self>, inputs: _ViewListInputs, body: @escaping (_Graph, _ViewListInputs) -> _ViewListOutputs) -> _ViewListOutputs {
-        fatalError()
-    }
-
-    static func _viewListCount(inputs: _ViewListCountInputs, body: (_ViewListCountInputs) -> Int?) -> Int? {
-        nil
     }
 }
 
