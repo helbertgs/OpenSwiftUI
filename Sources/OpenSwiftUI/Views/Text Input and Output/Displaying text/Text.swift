@@ -138,6 +138,25 @@ import OpenSpatial
 ///
 @frozen public struct Text : Equatable, Sendable {
 
+    // MARK: - Checking Characteristics.
+
+    /// The storage of the text.
+    @usableFromInline var storage: Storage
+
+    /// The modifiers of the text.
+    @usableFromInline var modifiers: [Modifier] = []
+
+    // MARK: - Creating a text view.
+
+    /// Creates a text view with a storage and modifiers.
+    ///
+    /// - Parameter storage: The storage of the text.
+    /// - Parameter modifiers: The modifiers of the text.
+    init(storage: Storage, modifiers: [Modifier]) {
+        self.storage = storage
+        self.modifiers = modifiers
+    }
+
     /// Creates a text view that displays a string literal without localization.
     ///
     /// Use this initializer to create a text view with a string literal without
@@ -152,7 +171,7 @@ import OpenSpatial
     ///
     /// - Parameter content: A string to display without localization.
     @inlinable public init(verbatim content: String = "") {
-        fatalError("not implemented yet")
+        self.storage = .verbatim(content)
     }
 
     /// Creates a text view that displays a stored string without localization.
@@ -175,7 +194,7 @@ import OpenSpatial
     ///
     /// - Parameter content: The string value to display without localization.
     public init<S>(_ content: S) where S : StringProtocol {
-        fatalError("not implemented yet")
+        self.storage = .none
     }
 }
 
@@ -444,7 +463,7 @@ extension Text {
     ///     main bundle.
     ///   - comment: Contextual information about this key-value pair.
     public init(_ key: LocalizedStringKey, tableName: String? = nil, bundle: Bundle? = nil, comment: StaticString? = nil) {
-        fatalError("not implemented yet")
+        self.storage = .anyTextStorage(LocalizedTextStorage(key: key, tableName: tableName, bundle: bundle, comment: comment))
     }
 }
 
@@ -459,35 +478,6 @@ extension Text {
     ///     Text(object) // Localizes the resource if possible, or displays "pencil" if not.
     ///
     public init(_ resource: LocalizedStringResource) {
-        fatalError("not implemented yet")
-    }
-}
-
-extension Text : View {
-
-    /// The type of view representing the body of this view.
-    ///
-    /// When you create a custom view, Swift infers this type from your
-    /// implementation of the required ``View/body-swift.property`` property.
-    public typealias Body = Never
-
-    /// The content and behavior of the view.
-    ///
-    /// When you implement a custom view, you must implement a computed
-    /// `body` property to provide the content for your view. Return a view
-    /// that's composed of primitive views that OpenSwiftUI provides, plus other
-    /// composite views that you've already defined:
-    ///
-    ///     struct MyView: View {
-    ///         var body: some View {
-    ///             Text("Hello, World!")
-    ///         }
-    ///     }
-    public var body : Never {
-        fatalError("not implemented yet")
-    }
-
-    nonisolated public static func _makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs {
         fatalError("not implemented yet")
     }
 }
@@ -1140,7 +1130,9 @@ extension Text {
     /// - Parameter style: The style to use when displaying this text.
     /// - Returns: A text view that uses the color value you supply.
     nonisolated public func foregroundStyle<S>(_ style: S) -> Text where S : ShapeStyle {
-        fatalError("not implemented yet")
+        var modifiers = self.modifiers
+        modifiers.append(.anyTextModifier(TextForegroundStyleModifier(style: style)))
+        return Text(storage: storage, modifiers: modifiers)
     }
 
     /// Sets the default font for text in the view.
@@ -1169,7 +1161,9 @@ extension Text {
     /// - Parameter font: The font to use when displaying this text.
     /// - Returns: Text that uses the font you specify.
     nonisolated public func font(_ font: Font?) -> Text {
-        fatalError("not implemented yet")
+        var modifiers = self.modifiers
+        modifiers.append(.font(font))
+        return Text(storage: storage, modifiers: modifiers)
     }
 
     /// Sets the font weight of the text.
@@ -1178,7 +1172,9 @@ extension Text {
     ///
     /// - Returns: Text that uses the font weight you specify.
     nonisolated public func fontWeight(_ weight: Font.Weight?) -> Text {
-        fatalError("not implemented yet")
+        var modifiers = self.modifiers
+        modifiers.append(.weight(weight))
+        return Text(storage: storage, modifiers: modifiers)
     }
 
     /// Sets the font width of the text.
@@ -1187,7 +1183,9 @@ extension Text {
     ///
     /// - Returns: Text that uses the font width you specify, if available.
     nonisolated public func fontWidth(_ width: Font.Width?) -> Text {
-        fatalError("not implemented yet")
+        var modifiers = self.modifiers
+        modifiers.append(.anyTextModifier(TextWidthModifier(width: width?.value ?? 0.0)))
+        return Text(storage: storage, modifiers: modifiers)
     }
 
     /// Applies a bold or emphasized treatment to the fonts of the text.
@@ -1213,7 +1211,9 @@ extension Text {
     ///
     /// - Returns: Bold or emphasized text.
     nonisolated public func bold() -> Text {
-        fatalError("not implemented yet")
+        var modifiers = self.modifiers
+        modifiers.append(.anyTextModifier(BoldTextModifier(isActive: true)))
+        return Text(storage: storage, modifiers: modifiers)
     }
 
     /// Applies a bold font weight to the text.
@@ -1223,14 +1223,18 @@ extension Text {
     ///
     /// - Returns: Bold text.
     nonisolated public func bold(_ isActive: Bool) -> Text {
-        fatalError("not implemented yet")
+        var modifiers = self.modifiers
+        modifiers.append(.anyTextModifier(BoldTextModifier(isActive: isActive)))
+        return Text(storage: storage, modifiers: modifiers)
     }
 
     /// Applies italics to the text.
     ///
     /// - Returns: Italic text.
     nonisolated public func italic() -> Text {
-        fatalError("not implemented yet")
+        var modifiers = self.modifiers
+        modifiers.append(.italic)
+        return Text(storage: storage, modifiers: modifiers)
     }
 
     /// Applies italics to the text.
@@ -1240,7 +1244,9 @@ extension Text {
     ///
     /// - Returns: Italic text.
     nonisolated public func italic(_ isActive: Bool) -> Text {
-        fatalError("not implemented yet")
+        var modifiers = self.modifiers
+        modifiers.append(.anyTextModifier(ItalicTextModifier(isActive: isActive)))
+        return Text(storage: storage, modifiers: modifiers)
     }
 
     /// Modifies the font of the text to use the fixed-width variant
@@ -1251,7 +1257,9 @@ extension Text {
     ///
     /// - Returns: Monospaced text.
     nonisolated public func monospaced(_ isActive: Bool = true) -> Text {
-        fatalError("not implemented yet")
+        var modifiers = self.modifiers
+        modifiers.append(.anyTextModifier(MonospacedTextModifier(isActive: isActive)))
+        return Text(storage: storage, modifiers: modifiers)
     }
 
     /// Sets the font design of the text.
@@ -1260,7 +1268,9 @@ extension Text {
     ///
     /// - Returns: Text that uses the font design you specify.
     nonisolated public func fontDesign(_ design: Font.Design?) -> Text {
-        fatalError("not implemented yet")
+        var modifiers = self.modifiers
+        modifiers.append(.anyTextModifier(TextDesignModifier(design: design)))
+        return Text(storage: storage, modifiers: modifiers)
     }
 
     /// Modifies the text view's font to use fixed-width digits, while leaving
@@ -1311,7 +1321,9 @@ extension Text {
     /// numeric characters, while leaving other characters proportionally
     /// spaced.
     nonisolated public func monospacedDigit() -> Text {
-        fatalError("not implemented yet")
+        var modifiers = self.modifiers
+        modifiers.append(.anyTextModifier(MonospacedDigitTextModifier()))
+        return Text(storage: storage, modifiers: modifiers)
     }
 
     /// Applies a strikethrough to the text.
@@ -1324,7 +1336,9 @@ extension Text {
     ///
     /// - Returns: Text with a line through its center.
     nonisolated public func strikethrough(_ isActive: Bool = true, color: Color? = nil) -> Text {
-        fatalError("not implemented yet")
+        var modifiers = self.modifiers
+        modifiers.append(.anyTextModifier(StrikethroughTextModifier(lineStyle: Text.LineStyle(pattern: .solid, color: color), color: color)))
+        return Text(storage: storage, modifiers: modifiers)
     }
 
     /// Applies a strikethrough to the text.
@@ -1338,7 +1352,9 @@ extension Text {
     ///
     /// - Returns: Text with a line through its center.
     nonisolated public func strikethrough(_ isActive: Bool = true, pattern: Text.LineStyle.Pattern, color: Color? = nil) -> Text {
-        fatalError("not implemented yet")
+        var modifiers = self.modifiers
+        modifiers.append(.anyTextModifier(StrikethroughTextModifier(lineStyle: Text.LineStyle(pattern: pattern, color: color), color: color)))
+        return Text(storage: storage, modifiers: modifiers)
     }
 
     /// Applies an underline to the text.
@@ -1351,7 +1367,9 @@ extension Text {
     ///
     /// - Returns: Text with a line running along its baseline.
     nonisolated public func underline(_ isActive: Bool = true, color: Color? = nil) -> Text {
-        fatalError("not implemented yet")
+        var modifiers = self.modifiers
+        modifiers.append(.anyTextModifier(UnderlineTextModifier(lineStyle: Text.LineStyle(pattern: .solid, color: color), color: color)))
+        return Text(storage: storage, modifiers: modifiers)
     }
 
     /// Applies an underline to the text.
@@ -1365,7 +1383,9 @@ extension Text {
     ///
     /// - Returns: Text with a line running along its baseline.
     nonisolated public func underline(_ isActive: Bool = true, pattern: Text.LineStyle.Pattern, color: Color? = nil) -> Text {
-        fatalError("not implemented yet")
+        var modifiers = self.modifiers
+        modifiers.append(.anyTextModifier(UnderlineTextModifier(lineStyle: Text.LineStyle(pattern: pattern, color: color), color: color)))
+        return Text(storage: storage, modifiers: modifiers)
     }
 
     /// Sets the spacing, or kerning, between characters.
@@ -1416,7 +1436,9 @@ extension Text {
     ///
     /// - Returns: Text with the specified amount of kerning.
     nonisolated public func kerning(_ kerning: CGFloat) -> Text {
-        fatalError("not implemented yet")
+        var modifiers = self.modifiers
+        modifiers.append(.kerning(kerning))
+        return Text(storage: storage, modifiers: modifiers)
     }
 
     /// Sets the tracking for the text.
@@ -1453,7 +1475,9 @@ extension Text {
     ///
     /// - Returns: Text with the specified amount of tracking.
     nonisolated public func tracking(_ tracking: CGFloat) -> Text {
-        fatalError("not implemented yet")
+        var modifiers = self.modifiers
+        modifiers.append(.tracking(tracking))
+        return Text(storage: storage, modifiers: modifiers)
     }
 
     /// Sets the vertical offset for the text relative to its baseline.
@@ -1492,19 +1516,19 @@ extension Text {
     ///   or down) relative to its baseline.
     ///
     /// - Returns: Text that's above or below its baseline.
-    nonisolated public func baselineOffset(_ baselineOffset: CGFloat) -> Text {
-        fatalError("not implemented yet")
+    nonisolated public func baselineOffset(_ baselineOffset: Double) -> Text {
+        var modifiers = self.modifiers
+        modifiers.append(.baseline(baselineOffset))
+        return Text(storage: storage, modifiers: modifiers)
     }
 }
 
-@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 extension Text {
 
     /// Defines text scales
     ///
     /// Text scale provides a way to pick a logical text scale
     /// relative to the base font which is used.
-    @available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *)
     public struct Scale : Equatable, Hashable, RawRepresentable, Sendable {
 
         /// The raw value of the text scale.
@@ -1644,5 +1668,197 @@ extension Text.Layout {
         public static var disablesSubpixelQuantization: Text.Layout.DrawingOptions { 
             .init(rawValue: 1 << 0)
         }
+    }
+}
+
+extension Text {
+
+    /// The storage of the text.
+    @usableFromInline
+    @frozen enum Storage : Equatable, Sendable {
+
+        /// The verbatim storage of the text.
+        /// 
+        /// - Parameter content: The content of the text.
+        case verbatim(String)
+
+        /// The any text storage of the text.
+        /// 
+        /// - Parameter storage: The storage of the text.
+        case anyTextStorage(AnyTextStorage)
+
+        /// The none storage of the text.
+        case none
+    }
+  
+    /// The modifiers of the text.
+    @usableFromInline
+    @frozen enum Modifier : Equatable, Sendable {
+
+        /// The color modifier of the text.
+        case color(Color?)
+
+        /// The font modifier of the text.
+        case font(Font?)
+
+        /// The italic modifier of the text.
+        case italic
+
+        /// The weight modifier of the text.
+        case weight(Font.Weight?)
+
+        /// The kerning modifier of the text.
+        case kerning(Double)
+
+        /// The tracking modifier of the text.
+        case tracking(Double)
+
+        /// The baseline modifier of the text.
+        case baseline(Double)
+
+        /// The rounded modifier of the text.
+        case rounded
+
+        /// The any text modifier of the text.
+        case anyTextModifier(AnyTextModifier)
+    }
+
+    @usableFromInline class AnyTextStorage : Equatable, @unchecked Sendable {
+        @usableFromInline static func == (lhs: AnyTextStorage, rhs: AnyTextStorage) -> Bool {
+            fatalError("not implemented yet")
+        }
+    }
+
+
+    class LocalizedTextStorage : AnyTextStorage, @unchecked Sendable {
+
+        let key: LocalizedStringKey
+        let tableName: String?
+        let bundle: Bundle?
+        let comment: StaticString?
+
+        init(key: LocalizedStringKey, tableName: String? = nil, bundle: Bundle? = nil, comment: StaticString? = nil) {
+            self.key = key
+            self.tableName = tableName
+            self.bundle = bundle
+            self.comment = comment
+        }
+    }
+
+    class TimeDataFormattingStorage : AnyTextStorage, @unchecked Sendable {
+        override init() {
+            super.init()
+        }
+    }
+
+    @usableFromInline class AnyTextModifier : Equatable, @unchecked Sendable {
+        @usableFromInline static func == (lhs: AnyTextModifier, rhs: AnyTextModifier) -> Bool {
+            fatalError("not implemented yet")
+        }
+    }
+
+    class BoldTextModifier : AnyTextModifier, @unchecked Sendable {
+
+        let isActive: Bool
+        init(isActive: Bool) {
+            self.isActive = isActive
+            super.init()
+        }
+    }
+
+    class ItalicTextModifier : AnyTextModifier, @unchecked Sendable {
+        let isActive: Bool
+        init(isActive: Bool) {
+            self.isActive = isActive
+            super.init()
+        }
+    }
+    
+    class MonospacedTextModifier : AnyTextModifier, @unchecked Sendable {
+        let isActive: Bool
+        init(isActive: Bool) {
+            self.isActive = isActive
+            super.init()
+        }
+    }
+
+    class TextWidthModifier : AnyTextModifier, @unchecked Sendable {
+        let width: Double
+        init(width: Double) {
+            self.width = width
+            super.init()
+        }
+    }
+
+    class TextDesignModifier : AnyTextModifier, @unchecked Sendable {
+        let design: Font.Design?
+        init(design: Font.Design?) {
+            self.design = design
+            super.init()
+        }
+    }
+
+    class MonospacedDigitTextModifier : AnyTextModifier, @unchecked Sendable {
+        override init() {
+            super.init()
+        }
+    }
+
+    class StrikethroughTextModifier : AnyTextModifier, @unchecked Sendable {
+        let lineStyle: Text.LineStyle?
+        let color: Color?
+        init(lineStyle: Text.LineStyle? = nil, color: Color? = nil) {
+            self.lineStyle = lineStyle
+            self.color = color
+            super.init()
+        }
+    }
+
+    class UnderlineTextModifier : AnyTextModifier, @unchecked Sendable {
+        let lineStyle: Text.LineStyle?
+        let color: Color?
+        init(lineStyle: Text.LineStyle? = nil, color: Color? = nil) {
+            self.lineStyle = lineStyle
+            self.color = color
+            super.init()
+        }
+    }
+
+    class TextForegroundStyleModifier : AnyTextModifier, @unchecked Sendable {
+        let style : any ShapeStyle
+        
+        init(style: any ShapeStyle) {
+            self.style = style
+            super.init()
+        }
+    }
+}
+
+extension Text : View {
+
+    /// The type of view representing the body of this view.
+    ///
+    /// When you create a custom view, Swift infers this type from your
+    /// implementation of the required ``View/body-swift.property`` property.
+    public typealias Body = Never
+
+    /// The content and behavior of the view.
+    ///
+    /// When you implement a custom view, you must implement a computed
+    /// `body` property to provide the content for your view. Return a view
+    /// that's composed of primitive views that OpenSwiftUI provides, plus other
+    /// composite views that you've already defined:
+    ///
+    ///     struct MyView: View {
+    ///         var body: some View {
+    ///             Text("Hello, World!")
+    ///         }
+    ///     }
+    public var body : Never {
+        fatalError("not implemented yet")
+    }
+
+    nonisolated public static func _makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs {
+        fatalError("not implemented yet")
     }
 }

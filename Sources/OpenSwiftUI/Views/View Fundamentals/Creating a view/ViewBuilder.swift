@@ -31,13 +31,10 @@ import Foundation
 ///         }
 ///     }
 ///
-@resultBuilder
-public struct ViewBuilder {
+@resultBuilder public struct ViewBuilder {
 
     // MARK: - Static Function(s).
     /// Builds an empty view from a block containing no statements.
-    @_alwaysEmitIntoClient
-    @MainActor @preconcurrency
     public static func buildBlock() -> EmptyView {
         EmptyView()
     }
@@ -46,7 +43,6 @@ public struct ViewBuilder {
     ///
     /// An example of a single view written as a child view is
     /// `{ Text("Hello") }`.
-    @_alwaysEmitIntoClient
     public static func buildBlock<Content>(_ content: Content) -> Content where Content: View {
         content
     }
@@ -54,43 +50,34 @@ public struct ViewBuilder {
     /// Provides support for "if" statements with `#available()` clauses in
     /// multi-statement closures, producing conditional content for the "then"
     /// branch, i.e. the conditionally-available branch.
-    @_alwaysEmitIntoClient
-    @MainActor @preconcurrency
-    public static func buildLimitedAvailability<Content>(_ content: Content) -> AnyView where Content: View {
-        .init(content)
+    @MainActor public static func buildLimitedAvailability<Content>(_ content: Content) -> AnyView where Content: View {
+        AnyView(content)
     }
 
     /// Provides support for "if" statements in multi-statement closures,
     /// producing an optional view that is visible only when the condition
     /// evaluates to `true`.
-    @_alwaysEmitIntoClient
     public static func buildIf<Content>(_ content: Content?) -> Content? where Content: View {
         content
     }
 
     /// Provides support for "if" statements in multi-statement closures,
     /// producing conditional content for the "then" branch.
-    @_alwaysEmitIntoClient
-    @MainActor @preconcurrency
     public static func buildEither<TrueContent, FalseContent>(first: TrueContent) -> _ConditionalContent<TrueContent, FalseContent> where TrueContent: View, FalseContent: View {
         .init(storage: .trueContent(first))
     }
 
     /// Provides support for "if-else" statements in multi-statement closures,
     /// producing conditional content for the "else" branch.
-    @_alwaysEmitIntoClient
-    @MainActor @preconcurrency
     public static func buildEither<TrueContent, FalseContent>(second: FalseContent) -> _ConditionalContent<TrueContent, FalseContent> where TrueContent: View, FalseContent: View {
         .init(storage: .falseContent(second))
     }
 
-    @_alwaysEmitIntoClient
-    @MainActor @preconcurrency
     /// Builds a view from multiple contents.
     ///
     /// - Parameter content: The contents to build the view from.
     /// - Returns: A view built from the contents.
-    public static func buildBlock<each Content>(_ content: repeat each Content) -> TupleView<(repeat each Content)> where repeat each Content: View {
+    @MainActor public static func buildBlock<each Content>(_ content: repeat each Content) -> TupleView<(repeat each Content)> where repeat each Content: View {
         TupleView((repeat each content))
     }
 }

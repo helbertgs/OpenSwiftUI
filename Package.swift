@@ -24,6 +24,7 @@ let package = Package(
         .package(url: "https://github.com/helbertgs/OpenGLAD", branch: branch),
         .package(url: "https://github.com/helbertgs/OpenGLFW", branch: "main"),
         .package(url: "https://github.com/helbertgs/OpenSpatial", branch: "main"),
+        .package(url: "https://github.com/helbertgs/OpenSTB", branch: "main"),
         .package(url: "https://github.com/swiftlang/swift-docc-plugin", from: "1.1.0"),
     ],
     targets: [
@@ -34,6 +35,7 @@ let package = Package(
                 .product(name: "OpenGLAD", package: "OpenGLAD"),
                 .product(name: "OpenGLFW", package: "OpenGLFW"),
                 .product(name: "OpenSpatial", package: "OpenSpatial"),
+                .product(name: "OpenSTB", package: "OpenSTB"),
             ]
         ),
         .executableTarget(

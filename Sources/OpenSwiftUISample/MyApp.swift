@@ -1,12 +1,15 @@
+import Foundation
 import OpenSwiftUI
 
 @main
 struct MyApp : App {
     var body: some Scene {
         Window("OpenSwiftUI", id: "open-swiftui") {
-            EmptyView()
+            // if let data = try? Data(contentsOf: URL(fileURLWithPath: "/Users/helbertgs/Downloads/icon.png")) {
+            //     Image(data)
+            // } else {
+                EmptyView()
+            // }
         }
-        .defaultSize(.init(width: 400, height: 300))
-        .windowStyle(.hiddenTitleBar)
     }
 }
