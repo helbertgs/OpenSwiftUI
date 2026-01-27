@@ -174,7 +174,7 @@ public struct AsyncImage<Content> where Content : View {
                     do {
                         if let url = url {
                             let (data, _) = try await URLSession.shared.data(from: url)
-                            return .success(Image(data: data))
+                            return .success(Image(data))
                         } else {
                             return .empty
                         }

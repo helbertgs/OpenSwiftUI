@@ -590,10 +590,38 @@ extension Image {
     /// Initializes an image with a data object.
     ///
     /// - Parameter data: The data object to initialize the image with.
-    init(data: Data) {
+    public init(_ data: Data) {
         self.provider = ImageProviderBox(
             provider: DataImageProviderBox(data: data)
         )
     }
 }
 
+extension Image : View {
+
+    /// The content and behavior of the view.
+    ///
+    /// When you implement a custom view, you must implement a computed
+    /// `body` property to provide the content for your view. Return a view
+    /// that's composed of primitive views that OpenSwiftUI provides, plus other
+    /// composite views that you've already defined:    
+    ///
+    ///     struct MyView: View {
+    ///         var body: some View {
+    ///             Text("Hello, World!")
+    ///         }
+    ///     }
+    public var body: Never { 
+        fatalError("not implemented yet") 
+    }
+
+    /// Creates the view's representation in the OpenSwiftUI view graph.
+    /// 
+    /// - Parameters:
+    ///   - view: The view to create.
+    ///   - inputs: The inputs for the view.
+    /// - Returns: The outputs for the view.
+    public static func _makeView(view: _GraphValue<Image>, inputs: _ViewInputs) -> _ViewOutputs {
+        fatalError("not implemented yet")
+    }
+}
