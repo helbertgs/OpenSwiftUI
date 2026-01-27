@@ -9,7 +9,7 @@ import Swift
     
     // MARK: - Constructor(s).
     
-    @inlinable public init(animation: Animation?, disableAnimations: Bool = false) {
+    @inlinable public init(animation: Animation? = nil, disableAnimations: Bool = false) {
         self.animation = animation
         self.disableAnimations = disableAnimations
     }

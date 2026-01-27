@@ -12,7 +12,7 @@ import OpenSpatial
 ///         .font(.title)
 ///
 /// ![A text view showing the name "Hamlet" in a title
-/// font.](SwiftUI-Text-title.png)
+/// font.](OpenSwiftUI-Text-title.png)
 ///
 /// If you need finer control over the styling of the text, you can use the same
 /// modifier to configure a system font or choose a custom font. You can also
@@ -24,13 +24,13 @@ import OpenSpatial
 ///         .italic()
 ///
 /// ![A text view showing by William Shakespeare in a 12 point, light, italic,
-/// serif font.](SwiftUI-Text-font.png)
+/// serif font.](OpenSwiftUI-Text-font.png)
 ///
 /// To apply styling within specific portions of the text, you can create
 /// the text view from an
 /// <doc://com.apple.documentation/documentation/Foundation/AttributedString>,
 /// which in turn allows you to use Markdown to style runs of text. You can
-/// mix string attributes and SwiftUI modifiers, with the string attributes
+/// mix string attributes and OpenSwiftUI modifiers, with the string attributes
 /// taking priority.
 ///
 ///     let attributedString = try! AttributedString(
@@ -42,7 +42,7 @@ import OpenSpatial
 ///     }
 ///
 /// ![A text view showing Hamlet by William Shakespeare in a 12 point, light,
-/// serif font, with the title Hamlet in italics.](SwiftUI-Text-attributed.png)
+/// serif font, with the title Hamlet in italics.](OpenSwiftUI-Text-attributed.png)
 ///
 /// A text view always uses exactly the amount of space it needs to display its
 /// rendered contents, but you can affect the view's layout. For example, you
@@ -57,7 +57,7 @@ import OpenSpatial
 ///         .frame(width: 100)
 ///
 /// ![A text view showing a quote from Hamlet split over three
-/// lines.](SwiftUI-Text-split.png)
+/// lines.](OpenSwiftUI-Text-split.png)
 ///
 /// Use modifiers like ``View/lineLimit(_:)``, ``View/allowsTightening(_:)``,
 /// ``View/minimumScaleFactor(_:)``, and ``View/truncationMode(_:)`` to
@@ -70,7 +70,7 @@ import OpenSpatial
 ///         .lineLimit(1)
 ///
 /// ![A text view showing a truncated quote from Hamlet starting Brevity is t
-/// and ending with three dots.](SwiftUI-Text-truncated.png)
+/// and ending with three dots.](OpenSwiftUI-Text-truncated.png)
 ///
 /// ### Localizing strings
 ///
@@ -162,13 +162,13 @@ import OpenSpatial
     ///
     ///     Text(someString) // Displays the contents of `someString` without localization.
     ///
-    /// SwiftUI doesn't call the `init(_:)` method when you initialize a text
+    /// OpenSwiftUI doesn't call the `init(_:)` method when you initialize a text
     /// view with a string literal as the input. Instead, a string literal
     /// triggers the ``Text/init(_:tableName:bundle:comment:)`` method — which
     /// treats the input as a ``LocalizedStringKey`` instance — and attempts to
     /// perform localization.
     ///
-    /// By default, SwiftUI assumes that you don't want to localize stored
+    /// By default, OpenSwiftUI assumes that you don't want to localize stored
     /// strings, but if you do, you can first create a localized string key from
     /// the value, and initialize the text view with that. Using a key as input
     /// triggers the ``Text/init(_:tableName:bundle:comment:)`` method instead.
@@ -195,7 +195,7 @@ extension Text {
     /// - Parameter value: The accessibility content type from the available
     /// ``AccessibilityTextContentType`` options.
     nonisolated public func accessibilityTextContentType(_ value: AccessibilityTextContentType) -> Text {
-        fatalError("not implemented yet")
+        self
     }
 
     /// Sets the accessibility level of this heading.
@@ -210,7 +210,7 @@ extension Text {
     /// - Parameter level: The heading level to associate with this element
     ///   from the available ``AccessibilityHeadingLevel`` levels.
     nonisolated public func accessibilityHeading(_ level: AccessibilityHeadingLevel) -> Text {
-        fatalError("not implemented yet")
+        self
     }
 
     /// Adds a label to the view that describes its contents.
@@ -229,7 +229,7 @@ extension Text {
     ///
     /// - Parameter label: The text view to add the label to.
     nonisolated public func accessibilityLabel(_ label: Text) -> Text {
-        fatalError("not implemented yet")
+        self
     }
 
     /// Adds a label to the view that describes its contents.
@@ -247,7 +247,7 @@ extension Text {
     /// - Parameter labelKey: The string key for the alternative
     ///   accessibility label.
     nonisolated public func accessibilityLabel(_ labelKey: LocalizedStringKey) -> Text {
-        fatalError("not implemented yet")
+        self
     }
 
     /// Adds a label to the view that describes its contents.
@@ -266,7 +266,7 @@ extension Text {
     /// - Parameter label: The string resource for the alternative
     ///   accessibility label.
     nonisolated public func accessibilityLabel(_ label: LocalizedStringResource) -> Text {
-        fatalError("not implemented yet")
+        self
     }
 
     /// Adds a label to the view that describes its contents.
@@ -283,7 +283,7 @@ extension Text {
     ///
     /// - Parameter label: The string for the alternative accessibility label.
     nonisolated public func accessibilityLabel<S>(_ label: S) -> Text where S : StringProtocol {
-        fatalError("not implemented yet")
+        self
     }
 }
 
@@ -310,7 +310,7 @@ extension Text {
     /// - Parameter value: A Boolean value that you set to `true` if
     ///   VoiceOver should speak all punctuation in the text. Defaults to `true`.
     public func speechAlwaysIncludesPunctuation(_ value: Bool = true) -> Text {
-        fatalError("not implemented yet")
+        self
     }
 
     /// Sets whether VoiceOver should speak the contents of the text view
@@ -327,7 +327,7 @@ extension Text {
     ///    VoiceOver should speak text as individual characters. Defaults
     ///    to `true`.
     public func speechSpellsOutCharacters(_ value: Bool = true) -> Text {
-        fatalError("not implemented yet")
+        self
     }
 
     /// Raises or lowers the pitch of spoken text.
@@ -355,7 +355,7 @@ extension Text {
     ///   changes to text immediately or enqueues them behind existing speech.
     ///   Defaults to `true`.
     public func speechAnnouncementsQueued(_ value: Bool = true) -> Text {
-        fatalError("not implemented yet")
+        self
     }
 }
 
@@ -424,14 +424,14 @@ extension Text {
     ///
     /// ![A text view that says Visita nuestro sitio web, with all text
     /// displayed in italics. The words sitio web are colored blue to indicate
-    /// they are a link.](SwiftUI-Text-init-localized.png)
+    /// they are a link.](OpenSwiftUI-Text-init-localized.png)
     ///
     /// > Important: `Text` doesn't render all styling possible in Markdown. It
     /// doesn't support line breaks, soft breaks, or any style of paragraph- or
     /// block-based formatting like lists, block quotes, code blocks, or tables.
     /// It also doesn't support the
     /// <doc://com.apple.documentation/documentation/Foundation/AttributeScopes/FoundationAttributes/3796122-imageURL>
-    /// attribute. Parsing with SwiftUI treats any whitespace in the Markdown
+    /// attribute. Parsing with OpenSwiftUI treats any whitespace in the Markdown
     /// string as described by the
     /// <doc://com.apple.documentation/documentation/Foundation/AttributedString/MarkdownParsingOptions/InterpretedSyntax/inlineOnlyPreservingWhitespace>
     /// parsing option.
@@ -498,7 +498,7 @@ extension Text {
     /// and `UnderlineStyleAttribute`.
     ///
     /// Use this type to specify `underlineStyle` and `strikethroughStyle`
-    /// SwiftUI attributes of an `AttributedString`.
+    /// OpenSwiftUI attributes of an `AttributedString`.
     public struct LineStyle : Hashable, Sendable {
 
         /// Creates a line style.
@@ -809,9 +809,9 @@ extension Text {
     ///
     /// ![A vertical stack of two text views, the top labeled Blue Text with a
     /// blue font color, and the bottom labeled Red Text with a red font
-    /// color.](SwiftUI-Text-init-attributed.png)
+    /// color.](OpenSwiftUI-Text-init-attributed.png)
     ///
-    /// SwiftUI combines text attributes with SwiftUI modifiers whenever
+    /// OpenSwiftUI combines text attributes with OpenSwiftUI modifiers whenever
     /// possible. For example, the following listing creates text that is
     /// both bold and red:
     ///
@@ -827,11 +827,11 @@ extension Text {
     ///
     /// ### Supported Foundation attributes
     ///
-    /// A SwiftUI ``Text`` view renders most of the styles defined by the
+    /// A OpenSwiftUI ``Text`` view renders most of the styles defined by the
     /// Foundation attribute
     /// <doc://com.apple.documentation/documentation/Foundation/AttributeScopes/FoundationAttributes/3796123-inlinePresentationIntent>, like the
     /// <doc://com.apple.documentation/documentation/Foundation/InlinePresentationIntent/3746899-stronglyEmphasized>
-    /// value, which SwiftUI presents as bold text.
+    /// value, which OpenSwiftUI presents as bold text.
     ///
     /// > Important: ``Text`` uses only a subset of the attributes defined in
     /// <doc://com.apple.documentation/documentation/Foundation/AttributeScopes/FoundationAttributes>.
@@ -846,13 +846,13 @@ extension Text {
     /// attribute as a clickable link. `Text` ignores any other
     /// Foundation-defined attributes in an attributed string.
     ///
-    /// ### SwiftUI attributes
+    /// ### OpenSwiftUI attributes
     ///
-    /// SwiftUI also defines additional attributes in the attribute scope
+    /// OpenSwiftUI also defines additional attributes in the attribute scope
     /// <doc://com.apple.documentation/documentation/Foundation/AttributeScopes/SwiftUIAttributes>
     /// which you can access from an attributed string's
     /// <doc://com.apple.documentation/documentation/Foundation/AttributeScopes/3788543-swiftUI>
-    /// property. SwiftUI attributes take precedence over equivalent attributes
+    /// property. OpenSwiftUI attributes take precedence over equivalent attributes
     /// from other frameworks, such as
     /// <doc://com.apple.documentation/documentation/Foundation/AttributeScopes/UIKitAttributes> and
     /// <doc://com.apple.documentation/documentation/Foundation/AttributeScopes/AppKitAttributes>.
@@ -873,7 +873,7 @@ extension Text {
     /// <doc://com.apple.documentation/documentation/Foundation/AttributeScopes/FoundationAttributes/3796123-inlinePresentationIntent>
     /// attribute with the value
     /// <doc://com.apple.documentation/documentation/Foundation/InlinePresentationIntent/3746899-stronglyEmphasized>.
-    /// SwiftUI renders this as
+    /// OpenSwiftUI renders this as
     /// bold text, as described earlier. The link syntax around "website"
     /// creates a
     /// <doc://com.apple.documentation/documentation/Foundation/AttributeScopes/FoundationAttributes/3764633-link>
@@ -885,7 +885,7 @@ extension Text {
     /// ![A text view that says Thank you. Please visit our website. The text
     /// The view displays the words Thank you in a bold font, and the word
     /// website styled to indicate it is a
-    /// link.](SwiftUI-Text-init-markdown.png)
+    /// link.](OpenSwiftUI-Text-init-markdown.png)
     ///
     /// You can also use Markdown syntax in localized string keys, which means
     /// you can write the above example without needing to explicitly create
@@ -900,7 +900,7 @@ extension Text {
     /// to perform automatic grammar agreement on localized strings, with
     /// the `^[text](inflect:true)` syntax.
     ///
-    /// For details about Markdown syntax support in SwiftUI, see
+    /// For details about Markdown syntax support in OpenSwiftUI, see
     /// ``Text/init(_:tableName:bundle:comment:)``.
     ///
     /// ### Applying a custom text formatting definition
@@ -1030,7 +1030,7 @@ extension Text {
 
 extension Text {
 
-    /// The way SwiftUI infers the appropriate writing direction if no value
+    /// The way OpenSwiftUI infers the appropriate writing direction if no value
     /// is explicitly provided.
     public struct WritingDirectionStrategy : Equatable,Hashable, RawRepresentable, Sendable {
 
@@ -1135,7 +1135,7 @@ extension Text {
     ///
     /// ![Three text views arranged horizontally, each containing
     ///     the name of a color displayed in that
-    ///     color.](SwiftUI-Text-foregroundColor.png)
+    ///     color.](OpenSwiftUI-Text-foregroundColor.png)
     ///
     /// - Parameter style: The style to use when displaying this text.
     /// - Returns: A text view that uses the color value you supply.
@@ -1164,7 +1164,7 @@ extension Text {
     ///     }
     ///
     ///
-    /// ![Applying a font to a single text view or a view container](SwiftUI-view-font.png)
+    /// ![Applying a font to a single text view or a view container](OpenSwiftUI-view-font.png)
     ///
     /// - Parameter font: The font to use when displaying this text.
     /// - Returns: Text that uses the font you specify.
@@ -1195,20 +1195,20 @@ extension Text {
     /// For fonts created from text styles, it could mean applying emphasized
     /// styling, which does not necessarily mean the bold weight specifically,
     /// so this modifier is not to be confused with
-    /// <doc://com.apple.documentation/documentation/SwiftUI/Text/fontWeight(_:)>.
+    /// <doc://com.apple.documentation/documentation/OpenSwiftUI/Text/fontWeight(_:)>.
     ///
     /// For example:
     ///
     ///     Text("hello").font(.body).bold()
     ///
     /// will most likely get you the emphasized version of body text style,
-    /// which is often in <doc://com.apple.documentation/documentation/SwiftUI/Font/weight/semibold>
+    /// which is often in <doc://com.apple.documentation/documentation/OpenSwiftUI/Font/weight/semibold>
     /// weight. While
     ///
     ///     Text("hello").font(.body).fontWeight(.bold)
     ///
     /// will specifically get you the body text style font in the
-    /// <doc://com.apple.documentation/documentation/SwiftUI/Font/weight/bold>
+    /// <doc://com.apple.documentation/documentation/OpenSwiftUI/Font/weight/bold>
     /// weight.
     ///
     /// - Returns: Bold or emphasized text.
@@ -1387,7 +1387,7 @@ extension Text {
     ///
     /// ![Three text views showing character groups, with progressively
     /// increasing spacing between the characters in each
-    /// group.](SwiftUI-Text-kerning-1.png)
+    /// group.](OpenSwiftUI-Text-kerning-1.png)
     ///
     /// Kerning attempts to maintain ligatures. For example, the Hoefler Text
     /// font uses a ligature for the letter combination _ffl_, as in the word
@@ -1396,7 +1396,7 @@ extension Text {
     /// ![Two text views showing the word raffle in the Hoefler Text font, the
     /// first with small negative and the second with small positive kerning.
     /// The letter combination ffl has the same shape in both variants because
-    /// it acts as a ligature.](SwiftUI-Text-kerning-2.png)
+    /// it acts as a ligature.](OpenSwiftUI-Text-kerning-2.png)
     ///
     /// The *ffl* letter combination keeps a constant shape as the other letters
     /// move together or apart. Beyond a certain point in either direction,
@@ -1405,7 +1405,7 @@ extension Text {
     /// ![Two text views showing the word raffle in the Hoefler Text font, the
     /// first with large negative and the second with large positive kerning.
     /// The letter combination ffl does not act as a ligature in either
-    /// case.](SwiftUI-Text-kerning-3.png)
+    /// case.](OpenSwiftUI-Text-kerning-3.png)
     ///
     /// - Important: If you add both the ``Text/tracking(_:)`` and
     ///   ``Text/kerning(_:)`` modifiers to a view, the view applies the
@@ -1436,7 +1436,7 @@ extension Text {
     ///
     /// ![Three text views showing character groups with progressively
     /// increasing spacing between the characters in each
-    /// group.](SwiftUI-Text-tracking.png)
+    /// group.](OpenSwiftUI-Text-tracking.png)
     ///
     /// The effect of tracking resembles that of the ``Text/kerning(_:)``
     /// modifier, but adds or removes trailing whitespace, rather than changing
@@ -1481,7 +1481,7 @@ extension Text {
     /// aligned along the top edges. The first and last are larger than the
     /// second, with padding inside the border above the word "Hello" in the
     /// first case, and padding inside the border below the word in the last
-    /// case.](SwiftUI-Text-baselineOffset.png)
+    /// case.](OpenSwiftUI-Text-baselineOffset.png)
     ///
     /// The first view, with a negative offset, grows downward to handle the
     /// lowered text. The last view, with a positive offset, grows upward. The
@@ -1545,7 +1545,7 @@ extension Text {
 
 extension Text {
 
-    /// The way SwiftUI infers the appropriate text alignment if no value
+    /// The way OpenSwiftUI infers the appropriate text alignment if no value
     /// is explicitly provided.
     ///
     /// - Note: ``Text`` tigtly wraps its content, so text alignment only

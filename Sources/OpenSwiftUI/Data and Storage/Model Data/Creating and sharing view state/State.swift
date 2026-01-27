@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+public struct State<Value> {
+
+    public init(initialValue: Value) {
+    }
+}
