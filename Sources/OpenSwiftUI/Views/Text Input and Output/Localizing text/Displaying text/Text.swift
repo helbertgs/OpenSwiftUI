@@ -1,3 +1,11 @@
+//
+// Text.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Jan 26, 2026.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import Foundation
 import OpenSpatial
 
@@ -1721,6 +1729,18 @@ extension Text {
 
         /// The any text modifier of the text.
         case anyTextModifier(AnyTextModifier)
+
+        /// Returns a Boolean value indicating whether two values are equal.
+        ///
+        /// Equality is the inverse of inequality. For any values `a` and `b`,
+        /// `a == b` implies that `a != b` is `false`.
+        ///
+        /// - Parameters:
+        ///   - lhs: A value to compare.
+        ///   - rhs: Another value to compare.
+        @usableFromInline static func == (lhs: Text.Modifier, rhs: Text.Modifier) -> Bool {
+            fatalError("not implemented yet")
+        }
     }
 
     @usableFromInline class AnyTextStorage : Equatable, @unchecked Sendable {
