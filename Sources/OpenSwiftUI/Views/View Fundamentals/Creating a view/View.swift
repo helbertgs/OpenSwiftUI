@@ -92,6 +92,12 @@ extension View {
     }
 }
 
+extension View where Self.Body == Never {
+    public var body : Never {
+        fatalError("Never view has no body")
+    }
+}
+
 extension View {
     /// Applies a modifier to a view and returns a new view.
     ///

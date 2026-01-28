@@ -212,6 +212,7 @@ public struct Window<Content> : Scene where Content : View {
         outputs.id = scene.value.id
         outputs.environmentValues = inputs.environmentValues
         outputs.title = ""
+        outputs.content = Content._makeView(view: .init(scene.value.content()), inputs: .init(environmentValues: inputs.environmentValues, modifiers: [], content: nil))
 
         return outputs
     }

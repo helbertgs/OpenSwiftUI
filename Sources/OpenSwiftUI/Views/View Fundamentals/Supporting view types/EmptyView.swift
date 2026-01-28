@@ -30,10 +30,6 @@ import Swift
     /// implementation of the required ``View/body-swift.property`` property.
     public typealias Body = Never
 
-    // MARK: - Property(ies).
-
-    public var body: Never { fatalError() }
-
     // MARK: - Constructor(s).
 
     /// Creates an empty view.
@@ -41,7 +37,7 @@ import Swift
 
     // MARK: - Static Function(s).
 
-    public static func _makeView(view: _GraphValue<EmptyView>, inputs: _ViewInputs) -> _ViewOutputs {
+    nonisolated public static func _makeView(view: _GraphValue<EmptyView>, inputs: _ViewInputs) -> _ViewOutputs {
         var outputs = _ViewOutputs()
         outputs.type = Self.self
         outputs.environmentValues = inputs.environmentValues

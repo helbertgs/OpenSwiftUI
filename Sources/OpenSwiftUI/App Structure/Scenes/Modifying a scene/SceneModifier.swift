@@ -27,7 +27,7 @@ import Foundation
     ///
     /// `content` is a proxy for the view that will have the modifier
     /// represented by `Self` applied to it.
-    @SceneBuilder func body(content: Self.Content) -> Self.Body
+    @SceneBuilder @MainActor @preconcurrency func body(content: Self.Content) -> Self.Body
 
     // MARK: - Static Function(s).
 
@@ -53,7 +53,7 @@ extension SceneModifier where Body == Never {
     ///
     /// `content` is a proxy for the view that will have the modifier
     /// represented by `Self` applied to it.
-    public func body(content: Self.Content) -> Self.Body {
+    @MainActor @preconcurrency public func body(content: Self.Content) -> Self.Body {
         fatalError()
     }
 }

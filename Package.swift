@@ -21,6 +21,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/OpenCombine/OpenCombine.git", branch: "master"),
+        .package(url: "https://github.com/helbertgs/OpenFreeType", branch: "main"),
         .package(url: "https://github.com/helbertgs/OpenGLAD", branch: branch),
         .package(url: "https://github.com/helbertgs/OpenGLFW", branch: "main"),
         .package(url: "https://github.com/helbertgs/OpenSpatial", branch: "main"),
@@ -32,8 +33,10 @@ let package = Package(
             name: "OpenSwiftUI",
             dependencies: [
                 .product(name: "OpenCombine", package: "OpenCombine"),
+                .product(name: "OpenFreeType", package: "OpenFreeType"),
                 .product(name: "OpenGLAD", package: "OpenGLAD"),
                 .product(name: "OpenGLFW", package: "OpenGLFW"),
+                .product(name: "OpenHarfBuzz", package: "OpenFreeType"),
                 .product(name: "OpenSpatial", package: "OpenSpatial"),
                 .product(name: "OpenSTB", package: "OpenSTB"),
             ]

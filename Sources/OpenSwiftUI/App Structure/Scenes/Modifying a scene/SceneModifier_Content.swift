@@ -8,13 +8,14 @@
 
 import Foundation
 
-@MainActor @preconcurrency public struct SceneModifier_Content<Modifier> : Scene where Modifier : SceneModifier {
+@MainActor @preconcurrency 
+public struct SceneModifier_Content<Modifier> : Scene where Modifier : SceneModifier {
 
     public var body: Never { fatalError() }
 
     // MARK: - Static Function(s).
 
     public static func _makeScene(scene: _GraphValue<SceneModifier_Content<Modifier>>, inputs: _SceneInputs) -> _SceneOutputs {
-        fatalError()
+        inputs
     }
 }

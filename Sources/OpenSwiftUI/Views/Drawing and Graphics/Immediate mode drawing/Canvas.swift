@@ -1,7 +1,17 @@
+//
+// Canvas.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Jan 2, 2026.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import OpenSpatial
 
 /// A view type that supports immediate mode drawing.
-public struct Canvas<Symbols> : Copyable where Symbols : View {
+public struct Canvas<Symbols> : Copyable, View where Symbols : View {
+
+    public typealias Body = Never
 
     // MARK: - Managing opacity and color
 
@@ -57,13 +67,5 @@ extension Canvas where Symbols == EmptyView {
         self.rendersAsynchronously = rendersAsynchronously
         self.symbols = EmptyView()
         self.renderer = renderer
-    }
-}
-
-extension Canvas : View {
-
-    /// This view does not have a body, as it is an immediate mode drawing view.
-    public var body: Never {
-        fatalError("Canvas is an immediate mode drawing view and does not have a body.")
     }
 }

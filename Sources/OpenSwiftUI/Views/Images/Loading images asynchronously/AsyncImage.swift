@@ -9,6 +9,10 @@
 import Foundation
 import OpenSpatial
 
+#if os(Windows)
+import FoundationNetworking
+#endif
+
 /// A view that asynchronously loads and displays an image.
 ///
 /// This view uses the shared

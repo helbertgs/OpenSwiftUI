@@ -70,8 +70,7 @@ class AppGraph<AppType: App> : GraphHost {
         // Mount the main scene first
         mainSceneGraph?.mount()
         
-        // Mark as mounted (but don't call super.mount() to avoid mounting all children)
-        // We only want to mount the main scene initially; other scenes are mounted on demand
+        super.mount()
     }
 
     override func unmount() {
