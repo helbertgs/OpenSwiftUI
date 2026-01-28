@@ -19,57 +19,39 @@ extension Font {
     /// - SeeAlso: `Font`.
     public struct Resolved : Hashable, Sendable {
 
-        // Returns the opaque pointer that represents a font object.
-        // @Sendable public let pointer: OpaquePointer?
-
         // MARK: - Checking Characteristics
 
         /// Returns `true` if the resolved font has a bold trait according to the font's weight is semi-bold or greater.
-        public let isBold: Bool
+        public internal(set) var isBold: Bool = false
 
         /// Returns `true` if the resolved font is italic.
-        public let isItalic: Bool
+        public internal(set) var isItalic: Bool = false
 
         /// The point size of a resolved font.
-        public let pointSize: Double
+        public internal(set) var pointSize: Double = 12
 
         /// The weight of a resolved font.
-        public let weight: Font.Weight
+        public internal(set) var weight: Font.Weight = .regular
 
         /// The width of a resolved font.
-        public let width: Font.Width
+        public internal(set) var width: Font.Width = .standard
 
         /// The leading of a resolved font.
-        public let leading: Font.Leading
+        public internal(set) var leading: Font.Leading = .standard
 
         /// Returns `true` if a resolved font is monospaced, false otherwise.
-        public let isMonospaced: Bool
+        public internal(set) var isMonospaced: Bool = false
 
         /// Returns `true` if the resolved font's lowercased characters
         /// use small caps.
-        public let isLowercaseSmallCaps: Bool
+        public internal(set) var isLowercaseSmallCaps: Bool = false
 
         /// Returns `true` if the resolved font's uppercased characters
         /// use small caps.
-        public let isUppercaseSmallCaps: Bool
+        public internal(set) var isUppercaseSmallCaps: Bool = false
 
         /// Returns `true` if all of the resolved font's characters use small caps.
-        public let isSmallCaps: Bool
-
-        // MARK: - Creating a Resolved Font
-
-        public init(isBold: Bool, isItalic: Bool, pointSize: Double, weight: Font.Weight, width: Font.Width, leading: Font.Leading, isMonospaced: Bool, isLowercaseSmallCaps: Bool, isUppercaseSmallCaps: Bool, isSmallCaps: Bool, ) {
-            self.isBold = isBold
-            self.isItalic = isItalic
-            self.pointSize = pointSize
-            self.weight = weight
-            self.width = width
-            self.leading = leading
-            self.isMonospaced = isMonospaced
-            self.isLowercaseSmallCaps = isLowercaseSmallCaps
-            self.isUppercaseSmallCaps = isUppercaseSmallCaps
-            self.isSmallCaps = isSmallCaps
-        }
+        public internal(set) var isSmallCaps: Bool = false
     }
 
     /// Evaluates this font to a resolved font given the current
@@ -80,6 +62,7 @@ extension Font {
     ///
     /// - SeeAlso: ``EnvironmentValues/fontResolutionContext``
     public func resolve(in context: Font.Context) -> Font.Resolved {
-        fatalError("Not implemented yet")
+        var context = context
+        return context.resolve(self)
     }
 }

@@ -17,12 +17,12 @@ public struct Font : Sendable {
     // private var library: FT_Library?
 
     /// The provider of the font.
-    let provider: AnyFontProvider
+    let provider: AnyFontBox
 
     /// Creates a font with the given provider.
     ///
     /// - Parameter provider: The provider of the font.
-    private init(provider: AnyFontProvider) {
+    private init(provider: AnyFontBox) {
         self.provider = provider
     }
 }

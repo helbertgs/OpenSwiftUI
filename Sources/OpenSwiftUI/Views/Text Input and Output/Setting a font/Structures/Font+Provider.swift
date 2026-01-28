@@ -11,10 +11,15 @@ import Foundation
 extension Font {
 
     /// A type-erased font provider.
-    class AnyFontProvider : @unchecked Sendable { }
+    class AnyFontBox : @unchecked Sendable {
+        func resolve(in context: Font.Context) -> Font.Resolved {
+            var context = context
+            return context.resolve(self)
+        }
+    }
 
     /// A box for a font provider.
-    class FontBox<Provider: AnyFontProvider> : AnyFontProvider, @unchecked Sendable {
+    class FontBox<Provider: AnyFontBox> : AnyFontBox, @unchecked Sendable {
         
         /// The base provider.
         let base: Provider
@@ -31,7 +36,7 @@ extension Font {
     // MARK: - Data Providers
 
     /// A font provider for system fonts.
-    class SystemProvider : AnyFontProvider, @unchecked Sendable {
+    class SystemProvider : AnyFontBox, @unchecked Sendable {
 
         /// The size of the font.
         let size: Double
@@ -67,7 +72,7 @@ extension Font {
     }
 
     /// A font provider for named fonts.
-    class NamedProvider : AnyFontProvider, @unchecked Sendable {
+    class NamedProvider : AnyFontBox, @unchecked Sendable {
 
         /// The name of the font.
         let name: String
@@ -95,7 +100,7 @@ extension Font {
     // MARK: - Text Style Providers
 
     /// A font provider for text styles.
-    class TextStyleProvider : AnyFontProvider, @unchecked Sendable { 
+    class TextStyleProvider : AnyFontBox, @unchecked Sendable { 
 
         /// The text style of the font.
         let style: TextStyle
@@ -123,7 +128,7 @@ extension Font {
     // MARK: - Modifier Providers
 
     /// A font provider for static modifiers.
-    class StaticModifierProvider<Modifier> : AnyFontProvider, @unchecked Sendable {
+    class StaticModifierProvider<Modifier> : AnyFontBox, @unchecked Sendable {
 
         /// The base provider.
         let base: Any
