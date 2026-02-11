@@ -1,3 +1,5 @@
+@preconcurrency
+import OpenGLAD
 import OpenSpatial
 
 extension GraphicsContext {
@@ -13,7 +15,7 @@ extension GraphicsContext {
     /// - An ``Image``.
     /// - What you’ve already drawn into the context.
     /// - A collection of other shading instances.
-    public struct Shading {
+    public struct Shading : @unchecked Sendable {
 
         // MARK: - Colors
 
@@ -22,7 +24,7 @@ extension GraphicsContext {
         /// - Parameter color: A Color instance that defines the color of the shading.
         /// - Returns: A shading instance filled with a color.
         public static func color(_ color: Color) -> GraphicsContext.Shading {
-            .init()
+            fatalError("not implemented yet")
         }
 
         /// Returns a shading instance that fills with a color in the given color space.
@@ -35,7 +37,7 @@ extension GraphicsContext {
         ///   - opacity: The opacity of the color. The default is 1, which means fully opaque.
         /// - Returns: A shading instance filled with a color.
         public static func color(_ colorSpace: Color.RGBColorSpace = .sRGB, red: Double, green: Double, blue: Double, opacity: Double = 1) -> GraphicsContext.Shading {
-            .init()
+            fatalError("not implemented yet")
         }
 
         /// Returns a shading instance that fills with a monochrome color in the given color space.
@@ -46,7 +48,7 @@ extension GraphicsContext {
         ///   - opacity: The opacity of the color. The default is 1, which means fully opaque.
         /// - Returns: A shading instance filled with a color.
         public static func color(_ colorSpace: Color.RGBColorSpace = .sRGB, white: Double, opacity: Double = 1) -> GraphicsContext.Shading {
-            .init()
+            fatalError("not implemented yet")
         }
 
         // MARK: - Gradients
@@ -61,7 +63,7 @@ extension GraphicsContext {
         ///   - options: Options that you use to configure the gradient.
         /// - Returns: A shading instance filled with a linear gradient.
         public static func linearGradient(_ gradient: Gradient, startPoint: Point3D, endPoint: Point3D, options: GraphicsContext.GradientOptions = GradientOptions()) -> GraphicsContext.Shading {
-            .init()
+            fatalError("not implemented yet")
         }
 
         /// Returns a shading instance that fills a radial gradient.
@@ -74,7 +76,7 @@ extension GraphicsContext {
         ///   - options: Options that you use to configure the gradient.
         /// - Returns: A shading instance filled with a radial gradient.
         public static func radialGradient(_ gradient: Gradient, center: Point3D, startRadius: Double, endRadius: Double, options: GraphicsContext.GradientOptions = GradientOptions()) -> GraphicsContext.Shading {
-            .init()
+            fatalError("not implemented yet")
         }
 
         /// Returns a shading instance that fills a conic (angular) gradient.
@@ -86,7 +88,7 @@ extension GraphicsContext {
         ///   - options: Options that you use to configure the gradient.
         /// - Returns: A shading instance filled with a conic gradient.
         public static func conicGradient(_ gradient: Gradient, center: Point3D, angle: Angle2D = .init(), options: GraphicsContext.GradientOptions = GradientOptions()) -> GraphicsContext.Shading {
-            .init()
+            fatalError("not implemented yet")
         }
 
         // MARK: - Other shape styles
@@ -99,12 +101,12 @@ extension GraphicsContext {
         /// - Parameter style: A ``ShapeStyle`` instance to draw with.
         /// - Returns: A shading instance filled with a shape style.
         public static func style<S>(_ style: S) -> GraphicsContext.Shading where S : ShapeStyle {
-            .init()
+            fatalError("not implemented yet")
         }
 
         /// A shading instance that fills with the foreground style from the graphics context’s environment.
         public static var foreground: GraphicsContext.Shading {
-            .init()
+            .color(.white)
         }
 
         // MARK: - Images
@@ -118,7 +120,7 @@ extension GraphicsContext {
         ///   - scale: A factor that you can use to control the image size.
         /// - Returns: A shading instance filled with a tiled image.
         public static func tiledImage(_ image: Image, origin: Point3D = .zero, sourceRect: Rect3D = Rect3D(center: .zero, size: .one), scale: Double = 1) -> GraphicsContext.Shading {
-            .init()
+            fatalError("not implemented yet")
         }
 
         // MARK: - Composite shading types
@@ -129,25 +131,24 @@ extension GraphicsContext {
         /// - Parameter array: An array of shading instances. The array must contain at least one element.
         /// - Returns: A shading instance composed from the given instances.
         public static func palette(_ array: [GraphicsContext.Shading]) -> GraphicsContext.Shading {
-            .init()
+            fatalError("not implemented yet")
         }
 
         /// A shading instance that draws a copy of the current background.
         public static var backdrop: GraphicsContext.Shading {
-            .init()
+            fatalError("not implemented yet")
         }
 
         // MARK: - Using a custom OpenGL shader
 
         /// Returns a shading instance that fills with the results of querying a shader for each pixel.
         /// 
-        /// 
         /// - Parameters:
         ///   - shader: The shader defining the filled colors.
         ///   - bounds: The rect used to define any bounds arguments of the shader.
         /// - Returns: A shading instance that fills using the shader.
         public static func shader(_ shader: Shader, bounds: Rect3D = .zero) -> GraphicsContext.Shading {
-            .init()
+            fatalError("not implemented yet")
         }
 
         // MARK: - Type Methods
@@ -157,7 +158,19 @@ extension GraphicsContext {
         /// - Parameter mesh: The mesh gradient defining the filled colors.
         /// - Returns: A shading that fills using the mesh gradient.
         public static func meshGradient(_ mesh: MeshGradient) -> GraphicsContext.Shading {
-            .init()
+            fatalError("not implemented yet")
+        }
+
+        // MARK: - Creating a Shading
+
+        /// A reference to a GLSL shader program.
+        private let shader: Shader
+
+        /// Create a new shading using a GLSL shader program
+        /// 
+        /// - Parameter shader: GLSL Shader program
+        init(shader: Shader) {
+            self.shader = shader
         }
     }
 }

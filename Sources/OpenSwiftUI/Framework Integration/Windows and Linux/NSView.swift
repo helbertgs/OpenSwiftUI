@@ -169,10 +169,6 @@ class NSHostingView<Content> : NSView where Content : View {
             return
         }
 
-        let text = Text("Olá Mundo")
-        let context = GraphicsContext(.init())
-        context.draw(text, in: Rect3D(origin: Point3D(x: 25.0, y: 25), size: .zero))
-
         needsDisplay = false
     }
 }

@@ -15,6 +15,7 @@ public struct GraphicsContext {
     ///   - shading: The color or pattern to use when outlining the path.
     ///   - lineWidth: The width of the stroke, which defaults to 1.
     public func stroke(_ path: Path, with shading: GraphicsContext.Shading, lineWidth: Double = 1) {
+        fatalError("not implemented yet")
     }
 
     /// Draws a path into the context with a specified stroke style.
@@ -25,6 +26,7 @@ public struct GraphicsContext {
     ///   - shading: The color or pattern to use when outlining the path.
     ///   - style: A style that indicates how to outline the path.
     public func stroke(_ path: Path, with shading: GraphicsContext.Shading, style: StrokeStyle) {
+        fatalError("not implemented yet")
     }
 
     /// Draws a path into the context and fills the outlined region.
@@ -36,6 +38,7 @@ public struct GraphicsContext {
     ///   - shading: The color or pattern to use when filling the region bounded by path.
     ///   - style: A style that indicates how to rasterize the path.
     public func fill(_ path: Path, with shading: GraphicsContext.Shading, style: FillStyle = FillStyle()) {
+        fatalError("not implemented yet")
     }
 
     // MARK: - Drawing images, text, and views
@@ -48,6 +51,7 @@ public struct GraphicsContext {
     ///   - symbol: The ``GraphicsContext.ResolvedSymbol`` to draw. Get a resolved symbol by calling ``resolveSymbol(id:)`` with the identifier that you use to tag the corresponding child view during ``Canvas`` initialization.
     ///   - rect: The rectangle in the current user space to draw the symbol in.
     public func draw(_ symbol: GraphicsContext.ResolvedSymbol, in rect: Rect3D) {
+        fatalError("not implemented yet")
     }
 
     /// Draws resolved text into the context using the specified rectangle as a layout frame.
@@ -60,6 +64,7 @@ public struct GraphicsContext {
     ///           Alternatively, you can call ``draw(_:in:)`` with a ``Text`` view, and that method performs the resolution automatically.
     ///   - rect: The rectangle in the current user space to draw the text in.
     public func draw(_ text: GraphicsContext.ResolvedText, in rect: Rect3D) {
+        fatalError("not implemented yet")
     }
 
     /// Draws text into the context using the specified rectangle as a layout frame.
@@ -70,6 +75,7 @@ public struct GraphicsContext {
     ///   - text: The Text view to draw. Before drawing, the method converts the view to ``GraphicsContext.ResolvedText`` by calling ``resolve(_:)``.
     ///   - rect: The rectangle in the current user space to draw the text in.
     public func draw(_ text: Text, in rect: Rect3D) {
+        fatalError("not implemented yet")
     }
 
     /// Draws a resolved image into the context, using the specified rectangle as a layout frame.
@@ -83,6 +89,7 @@ public struct GraphicsContext {
     ///   - rect: The rectangle in the current user space to draw the image in.
     ///   - style: A fill style to use when rasterizing the image.
     public func draw(_ image: GraphicsContext.ResolvedImage, in rect: Rect3D, style: FillStyle = FillStyle()) {
+        fatalError("not implemented yet")
     }
 
     /// Draws an image into the context, using the specified rectangle as a layout frame.
@@ -94,12 +101,14 @@ public struct GraphicsContext {
     ///   - rect: The rectangle in the current user space to draw the image in.
     ///   - style: A fill style to use when rasterizing the image.
     public func draw(_ image: Image, in rect: Rect3D, style: FillStyle = FillStyle()) {
+        fatalError("not implemented yet")
     }
 
     // MARK: - Drawing into a new layer
 
     /// Draws a new layer, created by drawing code that you provide, into the context.
     public func drawLayer(content: (inout GraphicsContext) throws -> Void) rethrows {
+        fatalError("not implemented yet")
     }
 
     // MARK: - Resolving a drawn entity
@@ -120,7 +129,7 @@ public struct GraphicsContext {
     /// - Parameter shading: 
     /// - Returns: 
     public func resolve(_ shading: GraphicsContext.Shading) -> GraphicsContext.Shading {
-        .init()
+        fatalError("not implemented yet")
     }
 
     /// Gets a version of a text view that’s fixed with the current values of the graphics context’s environment.
@@ -138,7 +147,7 @@ public struct GraphicsContext {
     /// - Parameter id: The value that you used to tag the view when you define it in the symbols parameter of the ``Canvas`` initializer ``init(opaque:colorMode:rendersAsynchronously:renderer:symbols:)``.
     /// - Returns: The resolved symbol, or nil if OpenSwiftUI can’t find a child view with the given id.
     public func resolveSymbol<ID>(id: ID) -> GraphicsContext.ResolvedSymbol? where ID : Hashable {
-        nil
+        fatalError("not implemented yet")
     }
 
     // MARK: - Masking
@@ -152,6 +161,7 @@ public struct GraphicsContext {
     ///   - style: A ``FillStyle`` that defines how to rasterize the shape.
     ///   - options: Clip options that tell OpenSwiftUI how to interpret the path as a clip shape. For example, you can invert the clip shape by setting the ``inverse`` option.
     public mutating func clip(to path: Path, style: FillStyle = FillStyle(), options: GraphicsContext.ClipOptions = ClipOptions()) {
+        fatalError("not implemented yet")
     }
 
     /// Adds a clip shape that you define in a new layer to the context’s array of clip shapes.
@@ -163,6 +173,7 @@ public struct GraphicsContext {
     ///   - options: A set of options that tell OpenSwiftUI how to interpret the clip shape. For example, you can invert the clip shape by setting the ``inverse`` option.
     ///   - content: A closure that receives as input a new ``GraphicsContext``, which represents a new transparency layer. The alpha channel of content that you draw into this context, multiplied by the opacity parameter, defines the clip shape.
     public mutating func clipToLayer(opacity: Double = 1, options: GraphicsContext.ClipOptions = ClipOptions(), content: (inout GraphicsContext) throws -> Void) rethrows {
+        fatalError("not implemented yet")
     }
 
     /// The bounding rectangle of the intersection of all current clip shapes in the current user space.
@@ -198,6 +209,7 @@ public struct GraphicsContext {
     ///   - filter: A graphics context filter that you create by calling one of the ``GraphicsContext.Filter`` factory methods.
     ///   - options: A set of options from ``GraphicsContext.FilterOptions`` that you can use to configure filter operations.
     public mutating func addFilter(_ filter: GraphicsContext.Filter, options: GraphicsContext.FilterOptions = FilterOptions()) {
+        fatalError("not implemented yet")
     }
 
     // MARK: - Applying transforms
@@ -213,6 +225,7 @@ public struct GraphicsContext {
     ///   - x: The amount to scale in the horizontal direction.
     ///   - y: The amount to scale in the vertical direction.
     public mutating func scaleBy(x: Double, y: Double) {
+        fatalError("not implemented yet")
     }
 
     /// Rotates subsequent drawing operations by an angle.
@@ -224,6 +237,7 @@ public struct GraphicsContext {
     /// ```
     /// - Parameter angle: The amount to rotate.
     public mutating func rotate(by angle: Angle2D) {
+        fatalError("not implemented yet")
     }
 
     /// Moves subsequent drawing operations by an amount in each dimension.
@@ -237,6 +251,7 @@ public struct GraphicsContext {
     ///   - x: The amount to move in the horizontal direction.
     ///   - y: The amount to move in the vertical direction.
     public mutating func translateBy(x: Double, y: Double) {
+        fatalError("not implemented yet")
     }
 
     /// Appends the given transform to the context’s existing transform.
@@ -248,6 +263,7 @@ public struct GraphicsContext {
     /// ```
     /// - Parameter matrix: A transform to append to the existing transform.
     public mutating func concatenate(_ matrix: AffineTransform3D) {
+        fatalError("not implemented yet")
     }
 
     /// The current transform matrix, defining user space coordinates.
