@@ -11,10 +11,22 @@ import Foundation
 extension Font {
 
     /// A type-erased font provider.
-    class AnyFontBox : @unchecked Sendable {
+    class AnyFontBox : CustomStringConvertible, Equatable, Hashable, @unchecked Sendable {
         func resolve(in context: Font.Context) -> Font.Resolved {
             var context = context
             return context.resolve(self)
+        }
+
+        static func == (lhs: AnyFontBox, rhs: AnyFontBox) -> Bool {
+            lhs.description == rhs.description
+        }
+
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(description)
+        }
+
+        var description: String {
+            "\(Self.self)"
         }
     }
 

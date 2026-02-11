@@ -12,7 +12,7 @@ import Foundation
 ///
 /// The system resolves a font's value at the time it uses the font in a given
 /// environment because ``Font`` is a late-binding token.
-public struct Font : Sendable {
+public struct Font : Equatable, Hashable, Sendable {
 
     // private var library: FT_Library?
 
@@ -24,6 +24,10 @@ public struct Font : Sendable {
     /// - Parameter provider: The provider of the font.
     private init(provider: AnyFontBox) {
         self.provider = provider
+    }
+
+    public static func == (lhs: Font, rhs: Font) -> Bool {
+        lhs.provider == rhs.provider
     }
 }
 
@@ -224,20 +228,20 @@ extension Font {
     /// For fonts created from text styles, it could mean applying emphasized
     /// styling, which does not necessarily mean the bold weight specifically,
     /// so this modifier is not to be confused with
-    /// <doc://com.apple.documentation/documentation/SwiftUI/Font/weight(_:)>.
+    /// <doc://com.apple.documentation/documentation/OpenSwiftUI/Font/weight(_:)>.
     ///
     /// For example:
     ///
     ///     Font.body.bold()
     ///
     /// will most likely get you the emphasized version of body text style,
-    /// which is often in <doc://com.apple.documentation/documentation/SwiftUI/Font/weight/semibold>
+    /// which is often in <doc://com.apple.documentation/documentation/OpenSwiftUI/Font/weight/semibold>
     /// weight. While
     ///
     ///     Font.body.weight(.bold)
     ///
     /// will specifically get you the body text style font in the
-    /// <doc://com.apple.documentation/documentation/SwiftUI/Font/weight/bold>
+    /// <doc://com.apple.documentation/documentation/OpenSwiftUI/Font/weight/bold>
     /// weight.
     public func bold() -> Font {
         .init(provider: StaticModifierProvider(base: provider, modifier: BoldModifier(true)))
@@ -248,20 +252,20 @@ extension Font {
     /// For fonts created from text styles, passing `true` could mean applying
     /// emphasized styling, which does not necessarily mean the bold weight
     /// specifically, so this modifier is not to be confused with
-    /// <doc://com.apple.documentation/documentation/SwiftUI/Font/weight(_:)>.
+    /// <doc://com.apple.documentation/documentation/OpenSwiftUI/Font/weight(_:)>.
     ///
     /// For example:
     ///
     ///     Font.body.bold(true)
     ///
     /// will most likely get you the emphasized version of body text style,
-    /// which is often in <doc://com.apple.documentation/documentation/SwiftUI/Font/weight/semibold>
+    /// which is often in <doc://com.apple.documentation/documentation/OpenSwiftUI/Font/weight/semibold>
     /// weight. While
     ///
     ///     Font.body.weight(.bold)
     ///
     /// will specifically get you the body text style font in the
-    /// <doc://com.apple.documentation/documentation/SwiftUI/Font/weight/bold>
+    /// <doc://com.apple.documentation/documentation/OpenSwiftUI/Font/weight/bold>
     /// weight.
     ///
     /// Using:
@@ -277,7 +281,7 @@ extension Font {
 
     /// Returns a fixed-width font from the same family as the base font.
     ///
-    /// If there's no suitable font face in the same family, SwiftUI
+    /// If there's no suitable font face in the same family, OpenSwiftUI
     /// returns a default fixed-width font.
     ///
     /// The following example adds the `monospaced()` modifier to the default
@@ -300,7 +304,7 @@ extension Font {
     /// ![A macOS window showing the text Hello, world in a 24-point
     /// fixed-width font.](Environment-Font-monospaced-1)
     ///
-    /// SwiftUI may provide different fixed-width replacements for standard
+    /// OpenSwiftUI may provide different fixed-width replacements for standard
     /// user interface fonts (such as ``Font/title``, or a system font created
     /// with ``Font/system(_:design:)``) than for those same fonts when created
     /// by name with ``Font/custom(_:size:)``.
@@ -325,7 +329,7 @@ extension Font {
     /// Returns a font adding or removing fixed-width design from the same
     /// family as the base font.
     ///
-    /// If there's no suitable font face in the same family, SwiftUI
+    /// If there's no suitable font face in the same family, OpenSwiftUI
     /// returns a default font.
     ///
     /// The following example adds the `monospaced()` modifier to the default
@@ -348,7 +352,7 @@ extension Font {
     /// ![A macOS window showing the text Hello, world in a 24-point
     /// fixed-width font.](Environment-Font-monospaced-1)
     ///
-    /// SwiftUI may provide different fixed-width replacements for standard
+    /// OpenSwiftUI may provide different fixed-width replacements for standard
     /// user interface fonts (such as ``Font/title``, or a system font created
     /// with ``Font/system(_:design:)``) than for those same fonts when created
     /// by name with ``Font/custom(_:size:)``.
@@ -403,13 +407,13 @@ extension Font {
 
 extension Font {
 
-    /// The effective SwiftUI font used in any given environment.
+    /// The effective OpenSwiftUI font used in any given environment.
     ///
     /// The font specified by environment, preferring first any developer
     /// spedified font, via ``EnvironmentValues/font``, then any framework
-    /// specified font, and finally the default SwiftUI font.
+    /// specified font, and finally the default OpenSwiftUI font.
     public static var `default`: Font { 
-        fatalError("not implemented yet")
+        Font.system(size: 16)
      }
 }
 
