@@ -9,40 +9,13 @@
 import Foundation
 import OpenFreeType
 import OpenHarfBuzz
+import OpenSpatial
 
 extension Font {
 
     /// Information used to resolve a font.
     public struct Context {
 
-        init() { }
-
-        mutating func resolve(_ font: Font) -> Font.Resolved {
-            fatalError("not implemented yet")
-        }
-
-        mutating func resolve(_ provider: Font.AnyFontBox) -> Font.Resolved {
-            fatalError("not implemented yet")
-        }
-
-        mutating func resolve(_ provider: Font.NamedProvider) -> Font.Resolved {
-            fatalError("not implemented yet")
-        }
-
-        mutating func resolve(_ provider: Font.SystemProvider) -> Font.Resolved {
-            fatalError("not implemented yet")
-        }
-
-        mutating func resolve(_ provider: Any) -> Font.Resolved {
-            fatalError("not implemented yet")
-        }
-
-        mutating func resolve(_ provider: Font.StaticModifierProvider<ItalicModifier>) -> Font.Resolved {
-            fatalError("not implemented yet")
-        }
-
-        mutating func resolve(_ provider: Font.StaticModifierProvider<BoldModifier>) -> Font.Resolved {
-            fatalError("not implemented yet")
-        }
+        var resolved: Font.Resolved = .init()
     }
 }
