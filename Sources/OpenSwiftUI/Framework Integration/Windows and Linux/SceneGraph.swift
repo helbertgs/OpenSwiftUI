@@ -54,6 +54,15 @@ class SceneGraph : GraphHost {
         window.delegate = self
         window.title = data.title
 
+        if let rootView = data.content?.view {
+            window.contentView = NSHostingView(rootView: AnyView(rootView))
+        } else {
+            window.contentView = NSView(frame: .init(origin: Point3D.zero, size: .init(width: 900, height: 450)))
+        }
+
+        window.contentView?.window = window
+        window.contentView?.frame = window.frame
+
         // Register with the application
         Application.shared.registerWindow(window)
         
@@ -110,6 +119,12 @@ class SceneGraph : GraphHost {
         guard isMounted else { return }
         window?.update()
         super.update()
+    }
+
+    override func clear() {
+        guard isMounted else { return }
+        window?.clear()
+        super.clear()
     }
 
     // MARK: - Scene Data Updates

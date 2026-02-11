@@ -96,8 +96,11 @@ import OpenSpatial
             guard isRunning else { break }
 
             appGraph?.processEvents()
+            appGraph?.clear()
             appGraph?.render()
+
             appGraph?.swapBuffers()
+            appGraph?.pollEvents()
 
             processRunLoop()
         }

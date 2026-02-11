@@ -154,6 +154,14 @@ import Foundation
         children.forEach { $0.swapBuffers() }
     }
 
+    func pollEvents() {
+        // children.forEach { $0.pollEvents() }
+    }
+
+    func clear() {
+        children.forEach { $0.clear() }
+    }
+
     // MARK: - Debugging
 
     /// Returns a string representation of the graph hierarchy for debugging.

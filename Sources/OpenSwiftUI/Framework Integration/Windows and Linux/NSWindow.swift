@@ -9,10 +9,15 @@ import Foundation
     var id: String = UUID().uuidString
     private let pointer: OpaquePointer
 
+    // MARK: - Managing the Window’s Behavior
+
+    // The window’s delegate.
     weak var delegate: NSWindowDelegate?
 
     /// A Boolean value indicating whether the GLFW window has been destroyed.
     private var isDestroyed: Bool = false
+
+    var environmentValues: EnvironmentValues?
 
     init(frame: Rect3D) {
         self.frame = frame
@@ -29,10 +34,18 @@ import Foundation
         destroy()
     }
 
+    // MARK: - Configuring the Window’s Content
+
+    var contentView: NSView?
+
     // MARK: - Sizing Windows
 
     /// The window’s frame rectangle in screen coordinates, including the title bar.
-    var frame: Rect3D
+    var frame: Rect3D {
+        willSet {
+            contentView?.frame = newValue
+        }
+    }
 
     // MARK: - Managing Window Visibility and Occlusion State
 
@@ -122,28 +135,27 @@ import Foundation
     }
     
     /// Informs the window that it has become the main window.
-    func becomeMain() {
-
-    }
+    func becomeMain() { }
     
     /// Resigns the window’s main window status.
-    func resignMain() {
-
-    }
+    func resignMain() { }
 
     // MARK: - Drawing Windows
 
     /// Passes a display message down the window’s view hierarchy, thus redrawing all views within the window.
     func display() {
-
+        contentView?.display()
     }
 
     /// Passes a display message down the window’s view hierarchy, thus redrawing all views that need displaying.
     func displayIfNeeded() {
+        if viewsNeedDisplay {
+            display()
+        }
     }
 
     /// A Boolean value that indicates whether any of the window’s views need to be displayed.
-    var viewsNeedDisplay: Bool = false
+    var viewsNeedDisplay: Bool = true
 
     /// A Boolean value that indicates whether the window allows multithreaded view drawing.
     var allowsConcurrentViewDrawing: Bool = false
@@ -242,6 +254,10 @@ import Foundation
     private func makeContextCurrent() {
         guard !isDestroyed else { return }
         glfwMakeContextCurrent(pointer)
+
+        guard gladLoaderLoadGL() != GL_FALSE else {
+            fatalError("GLAD: Fail to initialize")
+        }
     }
 
     /// Destroys the GLFW window. Safe to call multiple times.
@@ -279,6 +295,11 @@ import Foundation
     private func waitEvents() {
         // waitEvents is global, doesn't need destroyed check
         glfwWaitEvents()
+    }
+
+    func clear() {
+        glad_glClearColor(0.2, 0.3, 0.3, 1.0)
+        glad_glClear(UInt32(GL_COLOR_BUFFER_BIT))
     }
 
     // MARK: - GLFW Callbacks
@@ -325,7 +346,7 @@ import Foundation
     /// Sets the framebuffer size callback of the window.
     private func setFramebufferSizeCallback() {
         glfwSetFramebufferSizeCallback(pointer) { pointer, width, height in
-            // glad_glViewport(0, 0, width, height)
+            glad_glViewport(0, 0, width, height)
         }
     }
 
