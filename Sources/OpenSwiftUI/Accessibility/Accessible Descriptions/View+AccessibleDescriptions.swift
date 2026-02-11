@@ -499,7 +499,7 @@ extension View {
                 properties: .init(
                     storage: [
                             ObjectIdentifier(Text.self): 
-                            AccessibilityPropertiesEntry<Text>(typedValue: Text())
+                            AccessibilityPropertiesEntry<Text>(typedValue: Text(hintKey))
                         ]
                 ),
                 platformElement: nil
@@ -516,7 +516,7 @@ extension View {
                 properties: .init(
                     storage: [
                             ObjectIdentifier(Text.self): 
-                            AccessibilityPropertiesEntry<Text>(typedValue: Text())
+                            AccessibilityPropertiesEntry<Text>(typedValue: Text(hint))
                         ]
                 ),
                 platformElement: nil
@@ -536,7 +536,7 @@ extension View {
                 properties: .init(
                     storage: isEnabled ? [
                             ObjectIdentifier(Text.self): 
-                            AccessibilityPropertiesEntry<Text>(typedValue: Text())
+                            AccessibilityPropertiesEntry<Text>(typedValue: hint)
                         ] : [:]
                 ),
                 platformElement: nil
@@ -556,7 +556,7 @@ extension View {
                 properties: .init(
                     storage: isEnabled ? [
                             ObjectIdentifier(Text.self): 
-                            AccessibilityPropertiesEntry<Text>(typedValue: Text())
+                            AccessibilityPropertiesEntry<Text>(typedValue: Text(hintKey))
                         ] : [:]
                 ),
                 platformElement: nil
@@ -576,7 +576,7 @@ extension View {
                 properties: .init(
                     storage: isEnabled ? [
                             ObjectIdentifier(Text.self): 
-                            AccessibilityPropertiesEntry<Text>(typedValue: Text())
+                            AccessibilityPropertiesEntry<Text>(typedValue: Text(hint))
                         ] : [:]
                 ),
                 platformElement: nil

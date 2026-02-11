@@ -178,7 +178,7 @@ import OpenSpatial
     /// initializer, which also bypasses localization.
     ///
     /// - Parameter content: A string to display without localization.
-    @inlinable public init(verbatim content: String = "") {
+    @inlinable public init(verbatim content: String) {
         self.storage = .verbatim(content)
     }
 
@@ -201,7 +201,8 @@ import OpenSpatial
     /// triggers the ``Text/init(_:tableName:bundle:comment:)`` method instead.
     ///
     /// - Parameter content: The string value to display without localization.
-    public init<S>(_ content: S) where S : StringProtocol {
+    @_disfavoredOverload 
+    @inlinable public init<S>(_ content: S) where S : StringProtocol {
         self.storage = .none
     }
 }
@@ -398,7 +399,6 @@ extension Text {
     public func textVariant<V>(_ preference: V) -> some View where V : TextVariantPreference {
         fatalError("not implemented yet")
     }
-
 }
 
 extension Text {
@@ -485,6 +485,7 @@ extension Text {
     ///     var object = LocalizedStringResource("pencil")
     ///     Text(object) // Localizes the resource if possible, or displays "pencil" if not.
     ///
+    @_disfavoredOverload 
     public init(_ resource: LocalizedStringResource) {
         fatalError("not implemented yet")
     }
@@ -849,7 +850,7 @@ extension Text {
     /// OpenSwiftUI also defines additional attributes in the attribute scope
     /// <doc://com.apple.documentation/documentation/Foundation/AttributeScopes/SwiftUIAttributes>
     /// which you can access from an attributed string's
-    /// <doc://com.apple.documentation/documentation/Foundation/AttributeScopes/3788543-swiftUI>
+    /// <doc://com.apple.documentation/documentation/Foundation/AttributeScopes/3788543-OpenSwiftUI>
     /// property. OpenSwiftUI attributes take precedence over equivalent attributes
     /// from other frameworks, such as
     /// <doc://com.apple.documentation/documentation/Foundation/AttributeScopes/UIKitAttributes> and
@@ -921,6 +922,7 @@ extension Text {
     /// - Parameters:
     ///   - attributedContent: An attributed string to style and display,
     ///   in accordance with its attributes.
+    @_disfavoredOverload 
     public init(_ attributedContent: AttributedString) {
         fatalError("not implemented yet")
     }
@@ -1879,6 +1881,50 @@ extension Text : View {
     }
 
     nonisolated public static func _makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs {
+        var outputs = _ViewOutputs()
+        outputs.type = Self.self
+        outputs.environmentValues = inputs.environmentValues
+        outputs.content = view.value
+        outputs.view = view.value
+
+        return outputs
+    }
+}
+
+extension Text {
+    public func _resolveText(in environment: EnvironmentValues) -> String {
+        ""
+    }
+}
+
+extension Text {
+
+    public enum _LocalizationInfo : Equatable {
+        case none
+        case verbatim(String)
+        case localized(key: String, tableName: String? = nil, bundle: Bundle? = nil, hasFormatting: Bool = false)
+
+        public static func == (lhs: _LocalizationInfo, rhs: _LocalizationInfo) -> Bool {
+            return switch (lhs, rhs) {
+                case (.none, .none) : true
+                case (.verbatim(let vlhs), .verbatim((let vrhs))): vlhs == vrhs
+                case let (.localized(lkey, lTableName, lBundle, lHasFormatting), .localized(rKey, rTableName, rBundle, rHasFormatting)):
+                    lkey == rKey && 
+                    lTableName == rTableName && 
+                    lBundle == rBundle && 
+                    lHasFormatting == rHasFormatting
+                default: false
+            }
+        }
+    }
+
+    public var _localizationInfo: _LocalizationInfo {
+        .none
+    }
+}
+
+extension Text {
+    static func + (lhs: Text, rhs: Text) -> Text {
         fatalError("not implemented yet")
     }
 }

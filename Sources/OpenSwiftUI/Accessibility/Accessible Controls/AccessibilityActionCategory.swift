@@ -6,10 +6,10 @@ import Foundation
     // MARK: - Type Properties
     
     /// An accessibility action category for the default actions of a view. This category replaces the system provided actions rotor for accessibility technologies like VoiceOver.
-    public static let `default`: AccessibilityActionCategory = .init(.init())
+    public static let `default`: AccessibilityActionCategory = .init(.init("default"))
     
     /// An accessibility action category for associating actions related to editing text. This category replaces the system provided Edit actions for accessibility technologies like VoiceOver.
-    public static let edit: AccessibilityActionCategory = .init(.init())
+    public static let edit: AccessibilityActionCategory = .init(.init("edit"))
 
     /// The name for the category of the accessibility actions.
     public let name: Text
