@@ -29,7 +29,7 @@ extension EnvironmentValues {
     /// You can set the minimum scale factor to any value greater than 0 and less than or equal to 1. 
     /// The default value is 1.
     /// 
-    /// SwiftUI uses this value to shrink text that doesn’t fit in a view when it’s okay to shrink the text. 
+    /// OpenSwiftUI uses this value to shrink text that doesn’t fit in a view when it’s okay to shrink the text. 
     /// For example, a label with a ``minimumScaleFactor`` of 0.5 draws its text in a font size as small as half the actual font if needed.
     public var minimumScaleFactor: Double {
         get { self[MinimumScaleFactorKey.self] }
