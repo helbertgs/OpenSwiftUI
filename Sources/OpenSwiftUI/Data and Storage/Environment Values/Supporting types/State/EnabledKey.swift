@@ -7,6 +7,7 @@ import Swift
 }
 
 extension EnvironmentValues {
+
     /// A Boolean value that indicates whether the view associated with this
     /// environment allows user interaction.
     ///
