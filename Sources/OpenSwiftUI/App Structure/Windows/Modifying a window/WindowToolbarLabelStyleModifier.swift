@@ -8,7 +8,7 @@
 
 import Foundation
 
-@MainActor @preconcurrency public struct WindowToolbarLabelStyleModifier : SceneModifier {
+public struct WindowToolbarLabelStyleModifier : SceneModifier {
 
     // MARK: - Type Alias.
 
@@ -16,7 +16,7 @@ import Foundation
 
     // MARK: - Property(ies).
 
-    var data: Data
+    nonisolated(unsafe) var data: Data
 
     // MARK: - Constructor(s).
 
@@ -33,13 +33,26 @@ import Foundation
     // MARK: - Static Function(s).
 
     public static func _makeScene(modifier: _GraphValue<WindowToolbarLabelStyleModifier>, inputs: _SceneInputs) -> _SceneOutputs {
-        inputs
+        var outputs = _SceneOutputs(inputs: inputs)
+        switch modifier.value.data {
+        case .fixed(let style):
+            outputs.toolbarLabelStyle = style
+        case .variable(let style):
+            outputs.toolbarLabelStyle = style.wrappedValue
+        }
+        return outputs
     }
 }
 
 extension WindowToolbarLabelStyleModifier {
+
+    /// A type that describes the label style to apply to a window's toolbar.
     enum Data {
+
+        /// A fixed label style.
         case fixed(ToolbarLabelStyle)
+
+        /// A variable label style, that can be updated at runtime.
         case variable(Binding<ToolbarLabelStyle>)
     }
 }

@@ -1,4 +1,5 @@
 import Foundation
+import OpenSpatial
 
 public struct WindowDefaultsPositionModifier : @MainActor SceneModifier {
     
@@ -21,6 +22,12 @@ public struct WindowDefaultsPositionModifier : @MainActor SceneModifier {
     // MARK: - Static Function(s).
     
     public static func _makeScene(modifier: _GraphValue<WindowDefaultsPositionModifier>, inputs: _SceneInputs) -> _SceneOutputs {
-        fatalError("not implemented yet")
+        var outputs = _SceneOutputs(inputs: inputs)
+        outputs.placement = WindowPlacement(modifier.value.position, size: outputs.size)
+        outputs.position = Point3D(
+            x: modifier.value.position.x,
+            y: modifier.value.position.y
+        )
+        return outputs
     }
 }

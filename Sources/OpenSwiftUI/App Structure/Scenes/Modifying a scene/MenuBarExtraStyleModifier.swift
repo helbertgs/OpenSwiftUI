@@ -13,7 +13,7 @@ public struct MenuBarExtraStyleModifier<Style> : SceneModifier, Sendable where S
     
     // MARK: - Property(ies).
     
-    public let style: Style
+    nonisolated(unsafe) public let style: Style
     
     // MARK: - Constructor(s).
     
@@ -29,7 +29,7 @@ public struct MenuBarExtraStyleModifier<Style> : SceneModifier, Sendable where S
     }
     
     public static func _makeScene(modifier: _GraphValue<MenuBarExtraStyleModifier<Style>>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = inputs
+        var outputs = _SceneOutputs(inputs: inputs)
         outputs.menuBarExtraStyle = modifier.value.style
 
         return outputs

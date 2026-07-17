@@ -197,6 +197,21 @@ public struct Window<Content> : Scene where Content : View {
         self.content = content
     }
 
+    private static func resolveTitle(_ text: Text) -> String {
+        switch text.storage {
+        case .verbatim(let value):
+            value
+        case .anyTextStorage(let storage):
+            if let localized = storage as? Text.LocalizedTextStorage {
+                localized.key.key
+            } else {
+                ""
+            }
+        case .none:
+            ""
+        }
+    }
+
     // MARK: - Creating a window's representation in the OpenSwiftUI scene graph.
 
     /// Creates a window's representation in the OpenSwiftUI scene graph.
@@ -206,12 +221,11 @@ public struct Window<Content> : Scene where Content : View {
     ///   - inputs: The inputs for the scene.
     /// - Returns: The outputs for the scene.
     public static func _makeScene(scene: _GraphValue<Window<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = inputs
+        var outputs = _SceneOutputs(inputs: inputs)
         outputs.type = "\(Self.self)"
         outputs.scene = scene.value
         outputs.id = scene.value.id
-        outputs.environmentValues = inputs.environmentValues
-        outputs.title = ""
+        outputs.title = resolveTitle(scene.value.title)
         outputs.content = Content._makeView(view: .init(scene.value.content()), inputs: .init(environmentValues: inputs.environmentValues, modifiers: [], content: nil))
 
         return outputs

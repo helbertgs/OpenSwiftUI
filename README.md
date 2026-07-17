@@ -11,6 +11,10 @@
 
 Declare the user interface and behavior for your app on every platform. Open-source framework based on Apple's SwiftUI.
 
+# Contributing
+
+If you are contributing code or using an automated coding agent, see [AGENTS.md](AGENTS.md) for repository-specific workflow, scope, and validation guidance.
+
 # Overview
 
 OpenSwiftUI provides views, controls, and layout structures for declaring your app’s user interface. The framework provides event handlers for delivering taps, gestures, and other types of input to your app, and tools to manage the flow of data from your app’s models down to the views and controls that users will see and interact with.

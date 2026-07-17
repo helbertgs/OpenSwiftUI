@@ -8,7 +8,7 @@
 
 import OpenSpatial
 
-typealias MakeWindowPlacement = (_ content: WindowLayoutRoot, _ context: WindowPlacementContext) -> WindowPlacement
+typealias MakeWindowPlacement = (WindowLayoutRoot, WindowPlacementContext) -> WindowPlacement
 
 struct SceneWindowPlacementKey : EnvironmentKey {
     static var defaultValue: MakeWindowPlacement? {

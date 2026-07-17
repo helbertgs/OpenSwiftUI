@@ -8,7 +8,7 @@
 
 import Swift
 
-@MainActor @preconcurrency public struct WindowToolbarStyleModifier<Style> : SceneModifier where Style : WindowToolbarStyle {
+public struct WindowToolbarStyleModifier<Style> : SceneModifier where Style : WindowToolbarStyle {
 
     // MARK: - Type Alias.
 
@@ -16,7 +16,7 @@ import Swift
 
     // MARK: - Property(ies).
 
-    var style: Style
+    nonisolated(unsafe) var style: Style
 
     // MARK: - Constructor(s).
 
@@ -33,7 +33,7 @@ import Swift
     // MARK: - Static Function(s).
 
     public static func _makeScene(modifier: _GraphValue<WindowToolbarStyleModifier<Style>>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = inputs
+        var outputs = _SceneOutputs(inputs: inputs)
         outputs.windowToolbarStyle = modifier.value.style
 
         return outputs

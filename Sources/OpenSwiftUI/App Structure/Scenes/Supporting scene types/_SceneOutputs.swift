@@ -1,5 +1,5 @@
 //
-// App.swift
+// _SceneOutputs.swift
 // OpenSwiftUI
 //
 // Created by Helbert Gomes on Oct 11, 2023.
@@ -9,12 +9,14 @@
 import Foundation
 import OpenSpatial
 
-public typealias _SceneOutputs = _SceneData
-public typealias _SceneInputs = _SceneData
+enum WindowSizeResolutionSource {
+    case defaultRequest
+    case contentFitting
+    case runtimeResize
+}
 
 /// The outputs of a scene.
-@MainActor @preconcurrency 
-public struct _SceneData {
+public struct _SceneOutputs {
 
     // MARK: - Checking characteristics
 
@@ -46,8 +48,7 @@ public struct _SceneData {
     /// The position of the scene.
     var position: Point3D = .zero
 
-    /// The size of the scene.
-    var size: Size3D = .init(width: 900, height: 450)
+    var size: Size3D = .init(width: 900, height: 450, depth: 0)
 
     /// The ideal size of the scene.
     var idealSize: Size3D = .zero
@@ -86,6 +87,9 @@ public struct _SceneData {
     /// The environment values for the scene.
     var environmentValues: EnvironmentValues = .init()
 
+    /// The accumulated preference values produced by scene/view modifiers.
+    var preferenceValues: PreferenceValues = .init()
+
     // MARK: - Interacting with dialogs
 
     /// The icon of the dialog.
@@ -96,8 +100,17 @@ public struct _SceneData {
 
     // MARK: - Managing Hierarchical Relationships
 
-    /// The children of the scene.
+    /// The children of this scene output.
     var children: [_SceneOutputs] = []
 
     var content: _ViewOutputs? = nil
+
+    public init(inputs: _SceneInputs) {
+        if let baseOutputs = inputs.baseOutputs {
+            self = baseOutputs
+        }
+        environmentValues = inputs.environmentValues
+    }
+
+    public init() {}
 }

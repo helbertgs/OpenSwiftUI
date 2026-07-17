@@ -8,7 +8,7 @@ public struct WindowStyleModifier<Style> : Sendable, SceneModifier where Style :
 
     // MARK: - Property(ies).
 
-    package let style: Style
+    nonisolated(unsafe) package let style: Style
 
     // MARK: - Constructor(s).
 
@@ -25,7 +25,7 @@ public struct WindowStyleModifier<Style> : Sendable, SceneModifier where Style :
     // MARK: - Static Function(s).
 
     public static func _makeScene(modifier: _GraphValue<WindowStyleModifier<Style>>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = inputs
+        var outputs = _SceneOutputs(inputs: inputs)
         outputs.style = modifier.value.style
 
         return outputs

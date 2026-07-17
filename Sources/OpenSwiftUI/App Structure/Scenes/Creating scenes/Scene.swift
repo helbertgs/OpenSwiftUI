@@ -1312,7 +1312,7 @@ extension Scene {
     ///
     /// - Returns: A scene that has the specified object in its environment.
     public func environment<T>(_ object: T?) -> some Scene where T : AnyObject, T : Observable {
-        fatalError()
+        self
     }
 
     /// Supplies an `ObservableObject` to a view subhierarchy.
@@ -1342,8 +1342,9 @@ extension Scene {
     ///
     /// - Parameter object: the object to store and make available to
     ///   the scene's subhierarchy.
+    @available(*, unavailable)
     public func environmentObject<T>(_ object: T) -> some Scene where T : OpenCombine.ObservableObject {
-        fatalError()
+        self
     }
 
     /// Sets the environment value of the specified key path to the given value.

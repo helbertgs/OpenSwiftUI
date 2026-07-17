@@ -25,6 +25,6 @@ extension TransformSceneListModifier : SceneModifier {
 
     public nonisolated static func _makeScene(modifier: _GraphValue<TransformSceneListModifier>, inputs: _SceneInputs) -> _SceneOutputs {
         modifier.value.transform()
-        return inputs
+        return _SceneOutputs(inputs: inputs)
     }
 }

@@ -38,7 +38,7 @@ extension _TupleScene: Scene {
     ///   - inputs: The inputs for the scene.
     /// - Returns: The outputs of the scene.
     public static func _makeScene(scene: _GraphValue<_TupleScene<T>>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = inputs
+        var outputs = _SceneOutputs(inputs: inputs)
         outputs.type = "\(Self.self)"
         outputs.scene = scene.value
         outputs.environmentValues = inputs.environmentValues

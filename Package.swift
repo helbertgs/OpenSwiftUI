@@ -1,13 +1,7 @@
-// swift-tools-version: 6.2
+// swift-tools-version: 6.3
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
-
-#if os(macOS)
-let branch = "macos"
-#else
-let branch = "main"
-#endif
 
 let package = Package(
     name: "OpenSwiftUI",
@@ -22,7 +16,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/OpenCombine/OpenCombine.git", branch: "master"),
         .package(url: "https://github.com/helbertgs/OpenFreeType", branch: "main"),
-        .package(url: "https://github.com/helbertgs/OpenGLAD", branch: branch),
+        .package(url: "https://github.com/helbertgs/OpenGLAD", branch: "main"),
         .package(url: "https://github.com/helbertgs/OpenGLFW", branch: "main"),
         .package(url: "https://github.com/helbertgs/OpenSpatial", branch: "main"),
         .package(url: "https://github.com/helbertgs/OpenSTB", branch: "main"),
@@ -40,6 +34,10 @@ let package = Package(
                 .product(name: "OpenSpatial", package: "OpenSpatial"),
                 .product(name: "OpenSTB", package: "OpenSTB"),
             ]
+        ),
+        .testTarget(
+            name: "OpenSwiftUITests",
+            dependencies: ["OpenSwiftUI"]
         ),
         .executableTarget(
             name: "OpenSwiftUISample",

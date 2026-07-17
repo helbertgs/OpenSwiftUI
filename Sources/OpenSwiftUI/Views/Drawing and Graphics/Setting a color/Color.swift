@@ -279,7 +279,7 @@ public struct Color: Copyable, CustomStringConvertible, Equatable, Hashable, Sen
 extension Color {
 
     /// A profile that specifies how to interpret a color value for display.
-    public enum RGBColorSpace: Equatable, Hashable {
+    public enum RGBColorSpace: Equatable, Hashable, Sendable {
 
         // MARK: - Case(s).
         /// The extended red, green, blue (sRGB) color space.
@@ -310,46 +310,11 @@ extension Color {
         /// (DCI-P3) primary colors, a D65 white point, and the ``sRGB``
         /// transfer function.
         case displayP3
-
-        // MARK: - Hashable.
-        /// Hashes the essential components of this value by feeding them into the
-        /// given hasher.
-        ///
-        /// Implement this method to conform to the `Hashable` protocol. The
-        /// components used for hashing must be the same as the components compared
-        /// in your type's `==` operator implementation. Call `hasher.combine(_:)`
-        /// with each of these components.
-        ///
-        /// - Important: Never call `finalize()` on `hasher`. Doing so may become a
-        ///   compile-time error in the future.
-        ///
-        /// - Parameter hasher: The hasher to use when combining the components
-        ///   of this instance.
-        public func hash(into hasher: inout Hasher) {
-            hasher = .init()
-        }
-
-        // MARK: - Equatable.
-        /// Returns a Boolean value indicating whether two values are equal.
-        ///
-        /// Equality is the inverse of inequality. For any values `a` and `b`,
-        /// `a == b` implies that `a != b` is `false`.
-        ///
-        /// - Parameters:
-        ///   - lhs: A value to compare.
-        ///   - rhs: Another value to compare.
-        public static func == (lhs: Color.RGBColorSpace, rhs: Color.RGBColorSpace) -> Bool {
-            switch (lhs, rhs) {
-                case (.sRGB, .sRGB): return true
-                case (.sRGBLinear, .sRGBLinear): return true
-                case (.displayP3, .displayP3): return true
-                default: return false
-            }
-        }
     }
 }
 
 extension Color {
+
     class AnyColorBox : Equatable, Hashable, @unchecked Sendable {
 
         // MARK: - Hashable.

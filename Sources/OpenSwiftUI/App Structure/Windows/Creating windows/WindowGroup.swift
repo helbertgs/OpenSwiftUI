@@ -136,6 +136,13 @@ import Foundation
 
 extension WindowGroup {
     public static func _makeScene(scene: _GraphValue<WindowGroup<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
-        fatalError("not implemented yet")
+        var outputs = _SceneOutputs(inputs: inputs)
+        outputs.type = "\(Self.self)"
+        outputs.scene = scene.value
+        outputs.id = scene.value.id
+        outputs.title = scene.value.title
+        outputs.content = Content._makeView(view: .init(scene.value.content), inputs: .init(environmentValues: inputs.environmentValues, modifiers: [], content: nil))
+
+        return outputs
     }
 }

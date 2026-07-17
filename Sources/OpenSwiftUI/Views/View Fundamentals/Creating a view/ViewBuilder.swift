@@ -34,8 +34,9 @@ import Foundation
 @resultBuilder public struct ViewBuilder {
 
     // MARK: - Static Function(s).
+
     /// Builds an empty view from a block containing no statements.
-    public static func buildBlock() -> EmptyView {
+    @MainActor public static func buildBlock() -> EmptyView {
         EmptyView()
     }
 

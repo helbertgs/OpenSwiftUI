@@ -27,8 +27,11 @@ bazel-*
 *.xcodeproj
 
 # Others
-
 .DS_Store
 
 # Visual Studio Code
 .vscode/
+
+# AI Agents
+.agents/
+AGENTS.md
