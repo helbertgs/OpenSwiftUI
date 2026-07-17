@@ -38,7 +38,7 @@ let package = Package(
                 .product(name: "OpenSTB", package: "OpenSTB"),
             ],
             plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")
+                // .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")
             ]
         ),
         .testTarget(
@@ -52,7 +52,7 @@ let package = Package(
                 .unsafeFlags([ "-parse-as-library" ])
             ],
             plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")
+                // .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")
             ]
         )
     ]
