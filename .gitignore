@@ -34,4 +34,5 @@ bazel-*
 
 # AI Agents
 .agents/
+.claude/
 AGENTS.md
