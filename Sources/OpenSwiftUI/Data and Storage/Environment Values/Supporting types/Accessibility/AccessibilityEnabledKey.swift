@@ -1,3 +1,11 @@
+//
+// AccessibilityEnabledKey.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Oct 13, 2023.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import Swift
 
 @frozen public struct AccessibilityEnabledKey : EnvironmentKey {

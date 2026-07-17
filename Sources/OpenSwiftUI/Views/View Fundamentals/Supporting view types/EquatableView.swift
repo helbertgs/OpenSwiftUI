@@ -1,3 +1,11 @@
+//
+// EquatableView.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Apr 22, 2022.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import Foundation
 
 /// A view type that compares itself against its previous value and prevents its

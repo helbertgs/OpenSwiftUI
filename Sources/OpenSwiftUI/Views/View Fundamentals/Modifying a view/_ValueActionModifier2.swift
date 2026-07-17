@@ -1,3 +1,11 @@
+//
+// _ValueActionModifier2.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Dec 22, 2023.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import Foundation
 
 @frozen

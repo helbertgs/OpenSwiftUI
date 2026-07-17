@@ -1,3 +1,11 @@
+//
+// AccessibilityActionKind.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Sep 18, 2024.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import Foundation
 
 /// The structure that defines the kinds of available accessibility actions.

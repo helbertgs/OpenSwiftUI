@@ -1,3 +1,11 @@
+//
+// Layout.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Jan 27, 2024.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import Swift
 
 /// A type that defines the geometry of a collection of views.

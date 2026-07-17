@@ -1,3 +1,11 @@
+//
+// Point.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on May 10, 2022.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import Swift
 
 /// A structure that contains a point in a two-dimensional coordinate system.

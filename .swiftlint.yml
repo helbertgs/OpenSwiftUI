@@ -1,54 +1,54 @@
-excluded:
-  - Package.swift
-  - Tests
-  - .build/
+# excluded:
+#   - Package.swift
+#   - Tests
+#   - .build/
 
-included:
-  - Sources
+# included:
+#   - Sources
 
-disabled_rules:
-  - block_based_kvo
-  - class_delegate_protocol
-  - colon
-  - cyclomatic_complexity
-  - explicit_enum_raw_value
-  - force_cast
-  - force_try
-  - force_unwrapping
-  - function_body_length
-  - function_parameter_count
-  - generic_type_name
-  - identifier_name
-  - large_tuple
-  - nesting
-  - opening_brace
-  - redundant_string_enum_value
-  - switch_case_on_newline
-  - switch_case_alignment
-  - trailing_comma
-  - type_body_length
-  - type_name
+# disabled_rules:
+#   - block_based_kvo
+#   - class_delegate_protocol
+#   - colon
+#   - cyclomatic_complexity
+#   - explicit_enum_raw_value
+#   - force_cast
+#   - force_try
+#   - force_unwrapping
+#   - function_body_length
+#   - function_parameter_count
+#   - generic_type_name
+#   - identifier_name
+#   - large_tuple
+#   - nesting
+#   - opening_brace
+#   - redundant_string_enum_value
+#   - switch_case_on_newline
+#   - switch_case_alignment
+#   - trailing_comma
+#   - type_body_length
+#   - type_name
   
-implicit_return:
-  included: 
-    - closure
+# implicit_return:
+#   included: 
+#     - closure
 
-file_length:
-  warning: 400
-  error: 1000
-  ignore_comment_only_lines: true
+# file_length:
+#   warning: 400
+#   error: 1000
+#   ignore_comment_only_lines: true
 
-line_length:
-  warning: 150
-  error: 160
-  ignores_urls: true
-  ignores_comments: true
-  ignores_function_declarations: true
+# line_length:
+#   warning: 150
+#   error: 160
+#   ignores_urls: true
+#   ignores_comments: true
+#   ignores_function_declarations: true
 
-generic_type_name:
-  min_length: 2
+# generic_type_name:
+#   min_length: 2
 
-attributes:
-  always_on_line_above:
-    - "@usableFromInline"
-    - "@inlinable"
+# attributes:
+#   always_on_line_above:
+#     - "@usableFromInline"
+#     - "@inlinable"

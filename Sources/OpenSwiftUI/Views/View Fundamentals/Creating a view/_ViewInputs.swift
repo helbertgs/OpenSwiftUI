@@ -1,3 +1,11 @@
+//
+// _ViewInputs.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Jun 26, 2022.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import Swift
 
 public struct _ViewInputs {

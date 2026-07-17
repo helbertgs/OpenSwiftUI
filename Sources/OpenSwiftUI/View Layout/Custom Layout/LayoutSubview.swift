@@ -1,3 +1,11 @@
+//
+// LayoutSubview.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Jan 27, 2024.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 /// A proxy that represents one subview of a layout.
 ///
 /// This type acts as a proxy for a view that your custom layout container

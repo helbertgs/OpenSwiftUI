@@ -1,3 +1,11 @@
+//
+// UserInterfaceSizeClass.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Apr 21, 2022.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import Foundation
 
 /// A set of values that indicate the visual size available to the view.

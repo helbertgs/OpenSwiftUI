@@ -20,7 +20,10 @@ let package = Package(
         .package(url: "https://github.com/helbertgs/OpenGLFW", branch: "main"),
         .package(url: "https://github.com/helbertgs/OpenSpatial", branch: "main"),
         .package(url: "https://github.com/helbertgs/OpenSTB", branch: "main"),
+
         .package(url: "https://github.com/swiftlang/swift-docc-plugin", from: "1.1.0"),
+        .package(url: "https://github.com/realm/SwiftLint.git", from: "0.54.0"),
+        .package(url: "https://github.com/nicklockwood/SwiftFormat.git", from: "0.53.0"),
     ],
     targets: [
         .target(
@@ -33,6 +36,9 @@ let package = Package(
                 .product(name: "OpenHarfBuzz", package: "OpenFreeType"),
                 .product(name: "OpenSpatial", package: "OpenSpatial"),
                 .product(name: "OpenSTB", package: "OpenSTB"),
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")
             ]
         ),
         .testTarget(
@@ -44,6 +50,9 @@ let package = Package(
             dependencies: ["OpenSwiftUI"],
             swiftSettings: [
                 .unsafeFlags([ "-parse-as-library" ])
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")
             ]
         )
     ]

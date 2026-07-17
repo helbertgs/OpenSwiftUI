@@ -1,3 +1,11 @@
+//
+// Widget.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on May 10, 2022.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import Swift
 
 /// The configuration and content of a widget to display on the Home screen or in Notification Center.

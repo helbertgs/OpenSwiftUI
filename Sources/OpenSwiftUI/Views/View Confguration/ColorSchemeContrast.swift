@@ -1,3 +1,11 @@
+//
+// ColorSchemeContrast.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Apr 21, 2022.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import Foundation
 
 /// The contrast between the app's foreground and background colors.

@@ -1,3 +1,11 @@
+//
+// Axis.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on May 11, 2022.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import Swift
 
 /// The horizontal or vertical dimension in a 2D coordinate system.

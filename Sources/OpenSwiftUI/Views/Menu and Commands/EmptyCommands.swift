@@ -1,3 +1,11 @@
+//
+// EmptyCommands.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Apr 21, 2022.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import Swift
 
 public struct EmptyCommands : Commands {

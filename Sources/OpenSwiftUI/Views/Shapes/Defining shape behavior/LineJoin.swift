@@ -1,3 +1,11 @@
+//
+// LineJoin.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Jan 01, 2026.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import Foundation
 
 /// Junction types for stroked lines.

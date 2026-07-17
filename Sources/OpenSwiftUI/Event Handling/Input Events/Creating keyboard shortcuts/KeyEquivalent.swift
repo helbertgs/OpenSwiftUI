@@ -1,3 +1,11 @@
+//
+// KeyEquivalent.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Dec 22, 2023.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import Swift
 
 /// Key equivalents consist of a letter, punctuation, or function key that can

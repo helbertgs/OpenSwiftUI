@@ -1,3 +1,11 @@
+//
+// CommandsRemovedModifier.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Oct 01, 2025.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import Foundation
 
 @frozen

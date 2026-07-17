@@ -1,3 +1,11 @@
+//
+// OpenURLActionKey.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Oct 15, 2023.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+
 import Swift
 
 @frozen public struct OpenURLActionKey : EnvironmentKey {
