@@ -29,8 +29,6 @@ public struct WindowResizabilityModifier : @MainActor SceneModifier {
     }
 
     public static func _makeScene(modifier: _GraphValue<WindowResizabilityModifier>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = _SceneOutputs(inputs: inputs)
-        outputs.resizability = modifier.value.resizability
-        return outputs
+        fatalError()
     }
 }

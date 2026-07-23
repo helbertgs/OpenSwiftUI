@@ -8,18 +8,31 @@
 
 import Swift
 
-@frozen public struct Transaction {
+/// The context of the current state-processing update.
+/// 
+/// Use a transaction to pass an animation between views in a view hierarchy.
+/// The root transaction for a state change comes from the binding that changed, plus any global values set by calling `withTransaction(_:_:)` or `withAnimation(_:_:)`.
+public struct Transaction {
     
-    // MARK: - Property(ies).
+    // MARK: - Managing animations
     
-    @usableFromInline var animation: Animation?
-    @usableFromInline var disableAnimations: Bool
+    var plist: PropertyList
     
-    // MARK: - Constructor(s).
-    
-    @inlinable public init(animation: Animation? = nil, disableAnimations: Bool = false) {
-        self.animation = animation
-        self.disableAnimations = disableAnimations
-    }
-}
+    // MARK: - Creating a transaction
 
+    public init() {
+        plist = PropertyList()
+    }
+
+    init(plist: PropertyList) {
+        self.plist = plist
+    }
+
+    /// Accesses the value for the given `TransactionKey`.
+    public subscript<K: TransactionKey>(key: K.Type) -> K.Value {
+        get { plist[key] }
+        set { plist[key] = newValue }
+    }
+
+    var isEmpty: Bool { plist.isEmpty }
+}

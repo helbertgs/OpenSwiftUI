@@ -52,13 +52,20 @@ import Foundation
 ///
 /// Whenever the user taps the `PlayButton`, the `PlayerView` updates its
 /// `isPlaying` state.
-@frozen @propertyWrapper @dynamicMemberLookup public struct Binding<Value> : DynamicProperty {
+@MainActor 
+@propertyWrapper 
+@dynamicMemberLookup 
+public struct Binding<Value> : DynamicProperty {
 
     // MARK: - Private Property(ies).
 
-    @usableFromInline var getter: () -> Value
-    @usableFromInline var setter: (Value, Transaction) -> Void
-    @usableFromInline var transaction: Transaction
+    /// The getter closure.
+    private let getter:  @MainActor  () -> Value
+
+    /// /// The setter closure.
+    private let setter:  @MainActor  (Value, Transaction) -> Void
+
+    private let transaction: Transaction
 
     // MARK: - Public Property(ies).
 
@@ -180,10 +187,10 @@ import Foundation
     ///   - set: A closure that sets the binding value. The closure has the
     ///     following parameter:
     ///       - newValue: The new value of the binding value.
-    public init(get: @escaping () -> Value, set: @escaping (Value) -> Void) {
+    public init(get: @MainActor @escaping () -> Value, set: @MainActor @escaping (Value) -> Void) {
         self.getter = get
         self.setter = { value, _ in set(value) }
-        self.transaction = .init(animation: nil)
+        self.transaction = .init()
     }
 
     // MARK: - Static Function(s).
@@ -203,84 +210,4 @@ import Foundation
             get: { value },
             set: { _ in })
     }
-}
-
-// extension Binding : Identifiable where Value : Identifiable {
-
-//     // /// A type representing the stable identity of the entity associated with
-//     // /// an instance.
-//     // public typealias ID = Value.ID
-
-//     /// The stable identity of the entity associated with this instance,
-//     /// corresponding to the `id` of the binding's wrapped value.
-//     public var id: Value.ID {
-//         wrappedValue.id
-//     }
-// }
-
-extension Binding {
-
-    /// Specifies a transaction for the binding.
-    ///
-    /// - Parameter transaction  : An instance of a ``Transaction``.
-    ///
-    /// - Returns: A new binding.
-    public func transaction(_ transaction: Transaction) -> Binding<Value> {
-        var binding = self
-        binding.transaction = transaction
-        
-        return binding
-    }
-
-    /// Specifies an animation to perform when the binding value changes.
-    ///
-    /// - Parameter animation: An animation sequence performed when the binding
-    ///   value changes.
-    ///
-    /// - Returns: A new binding.
-    public func animation(_ animation: Animation? = .default) -> Binding<Value> {
-        self.transaction(.init(animation: animation))
-    }
-}
-
-extension Binding : Sequence where Value : MutableCollection {
-    public typealias Element = Binding<Value.Element>
-    public typealias Iterator = IndexingIterator<Binding<Value>>
-    public typealias SubSequence = Slice<Binding<Value>>
-}
-
-extension Binding: Collection where Value: MutableCollection {
-  public typealias Index = Value.Index
-  public typealias Indices = Value.Indices
-  public var startIndex: Binding<Value>.Index { wrappedValue.startIndex }
-  public var endIndex: Binding<Value>.Index { wrappedValue.endIndex }
-  public var indices: Value.Indices { wrappedValue.indices }
-
-  public func index(after i: Binding<Value>.Index) -> Binding<Value>.Index {
-    wrappedValue.index(after: i)
-  }
-
-  public func formIndex(after i: inout Binding<Value>.Index) {
-    wrappedValue.formIndex(after: &i)
-  }
-
-    public subscript(position: Binding<Value>.Index) -> Binding<Value>.Element {
-        Binding<Value.Element>(
-            get: { self.wrappedValue[position] },
-            set: { self.wrappedValue[position] = $0 }
-        )
-  }
-}
-
-extension Binding: BidirectionalCollection where Value: BidirectionalCollection, Value: MutableCollection {
-  public func index(before i: Binding<Value>.Index) -> Binding<Value>.Index {
-    wrappedValue.index(before: i)
-  }
-
-  public func formIndex(before i: inout Binding<Value>.Index) {
-    wrappedValue.formIndex(before: &i)
-  }
-}
-
-extension Binding: RandomAccessCollection where Value: MutableCollection, Value: RandomAccessCollection {
 }

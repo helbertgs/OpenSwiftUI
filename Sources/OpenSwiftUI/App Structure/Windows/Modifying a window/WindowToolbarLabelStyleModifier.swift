@@ -33,14 +33,7 @@ public struct WindowToolbarLabelStyleModifier : SceneModifier {
     // MARK: - Static Function(s).
 
     public static func _makeScene(modifier: _GraphValue<WindowToolbarLabelStyleModifier>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = _SceneOutputs(inputs: inputs)
-        switch modifier.value.data {
-        case .fixed(let style):
-            outputs.toolbarLabelStyle = style
-        case .variable(let style):
-            outputs.toolbarLabelStyle = style.wrappedValue
-        }
-        return outputs
+        fatalError()
     }
 }
 

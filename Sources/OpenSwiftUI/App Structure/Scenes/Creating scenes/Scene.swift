@@ -87,7 +87,8 @@ import OpenSpatial
 ///         // `nonisolated` by default
 ///     }
 ///
-@MainActor @preconcurrency public protocol Scene {
+@MainActor
+public protocol Scene {
 
     // MARK: - Creating a scene
 
@@ -107,14 +108,15 @@ import OpenSpatial
     ///
     /// Swift infers the scene's ``OpenSwiftUI/Scene/Body-swift.associatedtype``
     /// associated type based on the contents of the `body` property.
-    @SceneBuilder @MainActor @preconcurrency var body: Self.Body { get }
+    @SceneBuilder var body: Self.Body { get }
 
-    /// Creates the scene's representation in the OpenSwiftUI scene graph.
-    ///
+    /// Builds the scene, producing its view graph and window metadata.
+    /// 
     /// - Parameters:
-    ///   - scene: The scene to create.
-    ///   - inputs: The inputs for the scene.
-    @MainActor @preconcurrency static func _makeScene(scene: _GraphValue<Self>, inputs: _SceneInputs) -> _SceneOutputs
+    ///   - scene: The graph value wrapping the scene.
+    ///   - inputs: The scene inputs propagated from the app graph.
+    /// - Returns: The scene outputs.
+    static func _makeScene(scene: _GraphValue<Self>, inputs: _SceneInputs) -> _SceneOutputs
 }
 
 extension Scene {
@@ -656,11 +658,7 @@ extension Scene {
     /// - Returns: A scene that uses a default position for new windows.
     public func defaultPosition(_ position: UnitPoint) -> some Scene {
         modifier(
-            TransformSceneListModifier({
-                Application
-                    .shared
-                    .globalEnvironmentValues[keyPath: \.defaultScenePosition] = position
-            })
+            TransformSceneListModifier()
         )
     }
 
@@ -710,11 +708,7 @@ extension Scene {
     /// - Returns: A scene that uses a default size for new windows.
     public func defaultSize(_ size: Size3D) -> some Scene {
         modifier(
-            TransformSceneListModifier({
-                Application
-                    .shared
-                    .globalEnvironmentValues[keyPath: \.defaultSceneSize] = size
-            })
+            TransformSceneListModifier()
         )
     }
 
@@ -766,15 +760,7 @@ extension Scene {
     /// - Returns: A scene that uses a default size for new windows.
     public func defaultSize(_ width: Double, _ height: Double, _ depth: Double = 0) -> some Scene {
         modifier(
-            TransformSceneListModifier({
-                Application
-                    .shared
-                    .globalEnvironmentValues[keyPath: \.defaultSceneSize] = .init(
-                        width: width, 
-                        height: height, 
-                        depth: depth
-                    )
-            })
+            TransformSceneListModifier()
         )
     }
 
@@ -858,11 +844,7 @@ extension Scene {
     ///     contextual information used to size and position windows.
     public func defaultWindowPlacement(_ makePlacement: @escaping (_ content: WindowLayoutRoot, _ context: WindowPlacementContext) -> WindowPlacement) -> some Scene {
         modifier(
-            TransformSceneListModifier({
-                Application
-                    .shared
-                    .globalEnvironmentValues[keyPath: \.defaultSceneWindowPlacement] = makePlacement
-            })
+            TransformSceneListModifier()
         )
     }
 
@@ -934,11 +916,7 @@ extension Scene {
     ///   this scene should size themselves when zooming.
     public func windowIdealSize(_ idealSize: WindowIdealSize) -> some Scene {
         modifier(
-            TransformSceneListModifier({
-                Application
-                    .shared
-                    .globalEnvironmentValues[keyPath: \.defaultSceneIdealSize] = idealSize
-            })
+            TransformSceneListModifier()
         )
     }
 
@@ -978,11 +956,7 @@ extension Scene {
     ///     contextual information used to size and position windows.
     public func windowIdealPlacement(_ makePlacement: @escaping (_ content: WindowLayoutRoot, _ context: WindowPlacementContext) -> WindowPlacement) -> some Scene {
         modifier(
-            TransformSceneListModifier({
-                Application
-                    .shared
-                    .globalEnvironmentValues[keyPath: \.defaultSceneWindowIdealPlacement] = makePlacement
-            })
+            TransformSceneListModifier()
         )
     }
 
@@ -1013,11 +987,7 @@ extension Scene {
     ///
     public func windowManagerRole(_ role: WindowManagerRole) -> some Scene {
         modifier(
-            TransformSceneListModifier({
-                Application
-                    .shared
-                    .globalEnvironmentValues[keyPath: \.windowManagerRole] = role
-            })
+            TransformSceneListModifier()
         )
     }
 }
@@ -1077,11 +1047,7 @@ extension Scene {
     /// and no other scenes have presented themselves.
     public func defaultLaunchBehavior(_ behavior: SceneLaunchBehavior) -> some Scene {
         modifier(
-            TransformSceneListModifier({
-                Application
-                    .shared
-                    .globalEnvironmentValues[keyPath: \.sceneLaunchBehavior] = behavior
-            })
+            TransformSceneListModifier()
         )
     }
 
@@ -1112,11 +1078,7 @@ extension Scene {
     /// restore themselves depending on the default behavior for the platform.
     public func restorationBehavior(_ behavior: SceneRestorationBehavior) -> some Scene {
         modifier(
-            TransformSceneListModifier({
-                Application
-                    .shared
-                    .globalEnvironmentValues[keyPath: \.sceneRestorationBehavior] = behavior
-            })
+            TransformSceneListModifier()
         )
     }
 
@@ -1154,11 +1116,7 @@ extension Scene {
     /// non-transient system views overlaying the app.
     public func persistentSystemOverlays(_ preferredVisibility: Visibility) -> some Scene{
         modifier(
-            TransformSceneListModifier({
-                Application
-                    .shared
-                    .globalEnvironmentValues[keyPath: \.defaultPersistentSystemOverlays] = preferredVisibility
-            })
+            TransformSceneListModifier()
         )
     }
 }
@@ -1186,11 +1144,7 @@ extension Scene {
     /// - Parameter level: The desired window level
     public func windowLevel(_ level: WindowLevel) -> some Scene {
         modifier(
-            TransformSceneListModifier({
-                Application
-                    .shared
-                    .globalEnvironmentValues[keyPath: \.defaulScenetWindowLevel] = level
-            })
+            TransformSceneListModifier()
         )
     }
 
@@ -1697,18 +1651,31 @@ extension Scene {
 }
 
 extension Scene {
-    nonisolated package func modifier<T>(_ modifier: T) -> ModifiedContent<Self, T> {
+    func modifier<T>(_ modifier: T) -> ModifiedContent<Self, T> {
         .init(content: self, modifier: modifier)
     }
 }
 
 extension Scene {
-    @MainActor @preconcurrency
+
+    /// Builds the scene, producing its view graph and window metadata.
+    /// 
+    /// - Parameters:
+    ///   - scene: The graph value wrapping the scene.
+    ///   - inputs: The scene inputs propagated from the app graph.
+    /// - Returns: The scene outputs.
     public static func _makeScene(scene: _GraphValue<Self>, inputs: _SceneInputs) -> _SceneOutputs {
-        guard Self.Body.self != Never.self else {
-            fatalError("Unsupported scene type \(Self.self)")
+        guard Body.self != Never.self else {
+            fatalError("\(Self.self) must implement _makeScene directly (Body == Never)")
+        }
+        guard let graph = _GraphContext.current else {
+            fatalError("_makeScene called outside of _GraphContext.withGraph")
         }
 
-        return Self.Body._makeScene(scene: _GraphValue(scene.value.body), inputs: inputs)
+        let base = graph.rule(name: "\(Self.self).body") {
+            scene.value.body
+        }
+
+        return Body._makeScene(scene: _GraphValue(base: base), inputs: inputs)
     }
 }

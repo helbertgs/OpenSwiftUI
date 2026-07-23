@@ -15,10 +15,17 @@ enum WindowSizeResolutionSource {
     case runtimeResize
 }
 
-/// The outputs of a scene.
+/// The result of `_makeScene`, containing the scene's view graph and window metadata.
+///
+/// The `AppGraph` uses these outputs to register the `ViewGraph` in its list of
+/// active graphs, pass the `ViewGraph` to the `Application` for rendering,
+/// and propagate future environment and `ScenePhase` changes.
 public struct _SceneOutputs {
 
     // MARK: - Checking characteristics
+
+    /// The view graph built by the scene.
+    var viewGraph: ViewGraph
 
     /// The identifier of the scene.
     var id: String = UUID().uuidString
@@ -54,7 +61,7 @@ public struct _SceneOutputs {
     var idealSize: Size3D = .zero
 
     /// The placement of the scene.
-    var placement: WindowPlacement = .init()
+   var placement: WindowPlacement = .init()
 
     /// The resizability of the scene.
     var resizability: WindowResizability = .contentSize
@@ -102,15 +109,4 @@ public struct _SceneOutputs {
 
     /// The children of this scene output.
     var children: [_SceneOutputs] = []
-
-    var content: _ViewOutputs? = nil
-
-    public init(inputs: _SceneInputs) {
-        if let baseOutputs = inputs.baseOutputs {
-            self = baseOutputs
-        }
-        environmentValues = inputs.environmentValues
-    }
-
-    public init() {}
 }

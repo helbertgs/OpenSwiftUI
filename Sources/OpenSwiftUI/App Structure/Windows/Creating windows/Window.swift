@@ -118,13 +118,13 @@ public struct Window<Content> : Scene where Content : View {
     // MARK: - Checking characteristics.
 
     /// The content of the window.
-    package let content: () -> Content
+    public let content: () -> Content
 
     /// The title of the window.
-    package let title: Text
+    public let title: Text
 
     /// The identifier of the window.
-    package let id: String
+    public let id: String
 
     /// The content and behavior of the scene.
     ///
@@ -221,13 +221,6 @@ public struct Window<Content> : Scene where Content : View {
     ///   - inputs: The inputs for the scene.
     /// - Returns: The outputs for the scene.
     public static func _makeScene(scene: _GraphValue<Window<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = _SceneOutputs(inputs: inputs)
-        outputs.type = "\(Self.self)"
-        outputs.scene = scene.value
-        outputs.id = scene.value.id
-        outputs.title = resolveTitle(scene.value.title)
-        outputs.content = Content._makeView(view: .init(scene.value.content()), inputs: .init(environmentValues: inputs.environmentValues, modifiers: [], content: nil))
-
-        return outputs
+        fatalError("not implemented yet")
     }
 }

@@ -1880,14 +1880,8 @@ extension Text : View {
         fatalError("not implemented yet")
     }
 
-    nonisolated public static func _makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs {
-        var outputs = _ViewOutputs()
-        outputs.type = Self.self
-        outputs.environmentValues = inputs.environmentValues
-        outputs.content = view.value
-        outputs.view = view.value
-
-        return outputs
+    nonisolated public static func _makeView(view: _GraphValue<Text>, inputs: _ViewInputs) -> _ViewOutputs {
+        .init()
     }
 }
 
@@ -1926,5 +1920,22 @@ extension Text {
 extension Text {
     static func + (lhs: Text, rhs: Text) -> Text {
         fatalError("not implemented yet")
+    }
+}
+
+extension Text {
+    func _resolveTitle() -> String {
+        switch storage {
+        case .verbatim(let value):
+            value
+        case .anyTextStorage(let storage):
+            if let localized = storage as? Text.LocalizedTextStorage {
+                localized.key.key
+            } else {
+                ""
+            }
+        case .none:
+            ""
+        }
     }
 }

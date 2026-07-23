@@ -44,3 +44,48 @@ extension PreferenceKey where Self.Value : ExpressibleByNilLiteral {
     /// Let nil-expressible values default-initialize to nil.
     public static var defaultValue: Self.Value { nil }
 }
+
+/// A type-erased preference entry stored in a `PreferenceStore`.
+@MainActor
+protocol _AnyPreferenceEntry {
+
+    /// The object-identity key of the underlying preference key type.
+    var key: ObjectIdentifier { get }
+
+    /// Reduces this entry into another entry of the same key type.
+    /// - Parameter other: The entry to reduce into, modified in place.
+    func reduce(into other: inout _AnyPreferenceEntry)
+
+    /// Returns the stored value as `Any`.
+    /// - Returns: The type-erased stored value.
+    func asAny() -> Any
+}
+
+/// A concrete, type-safe preference entry for a specific `PreferenceKey`.
+@MainActor
+final class _PreferenceEntry<K: PreferenceKey>: _AnyPreferenceEntry {
+
+    /// The stored preference value.
+    var value: K.Value
+
+    /// Creates an entry wrapping the given value.
+    /// - Parameter value: The preference value to store.
+    init(_ value: K.Value) { self.value = value }
+
+    /// The object-identity key of the preference key type.
+    var key: ObjectIdentifier { ObjectIdentifier(K.self) }
+
+    /// Reduces this entry's value into another entry of the same key type.
+    /// 
+    /// - Parameter other: The entry to reduce into, modified in place.
+    func reduce(into other: inout _AnyPreferenceEntry) {
+        guard let typed = other as? _PreferenceEntry<K> else { return }
+        let captured = value
+        K.reduce(value: &typed.value) { captured }
+    }
+
+    /// Returns the stored value as `Any`.
+    /// 
+    /// - Returns: The type-erased stored value.
+    func asAny() -> Any { value }
+}

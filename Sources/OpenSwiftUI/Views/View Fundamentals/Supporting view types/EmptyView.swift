@@ -46,11 +46,6 @@ import Swift
     // MARK: - Static Function(s).
 
     nonisolated public static func _makeView(view: _GraphValue<EmptyView>, inputs: _ViewInputs) -> _ViewOutputs {
-        var outputs = _ViewOutputs()
-        outputs.type = Self.self
-        outputs.environmentValues = inputs.environmentValues
-        outputs.content = view.value
-
-        return outputs
+        .init()
     }
 }

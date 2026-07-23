@@ -68,13 +68,7 @@ import Foundation
     }
 
     public static func _makeView(view: _GraphValue<VStack<Content>>, inputs: _ViewInputs) -> _ViewOutputs {
-        var outputs = _ViewOutputs()
-        outputs.type = Self.self
-        outputs.content = view.value.content
-        outputs.view = view.value
-        outputs.children = Content._makeView(view: .init(view.value.content), inputs: inputs).children
-
-        return outputs
+        .init()
     }
 }
 

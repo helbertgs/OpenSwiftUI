@@ -107,7 +107,6 @@ import Foundation
     func makeKeyAndOrderFront(_ sender: Any?) {
         makeKey()
         orderFront(sender)
-        Application.shared.start()
     }
 
     /// Informs the window that it has become the key window.
@@ -177,11 +176,6 @@ import Foundation
         
         if isShouldClose {
             destroy()
-            Application.shared.unregisterWindow(self)
-
-            if Application.shared.windows.isEmpty {
-                Application.shared.terminate()
-            }
         }
     }
 

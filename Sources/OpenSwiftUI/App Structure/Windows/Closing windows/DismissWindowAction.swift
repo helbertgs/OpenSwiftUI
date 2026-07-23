@@ -44,7 +44,11 @@ import Foundation
 ///
 /// If the window was opened with ``EnvironmentValues/pushWindow``, the original
 /// presenting will reappear when this action is performed.
-@MainActor @preconcurrency public struct DismissWindowAction : Equatable {
+@MainActor
+public struct DismissWindowAction {
+
+     /// The action to perform when the window is closed.
+    let action: @MainActor @Sendable (String) -> Void
 
     /// Dismisses the current window.
     ///
@@ -57,7 +61,7 @@ import Foundation
     /// simplify call site syntax, see
     /// [Methods with Special Names](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/declarations#Methods-with-Special-Names)
     /// in *The Swift Programming Language*.
-    @MainActor @preconcurrency public func callAsFunction() {
+    @MainActor public func callAsFunction() {
         fatalError("not implemented yet")
     }
 
@@ -79,7 +83,7 @@ import Foundation
     /// in *The Swift Programming Language*.
     ///
     /// - Parameter id: The identifier of the scene to dismiss.
-    @MainActor @preconcurrency public func callAsFunction(id: String) {
+    @MainActor public func callAsFunction(id: String) {
         fatalError("not implemented yet")
     }
 
@@ -103,7 +107,7 @@ import Foundation
     ///
     /// - Parameters:
     ///   - value: The value which is currently presented.
-    @MainActor @preconcurrency public func callAsFunction<D>(value: D) where D : Decodable, D : Encodable, D : Hashable {
+    @MainActor public func callAsFunction<D>(value: D) where D : Decodable, D : Encodable, D : Hashable {
         fatalError("not implemented yet")
     }
 
@@ -124,7 +128,7 @@ import Foundation
     /// - Parameters:
     ///   - id: The identifier of the scene to dismiss.
     ///   - value: The value which is currently presented.
-    @MainActor @preconcurrency public func callAsFunction<D>(id: String, value: D) where D : Decodable, D : Encodable, D : Hashable {
+    @MainActor public func callAsFunction<D>(id: String, value: D) where D : Decodable, D : Encodable, D : Hashable {
         fatalError("not implemented yet")
     }
 }
@@ -175,6 +179,12 @@ extension EnvironmentValues {
 
 struct DismissWindowActionKey : EnvironmentKey {
     static var defaultValue: DismissWindowAction {
-        DismissWindowAction()
+        DismissWindowAction(action: { _ in }) 
+    }
+}
+
+extension DismissWindowAction : @MainActor Equatable {
+    public static func == (_ lhs: DismissWindowAction, _ rhs: DismissWindowAction) -> Bool {
+        ObjectIdentifier(type(of: lhs.self)) == ObjectIdentifier(type(of: rhs.self))
     }
 }

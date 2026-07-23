@@ -10,7 +10,7 @@ import Swift
 
 @frozen public struct OpenWindowActionKey : EnvironmentKey {
     public static var defaultValue: OpenWindowAction {
-        .init({ _ in }) 
+        .init(action: { _ in }) 
     }
 }
 

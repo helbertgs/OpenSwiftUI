@@ -16,6 +16,6 @@ public struct SceneModifier_Content<Modifier> : Scene where Modifier : SceneModi
     // MARK: - Static Function(s).
 
     public static func _makeScene(scene: _GraphValue<SceneModifier_Content<Modifier>>, inputs: _SceneInputs) -> _SceneOutputs {
-        _SceneOutputs(inputs: inputs)
+        fatalError()
     }
 }

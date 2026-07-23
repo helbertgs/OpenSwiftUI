@@ -8,6 +8,7 @@
 
 import Swift
 
+@MainActor 
 @frozen public struct _EnvironmentKeyWritingModifier<Value> {
 
     // MARK: - Type Alias.
@@ -37,11 +38,8 @@ extension _EnvironmentKeyWritingModifier : ViewModifier {
     }
 }
 
-extension _EnvironmentKeyWritingModifier : SceneModifier {
-    public static func _makeScene(modifier: _GraphValue<_EnvironmentKeyWritingModifier<Value>>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = _SceneOutputs(inputs: inputs)
-        outputs.environmentValues[keyPath: modifier.value.keyPath] = modifier.value.value
-        
-        return outputs
+extension _EnvironmentKeyWritingModifier : @MainActor  SceneModifier {
+    @MainActor public static func _makeScene(modifier: _GraphValue<_EnvironmentKeyWritingModifier<Value>>, inputs: _SceneInputs) -> _SceneOutputs {
+        fatalError()
     }
 }

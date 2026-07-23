@@ -46,7 +46,7 @@ public struct DefaultSettingsLinkLabel: View {
     ///   - view: The default settings link label to create.
     ///   - inputs: The inputs for the view.
     /// - Returns: The outputs for the view.
-    nonisolated public static func _makeView(view: _GraphValue<DefaultSettingsLinkLabel>, inputs: _ViewInputs) -> _ViewOutputs {
+    public static func _makeView(view: _GraphValue<DefaultSettingsLinkLabel>, inputs: _ViewInputs) -> _ViewOutputs {
         fatalError("not implemented yet")
     }
 }

@@ -71,6 +71,7 @@ import FoundationNetworking
 ///         }
 ///     }
 ///
+@MainActor 
 public struct AsyncImage<Content> where Content : View {
 
     // MARK: - Checking Characteristics.
@@ -173,7 +174,7 @@ public struct AsyncImage<Content> where Content : View {
         self.content = content
 
         self._loadingState = State<LoadingState>(
-            initialValue: LoadingState(
+            wrappedValue: LoadingState(
                 task: Task {
                     do {
                         if let url = url {

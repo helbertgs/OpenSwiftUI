@@ -13,9 +13,6 @@ extension ModifiedContent : Scene where Content : Scene, Modifier : SceneModifie
     
     // MARK: - Static Function(s).
     public static func _makeScene(scene: _GraphValue<ModifiedContent<Content, Modifier>>, inputs: _SceneInputs) -> _SceneOutputs {
-        let cOutputs = Content._makeScene(scene: .init(scene.value.content), inputs: inputs)
-        let mOutputs = Modifier._makeScene(modifier: .init(scene.value.modifier), inputs: _SceneInputs(outputs: cOutputs))
-
-        return mOutputs
+        fatalError()
     }
 }

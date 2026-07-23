@@ -11,22 +11,19 @@ import Foundation
 
 /// A property wrapper type that reflects a value from `UserDefaults` and
 /// invalidates a view on a change in value in that user default.
-@frozen @propertyWrapper public struct AppStorage<Value> {
+@MainActor 
+@propertyWrapper public struct AppStorage<Value> where Value : Sendable {
 
     // MARK: - Private Property(ies).
 
-    var getter: () -> Value
-    var setter: (Value) -> Void
+    private let getter: () -> Value
+    private let setter: (Value) -> Void
 
     // MARK: - Property(ies).
 
     public var wrappedValue: Value {
         get { getter() }
         set { setter(newValue) }
-    }
-
-    public var projectedValue: Binding<Value> {
-        .init(get: getter, set: setter)
     }
 
     // MARK: - Constructor(s).

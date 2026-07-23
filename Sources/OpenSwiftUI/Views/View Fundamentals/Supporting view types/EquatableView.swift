@@ -36,6 +36,6 @@ public struct EquatableView<Content>: View where Content: Equatable, Content: Vi
     // MARK: - View Protocol
 
     public static func _makeView(view: _GraphValue<EquatableView<Content>>, inputs: _ViewInputs) -> _ViewOutputs {
-        Content._makeView(view: .init(view.value.content), inputs: inputs)
+        .init()
     }
 }

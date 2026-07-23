@@ -50,8 +50,13 @@ import Foundation
 
     // MARK: - Internal Property(ies).
 
+    /// The stable identifier for programmatic open/dismiss.
     public let id: String
+    
+    /// The window title.
     public let title: String
+
+    /// The root content of the window.
     public let content: Content
 
     // MARK: - Public Property(ies).
@@ -136,13 +141,6 @@ import Foundation
 
 extension WindowGroup {
     public static func _makeScene(scene: _GraphValue<WindowGroup<Content>>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = _SceneOutputs(inputs: inputs)
-        outputs.type = "\(Self.self)"
-        outputs.scene = scene.value
-        outputs.id = scene.value.id
-        outputs.title = scene.value.title
-        outputs.content = Content._makeView(view: .init(scene.value.content), inputs: .init(environmentValues: inputs.environmentValues, modifiers: [], content: nil))
-
-        return outputs
+        fatalError("not implemented yet")
     }
 }

@@ -12,7 +12,7 @@ public struct TransformSceneListModifier {
 
     public let transform: () -> Void
 
-    public init(_ transform: @escaping () -> Void) {
+    public init(_ transform: @escaping () -> Void = { }) {
         self.transform = transform
     }
 }
@@ -24,7 +24,6 @@ extension TransformSceneListModifier : SceneModifier {
     }
 
     public nonisolated static func _makeScene(modifier: _GraphValue<TransformSceneListModifier>, inputs: _SceneInputs) -> _SceneOutputs {
-        modifier.value.transform()
-        return _SceneOutputs(inputs: inputs)
+        fatalError()
     }
 }

@@ -6,38 +6,29 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // SPDX-License-Identifier: MIT
 
-import Swift
+import Foundation
 
-@frozen public struct _GraphValue<Value>  {
+/// An opaque handle to an `Attribute` in the graph.
+///
+/// Views and modifiers receive a `_GraphValue` instead of a raw `Attribute`,
+/// preserving the contract that nobody outside the graph manipulates storage
+/// directly. Reading `.value` inside a `rule {}` automatically registers a
+/// dependency.
+@MainActor
+public struct _GraphValue<Value> {
 
-    // MARK: - Property(ies).
+    /// The underlying attribute wrapped by this graph value.
+    let base: Attribute<Value>
 
-    @usableFromInline
-    internal var value: Value
-
-    // MARK: - Constructor(s).
-
-    @inlinable internal init(_ value: Value) {
-        self.value = value
-    }
-
-    // MARK: - Subscript(s).
-    @inlinable internal subscript<T>(keyPath: KeyPath<Value, T>) -> _GraphValue<T> {
-        .init(value[keyPath: keyPath])
-    }
-}
-
-extension _GraphValue : Equatable where Value : Equatable {
-    // MARK: - Equatable
-    /// Returns a Boolean value indicating whether two values are equal.
+    /// The current value of the wrapped attribute.
     ///
-    /// Equality is the inverse of inequality. For any values `a` and `b`,
-    /// `a == b` implies that `a != b` is `false`.
+    /// Reading this inside a rule registers a dependency on the underlying attribute.
+    var value: Value { base.wrappedValue }
+
+    /// Creates a graph value that wraps the given attribute.
     ///
-    /// - Parameters:
-    ///   - lhs: A value to compare.
-    ///   - rhs: Another value to compare.
-    @inlinable public static func == (lhs: _GraphValue<Value>, rhs: _GraphValue<Value>) -> Bool {
-        lhs.value == rhs.value
+    /// - Parameter base: The attribute to wrap.
+    init(base: Attribute<Value>) {
+        self.base = base
     }
 }

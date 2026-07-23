@@ -9,7 +9,8 @@
 import Foundation
 
 /// A modifier that you apply to a scene or another scene modifier, producing a different version of the original
-@MainActor @preconcurrency public protocol SceneModifier {
+@MainActor 
+public protocol SceneModifier {
 
     // MARK: - Associated Type(s).
 
@@ -27,7 +28,7 @@ import Foundation
     ///
     /// `content` is a proxy for the view that will have the modifier
     /// represented by `Self` applied to it.
-    @SceneBuilder @MainActor @preconcurrency func body(content: Self.Content) -> Self.Body
+    @SceneBuilder func body(content: Self.Content) -> Self.Body
 
     // MARK: - Static Function(s).
 
@@ -36,13 +37,13 @@ import Foundation
     /// - Parameters:
     ///   - scene: The modifier to create.
     ///   - inputs: The inputs for the scene.
-    nonisolated static func _makeScene(modifier: _GraphValue<Self>, inputs: _SceneInputs) -> _SceneOutputs
+    static func _makeScene(modifier: _GraphValue<Self>, inputs: _SceneInputs) -> _SceneOutputs
 }
 
 extension SceneModifier {
     
     /// Returns a new modifier that is the result of concatenating self with modifier.
-    nonisolated package func concat<T>(_ modifier: T) -> ModifiedContent<Self, T> {
+    func concat<T>(_ modifier: T) -> ModifiedContent<Self, T> {
         .init(content: self, modifier: modifier)
     }
 }
@@ -53,7 +54,7 @@ extension SceneModifier where Body == Never {
     ///
     /// `content` is a proxy for the view that will have the modifier
     /// represented by `Self` applied to it.
-    @MainActor @preconcurrency public func body(content: Self.Content) -> Self.Body {
+    public func body(content: Self.Content) -> Self.Body {
         fatalError()
     }
 }

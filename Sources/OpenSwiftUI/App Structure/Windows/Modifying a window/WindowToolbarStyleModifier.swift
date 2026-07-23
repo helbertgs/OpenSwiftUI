@@ -33,9 +33,6 @@ public struct WindowToolbarStyleModifier<Style> : SceneModifier where Style : Wi
     // MARK: - Static Function(s).
 
     public static func _makeScene(modifier: _GraphValue<WindowToolbarStyleModifier<Style>>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = _SceneOutputs(inputs: inputs)
-        outputs.windowToolbarStyle = modifier.value.style
-
-        return outputs
+        fatalError()
     }
 }

@@ -33,9 +33,6 @@ public struct WindowStyleModifier<Style> : Sendable, SceneModifier where Style :
     // MARK: - Static Function(s).
 
     public static func _makeScene(modifier: _GraphValue<WindowStyleModifier<Style>>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = _SceneOutputs(inputs: inputs)
-        outputs.style = modifier.value.style
-
-        return outputs
+        fatalError()
     }
 }

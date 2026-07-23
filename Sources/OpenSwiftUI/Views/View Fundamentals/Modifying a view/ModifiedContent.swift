@@ -82,12 +82,7 @@ extension ModifiedContent : View where Content : View, Modifier : ViewModifier {
     }
 
     public static func _makeView(view: _GraphValue<ModifiedContent<Content, Modifier>>, inputs: _ViewInputs) -> _ViewOutputs {
-        let content = view.value.content
-        let modifier = view.value.modifier
-
-        var outputs = Content._makeView(view: .init(content), inputs: inputs)
-        outputs.modifiers.append(modifier)
-        return outputs
+        .init()
     }
 }
 

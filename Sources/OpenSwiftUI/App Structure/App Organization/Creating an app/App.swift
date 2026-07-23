@@ -83,7 +83,8 @@ import Foundation
 ///     extension MyCustomType: Transition {
 ///         // `nonisolated` by default
 ///     }
-@MainActor @preconcurrency public protocol App {
+@MainActor
+public protocol App {
 
     // MARK: - Implementing a app.
 
@@ -112,7 +113,7 @@ import Foundation
     ///
     /// Swift infers the app's ``OpenSwiftUI/App/Body-swift.associatedtype``
     /// associated type based on the scene provided by the `body` property.
-    @SceneBuilder @MainActor @preconcurrency var body: Self.Body { get }
+    @SceneBuilder var body: Self.Body { get }
 
     // MARK: - Running a app.
 
@@ -122,7 +123,17 @@ import Foundation
     /// Swift synthesizes a default initializer for structures that don't
     /// provide one. You typically rely on the default initializer for
     /// your app.
-    @MainActor @preconcurrency init()
+    init()
+
+    /// Initializes and runs the app.
+    ///
+    /// If you precede your ``OpenSwiftUI/App`` conformer's declaration with the
+    /// [@main](https://docs.swift.org/swift-book/ReferenceManual/Attributes.html#ID626)
+    /// attribute, the system calls the conformer's `main()` method to launch
+    /// the app. OpenSwiftUI provides a
+    /// default implementation of the method that manages the launch process in
+    /// a platform-appropriate way.
+    static func main()
 }
 
 extension App {
@@ -135,7 +146,7 @@ extension App {
     /// the app. OpenSwiftUI provides a
     /// default implementation of the method that manages the launch process in
     /// a platform-appropriate way.
-    @MainActor @preconcurrency public static func main() {
-        Application.shared.run(Self())
+    public static func main() {
+        // Application.shared.run(Self())
     }
 }

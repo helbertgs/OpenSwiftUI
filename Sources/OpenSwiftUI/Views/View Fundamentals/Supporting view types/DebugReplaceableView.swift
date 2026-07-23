@@ -39,15 +39,7 @@ import Foundation
     // MARK: - Static Function(s).
 
     public static func _makeView(view: _GraphValue<DebugReplaceableView>, inputs: _ViewInputs) -> _ViewOutputs {
-        if let storage = view.value.storage as? DebugReplaceableViewStorage<Any>, let view = storage._view as? any View {
-            func build<V>(_ v: V, inputs: _ViewInputs) -> _ViewOutputs where V: View {
-                V._makeView(view: .init(v), inputs: inputs)
-            }
-
-            return build(view, inputs: inputs)
-        }
-
-        return .init()
+        .init()
     }
 
     // MARK: - Internal Structure(s).

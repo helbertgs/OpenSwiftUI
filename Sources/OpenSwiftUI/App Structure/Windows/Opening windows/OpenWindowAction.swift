@@ -46,17 +46,11 @@ import Foundation
 /// For structured model values that conform to
 /// <doc://com.apple.documentation/documentation/Swift/Identifiable>,
 /// the value's identifier makes a good presentation value.
+@MainActor
 public struct OpenWindowAction {
 
     /// The action to perform when the window is opened.
-    private let action: ((String) -> Void)
-
-    /// Creates a new open window action.
-    ///
-    /// - Parameter action: The action to perform when the window is opened.
-    public init(_ action: @escaping ((String) -> Void)) {
-        self.action = action
-    }
+    let action: @MainActor @Sendable (String) -> Void
 
     /// Presents a window for the ``WindowGroup`` scene that handles the type of
     /// the presented value.
@@ -71,7 +65,7 @@ public struct OpenWindowAction {
     /// the value's identifier makes a good presentation value.
     ///
     /// - Parameter value: The value to present.
-    public func callAsFunction<D>(value: D) where D : Decodable, D : Encodable, D : Hashable {
+    @MainActor public func callAsFunction<D>(value: D) where D : Decodable, D : Encodable, D : Hashable {
         fatalError()
     }
 
@@ -84,7 +78,7 @@ public struct OpenWindowAction {
     /// If the scene is a ``Window``, the system orders its window to the front.
     ///
     /// - Parameter id: The identifier of the scene to present.
-    public func callAsFunction(id: String) {
+    @MainActor public func callAsFunction(id: String) {
         action(id)
     }
 
@@ -107,7 +101,7 @@ public struct OpenWindowAction {
     }
 }
 
-extension OpenWindowAction : Equatable {
+extension OpenWindowAction : @MainActor Equatable {
     public static func == (_ lhs: OpenWindowAction, _ rhs: OpenWindowAction) -> Bool {
         ObjectIdentifier(type(of: lhs.self)) == ObjectIdentifier(type(of: rhs.self))
     }

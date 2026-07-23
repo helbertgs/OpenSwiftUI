@@ -84,11 +84,12 @@ import OpenCombine
 
 extension View {
     @MainActor @preconcurrency public static func _makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs {
-        guard Self.Body.self != Never.self else {
-            fatalError("Unsupported view type \(Self.self)")
-        }
+        // guard Self.Body.self != Never.self else {
+        //     fatalError("Unsupported view type \(Self.self)")
+        // }
 
-        return Self.Body._makeView(view: _GraphValue(view.value.body), inputs: inputs)
+        // return Self.Body._makeView(view: _GraphValue(view.value.body), inputs: inputs)
+        .init()
     }
 }
 

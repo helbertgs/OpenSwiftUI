@@ -69,3 +69,16 @@ extension Canvas where Symbols == EmptyView {
         self.renderer = renderer
     }
 }
+
+/// A descriptor carrying the geometry and drawing closure needed to render a canvas.
+struct CanvasRenderDescriptor: @unchecked Sendable {
+
+    /// The origin at which the canvas is drawn.
+    let origin: Point3D
+
+    /// The size of the canvas drawing area.
+    let size:   Size3D
+
+    /// The drawing closure invoked with a graphics context and the canvas size.
+    let draw:   @MainActor (inout GraphicsContext, Size3D) -> Void
+}

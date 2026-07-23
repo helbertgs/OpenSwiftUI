@@ -16,13 +16,14 @@ import Foundation
 /// object changes. If you declare a property as an environment object, be sure
 /// to set a corresponding model object on an ancestor view by calling its
 /// ``View/environmentObject(_:)`` modifier.
-@frozen
-@propertyWrapper public struct EnvironmentObject<ObjectType> : DynamicProperty where ObjectType : OpenCombine.ObservableObject {
+@MainActor
+@propertyWrapper 
+public struct EnvironmentObject<ObjectType> : DynamicProperty where ObjectType : OpenCombine.ObservableObject {
 
     // MARK: - Property(ies).
 
-    @usableFromInline var _seed: Int = 0
-    @usableFromInline var _store: ObjectType?
+    var _seed: Int = 0
+    var _store: ObjectType?
 
     /// The underlying value referenced by the environment object.
     ///
@@ -33,7 +34,7 @@ import Foundation
     /// When a mutable value changes, the new value is immediately available.
     /// However, a view displaying the value is updated asynchronously and may
     /// not show the new value immediately.
-    @inlinable public var wrappedValue: ObjectType {
+    public var wrappedValue: ObjectType {
         guard let store = _store else { fatalError() }
         return store
     }
@@ -54,7 +55,9 @@ import Foundation
 
     /// A wrapper of the underlying environment object that can create bindings
     /// to its properties using dynamic member lookup.
-    @dynamicMemberLookup @frozen public struct Wrapper {
+    @MainActor 
+    @dynamicMemberLookup 
+    public struct Wrapper {
 
         // MARK: - Property(ies).
 

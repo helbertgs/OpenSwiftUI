@@ -11,7 +11,10 @@ import Foundation
 
 /// A property wrapper type that subscribes to an observable object and
 /// invalidates a view whenever the observable object changes.
-@propertyWrapper @frozen public struct ObservedObject<ObjectType> where ObjectType : OpenCombine.ObservableObject {
+@MainActor 
+@frozen 
+@propertyWrapper 
+public struct ObservedObject<ObjectType> where ObjectType : OpenCombine.ObservableObject {
 
     // MARK: - Public Property(ies).
 
@@ -45,7 +48,10 @@ import Foundation
 
     /// A wrapper of the underlying observable object that can create bindings to
     /// its properties using dynamic member lookup.
-    @dynamicMemberLookup @frozen public struct Wrapper {
+    @MainActor 
+    @frozen 
+    @dynamicMemberLookup 
+    public struct Wrapper {
 
         // MARK: - Property(ies).
         

@@ -38,26 +38,26 @@ extension _TupleScene: Scene {
     ///   - inputs: The inputs for the scene.
     /// - Returns: The outputs of the scene.
     public static func _makeScene(scene: _GraphValue<_TupleScene<T>>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = _SceneOutputs(inputs: inputs)
-        outputs.type = "\(Self.self)"
-        outputs.scene = scene.value
-        outputs.environmentValues = inputs.environmentValues
+        // var outputs = _SceneOutputs(inputs: inputs)
+        // outputs.type = "\(Self.self)"
+        // outputs.scene = scene.value
+        // outputs.environmentValues = inputs.environmentValues
 
-        // Expand the tuple produced by `@SceneBuilder` into child scene outputs.
-        // Note: Swift doesn't provide a first-class "tuple iterator", so we use reflection.
-        let mirror = Mirror(reflecting: scene.value.value)
-        for child in mirror.children {
-            guard let childScene = child.value as? any Scene else {
-                continue
-            }
+        // // Expand the tuple produced by `@SceneBuilder` into child scene outputs.
+        // // Note: Swift doesn't provide a first-class "tuple iterator", so we use reflection.
+        // let mirror = Mirror(reflecting: scene.value.value)
+        // for child in mirror.children {
+        //     guard let childScene = child.value as? any Scene else {
+        //         continue
+        //     }
 
-            func build<S: Scene>(_ s: S) -> _SceneOutputs {
-                S._makeScene(scene: _GraphValue(s), inputs: inputs)
-            }
+        //     func build<S: Scene>(_ s: S) -> _SceneOutputs {
+        //         S._makeScene(scene: _GraphValue(s), inputs: inputs)
+        //     }
 
-            outputs.children.append(build(childScene))
-        }
+        //     outputs.children.append(build(childScene))
+        // }
 
-        return outputs
+        fatalError("not implemented yet")
     }
 }

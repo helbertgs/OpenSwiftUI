@@ -29,9 +29,6 @@ public struct MenuBarExtraStyleModifier<Style> : SceneModifier, Sendable where S
     }
     
     public static func _makeScene(modifier: _GraphValue<MenuBarExtraStyleModifier<Style>>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = _SceneOutputs(inputs: inputs)
-        outputs.menuBarExtraStyle = modifier.value.style
-
-        return outputs
+        fatalError()
     }
 }

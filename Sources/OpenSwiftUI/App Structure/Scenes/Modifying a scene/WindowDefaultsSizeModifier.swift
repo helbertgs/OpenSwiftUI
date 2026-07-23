@@ -32,9 +32,6 @@ public struct WindowDefaultsSizeModifier : @MainActor SceneModifier {
     // MARK: - Static Function(s).
     
     public static func _makeScene(modifier: _GraphValue<WindowDefaultsSizeModifier>, inputs: _SceneInputs) -> _SceneOutputs {
-        var outputs = _SceneOutputs(inputs: inputs)
-        outputs.size = Size3D(width: modifier.value.width, height: modifier.value.height)
-
-        return outputs
+        fatalError()
     }
 }
