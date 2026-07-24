@@ -15,10 +15,10 @@ public struct FillStyle : BitwiseCopyable, Copyable, Equatable, Sendable {
     // MARK: - Setting fill style properties
 
     /// A Boolean value that indicates whether to use the even-odd rule when rendering a shape.
-    public let isEOFilled: Bool
+    public var isEOFilled: Bool
 
     /// A Boolean value that indicates whether to apply antialiasing to the edges of a shape.
-    public let isAntialiased: Bool
+    public var isAntialiased: Bool
 
     // MARK: - Creating a fill style
 
