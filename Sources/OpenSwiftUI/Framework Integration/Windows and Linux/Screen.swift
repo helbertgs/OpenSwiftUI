@@ -1,5 +1,5 @@
 //
-// NSScreen.swift
+// Screen.swift
 // OpenSwiftUI
 //
 // Created by Helbert Gomes on Jan 18, 2026.
@@ -74,9 +74,9 @@ final class Screen {
     /// The time of the last framebuffer update, expressed as the number of seconds since system startup.
     let lastDisplayUpdateTimestamp: Double = 0
 
-    // MARK: - Creating a NSScreen Object
+    // MARK: - Creating a Screen Object
 
-    /// Creates a new NSScreen object.
+    /// Creates a new Screen object.
     /// 
     /// - Parameter pointer: A pointer to the underlying screen object.
     init(_ pointer: OpaquePointer) {

@@ -12,7 +12,7 @@ import OpenGLFW
 import OpenSpatial
 import Foundation
 
-@MainActor class NSWindow : NSResponder {
+@MainActor class NSWindow : Responder {
 
     var id: String = UUID().uuidString
     private let pointer: OpaquePointer
@@ -242,13 +242,13 @@ import Foundation
     // MARK: - Accessing Screen Information
 
     /// The screen the window is on.
-    var screen: NSScreen? {
+    var screen: Screen? {
         guard !isDestroyed else { return nil }
         guard let monitor = glfwGetWindowMonitor(pointer) else {
             return nil
         }
 
-        return NSScreen(monitor)
+        return Screen(monitor)
     }
 
     // MARK: - GLFW Function(s)
