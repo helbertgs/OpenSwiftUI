@@ -17,18 +17,34 @@ import Foundation
 @MainActor
 public struct _GraphValue<Value> {
 
-    /// The underlying attribute wrapped by this graph value.
-    let base: Attribute<Value>
+    let storage: _GraphValueStorage<Value>
 
     /// The current value of the wrapped attribute.
     ///
     /// Reading this inside a rule registers a dependency on the underlying attribute.
-    var value: Value { base.wrappedValue }
+    var wrappedValue: Value {
+        switch storage {
+            case .attribute(let attribute): attribute.wrappedValue
+            case .value(let v): v
+        }
+    }
 
     /// Creates a graph value that wraps the given attribute.
     ///
     /// - Parameter base: The attribute to wrap.
-    init(base: Attribute<Value>) {
-        self.base = base
+    init(value: Attribute<Value>) {
+        storage = .attribute(value)
+    }
+
+    init(value: Value) {
+        storage = .value(value)
+    }
+}
+
+extension _GraphValue {
+
+    enum _GraphValueStorage<V> {
+        case attribute(Attribute<V>)
+        case value(V)
     }
 }

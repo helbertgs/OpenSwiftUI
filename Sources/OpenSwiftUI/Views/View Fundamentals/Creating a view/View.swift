@@ -195,3 +195,56 @@ extension View {
         modifier(_ValueActionModifier(value: value, action: action))
     }
 }
+
+extension View {
+
+    /// Sets the container shape to use for any container relative shape
+    /// within this view.
+    ///
+    /// The example below defines a view that shows its content with a rounded
+    /// rectangle background and the same container shape. Any
+    /// ``ContainerRelativeShape`` within the `content` matches the rounded
+    /// rectangle shape from this container inset as appropriate.
+    ///
+    ///     struct PlatterContainer<Content: View> : View {
+    ///         @ViewBuilder var content: Content
+    ///         var body: some View {
+    ///             content
+    ///                 .padding()
+    ///                 .containerShape(shape)
+    ///                 .background(shape.fill(.background))
+    ///         }
+    ///         var shape: RoundedRectangle { RoundedRectangle(cornerRadius: 20) }
+    ///     }
+    ///
+    /// - SeeAlso: ``View/containerShape(_:)-(RoundedRectangularShape)``
+    @inlinable public func containerShape<T>(_ shape: T) -> some View where T : InsettableShape {
+        modifier(_ContainerShapeModifier(shape: shape))
+    }
+
+    /// Sets the container shape to use for any container relative shape or
+    /// concentric rectangle within this view.
+    ///
+    /// The example below defines a view that shows its content with a rounded
+    /// rectangle background and the same container shape. Any
+    /// ``ContainerRelativeShape`` within the `content` matches the rounded
+    /// rectangle shape from this container inset as appropriate. Any
+    /// ``ConcentricRectangle`` within the `content` will match the corners to
+    /// be concentric to the container corners.
+    ///
+    ///     struct PlatterContainer<Content: View> : View {
+    ///         @ViewBuilder var content: Content
+    ///         var body: some View {
+    ///             content
+    ///                 .padding()
+    ///                 .containerShape(shape)
+    ///                 .background(shape.fill(.background))
+    ///         }
+    ///         var shape: RoundedRectangle { RoundedRectangle(cornerRadius: 20) }
+    ///     }
+    ///
+    /// - SeeAlso: ``View/containerShape(_:)-(T)``
+    @inlinable public func containerShape(_ shape: some RoundedRectangularShape) -> some View {
+        modifier(_ContainerShapeModifier(shape: shape))
+    }
+}

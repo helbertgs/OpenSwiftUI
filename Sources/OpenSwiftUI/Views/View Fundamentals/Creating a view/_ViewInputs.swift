@@ -43,9 +43,9 @@ public struct _ViewInputs {
         transaction: Attribute<Transaction>,
         gestureHandler: GestureHandler? = nil
     ) {
-        self.frame          = _GraphValue(base: frame)
-        self.environment    = _GraphValue(base: environment)
-        self.transaction    = _GraphValue(base: transaction)
+        self.frame          = _GraphValue(value: frame)
+        self.environment    = _GraphValue(value: environment)
+        self.transaction    = _GraphValue(value: transaction)
         self.gestureHandler = gestureHandler
     }
 }

@@ -1673,9 +1673,9 @@ extension Scene {
         }
 
         let base = graph.rule(name: "\(Self.self).body") {
-            scene.value.body
+            scene.wrappedValue.body
         }
 
-        return Body._makeScene(scene: _GraphValue(base: base), inputs: inputs)
+        return Body._makeScene(scene: _GraphValue(value: base), inputs: inputs)
     }
 }
