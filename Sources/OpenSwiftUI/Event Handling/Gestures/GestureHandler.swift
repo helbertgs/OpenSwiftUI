@@ -75,7 +75,7 @@ final class GestureHandler {
     /// Dispatches a tap at the given point to all matching registrations.
     /// - Parameter point: The point of the tap, in view coordinates.
     func handleTap(at point: Point3D) {
-        for reg in tapRegistrations where reg.frame.value.contains(point) {
+        for reg in tapRegistrations where reg.frame.wrappedValue.contains(point) {
             reg.handler.wrappedValue()
         }
     }
@@ -84,7 +84,7 @@ final class GestureHandler {
     /// - Parameter point: The new cursor position, in view coordinates.
     func handleHoverMove(to point: Point3D) {
         for i in hoverRegistrations.indices {
-            let isInside  = hoverRegistrations[i].frame.value.contains(point)
+            let isInside  = hoverRegistrations[i].frame.wrappedValue.contains(point)
             let wasInside = hoverRegistrations[i].isInside
             if isInside != wasInside {
                 hoverRegistrations[i].isInside = isInside
