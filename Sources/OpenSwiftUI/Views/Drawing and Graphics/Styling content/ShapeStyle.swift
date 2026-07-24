@@ -11,3 +11,10 @@ import OpenSpatial
 /// A color or pattern to use when rendering a shape.
 public protocol ShapeStyle : Sendable {
 }
+
+extension ShapeStyle where Self == ForegroundStyle {
+
+    public static var foreground: ForegroundStyle {
+        .init()
+    }
+}
