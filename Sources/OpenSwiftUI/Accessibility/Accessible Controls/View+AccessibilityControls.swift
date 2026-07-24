@@ -6,7 +6,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // SPDX-License-Identifier: MIT
 
-import Foundation
+import OpenSpatial
 
 extension View {
 
@@ -201,7 +201,7 @@ extension View {
     /// Use this modifier to ensure that the activation point for a small element remains accurate even if you present a larger version of the element to VoiceOver.
     /// If an activation point is not provided, an activation point will be derrived from one of the accessibility elements decendents or from the center of the accessibility frame.
     @MainActor @preconcurrency
-    public func accessibilityActivationPoint(_ activationPoint: Point) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
+    public func accessibilityActivationPoint(_ activationPoint: Point3D) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
         fatalError()
     }
 
@@ -213,7 +213,7 @@ extension View {
     ///   - activationPoint: The accessibility activation point to apply.
     ///   - isEnabled: If true the accessibility activation point is applied; otherwise the accessibility activation point is unchanged.
     @MainActor @preconcurrency
-    public func accessibilityActivationPoint(_ activationPoint: Point, isEnabled: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
+    public func accessibilityActivationPoint(_ activationPoint: Point3D, isEnabled: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
         fatalError()
     }
 

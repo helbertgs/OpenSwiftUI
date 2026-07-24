@@ -6,9 +6,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // SPDX-License-Identifier: MIT
 
-import Swift
+import OpenSpatial
 
 public struct _IdentifiedViewProxy {
     public var identifier: AnyHashable
-    public var boundingRect: Rect { .zero }
+    public var boundingRect: Rect3D { .zero }
 }

@@ -6,7 +6,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // SPDX-License-Identifier: MIT
 
-import Swift
+import OpenSpatial
 
 /// A type that defines the geometry of a collection of views.
 ///
@@ -404,7 +404,7 @@ public protocol Layout {
     ///
     /// - Returns: A size that indicates how much space the container
     ///   needs to arrange its subviews.
-    func sizeThatFits(proposal: ProposedViewSize, subviews: Self.Subviews, cache: inout Self.Cache) -> Size
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Self.Subviews, cache: inout Self.Cache) -> Size3D
 
     /// Assigns positions to each of the layout's subviews.
     ///
@@ -501,7 +501,7 @@ public protocol Layout {
     ///   - cache: Optional storage for calculated data that you can share among
     ///     the methods of your custom layout container. See
     ///     ``makeCache(subviews:)-23agy`` for details.
-    func placeSubviews(in bounds: Rect, proposal: ProposedViewSize, subviews: Self.Subviews, cache: inout Self.Cache)
+    func placeSubviews(in bounds: Rect3D, proposal: ProposedViewSize, subviews: Self.Subviews, cache: inout Self.Cache)
 
     /// Returns the position of the specified horizontal alignment guide along
     /// the x axis.
@@ -553,7 +553,7 @@ public protocol Layout {
     /// - Returns: The guide's position relative to the `bounds`.
     ///   Return `nil` to indicate that the guide doesn't have an explicit
     ///   value.
-    func explicitAlignment(of guide: HorizontalAlignment, in bounds: Rect, proposal: ProposedViewSize, subviews: Self.Subviews, cache: inout Self.Cache) -> Float?
+    func explicitAlignment(of guide: HorizontalAlignment, in bounds: Rect3D, proposal: ProposedViewSize, subviews: Self.Subviews, cache: inout Self.Cache) -> Float?
 
     /// Returns the position of the specified vertical alignment guide along
     /// the y axis.
@@ -605,7 +605,7 @@ public protocol Layout {
     /// - Returns: The guide's position relative to the `bounds`.
     ///   Return `nil` to indicate that the guide doesn't have an explicit
     ///   value.
-    func explicitAlignment(of guide: VerticalAlignment, in bounds: Rect, proposal: ProposedViewSize, subviews: Self.Subviews, cache: inout Self.Cache) -> Float?
+    func explicitAlignment(of guide: VerticalAlignment, in bounds: Rect3D, proposal: ProposedViewSize, subviews: Self.Subviews, cache: inout Self.Cache) -> Float?
 }
 
 extension Layout {
@@ -638,7 +638,7 @@ extension Layout {
     /// ``explicitAlignment(of:in:proposal:subviews:cache:)-8ofeu`` method in
     /// your custom layout, the protocol uses this default implementation
     /// instead, which merges the guides of all the subviews.
-    public func explicitAlignment(of guide: HorizontalAlignment, in bounds: Rect, proposal: ProposedViewSize, subviews: Self.Subviews, cache: inout Self.Cache) -> Float? {
+    public func explicitAlignment(of guide: HorizontalAlignment, in bounds: Rect3D, proposal: ProposedViewSize, subviews: Self.Subviews, cache: inout Self.Cache) -> Float? {
         fatalError()
     }
 
@@ -649,7 +649,7 @@ extension Layout {
     /// ``explicitAlignment(of:in:proposal:subviews:cache:)-3iqmu`` method in
     /// your custom layout, the protocol uses this default implementation
     /// instead, which merges the guides of all the subviews.
-    public func explicitAlignment(of guide: VerticalAlignment, in bounds: Rect, proposal: ProposedViewSize, subviews: Self.Subviews, cache: inout Self.Cache) -> Float? {
+    public func explicitAlignment(of guide: VerticalAlignment, in bounds: Rect3D, proposal: ProposedViewSize, subviews: Self.Subviews, cache: inout Self.Cache) -> Float? {
         fatalError()
     }
 

@@ -6,7 +6,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // SPDX-License-Identifier: MIT
 
-import Swift
+import OpenSpatial
 
 /// A proposal for the size of a view.
 ///
@@ -31,19 +31,20 @@ import Swift
 /// A layout might also try special cases for one dimension at a time. For
 /// example, an ``HStack`` might measure the flexibility of its subviews'
 /// widths, while using a fixed value for the height.
-@frozen public struct ProposedViewSize : Equatable {
+@frozen
+public struct ProposedViewSize : Equatable, Hashable, Sendable {
 
     /// The proposed horizontal size measured in points.
     ///
     /// A value of `nil` represents an unspecified width proposal, which a view
     /// interprets to mean that it should use its ideal width.
-    public var width: Float?
+    public var width: Double?
 
     /// The proposed vertical size measured in points.
     ///
     /// A value of `nil` represents an unspecified height proposal, which a view
     /// interprets to mean that it should use its ideal height.
-    public var height: Float?
+    public var height: Double?
 
     /// A size proposal that contains zero in both dimensions.
     ///
@@ -83,7 +84,8 @@ import Swift
     ///     that the width is unspecified for this proposal.
     ///   - height: A proposed height in points. Use a value of `nil` to
     ///     indicate that the height is unspecified for this proposal.
-    @inlinable public init(width: Float?, height: Float?) {
+    @inlinable
+    public init(width: Double?, height: Double?) {
         self.width = width
         self.height = height
     }
@@ -91,7 +93,8 @@ import Swift
     /// Creates a new proposed size from a specified size.
     ///
     /// - Parameter size: A proposed size with dimensions measured in points.
-    @inlinable public init(_ size: Size) {
+    @inlinable
+    public init(_ size: Size3D) {
         self.width = size.width
         self.height = size.height
     }
@@ -108,22 +111,8 @@ import Swift
     ///   for both dimensions.
     ///
     /// - Returns: A new, fully specified size proposal.
-    @inlinable public func replacingUnspecifiedDimensions(by size: Size = Size(width: 10, height: 10)) -> Size {
-        .zero
-    }
-
-    /// Returns a Boolean value indicating whether two values are equal.
-    ///
-    /// Equality is the inverse of inequality. For any values `a` and `b`,
-    /// `a == b` implies that `a != b` is `false`.
-    ///
-    /// - Parameters:
-    ///   - lhs: A value to compare.
-    ///   - rhs: Another value to compare.
-    public static func == (a: ProposedViewSize, b: ProposedViewSize) -> Bool {
-        a.width == b.width &&
-        a.height == b.height
+    @inlinable
+    public func replacingUnspecifiedDimensions(by size: Size3D = Size3D(width: 10, height: 10)) -> Size3D {
+        size
     }
 }
-
-extension ProposedViewSize : Sendable { }

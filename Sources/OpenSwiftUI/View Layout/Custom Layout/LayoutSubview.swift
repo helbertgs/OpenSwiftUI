@@ -6,6 +6,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // SPDX-License-Identifier: MIT
 
+import OpenSpatial
+
 /// A proxy that represents one subview of a layout.
 ///
 /// This type acts as a proxy for a view that your custom layout container
@@ -96,7 +98,7 @@ public struct LayoutSubview : Equatable {
     ///
     /// - Returns: The size that the subview chooses for itself, given the
     ///   proposal from its container view.
-    public func sizeThatFits(_ proposal: ProposedViewSize) -> Size {
+    public func sizeThatFits(_ proposal: ProposedViewSize) -> Size3D {
         fatalError()
     }
 
@@ -182,7 +184,7 @@ public struct LayoutSubview : Equatable {
     ///   - proposal: A proposed size for the subview. In OpenSwiftUI,
     ///     views choose their own size, but can take a size proposal from
     ///     their parent view into account when doing so.
-    public func place(at position: Point, anchor: UnitPoint = .topLeading, proposal: ProposedViewSize) {
+    public func place(at position: Point3D, anchor: UnitPoint = .topLeading, proposal: ProposedViewSize) {
         fatalError()
     }
 

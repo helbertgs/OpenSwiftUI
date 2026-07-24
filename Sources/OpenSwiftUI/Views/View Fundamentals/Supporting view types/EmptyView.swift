@@ -6,7 +6,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // SPDX-License-Identifier: MIT
 
-import Swift
+import Foundation
 
 /// A view that doesn't contain any content.
 ///
@@ -28,7 +28,8 @@ import Swift
 ///     print("\(type(of:progressView))")
 ///     // Prints: ProgressView<EmptyView, EmptyView>
 ///
-@frozen public struct EmptyView : View {
+@frozen 
+public struct EmptyView : Sendable, View {
 
     // MARK: - Type Alias.
 
@@ -41,11 +42,12 @@ import Swift
     // MARK: - Constructor(s).
 
     /// Creates an empty view.
-    @inlinable public init() { }
+    @inlinable public init() {
+    }
 
     // MARK: - Static Function(s).
 
-    nonisolated public static func _makeView(view: _GraphValue<EmptyView>, inputs: _ViewInputs) -> _ViewOutputs {
+    public static func _makeView(view: _GraphValue<EmptyView>, inputs: _ViewInputs) -> _ViewOutputs {
         .init()
     }
 }
