@@ -13,7 +13,7 @@
 /// internal design. The `@MainActor` isolation reflects SwiftUI's reality: the
 /// view graph is always manipulated on the main thread.
 @MainActor
-public final class AttributeGraph {
+final class AttributeGraph {
 
     /// The contiguous arena holding every node in the graph.
     private(set) var arena: [Storage] = []
@@ -46,6 +46,20 @@ public final class AttributeGraph {
     /// Whether a flush has already been scheduled on the next actor cycle.
     private var _scheduledFlush = false
 
+    /// Called synchronously whenever any input attribute changes.
+    ///
+    /// `ViewGraph` sets this to `{ [weak self] in self?.needsUpdate = true }` so
+    /// the render loop learns about state changes without polling.
+    var onNeedsUpdate: (() -> Void)?
+
+    /// The current environment attribute for this graph.
+    ///
+    /// Set by `ViewGraph` after creating the root environment attribute, and
+    /// updated whenever `EnvironmentModifier` injects a scoped environment.
+    /// `Environment<Value>.update()` reads this to populate `_environmentValues`
+    /// before the body rule re-executes.
+    var currentEnvironment: Attribute<EnvironmentValues>?
+
     /// Records that `storage` was modified.
     ///
     /// - Parameters:
@@ -54,6 +68,7 @@ public final class AttributeGraph {
     ///     the set of key identities that actually changed. `nil` for plain values.
     func recordChange(on storage: Storage, changedKeys: Set<ObjectIdentifier>? = nil) {
         _dirtyAttributes.append((index: storage.index, changedKeys: changedKeys))
+        onNeedsUpdate?()
 
         if !_scheduledFlush {
             _scheduledFlush = true
@@ -109,7 +124,7 @@ public final class AttributeGraph {
         let storage = Storage(index: idx, name: name ?? "\(Value.self)".lowercased())
         storage._cachedValue = value
         arena.append(storage)
-        return Attribute(index: idx)
+        return Attribute(index: idx, graph: self)
     }
 
     /// Creates a derived attribute whose value is produced by a rule closure.
@@ -132,7 +147,7 @@ public final class AttributeGraph {
         let idx = UInt32(arena.count)
         let storage = Storage(index: idx, name: name ?? "\(Value.self)".lowercased())
         arena.append(storage)
-        let attr = Attribute<Value>(index: idx)
+        let attr = Attribute<Value>(index: idx, graph: self)
         storage.recompute = { [weak self] in
             guard let self else { return }
             let newValue = rule()
@@ -144,9 +159,3 @@ public final class AttributeGraph {
     /// Creates an empty attribute graph.
     init() {}
 }
-/// Module-level `TaskLocal` for the active `PropertyList.Tracker`.
-///
-/// Declared at module scope (not inside a `@MainActor` type) so that
-/// `PropertyList.subscript` — which is `nonisolated` because `PropertyList`
-/// is `Sendable` — can read it without an actor hop.
-@TaskLocal var _currentTrackerStorage: PropertyList.Tracker? = nil

@@ -7,6 +7,8 @@
 // SPDX-License-Identifier: MIT
 //
 
+import Foundation
+
 /// A singly-linked list of typed key-value pairs, identical in spirit to SwiftUI's
 /// internal `PropertyList`.
 ///
@@ -18,10 +20,6 @@ struct PropertyList: CustomStringConvertible, Sendable {
     // MARK: - Storage
 
     var elements: Element?
-
-    init() {
-        elements = nil
-    }
 
     // MARK: - Queries
 
@@ -43,37 +41,6 @@ struct PropertyList: CustomStringConvertible, Sendable {
         return parts.isEmpty ? "PropertyList()" : "PropertyList(\(parts.joined(separator: ", ")))"
     }
 }
-
-// MARK: - Element
-
-extension PropertyList {
-
-    /// Base class for every node in the linked list.
-    ///
-    /// Subclasses store a strongly typed value and the key identity needed to
-    /// look up and replace nodes.
-    class Element: @unchecked Sendable, CustomStringConvertible {
-        /// The next node in the list, or `nil` if this is the tail.
-        var next: Element?
-
-        public var description: String { "\(Self.self)" }
-    }
-
-    /// A concrete node that associates a `PropertyListKey` subtype `K` with its value.
-    final class TypedElement<K: PropertyListKey>: Element, @unchecked Sendable {
-        var value: K.Value
-
-        init(value: K.Value, next: Element?) {
-            self.value = value
-            super.init()
-            self.next = next
-        }
-
-        override var description: String { "\(K.self) = \(value)" }
-    }
-}
-
-// MARK: - Subscript
 
 extension PropertyList {
 
@@ -106,37 +73,6 @@ extension PropertyList {
                 current = node.next
             }
             elements = TypedElement<K>(value: newValue, next: elements)
-        }
-    }
-}
-
-// MARK: - Tracker
-
-extension PropertyList {
-
-    /// Tracks which `PropertyListKey` types are read during a single rule evaluation.
-    ///
-    /// The `AttributeGraph` activates a fresh `Tracker` at the start of each
-    /// rule's `recompute()` call and reads back the recorded keys afterward.
-    /// Those keys are stored on the `AttributeStorage` so that
-    /// `flushPendingChanges` can skip dirty propagation to nodes whose tracked
-    /// keys don't overlap with the keys that actually changed — fine-grained
-    /// invalidation rather than coarse whole-`EnvironmentValues` invalidation.
-    final class Tracker: @unchecked Sendable {
-
-        /// The set of key identities read during the tracked evaluation.
-        private(set) var recordedKeys: Set<ObjectIdentifier> = []
-
-        init() {}
-
-        /// Called by `PropertyList.subscript` getter to record that key `id` was read.
-        func record(key id: ObjectIdentifier) {
-            recordedKeys.insert(id)
-        }
-
-        /// Returns true if this tracker recorded at least one of the given keys.
-        func intersects(_ keys: Set<ObjectIdentifier>) -> Bool {
-            !recordedKeys.isDisjoint(with: keys)
         }
     }
 }

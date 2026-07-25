@@ -1,5 +1,5 @@
 //
-// NSView.swift
+// _View.swift
 // OpenSwiftUI
 //
 // Created by Helbert Gomes on Feb 10, 2026.
@@ -11,7 +11,7 @@ import OpenSpatial
 
 /// The infrastructure for drawing, printing, and handling events in an app.
 @MainActor
-final class HostingView : Responder {
+final class _View : Responder {
 
     // MARK: - Creating a view object
 
@@ -29,13 +29,13 @@ final class HostingView : Responder {
     // MARK: - Getting the Related Objects
 
     /// The view that is the parent of the current view.
-    var superview: HostingView?
+    var superview: _View?
 
     /// The array of views embedded in the current view.
-    var subviews: [HostingView] = []
+    var subviews: [_View] = []
 
     /// The view’s window object, if it is installed in a window.
-    weak var window: HostingWindow?
+    weak var window: _Window?
 
     // MARK: - Adding and Removing Subviews
 
@@ -47,7 +47,7 @@ final class HostingView : Responder {
     /// If you want to keep using aView after removing it from the view hierarchy (if, for example, you are swapping through a number of views), you must retain it before invoking ``removeFromSuperview()``.
     /// 
     /// - Parameter view: The view to add to the view as a subview.
-    func addSubview(_ view: HostingView) {
+    func addSubview(_ view: _View) {
     }
 
     /// Unlinks the view from its superview and its window, removes it from the responder chain, and invalidates its cursor rectangles.
@@ -65,7 +65,7 @@ final class HostingView : Responder {
     /// 
     /// This method is invoked by ``addSubview(_:)``.
     /// - Parameter subview: The view that was added as a subview.
-    func didAddSubview(_ subview: HostingView) { 
+    func didAddSubview(_ subview: _View) { 
     }
 
     /// Informs the view that its superview has changed (possibly to nil).
@@ -84,7 +84,7 @@ final class HostingView : Responder {
     /// 
     /// Subclasses can override this method to perform whatever actions are necessary.
     /// - Parameter newSuperview:A view object that will be the new superview of the view.
-    func viewWillMove(toSuperview newSuperview: HostingView?) { 
+    func viewWillMove(toSuperview newSuperview: _View?) { 
     }
 
     /// Informs the view that it’s being added to the view hierarchy of the specified window object (which may be nil).
@@ -102,14 +102,14 @@ final class HostingView : Responder {
     /// Closing a window usually just hides the window. 
     /// Closed windows are deallocated only if their ``isReleasedWhenClosed`` method returns ``true``.
     /// - Parameter newWindow: The window object that will be at the root of the view’s new view hierarchy. If the view is being removed from a window and there is no new window, this parameter is nil.
-    func viewWillMove(toWindow: HostingView?) { 
+    func viewWillMove(toWindow: _View?) { 
     }
 
     /// Overridden by subclasses to perform additional actions before subviews are removed from the view.
     /// 
     /// This method is invoked when subview receives a ``removeFromSuperview()`` message or subview is removed from the view due to it being added to another view with ``addSubview(_:)``.
     /// - Parameter subview: The subview that will be removed.
-    func willRemoveSubview(_ subview: HostingView) { 
+    func willRemoveSubview(_ subview: _View) { 
     }
 
     // MARK: - Identifying Views by Tag
@@ -117,7 +117,7 @@ final class HostingView : Responder {
     /// Returns the view’s nearest descendant (including itself) with a specific tag, or nil if no subview has that tag.
     /// 
     /// - Parameter tag: An identifier associated with a view object.
-    func viewWithTag(_ tag: String) -> HostingView? {
+    func viewWithTag(_ tag: String) -> _View? {
         nil
     }
 

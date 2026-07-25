@@ -81,15 +81,11 @@ import Foundation
 /// Clients of your value then access the value in the usual way, reading it
 /// with the ``Environment`` property wrapper, and setting it with the
 /// `myCustomValue` view modifier.
-public struct EnvironmentValues : CustomStringConvertible, DynamicProperty, Sendable {
-
-    // MARK: - Type Alias.
-
-    private typealias PropertyList = [AnyEnvironmentPropertyKey]
+public struct EnvironmentValues : DynamicProperty, Sendable {
 
     // MARK: - Private Property(ies).
 
-    private var _plist: PropertyList
+    var plist: PropertyList
 
     // MARK: - Public Constructor(s).
 
@@ -102,7 +98,7 @@ public struct EnvironmentValues : CustomStringConvertible, DynamicProperty, Send
     /// that OpenSwiftUI manages for you when you use the ``Environment``
     /// property wrapper and the ``View/environment(_:_:)`` view modifier.
     public init() {
-        _plist = PropertyList()
+        plist = PropertyList()
     }
 
     // MARK: - Public Subscript(s).
@@ -138,29 +134,7 @@ public struct EnvironmentValues : CustomStringConvertible, DynamicProperty, Send
     ///     }
     ///
     public subscript<K>(key: K.Type) -> K.Value where K : EnvironmentKey {
-        get {
-            _plist
-                .filter { type(of: $0) == EnvironmentPropertyKey<K>.self }
-                .map { $0 as! EnvironmentPropertyKey<K> }
-                .map { $0.value }
-                .last ?? K.defaultValue
-
-        }
-        set {
-            _plist.append(EnvironmentPropertyKey<K>(newValue))
-        }
-    }
-
-    // MARK: - Custom String Convertible
-
-    /// A string that represents the contents of the environment values
-    /// instance.
-    public var description: String {
-        let elements = _plist
-            .compactMap { $0 as? CustomStringConvertible }
-            .compactMap { $0.description }
-            .joined(separator: ",")
-
-        return "[\(elements)]"
+        get { plist[key] }
+        set { plist[key] = newValue }
     }
 }

@@ -27,3 +27,10 @@ final class _GraphContext {
         try $_currentTrackerStorage.withValue(tracker, operation: body)
     }
 }
+
+/// Module-level `TaskLocal` for the active `PropertyList.Tracker`.
+///
+/// Declared at module scope (not inside a `@MainActor` type) so that
+/// `PropertyList.subscript` — which is `nonisolated` because `PropertyList`
+/// is `Sendable` — can read it without an actor hop.
+@TaskLocal var _currentTrackerStorage: PropertyList.Tracker? = nil

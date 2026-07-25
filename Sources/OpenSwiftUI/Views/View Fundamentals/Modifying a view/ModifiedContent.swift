@@ -82,9 +82,17 @@ extension ModifiedContent : View where Content : View, Modifier : ViewModifier {
     }
 
     public static func _makeView(view: _GraphValue<ModifiedContent<Content, Modifier>>, inputs: _ViewInputs) -> _ViewOutputs {
-        .init()
+        guard let graph = _GraphContext.current else {
+            fatalError("ModifiedContent._makeView called outside of _GraphContext.withGraph")
+        }
+        let contentAttr  = graph.rule(name: "\(Content.self)") { view.wrappedValue.content }
+        let modifierAttr = graph.rule(name: "\(Modifier.self)") { view.wrappedValue.modifier }
+        return Modifier._makeView(
+            modifier: _GraphValue(attribute: modifierAttr),
+            inputs: inputs,
+            body: { _, input in
+                Content._makeView(view: _GraphValue(attribute: contentAttr), inputs: input)
+            }
+        )
     }
-}
-
-extension ModifiedContent : ViewModifier where Content : ViewModifier, Modifier : ViewModifier {
 }

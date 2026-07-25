@@ -6,24 +6,31 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // SPDX-License-Identifier: MIT
 
-import Swift
+import Foundation
 
-@frozen public struct AnyView: View {
+/// A type-erased view.
+///
+/// An `AnyView` allows changing the type of view used in a given view
+/// hierarchy. Whenever the type of view used with an `AnyView` changes, the old
+/// hierarchy is destroyed and a new hierarchy is created for the new type.
+@frozen
+public struct AnyView: View {
 
     // MARK: - Type Alias.
 
+    /// The type of view representing the body of this view.
+    ///
+    /// When you create a custom view, Swift infers this type from your
+    /// implementation of the required ``View/body-swift.property`` property.
     public typealias Body = Never
-
-    // MARK: - Public Property(ies).
-
-    public var body: Never { fatalError() }
 
     // MARK: - Internal Property(ies).
 
-    var storage: AnyViewStorageBase
+    let storage: AnyViewStorageBase
 
-    // MARK: - Constructor(s).
+    // MARK: - Creating a view.
 
+    /// Create an instance that type-erases `view`.
     public init<V>(_ view: V) where V: View {
         storage = AnyViewStorage(view)
     }
@@ -38,6 +45,12 @@ import Swift
 
     // MARK: - Static Function(s).
 
+    /// Builds the view outputs for this view within the attribute graph.
+    ///
+    /// - Parameters:
+    ///   - view: The graph value wrapping this view instance.
+    ///   - inputs: The view inputs propagated from the parent context.
+    /// - Returns: The `_ViewOutputs` produced for this view.
     public static func _makeView(view: _GraphValue<AnyView>, inputs: _ViewInputs) -> _ViewOutputs {
         .init()
     }

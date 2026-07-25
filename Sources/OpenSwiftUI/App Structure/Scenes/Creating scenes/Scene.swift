@@ -1672,10 +1672,10 @@ extension Scene {
             fatalError("_makeScene called outside of _GraphContext.withGraph")
         }
 
-        let base = graph.rule(name: "\(Self.self).body") {
+        let attribute = graph.rule(name: "\(Self.self).body") {
             scene.wrappedValue.body
         }
 
-        return Body._makeScene(scene: _GraphValue(value: base), inputs: inputs)
+        return Body._makeScene(scene: _GraphValue(attribute: attribute), inputs: inputs)
     }
 }

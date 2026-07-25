@@ -29,10 +29,17 @@ public struct _GraphValue<Value> {
         }
     }
 
+    var projectedValue: Attribute<Value> {
+        switch storage {
+            case .attribute(let attribute): attribute
+            default: fatalError()
+        }
+    }
+
     /// Creates a graph value that wraps the given attribute.
     ///
-    /// - Parameter base: The attribute to wrap.
-    init(value: Attribute<Value>) {
+    /// - Parameter attribute: The attribute to wrap.
+    init(attribute value: Attribute<Value>) {
         storage = .attribute(value)
     }
 

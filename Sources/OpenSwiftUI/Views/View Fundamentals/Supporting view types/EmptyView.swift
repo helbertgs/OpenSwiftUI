@@ -42,12 +42,29 @@ public struct EmptyView : Sendable, View {
     // MARK: - Constructor(s).
 
     /// Creates an empty view.
-    @inlinable public init() {
-    }
+    @inlinable public init() { }
 
-    // MARK: - Static Function(s).
-
+    /// Builds the view outputs for this view within the attribute graph.
+    ///
+    /// - Parameters:
+    ///   - view: The graph value wrapping this view instance.
+    ///   - inputs: The view inputs propagated from the parent context.
+    /// - Returns: The `_ViewOutputs` produced for this view.
     public static func _makeView(view: _GraphValue<EmptyView>, inputs: _ViewInputs) -> _ViewOutputs {
-        .init()
+        guard let graph = _GraphContext.current else {
+            fatalError("EmptyView._makeView called outside of _GraphContext.withGraph")
+        }
+        graph.input(name: "EmptyView", view.wrappedValue)
+        let displayListAttr = graph.rule(name: "EmptyView.displayList") {
+            DisplayList(
+                /* instructions: [ .fillRect(inputs.frame.wrappedValue, color: .clear) ] */
+            )
+        }
+
+        var outputs = _ViewOutputs()
+        let identity = _ViewIdentity(type: ObjectIdentifier(Self.self), subgraphIndex: displayListAttr.index)
+        outputs.viewList.append(_ViewListElement(id: identity, displayList: displayListAttr, name: "EmptyView"))
+
+        return outputs
     }
 }

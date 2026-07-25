@@ -1,5 +1,5 @@
 //
-// HostingWindow.swift
+// _Window.swift
 // OpenSwiftUI
 //
 // Created by Helbert Gomes on Jan 18, 2026.
@@ -13,31 +13,19 @@ import OpenSpatial
 import Foundation
 
 @MainActor 
-final class HostingWindow : Responder {
+class _Window : Responder {
 
     var id: String = UUID().uuidString
     private let pointer: OpaquePointer
-
-    // MARK: - Managing the Window’s Behavior
-
-    // The window’s delegate.
-    weak var delegate: HostingWindowDelegate?
-
-    // MARK: - View layer
-
-    /// The reactive view tree for this window.
-    let viewGraph: ViewGraph
 
     /// A Boolean value indicating whether the GLFW window has been destroyed.
     private var isDestroyed: Bool = false
 
     var environmentValues: EnvironmentValues?
 
-    init(with outputs: _SceneOutputs) {
-        self.frame = .init(center: Point3D.zero, size: outputs.size)
-        self.viewGraph = outputs.viewGraph
-
-        guard let pointer = glfwCreateWindow(Int32(frame.size.width), Int32(frame.size.height), "NSWindow", nil, nil) else {
+    init(frame: Rect3D) {
+        self.frame = frame
+        guard let pointer = glfwCreateWindow(Int32(frame.size.width), Int32(frame.size.height), "_Window", nil, nil) else {
             fatalError()
         }
         
@@ -52,7 +40,7 @@ final class HostingWindow : Responder {
 
     // MARK: - Configuring the Window’s Content
 
-    var contentView: HostingView?
+    var contentView: _View?
 
     // MARK: - Sizing Windows
 
@@ -115,17 +103,14 @@ final class HostingWindow : Responder {
     func makeKeyAndOrderFront(_ sender: Any?) {
         makeKey()
         orderFront(sender)
-        // Application.shared.start()
     }
 
     /// Informs the window that it has become the key window.
     func becomeKey() {
-
     }
 
     /// Resigns the window’s key window status.
     func resignKey() {
-
     }
 
     // MARK: - Managing Main Status
@@ -183,14 +168,9 @@ final class HostingWindow : Responder {
         // Don't process updates for destroyed windows
         guard !isDestroyed else { return }
         
-        // if isShouldClose {
-        //     destroy()
-        //     Application.shared.unregisterWindow(self)
-
-        //     if Application.shared.windows.isEmpty {
-        //         Application.shared.terminate()
-        //     }
-        // }
+        if isShouldClose {
+            destroy()
+        }
     }
 
     // MARK: - Closing Windows
@@ -199,7 +179,7 @@ final class HostingWindow : Responder {
     var isReleasedWhenClosed: Bool = false
 
     /// A Boolean value that indicates whether the window should close.
-    var shouldClose: Bool {
+    var isShouldClose: Bool {
         guard !isDestroyed else { return true }
         return glfwWindowShouldClose(pointer) == GLFW_TRUE
     }
@@ -332,9 +312,6 @@ final class HostingWindow : Responder {
         setWindowMaximizeCallback()
         setWindowFocusCallback()
         setWindowRefreshCallback()
-        
-        // Notifica que a janela foi carregada
-        delegate?.windowLoaded(self)
     }
 
     /// Sets up the user pointer for the window.
@@ -345,17 +322,16 @@ final class HostingWindow : Responder {
     /// Sets the close callback of the window.
     private func setWindowCloseCallback() {
         glfwSetWindowCloseCallback(pointer) { pointer in
-            let _ = Unmanaged<HostingWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
+            let _ = Unmanaged<_Window>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
         }
     }
 
     /// Sets the size callback of the window.
     private func setWindowSizeCallback() {
         glfwSetWindowSizeCallback(pointer) { pointer, width, height in
-            let window = Unmanaged<HostingWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
+            let window = Unmanaged<_Window>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
             let newSize = Size3D(width: Double(width), height: Double(height))
             window.frame = Rect3D(origin: window.frame.origin, size: newSize)
-            window.delegate?.windowDidResize(window, to: newSize)
         }
     }
 
@@ -369,7 +345,7 @@ final class HostingWindow : Responder {
     /// Sets the position callback of the window.
     private func setWindowPosCallback() {
         glfwSetWindowPosCallback(pointer) { pointer, x, y in
-            let window = Unmanaged<HostingWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
+            let window = Unmanaged<_Window>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
             window.frame = Rect3D(origin: Point3D(x: Double(x), y: Double(y)), size: window.frame.size)
         }
     }
@@ -377,17 +353,14 @@ final class HostingWindow : Responder {
     /// Sets the iconify callback of the window.
     private func setWindowIconifyCallback() {
         glfwSetWindowIconifyCallback(pointer) { pointer, iconified in
-            let window = Unmanaged<HostingWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
+            let window = Unmanaged<_Window>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
             let wasMiniaturized = window.isMiniaturized
             let isNowMiniaturized = iconified == GLFW_TRUE
             
             if isNowMiniaturized && !wasMiniaturized {
-                window.delegate?.windowWillMiniaturize(window)
                 window.isMiniaturized = true
-                window.delegate?.windowDidMiniaturize(window)
             } else if !isNowMiniaturized && wasMiniaturized {
                 window.isMiniaturized = false
-                window.delegate?.windowDidDeminiaturize(window)
             }
         }
     }
@@ -395,14 +368,14 @@ final class HostingWindow : Responder {
     /// Sets the maximize callback of the window.
     private func setWindowMaximizeCallback() {
         glfwSetWindowMaximizeCallback(pointer) { pointer, maximized in
-            let _ = Unmanaged<HostingWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
+            let _ = Unmanaged<_Window>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
         }
     }
 
     /// Sets the focus callback of the window.
     private func setWindowFocusCallback() {
         glfwSetWindowFocusCallback(pointer) { pointer, focused in
-            let _ = Unmanaged<HostingWindow>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
+            let _ = Unmanaged<_Window>.fromOpaque(glfwGetWindowUserPointer(pointer)).takeUnretainedValue()
         }
     }
 
@@ -410,24 +383,4 @@ final class HostingWindow : Responder {
         glfwSetWindowRefreshCallback(pointer) { pointer in
         }
     }
-}
-
-protocol HostingWindowDelegate : AnyObject {
-
-    // MARK: - Minimizing Windows
-
-    /// Tells the delegate that the window is about to be minimized.
-    func windowWillMiniaturize(_ window: HostingWindow)
-
-    /// Tells the delegate that the window has been minimized.
-    func windowDidMiniaturize(_ window: HostingWindow)
-
-    /// Tells the delegate that the window has been deminimized.
-    func windowDidDeminiaturize(_ window: HostingWindow)
-
-    /// Tells the delegate that the window has been resized.
-    func windowDidResize(_ window: HostingWindow, to size: Size3D)
-
-    /// Tells the delegate that the window has been loaded.
-    func windowLoaded(_ window: HostingWindow)
 }

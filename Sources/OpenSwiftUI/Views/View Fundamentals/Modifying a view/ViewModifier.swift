@@ -51,7 +51,7 @@ import Foundation
 /// Downtown Bus. A view extension, using custom a modifier, renders the
 ///  caption in blue text surrounded by a rounded
 ///  rectangle.](OpenSwiftUI-View-ViewModifier.png)
-@MainActor @preconcurrency
+@MainActor
 public protocol ViewModifier {
 
     // MARK: - Associated Type(s).
@@ -67,14 +67,20 @@ public protocol ViewModifier {
     ///
     /// `content` is a proxy for the view that will have the modifier
     /// represented by `Self` applied to it.
-    @ViewBuilder @preconcurrency func body(content: Self.Content) -> Self.Body
+    @ViewBuilder func body(content: Self.Content) -> Self.Body
 
-    /// Creates the view's modifier representation in the OpenSwiftUI view graph.
-    /// 
+    /// Builds the view outputs for this modifier within the attribute graph.
+    ///
     /// - Parameters:
-    ///   - modifier: The modifier to create.
-    ///   - inputs: The inputs for the view.
-    nonisolated static func _makeView(modifier: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs
+    ///   - modifier: The graph value wrapping this modifier instance.
+    ///   - inputs: The view inputs propagated from the parent context.
+    ///   - body: A closure that builds the outputs for the modified content.
+    /// - Returns: The `_ViewOutputs` produced by the modifier.
+    static func _makeView(
+        modifier: _GraphValue<Self>,
+        inputs: _ViewInputs,
+        body: @escaping (_Graph, _ViewInputs) -> _ViewOutputs
+    ) -> _ViewOutputs
 }
 
 extension ViewModifier where Self.Body == Never {
@@ -83,12 +89,29 @@ extension ViewModifier where Self.Body == Never {
     ///
     /// `content` is a proxy for the view that will have the modifier
     /// represented by `Self` applied to it.
-     @MainActor @preconcurrency public func body(content: Self.Content) -> Self.Body {
-        fatalError()
+    public func body(content: Self.Content) -> Self.Body {
+        fatalError("not implemented yet")
     }
 
-    nonisolated public static func _makeView(modifier: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs {
-        fatalError()
+    public static func _makeView(
+        modifier: _GraphValue<Self>,
+        inputs: _ViewInputs,
+        body: @escaping (_Graph, _ViewInputs) -> _ViewOutputs
+    ) -> _ViewOutputs {
+        // guard let graph = _GraphContext.current else {
+        //     fatalError("ViewModifier._makeView called outside of _GraphContext.withGraph")
+        // }
+        // let bodyAttr = graph.rule(name: "\(Self.self).body") {
+        //     modifier.wrappedValue.body(
+        //         content: _ViewModifier_Content(
+        //             modifierAttr: modifier.wrappedValue,
+        //             contentBody: contentBody
+        //         )
+        //     )
+        // }
+        // return Body._makeView(view: _GraphValue(attribute: bodyAttr), inputs: inputs)
+
+        fatalError("not implemented yet")
     }
 }
 

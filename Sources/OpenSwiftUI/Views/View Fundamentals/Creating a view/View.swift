@@ -57,6 +57,7 @@ import OpenCombine
     associatedtype Body: View
 
     // MARK: - Public Property(ies).
+
     /// The content and behavior of the view.
     ///
     /// When you implement a custom view, you must implement a computed
@@ -74,23 +75,93 @@ import OpenCombine
     /// see <doc:Declaring-a-Custom-View>.
     @ViewBuilder @MainActor @preconcurrency var body: Self.Body { get }
 
-    /// Creates the view's representation in the OpenSwiftUI view graph.
-    /// 
+    /// Builds the view outputs for this view within the attribute graph.
+    ///
     /// - Parameters:
-    ///   - view: The view to create.
-    ///   - inputs: The inputs for the view.
+    ///   - view: The graph value wrapping this view instance.
+    ///   - inputs: The view inputs propagated from the parent context.
+    /// - Returns: The `_ViewOutputs` produced for this view.
     @MainActor @preconcurrency static func _makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs
+
+    /// Builds the list of view elements this view contributes to a container.
+    ///
+    /// Most views contribute exactly one element (themselves). Views like
+    /// `ForEach` override this to contribute N elements, one per data item.
+    /// Containers (`VStack`, `HStack`) call this instead of `_makeView` when
+    /// assembling their child lists, so a `ForEach` inside a stack expands
+    /// into its individual rows rather than appearing as a single opaque node.
+    ///
+    /// - Parameters:
+    ///   - view: The graph value wrapping this view instance.
+    ///   - inputs: The list inputs propagated from the parent container.
+    /// - Returns: The `_ViewListOutputs` contributed by this view.
+    static func _makeViewList(view: _GraphValue<Self>, inputs: _ViewListInputs) -> _ViewListOutputs
+
+    /// Returns the static element count this view contributes to a container,
+    /// or `nil` when the count is only known at runtime.
+    ///
+    /// Containers use this before constructing any child nodes to pre-allocate
+    /// layout slots. `ForEach` returns its data array's count; tuple views
+    /// return a compile-time constant; most single views return `1`.
+    /// Returning `nil` signals that the count is dynamic and the container
+    /// must fall back to building the list first.
+    ///
+    /// - Parameter inputs: The count inputs carrying the active environment.
+    /// - Returns: The static element count, or `nil` if unknown at this point.
+    static func _viewListCount(inputs: _ViewListCountInputs) -> Int?
 }
 
 extension View {
-    @MainActor @preconcurrency public static func _makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs {
-        // guard Self.Body.self != Never.self else {
-        //     fatalError("Unsupported view type \(Self.self)")
-        // }
 
-        // return Self.Body._makeView(view: _GraphValue(view.value.body), inputs: inputs)
-        .init()
+    public static func _makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs {
+        guard Body.self != Never.self else {
+            fatalError("\(Self.self) must implement _makeView directly (Body == Never)")
+        }
+        guard let graph = _GraphContext.current else {
+            fatalError("_makeView called outside of _GraphContext.withGraph")
+        }
+
+        let bodyAttr = graph.rule(name: "\(Self.self).body") {
+            let prevEnv = graph.currentEnvironment
+            graph.currentEnvironment = inputs.environment.projectedValue
+            defer { graph.currentEnvironment = prevEnv }
+
+            let instance = view.wrappedValue
+            for child in Mirror(reflecting: instance).children {
+                if var dp = child.value as? DynamicProperty {
+                    dp.update()
+                }
+            }
+            return instance.body
+        }
+
+        return Body._makeView(view: _GraphValue(attribute: bodyAttr), inputs: inputs)
     }
+
+    /// Default implementation: delegates to `_makeView` and wraps its list.
+    ///
+    /// Single-element views (everything except `ForEach`) inherit this: they
+    /// build their full outputs via `_makeView` and expose the same view list
+    /// through the list API, so containers can treat all children uniformly.
+    public static func _makeViewList(view: _GraphValue<Self>, inputs: _ViewListInputs) -> _ViewListOutputs {
+        guard let graph = _GraphContext.current else {
+            fatalError("_makeViewList called outside of _GraphContext.withGraph")
+        }
+
+        let txAttr = graph.input(name: "transaction", Transaction())
+        var viewInputs = _ViewInputs(
+            frame: inputs.frame.projectedValue,
+            environment: inputs.environment.projectedValue,
+            transaction: txAttr
+        )
+        viewInputs.gestureHandler = inputs.gestureHandler
+        let outputs = _makeView(view: view, inputs: viewInputs)
+
+        return _ViewListOutputs(viewList: outputs.viewList)
+    }
+
+    /// Default implementation: every plain view contributes exactly one element.
+    public static func _viewListCount(inputs: _ViewListCountInputs) -> Int? { 1 }
 }
 
 extension View where Self.Body == Never {

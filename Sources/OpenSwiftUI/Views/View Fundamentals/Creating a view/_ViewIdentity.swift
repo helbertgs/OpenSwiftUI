@@ -7,6 +7,8 @@
 // SPDX-License-Identifier: MIT
 //
 
+import Foundation
+
 /// A stable identity for a view element in the graph.
 ///
 /// Composed of the view type (`ObjectIdentifier(V.self)`) and the creation

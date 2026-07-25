@@ -6,7 +6,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // SPDX-License-Identifier: MIT
 
-import Swift
+import Foundation
 
 /// A key for accessing values in the environment.
 ///
@@ -63,7 +63,7 @@ import Swift
 ///         }
 ///     }
 ///
-public protocol EnvironmentKey {
+public protocol EnvironmentKey : PropertyListKey {
 
     /// The associated type representing the type of the environment key's
     /// value.
@@ -80,10 +80,11 @@ public protocol EnvironmentKey {
     /// - Parameters:
     ///   - lhs: A value to compare.
     ///   - rhs: Another value to compare.
-    static func _valuesEqual(_ lhs: Self.Value, _ rhs: Self.Value) -> Swift.Bool
+    static func _valuesEqual(_ lhs: Self.Value, _ rhs: Self.Value) -> Bool
 }
 
 extension EnvironmentKey where Self.Value : Equatable {
+
     /// Returns a Boolean value indicating whether two values are equal.
     ///
     /// Equality is the inverse of inequality. For any values `a` and `b`,

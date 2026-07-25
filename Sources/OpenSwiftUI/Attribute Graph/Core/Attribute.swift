@@ -19,39 +19,30 @@
 struct Attribute<V> {
 
     /// The index identifying this attribute's storage slot inside the graph arena.
-    let index: UInt32
+    public let index: UInt32
 
-    /// The graph that is active in the current execution context.
+    /// The graph that owns this attribute's storage slot.
     ///
-    /// Accessing this property outside of `_GraphContext.withGraph` triggers an
-    /// immediate crash by design, because no `Attribute` should ever exist
-    /// without an active graph.
-    private var graph: AttributeGraph {
-        guard let g = _GraphContext.current else {
-            fatalError("Attribute<\(V.self)> accessed outside of _GraphContext.withGraph")
-        }
-        return g
-    }
+    /// Stored directly so that `wrappedValue` can be read at any time — not
+    /// just inside `_GraphContext.withGraph`. Dependency registration and
+    /// recompute still use `_GraphContext.current` when it is available, but
+    /// plain reads (e.g. from `_Window.init`) work without an active context.
+    let graph: AttributeGraph
 
-    /// The backing storage slot for this attribute within the active graph's arena.
+    /// The backing storage slot for this attribute within the graph's arena.
     var storage: AttributeGraph.Storage { graph.arena[Int(index)] }
 
     /// The current value of the attribute.
     ///
-    /// Reading registers a dependency when evaluated inside a rule and lazily
-    /// recomputes the value if it is stale. Writing is only valid for input
-    /// attributes; assigning to a derived (rule) attribute traps in debug builds.
-    ///
-    /// - Example:
-    /// ```swift
-    /// let count = graph.input(0)
-    /// count.wrappedValue = 5
-    /// print(count.wrappedValue) // 5
-    /// ```
-    var wrappedValue: V {
+    /// Reading outside a rule context returns the cached value directly.
+    /// Reading inside a rule registers a dependency and recomputes if stale.
+    /// Writing is only valid for input attributes.
+    public var wrappedValue: V {
         get {
-            registerDependencyIfNeeded()
-            recomputeIfNeeded()
+            if _GraphContext.current != nil {
+                registerDependencyIfNeeded()
+                recomputeIfNeeded()
+            }
             return storage._cachedValue as! V
         }
         nonmutating set {
@@ -63,9 +54,6 @@ struct Attribute<V> {
 
     /// Sets a new `PropertyList`-backed value and records which keys changed,
     /// enabling fine-grained dirty propagation to downstream rules.
-    ///
-    /// Called by the `EnvironmentValues` and `Transaction` input-attribute setters
-    /// when only specific keys were modified.
     func setValue(_ newValue: V, changedKeys: Set<ObjectIdentifier>) {
         assert(storage.recompute == nil, "Não é possível setar um atributo derivado (rule)")
         storage._cachedValue = newValue
@@ -74,10 +62,6 @@ struct Attribute<V> {
 
     /// Records a dependency edge from this attribute to the attribute currently
     /// being evaluated, when appropriate.
-    ///
-    /// A dependency is registered only if there is an active evaluation, the
-    /// current attribute differs from this one, and no equivalent edge already
-    /// exists.
     private func registerDependencyIfNeeded() {
         guard let currentIdx = graph.currentStorageIndex,
               currentIdx != index else { return }
@@ -130,9 +114,12 @@ struct Attribute<V> {
     /// This initializer is internal because only `AttributeGraph` is allowed to
     /// create attributes.
     ///
-    /// - Parameter index: The arena index of the backing storage slot.
-    init(index: UInt32) {
+    /// - Parameters:
+    ///   - index: The arena index of the backing storage slot.
+    ///   - graph: The graph that owns this slot.
+    init(index: UInt32, graph: AttributeGraph) {
         self.index = index
+        self.graph = graph
     }
 }
 
