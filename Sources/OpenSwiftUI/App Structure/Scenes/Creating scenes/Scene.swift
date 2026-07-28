@@ -1114,7 +1114,7 @@ extension Scene {
     ///
     /// - Parameter visibility: A value that indicates the visibility of the
     /// non-transient system views overlaying the app.
-    public func persistentSystemOverlays(_ preferredVisibility: Visibility) -> some Scene{
+    public func persistentSystemOverlays(_ preferredVisibility: Visibility) -> some Scene {
         modifier(
             TransformSceneListModifier()
         )

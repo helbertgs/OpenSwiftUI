@@ -147,6 +147,12 @@ extension App {
     /// default implementation of the method that manages the launch process in
     /// a platform-appropriate way.
     public static func main() {
-        // Application.shared.run(Self())
+        run(Self())
     }
+}
+
+@MainActor
+func run<A>(_ app: A) where A : App {
+    let application = Application()
+    application.run()
 }

@@ -35,7 +35,8 @@ import Foundation
 /// If you do, be prepared to handle size class changes while
 /// your app runs, because factors like device orientation can change at
 /// runtime.
-@frozen public enum UserInterfaceSizeClass: Comparable, Equatable, Hashable {
+@frozen 
+public enum UserInterfaceSizeClass: Comparable, Equatable, Hashable, Sendable {
 
     // MARK: - Case(s).
 

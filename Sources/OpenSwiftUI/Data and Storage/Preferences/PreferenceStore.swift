@@ -7,6 +7,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import Foundation
 
 /// A store of preference values keyed by preference key type.
 @MainActor

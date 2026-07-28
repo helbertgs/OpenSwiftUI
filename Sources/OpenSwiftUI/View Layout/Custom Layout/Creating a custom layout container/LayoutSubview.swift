@@ -28,7 +28,6 @@ import OpenSpatial
 /// see ``LayoutValueKey``.
 public struct LayoutSubview : Equatable {
 
-
     /// Gets the value for the subview that's associated with the specified key.
     ///
     /// If you define a custom layout value using ``LayoutValueKey``,

@@ -50,6 +50,7 @@ import OpenCombine
 @MainActor @preconcurrency public protocol View {
 
     // MARK: - Associated Type(s).
+    
     /// The type of view representing the body of this view.
     ///
     /// When you create a custom view, Swift infers this type from your

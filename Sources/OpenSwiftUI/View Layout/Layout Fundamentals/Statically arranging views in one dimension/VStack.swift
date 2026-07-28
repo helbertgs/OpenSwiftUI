@@ -38,20 +38,9 @@ import Foundation
 /// > Note: If you need a vertical stack that conforms to the ``Layout``
 /// protocol, like when you want to create a conditional layout using
 /// ``AnyLayout``, use ``VStackLayout`` instead.
-@frozen public struct VStack<Content> : View where Content : View {
+public struct VStack<Content> where Content : View {
 
-    public let layout: _VStackLayout
-    public let content: Content
-
-    /// The type of view representing the body of this view.
-    ///
-    /// When you create a custom view, Swift infers this type from your
-    /// implementation of the required ``View/body-swift.property`` property.
-    public typealias Body = Never
-
-    public var body: Never {
-        fatalError()
-    }
+    let _tree: _VariadicView.Tree<VStackLayout, Content>
 
     /// Creates an instance with the given spacing and horizontal alignment.
     ///
@@ -62,42 +51,28 @@ import Foundation
     ///     want the stack to choose a default distance for each pair of
     ///     subviews.
     ///   - content: A view builder that creates the content of this stack.
-    @inlinable public init(alignment: HorizontalAlignment = .center, spacing: Float? = nil, @ViewBuilder content: () -> Content) {
-        self.layout = .init(alignment: alignment, spacing: spacing)
-        self.content = content()
-    }
-
-    public static func _makeView(view: _GraphValue<VStack<Content>>, inputs: _ViewInputs) -> _ViewOutputs {
-        .init()
+    public init(alignment: HorizontalAlignment = .center, spacing: Double? = nil, @ViewBuilder content: () -> Content) {
+        _tree = .init(VStackLayout(alignment: alignment, spacing: spacing)) {
+            content()
+        }
     }
 }
 
-/// A vertical container that you can use in conditional layouts.
-///
-/// This layout container behaves like a ``VStack``, but conforms to the
-/// ``Layout`` protocol so you can use it in the conditional layouts that you
-/// construct with ``AnyLayout``. If you don't need a conditional layout, use
-/// ``VStack`` instead.
-@frozen public struct _VStackLayout: Equatable, Hashable, Sendable {
+extension VStack : View {
 
-    /// The horizontal alignment of subviews.
-    public let alignment: HorizontalAlignment
-
-    /// The distance between adjacent subviews.
+    /// The type of view representing the body of this view.
     ///
-    /// Set this value to `nil` to use default distances between subviews.
-    public let spacing: Float?
+    /// When you create a custom view, Swift infers this type from your
+    /// implementation of the required ``View/body-swift.property`` property.
+    public typealias Body = Never
 
-    /// Creates a vertical stack with the specified spacing and horizontal
-    /// alignment.
+    /// Builds the view outputs for this view within the attribute graph.
     ///
     /// - Parameters:
-    ///     - alignment: The guide for aligning the subviews in this stack. It
-    ///       has the same horizontal screen coordinate for all subviews.
-    ///     - spacing: The distance between adjacent subviews. Set this value
-    ///       to `nil` to use default distances between subviews.
-    @inlinable public init(alignment: HorizontalAlignment = .center, spacing: Float? = nil) {
-        self.alignment = alignment
-        self.spacing = spacing
+    ///   - view: The graph value wrapping this view instance.
+    ///   - inputs: The view inputs propagated from the parent context.
+    /// - Returns: The `_ViewOutputs` produced for this view.
+    public static func _makeView(view: _GraphValue<VStack<Content>>, inputs: _ViewInputs) -> _ViewOutputs {
+        .init()
     }
 }

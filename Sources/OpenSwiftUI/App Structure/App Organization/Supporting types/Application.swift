@@ -7,8 +7,6 @@
 // SPDX-License-Identifier: MIT 
 
 import Foundation
-import OpenGLFW
-import OpenSpatial
 
 /// An object that manages an app's main event loop and resources used by all of that app's objects.
 @MainActor 
@@ -18,6 +16,9 @@ final class Application {
 
     /// Accessing the shared application
     @MainActor static let shared = Application()
+
+    init() {
+    }
 
 
     /// Processes the Foundation RunLoop.
@@ -33,5 +34,8 @@ final class Application {
             // not be running right now, we interrupt the current loop or otherwise
             // continue to the next iteration.
         } while (time?.timeIntervalSinceNow ?? -1) <= 0
-    }    
+    }
+
+    func run() {
+    } 
 }
