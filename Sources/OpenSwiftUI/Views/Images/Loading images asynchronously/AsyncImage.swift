@@ -184,7 +184,7 @@ public struct AsyncImage<Content> where Content : View {
                             return .empty
                         }
                     } catch {
-                        return .failure(error)
+                        return .failure(error.localizedDescription)
                     }
                 }, 
                 url: url, 

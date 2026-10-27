@@ -9,7 +9,7 @@
 
 /// A key for values carried inside a `Transaction`.
 ///
-/// Mirrors SwiftUI's `TransactionKey`. Implement this protocol to attach
+/// Implement this protocol to attach
 /// custom metadata to a transaction — for example, animation intent.
 public protocol TransactionKey: PropertyListKey {}
 

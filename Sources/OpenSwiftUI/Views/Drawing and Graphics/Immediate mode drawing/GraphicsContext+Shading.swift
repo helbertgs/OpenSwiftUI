@@ -23,7 +23,15 @@ extension GraphicsContext {
     /// - An ``Image``.
     /// - What you’ve already drawn into the context.
     /// - A collection of other shading instances.
-    public struct Shading : @unchecked Sendable {
+    public struct Shading : Equatable, Hashable, Sendable {
+
+        // MARK: - Creating a Shading
+
+        let storage: Storage
+
+        init(storage: Storage) {
+            self.storage = storage
+        }
 
         // MARK: - Colors
 
@@ -32,7 +40,7 @@ extension GraphicsContext {
         /// - Parameter color: A Color instance that defines the color of the shading.
         /// - Returns: A shading instance filled with a color.
         public static func color(_ color: Color) -> GraphicsContext.Shading {
-            fatalError("not implemented yet")
+            .init(storage: .color(color))
         }
 
         /// Returns a shading instance that fills with a color in the given color space.
@@ -44,8 +52,15 @@ extension GraphicsContext {
         ///   - blue: The blue component of the color.
         ///   - opacity: The opacity of the color. The default is 1, which means fully opaque.
         /// - Returns: A shading instance filled with a color.
-        public static func color(_ colorSpace: Color.RGBColorSpace = .sRGB, red: Double, green: Double, blue: Double, opacity: Double = 1) -> GraphicsContext.Shading {
-            fatalError("not implemented yet")
+        public static func color(
+            _ colorSpace: Color.RGBColorSpace = .sRGB,
+            red: Double,
+            green: Double,
+            blue: Double,
+            opacity: Double = 1
+        ) -> GraphicsContext.Shading {
+            let color = Color(colorSpace, red: red, green: green, blue: blue, opacity: opacity)
+            return .init(storage: .color(color))
         }
 
         /// Returns a shading instance that fills with a monochrome color in the given color space.
@@ -55,8 +70,13 @@ extension GraphicsContext {
         ///   - white: The value to use for each of the red, green, and blue components of the color.
         ///   - opacity: The opacity of the color. The default is 1, which means fully opaque.
         /// - Returns: A shading instance filled with a color.
-        public static func color(_ colorSpace: Color.RGBColorSpace = .sRGB, white: Double, opacity: Double = 1) -> GraphicsContext.Shading {
-            fatalError("not implemented yet")
+        public static func color(
+            _ colorSpace: Color.RGBColorSpace = .sRGB,
+            white: Double,
+            opacity: Double = 1
+        ) -> GraphicsContext.Shading {
+            let color = Color(colorSpace, white: white, opacity: opacity)
+            return .init(storage: .color(color))
         }
 
         // MARK: - Gradients
@@ -70,8 +90,18 @@ extension GraphicsContext {
         ///   - endPoint: The end point of the gradient axis.
         ///   - options: Options that you use to configure the gradient.
         /// - Returns: A shading instance filled with a linear gradient.
-        public static func linearGradient(_ gradient: Gradient, startPoint: Point3D, endPoint: Point3D, options: GraphicsContext.GradientOptions = GradientOptions()) -> GraphicsContext.Shading {
-            fatalError("not implemented yet")
+        public static func linearGradient(
+            _ gradient: Gradient,
+            startPoint: Point3D,
+            endPoint: Point3D,
+            options: GraphicsContext.GradientOptions = GradientOptions()
+        ) -> GraphicsContext.Shading {
+            .init(
+                storage: .gradient(
+                    gradient, .axial(startPoint, endPoint),
+                    options
+                )
+            )
         }
 
         /// Returns a shading instance that fills a radial gradient.
@@ -83,8 +113,20 @@ extension GraphicsContext {
         ///   - endRadius: The distance from the center where the gradient ends.
         ///   - options: Options that you use to configure the gradient.
         /// - Returns: A shading instance filled with a radial gradient.
-        public static func radialGradient(_ gradient: Gradient, center: Point3D, startRadius: Double, endRadius: Double, options: GraphicsContext.GradientOptions = GradientOptions()) -> GraphicsContext.Shading {
-            fatalError("not implemented yet")
+        public static func radialGradient(
+            _ gradient: Gradient,
+            center: Point3D,
+            startRadius: Double,
+            endRadius: Double,
+            options: GraphicsContext.GradientOptions = GradientOptions()
+        ) -> GraphicsContext.Shading {
+            .init(
+                storage: .gradient(
+                    gradient,
+                    .radial(center, startRadius, endRadius),
+                    options
+                )
+            )
         }
 
         /// Returns a shading instance that fills a conic (angular) gradient.
@@ -95,8 +137,19 @@ extension GraphicsContext {
         ///   - angle: The angle about the center that OpenSwiftUI uses to start and finish the gradient. The gradient sweeps all the way around the center.
         ///   - options: Options that you use to configure the gradient.
         /// - Returns: A shading instance filled with a conic gradient.
-        public static func conicGradient(_ gradient: Gradient, center: Point3D, angle: Angle2D = .init(), options: GraphicsContext.GradientOptions = GradientOptions()) -> GraphicsContext.Shading {
-            fatalError("not implemented yet")
+        public static func conicGradient(
+            _ gradient: Gradient,
+            center: Point3D,
+            angle: Angle2D = .init(),
+            options: GraphicsContext.GradientOptions = GradientOptions()
+        ) -> GraphicsContext.Shading {
+            .init(
+                storage: .gradient(
+                    gradient,
+                    .conic(center, angle.radians),
+                    options
+                )
+            )
         }
 
         // MARK: - Other shape styles
@@ -127,8 +180,13 @@ extension GraphicsContext {
         ///   - sourceRect: A unit space subregion of the image. The default is a unit rectangle, which selects the whole image.
         ///   - scale: A factor that you can use to control the image size.
         /// - Returns: A shading instance filled with a tiled image.
-        public static func tiledImage(_ image: Image, origin: Point3D = .zero, sourceRect: Rect3D = Rect3D(center: .zero, size: .one), scale: Double = 1) -> GraphicsContext.Shading {
-            fatalError("not implemented yet")
+        public static func tiledImage(
+            _ image: Image,
+            origin: Point3D = .zero,
+            sourceRect rect: Rect3D = Rect3D(center: .zero, size: .one),
+            scale: Double = 1
+        ) -> GraphicsContext.Shading {
+            .init(storage: .tiledImage(image, origin, rect, scale))
         }
 
         // MARK: - Composite shading types
@@ -139,7 +197,7 @@ extension GraphicsContext {
         /// - Parameter array: An array of shading instances. The array must contain at least one element.
         /// - Returns: A shading instance composed from the given instances.
         public static func palette(_ array: [GraphicsContext.Shading]) -> GraphicsContext.Shading {
-            fatalError("not implemented yet")
+            .init(storage: .levels(array))
         }
 
         /// A shading instance that draws a copy of the current background.
@@ -156,7 +214,7 @@ extension GraphicsContext {
         ///   - bounds: The rect used to define any bounds arguments of the shader.
         /// - Returns: A shading instance that fills using the shader.
         public static func shader(_ shader: Shader, bounds: Rect3D = .zero) -> GraphicsContext.Shading {
-            fatalError("not implemented yet")
+            .init(storage: .shader(shader, bounds))
         }
 
         // MARK: - Type Methods
@@ -166,19 +224,21 @@ extension GraphicsContext {
         /// - Parameter mesh: The mesh gradient defining the filled colors.
         /// - Returns: A shading that fills using the mesh gradient.
         public static func meshGradient(_ mesh: MeshGradient) -> GraphicsContext.Shading {
-            fatalError("not implemented yet")
+            .init(storage: .meshGradient(mesh))
         }
+    }
+}
 
-        // MARK: - Creating a Shading
+extension GraphicsContext.Shading {
 
-        /// A reference to a GLSL shader program.
-        private let shader: Shader
-
-        /// Create a new shading using a GLSL shader program
-        /// 
-        /// - Parameter shader: GLSL Shader program
-        init(shader: Shader) {
-            self.shader = shader
-        }
+    enum Storage : Equatable, Hashable, Sendable {
+        case color(Color)
+        case foreground
+        case levels([GraphicsContext.Shading])
+        case meshGradient(MeshGradient)
+//        case style(AnyShapeStyle)
+        case shader(Shader, Rect3D)
+        case tiledImage(Image, Point3D, Rect3D, Double)
+        case gradient(Gradient, GraphicsContext.GradientGeometry, GraphicsContext.GradientOptions)
     }
 }

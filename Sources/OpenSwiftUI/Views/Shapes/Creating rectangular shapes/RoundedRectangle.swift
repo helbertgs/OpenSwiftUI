@@ -49,8 +49,7 @@ public struct RoundedRectangle : Shape {
     public func path(in rect: Rect3D) -> Path {
         .init(
             roundedRect: rect,
-            cornerSize: cornerSize,
-            style: style
+            cornerSize: cornerSize
         )
     }
 

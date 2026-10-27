@@ -10,7 +10,7 @@ import Foundation
 
 /// A style for rasterizing vector shapes.
 @frozen
-public struct FillStyle : BitwiseCopyable, Copyable, Equatable, Sendable {
+public struct FillStyle : BitwiseCopyable, Copyable, Equatable, Hashable, Sendable {
 
     // MARK: - Setting fill style properties
 

@@ -108,7 +108,7 @@ public struct Path : Equatable, Sendable {
         // Top edge (rightwards)
         elements.append(.line(to: Point3D(x: maxX - r, y: maxY, z: 0)))
 
-        // Top‑right arc (90° clockwise, from 0° to 90° in user space → counter‑clockwise in default SwiftUI coords)
+        // Top‑right arc (90° clockwise, from 0° to 90° in user space → counter‑clockwise in default OpenSwiftUI coords)
         addArcHelper(center: Point3D(x: maxX - r, y: maxY - r, z: 0),
                      radius: r,
                      startAngle: Angle2D(radians: 0),
@@ -147,6 +147,19 @@ public struct Path : Equatable, Sendable {
 
         elements.append(.closeSubpath)
         currentPoint = start
+    }
+    
+    /// Creates a path containing a rounded rectangle.
+    ///
+    /// This is a convenience function that creates a path of a rounded rectangle.
+    /// Using this convenience function is more efficient than creating a path and adding a rounded rectangle to it.
+    /// - Parameters:
+    ///   - rect: A rectangle, specified in user space coordinates.
+    ///   - cornerRadius: The radius of all corners of the rectangle, specified in user space coordinates.
+    ///   - style: The corner style. Defaults to the continous style if not specified.
+    public init(roundedRect rect: Rect3D, cornerSize: Size3D, style: RoundedCornerStyle = .continuous) {
+        self.storage = .empty
+        self.elements = []
     }
 
     // MARK: - Getting the path’s characteristics

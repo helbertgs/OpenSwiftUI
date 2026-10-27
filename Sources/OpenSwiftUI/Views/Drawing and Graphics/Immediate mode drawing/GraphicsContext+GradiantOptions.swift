@@ -13,7 +13,7 @@ extension GraphicsContext {
     /// Options that affect the rendering of color gradients.
     /// 
     /// Use these options to affect how OpenSwiftUI manages a gradient that you create for a ``GraphicsContext.Shading`` instance for use in a ``GraphicsContext``.
-    @frozen public struct GradientOptions : BitwiseCopyable, Copyable, Equatable, OptionSet, Sendable {
+    @frozen public struct GradientOptions : Equatable, Hashable, OptionSet, Sendable {
 
         // MARK: - Accessing the Raw Value
         

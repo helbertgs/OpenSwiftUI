@@ -10,10 +10,10 @@ import Swift
 
 /// A color gradient represented as an array of color stops, each having a
 /// parametric location value.
-@frozen public struct Gradient : Equatable {
+@frozen public struct Gradient : Equatable, Hashable, Sendable {
 
     /// One color stop in the gradient.
-    @frozen public struct Stop : Equatable {
+    @frozen public struct Stop : Equatable, Hashable, Sendable {
 
         /// The color for the stop.
         public var color: Color
@@ -21,10 +21,10 @@ import Swift
         /// The parametric location of the stop.
         ///
         /// This value must be in the range `[0, 1]`.
-        public var location: Float
+        public var location: Double
 
         /// Creates a color stop with a color and location.
-        @inlinable public init(color: Color, location: Float) {
+        @inlinable public init(color: Color, location: Double) {
             self.color = color
             self.location = location
         }
@@ -55,7 +55,7 @@ import Swift
     /// The gradient synthesizes its location values to evenly space the colors
     /// along the gradient.
     public init(colors: [Color]) {
-        self.stops = colors.compactMap { .init(color: $0, location: 1.0 / Float(colors.count)) }
+        self.stops = colors.compactMap { .init(color: $0, location: 1.0 / Double(colors.count)) }
     }
 
     /// Returns a Boolean value indicating whether two values are equal.

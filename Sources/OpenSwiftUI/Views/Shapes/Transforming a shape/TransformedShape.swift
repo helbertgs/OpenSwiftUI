@@ -34,7 +34,7 @@ public struct TransformedShape<Content> : Shape where Content : Shape {
 
     /// An indication of how to style a shape.
     ///
-    /// SwiftUI looks at a shape's role when deciding how to apply a
+    /// OpenSwiftUI looks at a shape's role when deciding how to apply a
     /// ``ShapeStyle`` at render time. The ``Shape`` protocol provides a
     /// default implementation with a value of ``ShapeRole/fill``. If you
     /// create a composite shape, you can provide an override of this property

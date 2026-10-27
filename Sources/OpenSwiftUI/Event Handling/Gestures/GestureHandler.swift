@@ -12,7 +12,7 @@ import OpenSpatial
 /// The bridge between the view tree (which declares gestures during `_makeView`)
 /// and the `Application` (which dispatches GLFW input events).
 ///
-/// In real SwiftUI, gestures are not registered directly with the run loop —
+/// Gestures are not yet registered directly with the run loop —
 /// they flow through the graph via `_GestureInputs`/`_GestureOutputs`. A view
 /// registers handlers with the `GestureHandler` provided by `_ViewInputs`, and
 /// the `Application` consults those handlers when processing input events.

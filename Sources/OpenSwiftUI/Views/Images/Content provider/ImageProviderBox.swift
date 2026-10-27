@@ -12,8 +12,24 @@ extension Image {
 
     /// A base provider for all image providers.
     @usableFromInline    
-    class AnyImageProviderBox : @unchecked Sendable {
+    class AnyImageProviderBox : Equatable, Hashable, @unchecked Sendable {
         init() { }
+        
+        func `as`<T>(_ t: T.Type) -> T? {
+            nil
+        }
+        
+        @usableFromInline
+        static func == (_ lhs: AnyImageProviderBox, _ rhs: AnyImageProviderBox) -> Bool {
+            guard ObjectIdentifier(lhs) == ObjectIdentifier(rhs) else {
+                return false
+            }
+            
+            return true
+        }
+        @usableFromInline
+        func hash(into hasher: inout Hasher) {
+        }
     }
 
     /// A provider that wraps a specific image provider.

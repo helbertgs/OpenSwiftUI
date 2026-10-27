@@ -37,7 +37,7 @@ public enum AsyncImagePhase : Sendable {
     case success(Image)
 
     /// An image failed to load with an error.
-    case failure(any Error)
+    case failure(String)
 
     /// The loaded image, if any.
     ///
@@ -54,7 +54,7 @@ public enum AsyncImagePhase : Sendable {
     }
 
     /// The error that occurred when attempting to load an image, if any.
-    public var error: (any Error)? { 
+    public var error: String? {
         return switch self {
             case .failure(let error): error
             default: nil

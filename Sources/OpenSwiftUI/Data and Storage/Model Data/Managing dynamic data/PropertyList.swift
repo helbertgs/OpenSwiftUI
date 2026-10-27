@@ -9,8 +9,7 @@
 
 import Foundation
 
-/// A singly-linked list of typed key-value pairs, identical in spirit to SwiftUI's
-/// internal `PropertyList`.
+/// A singly-linked list of typed key-value pairs.
 ///
 /// Both `Transaction` and `EnvironmentValues` use this as their backing store.
 /// Each distinct key type produces its own `TypedElement<K>` subclass, so the

@@ -8,7 +8,7 @@
 
 import Foundation
 
-@frozen public struct StrokeStyle {
+@frozen public struct StrokeStyle : Equatable, Hashable, Sendable, SendableMetatype {
 
     // MARK: - Setting stroke style properties
     

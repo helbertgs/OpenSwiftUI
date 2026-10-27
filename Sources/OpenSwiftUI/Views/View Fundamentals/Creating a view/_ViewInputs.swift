@@ -28,7 +28,7 @@ public struct _ViewInputs {
     /// The gesture registration point, instantiated by the `ViewGraph`/`ApplicationLoop`
     /// and passed down the tree so views need not know about the `ApplicationLoop`.
     ///
-    /// In real SwiftUI this is `_GestureInputs`; here it is simplified to a single handler.
+    /// Simplified to a single handler.
     var gestureHandler: GestureHandler?
 
     /// Creates view inputs.

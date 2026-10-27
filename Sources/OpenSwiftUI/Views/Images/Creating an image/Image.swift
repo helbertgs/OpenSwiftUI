@@ -59,7 +59,7 @@ import OpenSpatial
 /// VoiceOver. For images that are only present for aesthetic reasons, use an
 /// initializer with the `decorative` parameter; the accessibility systems
 /// ignore these images.
-@frozen public struct Image : Sendable {
+@frozen public struct Image : Equatable, Hashable, Sendable {
 
     // MARK: - Checking Characteristics.
 

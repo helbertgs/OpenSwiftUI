@@ -9,8 +9,8 @@
 
 /// A dependency graph implemented as an arena of `AttributeStorage`.
 ///
-/// `Attribute<Value>` is a struct holding a `UInt32` index, matching SwiftUI's
-/// internal design. The `@MainActor` isolation reflects SwiftUI's reality: the
+/// `Attribute<Value>` is a struct holding a `UInt32` indexq. 
+/// The `@MainActor` isolation reflects OpenSwiftUI's reality: the
 /// view graph is always manipulated on the main thread.
 @MainActor
 final class AttributeGraph {

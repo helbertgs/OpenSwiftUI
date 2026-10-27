@@ -13,7 +13,7 @@ import Foundation
 ///
 /// Composed of the view type (`ObjectIdentifier(V.self)`) and the creation
 /// position in the graph (the display list attribute's arena index, unique
-/// within the arena). This mirrors real SwiftUI, where each node in the view
+/// within the arena). Each node in the view
 /// tree has an identity composed of type plus structural position.
 public struct _ViewIdentity: Hashable, Sendable {
     

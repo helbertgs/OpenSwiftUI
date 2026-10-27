@@ -14,12 +14,10 @@ public struct ForegroundStyle : ShapeStyle {
 
     /// Creates a foreground style instance.
     @inlinable
-    public init() {
+    public init() { }
+    
+    /// Evaluate to a resolved shape style given the current `environment`.
+    public func resolve(in environment: EnvironmentValues) -> Never {
+        fatalError("not implemented yet")
     }
-
-    /// The type of shape style this will resolve to.
-    ///
-    /// When you create a custom shape style, Swift infers this type
-    /// from your implementation of the required `resolve` function.
-    public typealias Resolved = Never
 }

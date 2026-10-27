@@ -8,7 +8,7 @@
 
 import OpenSpatial
 
-public struct MeshGradient {
+public struct MeshGradient : Equatable, Hashable, Sendable {
 
     // MARK: - Instance Properties
 
@@ -38,8 +38,8 @@ public struct MeshGradient {
 extension MeshGradient {
 
     /// An array of 2D locations and their control points.
-    public enum Locations : Equatable, Sendable {
-        
+    public enum Locations : Equatable, Hashable, Sendable {
+
         // MARK: - Enumeration Cases
         
         /// Vertices explicitly specifying their location and control points.
@@ -49,7 +49,7 @@ extension MeshGradient {
         case points([Point3D])
     }
 
-    public struct BezierPoint : Equatable, Sendable {
+    public struct BezierPoint : Equatable, Hashable, Sendable {
 
         // MARK: - Instance Properties
 

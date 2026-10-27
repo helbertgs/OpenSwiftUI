@@ -33,3 +33,14 @@ extension Never : Scene {
         fatalError()
     }
 }
+
+
+extension Never : ShapeStyle {
+    
+    public typealias Resolved = Never
+    
+    /// Evaluate to a resolved shape style given the current `environment`.
+    public func resolve(in environment: EnvironmentValues) -> Self.Resolved {
+        fatalError()
+    }
+}

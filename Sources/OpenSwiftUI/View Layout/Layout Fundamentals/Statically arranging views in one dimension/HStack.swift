@@ -33,7 +33,7 @@ import Foundation
 ///     }
 ///
 /// ![Five text views, named Item 1 through Item 5, arranged in a
-/// horizontal row.](SwiftUI-HStack-simple.png)
+/// horizontal row.](OpenSwiftUI-HStack-simple.png)
 ///
 /// > Note: If you need a horizontal stack that conforms to the ``Layout``
 /// protocol, like when you want to create a conditional layout using
