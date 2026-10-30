@@ -9,7 +9,6 @@
 import OpenSpatial
 
 /// An immediate mode drawing destination, and its current state.
-@frozen
 public struct GraphicsContext {
 
     // MARK: - Drawing a path
@@ -287,5 +286,14 @@ public struct GraphicsContext {
     /// OpenSwiftUI initially sets this to the environment of the context’s enclosing view. 
     /// The context uses values like display resolution and the color scheme from the environment to resolve types like ``Image`` and ``Color``. 
     /// You can also access values stored in the environment for your own purposes.
-    public package(set) var environment: EnvironmentValues = .init()
+    public package(set) var environment: EnvironmentValues
+    
+    // MARK: - Display List
+
+    private(set) var displayList: DisplayList
+
+    init(displayList: DisplayList, environment: EnvironmentValues) {
+        self.displayList = displayList
+        self.environment = environment
+    }
 }

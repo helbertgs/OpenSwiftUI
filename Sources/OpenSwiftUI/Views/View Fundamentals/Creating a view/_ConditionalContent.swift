@@ -45,7 +45,7 @@ extension _ConditionalContent : View where TrueContent: View, FalseContent: View
     /// - Parameter inputs: The inputs for the conditional content.
     /// - Returns: The outputs for the conditional content.
     public static func _makeView(view: _GraphValue<_ConditionalContent<TrueContent, FalseContent>>, inputs: _ViewInputs) -> _ViewOutputs {
-        .init()
+        fatalError("not implemented yet")
         // return switch view.value.storage {
         //     case .falseContent(let view):
         //         FalseContent.Body._makeView(view: .init(view.body), inputs: inputs)

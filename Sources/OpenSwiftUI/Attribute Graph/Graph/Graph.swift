@@ -13,7 +13,7 @@
 /// The `@MainActor` isolation reflects OpenSwiftUI's reality: the
 /// view graph is always manipulated on the main thread.
 @MainActor
-final class AttributeGraph {
+final class Graph {
 
     /// The contiguous arena holding every node in the graph.
     private(set) var arena: [Storage] = []

@@ -52,13 +52,15 @@ public struct AnyView: View {
     ///   - inputs: The view inputs propagated from the parent context.
     /// - Returns: The `_ViewOutputs` produced for this view.
     public static func _makeView(view: _GraphValue<AnyView>, inputs: _ViewInputs) -> _ViewOutputs {
-        .init()
+        fatalError("not implemented yet")
     }
 
     // MARK: - Internal Structure(s).
 
     @usableFromInline
-    class AnyViewStorageBase { }
+    class AnyViewStorageBase {
+        func `as`<T>(_ t: T.Type) -> T? { nil }
+    }
 
     @usableFromInline
     class AnyViewStorage<V>: AnyViewStorageBase {
@@ -71,6 +73,10 @@ public struct AnyView: View {
         @usableFromInline
         init(_ view: V) {
             self._view = view
+        }
+
+        override func `as`<T>(_ t: T.Type) -> T? {
+            _view as? T
         }
     }
 }

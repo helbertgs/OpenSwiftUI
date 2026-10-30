@@ -6,8 +6,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // SPDX-License-Identifier: MIT
 
-@preconcurrency
-import OpenGLAD
 import OpenSpatial
 
 extension GraphicsContext {
@@ -167,7 +165,11 @@ extension GraphicsContext {
 
         /// A shading instance that fills with the foreground style from the graphics context’s environment.
         public static var foreground: GraphicsContext.Shading {
-            .color(.white)
+            .init(
+                storage: .style(
+                    AnyShapeStyle(style: .foreground)
+                )
+            )
         }
 
         // MARK: - Images
@@ -201,6 +203,7 @@ extension GraphicsContext {
         }
 
         /// A shading instance that draws a copy of the current background.
+        @available(*, unavailable)
         public static var backdrop: GraphicsContext.Shading {
             fatalError("not implemented yet")
         }
@@ -236,9 +239,10 @@ extension GraphicsContext.Shading {
         case foreground
         case levels([GraphicsContext.Shading])
         case meshGradient(MeshGradient)
-//        case style(AnyShapeStyle)
+        case style(AnyShapeStyle)
         case shader(Shader, Rect3D)
         case tiledImage(Image, Point3D, Rect3D, Double)
         case gradient(Gradient, GraphicsContext.GradientGeometry, GraphicsContext.GradientOptions)
+        case resolved(GraphicsContext.ResolvedShading)
     }
 }

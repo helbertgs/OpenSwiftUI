@@ -9,7 +9,7 @@
 
 import Foundation
 
-extension AttributeGraph {
+extension Graph {
 
     /// A single slot in the graph's arena.
     ///

@@ -73,6 +73,6 @@ extension HStack : View {
     ///   - inputs: The view inputs propagated from the parent context.
     /// - Returns: The `_ViewOutputs` produced for this view.
     public static func _makeView(view: _GraphValue<HStack<Content>>, inputs: _ViewInputs) -> _ViewOutputs {
-        .init()
+        fatalError("not implemented yet")
     }
 }

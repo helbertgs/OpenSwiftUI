@@ -34,12 +34,12 @@ import Swift
 
 extension _EnvironmentKeyWritingModifier : ViewModifier {
     public static func _makeView(modifier: _GraphValue<_EnvironmentKeyWritingModifier<Value>>, inputs: _ViewInputs, body: @escaping (_Graph, _ViewInputs) -> _ViewOutputs) -> _ViewOutputs {
-        .init()
+        fatalError("not implemented yet")
     }
 }
 
 extension _EnvironmentKeyWritingModifier : @MainActor  SceneModifier {
     @MainActor public static func _makeScene(modifier: _GraphValue<_EnvironmentKeyWritingModifier<Value>>, inputs: _SceneInputs) -> _SceneOutputs {
-        fatalError()
+        fatalError("not implemented yet")
     }
 }

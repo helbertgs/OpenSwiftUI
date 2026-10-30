@@ -115,28 +115,29 @@ import OpenCombine
 extension View {
 
     public static func _makeView(view: _GraphValue<Self>, inputs: _ViewInputs) -> _ViewOutputs {
-        guard Body.self != Never.self else {
-            fatalError("\(Self.self) must implement _makeView directly (Body == Never)")
-        }
-        guard let graph = _GraphContext.current else {
-            fatalError("_makeView called outside of _GraphContext.withGraph")
-        }
-
-        let bodyAttr = graph.rule(name: "\(Self.self).body") {
-            let prevEnv = graph.currentEnvironment
-            graph.currentEnvironment = inputs.environment.projectedValue
-            defer { graph.currentEnvironment = prevEnv }
-
-            let instance = view.wrappedValue
-            for child in Mirror(reflecting: instance).children {
-                if var dp = child.value as? DynamicProperty {
-                    dp.update()
-                }
-            }
-            return instance.body
-        }
-
-        return Body._makeView(view: _GraphValue(attribute: bodyAttr), inputs: inputs)
+        fatalError("Work in progress")
+//        guard Body.self != Never.self else {
+//            fatalError("\(Self.self) must implement _makeView directly (Body == Never)")
+//        }
+//        guard let graph = _GraphContext.current else {
+//            fatalError("_makeView called outside of _GraphContext.withGraph")
+//        }
+//
+//        let bodyAttr = graph.rule(name: "\(Self.self).body") {
+//            let prevEnv = graph.currentEnvironment
+//            graph.currentEnvironment = inputs.environment.projectedValue
+//            defer { graph.currentEnvironment = prevEnv }
+//
+//            let instance = view.wrappedValue
+//            for child in Mirror(reflecting: instance).children {
+//                if var dp = child.value as? DynamicProperty {
+//                    dp.update()
+//                }
+//            }
+//            return instance.body
+//        }
+//
+//        return Body._makeView(view: _GraphValue(attribute: bodyAttr), inputs: inputs)
     }
 
     /// Default implementation: delegates to `_makeView` and wraps its list.
@@ -145,20 +146,21 @@ extension View {
     /// build their full outputs via `_makeView` and expose the same view list
     /// through the list API, so containers can treat all children uniformly.
     public static func _makeViewList(view: _GraphValue<Self>, inputs: _ViewListInputs) -> _ViewListOutputs {
-        guard let graph = _GraphContext.current else {
-            fatalError("_makeViewList called outside of _GraphContext.withGraph")
-        }
-
-        let txAttr = graph.input(name: "transaction", Transaction())
-        var viewInputs = _ViewInputs(
-            frame: inputs.frame.projectedValue,
-            environment: inputs.environment.projectedValue,
-            transaction: txAttr
-        )
-        viewInputs.gestureHandler = inputs.gestureHandler
-        let outputs = _makeView(view: view, inputs: viewInputs)
-
-        return _ViewListOutputs(viewList: outputs.viewList)
+        fatalError("Work in progress")
+//        guard let graph = _GraphContext.current else {
+//            fatalError("_makeViewList called outside of _GraphContext.withGraph")
+//        }
+//
+//        let txAttr = graph.input(name: "transaction", Transaction())
+//        var viewInputs = _ViewInputs(
+//            frame: inputs.frame.projectedValue,
+//            environment: inputs.environment.projectedValue,
+//            transaction: txAttr
+//        )
+//        viewInputs.gestureHandler = inputs.gestureHandler
+//        let outputs = _makeView(view: view, inputs: viewInputs)
+//
+//        return _ViewListOutputs(viewList: outputs.viewList)
     }
 
     /// Default implementation: every plain view contributes exactly one element.

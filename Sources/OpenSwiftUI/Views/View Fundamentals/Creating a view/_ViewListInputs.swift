@@ -18,23 +18,10 @@ import OpenSpatial
 /// `_ViewInputs` for API fidelity.
 public struct _ViewListInputs {
 
-    /// The frame proposed by the parent container.
-    var frame: _GraphValue<Rect3D>
+    var base: _GraphInputs
 
-    /// The environment propagated from the parent.
-    var environment: _GraphValue<EnvironmentValues>
 
-    /// The active transaction.
-    var transaction: _GraphValue<Transaction>
-    
-    /// The gesture handler for registering taps and hover interactions.
-    var gestureHandler: GestureHandler?
-
-    /// Creates list inputs from full view inputs, preserving the gesture handler.
-    public init(from inputs: _ViewInputs) {
-        self.frame          = inputs.frame
-        self.environment    = inputs.environment
-        self.transaction    = inputs.transaction
-        self.gestureHandler = inputs.gestureHandler
+    init(base: _GraphInputs) {
+        self.base = base
     }
 }

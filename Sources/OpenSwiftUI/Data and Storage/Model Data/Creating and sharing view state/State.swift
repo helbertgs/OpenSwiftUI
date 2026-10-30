@@ -106,7 +106,7 @@ final class _StateRegistry {
     ///   - initial: The initial value used when creating a new attribute.
     ///   - graph: The graph in which to create the attribute.
     /// - Returns: The existing or newly created attribute.
-    func attribute<Value>(forKey key: String, initial: Value, graph: AttributeGraph) -> Attribute<Value> {
+    func attribute<Value>(forKey key: String, initial: Value, graph: Graph) -> Attribute<Value> {
         if let existing = nodes[key] as? Attribute<Value> {
             return existing
         }
@@ -120,7 +120,7 @@ final class _StateRegistry {
     /// For simplicity the entire registry is cleared when a new graph is installed
     /// (e.g. on hot reload).
     /// - Parameter graph: The graph being reset.
-    func reset(forGraph graph: AttributeGraph) {
+    func reset(forGraph graph: Graph) {
         nodes.removeAll()
     }
 }

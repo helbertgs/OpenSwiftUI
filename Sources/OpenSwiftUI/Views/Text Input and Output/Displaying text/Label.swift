@@ -41,7 +41,7 @@ public struct Label<Title, Icon> : Sendable, View where Title : View, Icon : Vie
     // MARK: - Static Function(s).
 
     nonisolated public static func _makeView(view: _GraphValue<Label<Title, Icon>>, inputs: _ViewInputs) -> _ViewOutputs {
-        .init()
+        fatalError("not implemented yet")
     }
 }
 

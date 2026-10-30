@@ -13,7 +13,7 @@ public struct ShaderLibrary : Equatable, Hashable, Sendable, SendableMetatype {
     
     let data: Data
     
-    /// Creates a new Metal shader library from the contents of `url`,
+    /// Creates a new OpenGL shader library from the contents of `url`,
     /// which must be the location  of precompiled Metal library.
     /// Functions compiled from the returned library will only be
     /// cached as long as the returned library exists.
@@ -25,8 +25,8 @@ public struct ShaderLibrary : Equatable, Hashable, Sendable, SendableMetatype {
         }
     }
     
-    /// Creates a new Metal shader library from `data`, which must be
-    /// the contents of precompiled Metal library. Functions compiled
+    /// Creates a new OpenGL shader library from `data`, which must be
+    /// the contents of precompiled OpenGL library. Functions compiled
     /// from the returned library will only be cached as long as the
     /// returned library exists.
     public init(data: Data) {
@@ -48,16 +48,16 @@ public struct ShaderLibrary : Equatable, Hashable, Sendable, SendableMetatype {
         .init(url: bundle.bundleURL)
     }
     
-    /// Returns a new shader function representing the stitchable MSL
-    /// function called `name` in the default shader library.
+    /// Returns a new shader function representing the GLSL
+    /// shader called `name` in the default shader library.
     ///
     /// Typically this subscript is used implicitly via the dynamic
     /// member syntax, for example:
     ///
-    ///    let fn = ShaderLibrary.myFunction
+    ///    let fn = ShaderLibrary.myShader
     ///
-    /// which creates a reference to the MSL function called
-    /// `myFunction()`.
+    /// which creates a reference to the GLSL shader called
+    /// `myShader()`.
     public static subscript(dynamicMember name: String) -> ShaderFunction {
         .init(
             library: .default,
@@ -65,16 +65,16 @@ public struct ShaderLibrary : Equatable, Hashable, Sendable, SendableMetatype {
         )
     }
 
-    /// Returns a new shader function representing the stitchable MSL
-    /// function in the library called `name`.
+    /// Returns a new shader function representing the GLSL
+    /// Shader in the library called `name`.
     ///
     /// Typically this subscript is used implicitly via the dynamic
     /// member syntax, for example:
     ///
-    ///    let fn = ShaderLibrary.default.myFunction
+    ///    let fn = ShaderLibrary.default.myShader
     ///
-    /// which creates a reference to the MSL function called
-    /// `myFunction()`.
+    /// which creates a reference to the GLSL shader called
+    /// `myShader()`.
     public subscript(dynamicMember name: String) -> ShaderFunction {
         .init(
             library: .init(data: data),

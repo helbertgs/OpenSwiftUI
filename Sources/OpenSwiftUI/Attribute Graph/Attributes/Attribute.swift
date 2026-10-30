@@ -7,6 +7,8 @@
 // SPDX-License-Identifier: MIT
 //
 
+protocol AnyAttribute { }
+
 /// A lightweight handle to a node in the attribute graph.
 ///
 /// An `Attribute` is a pure handle backed by a single `UInt32` index, making a
@@ -16,7 +18,7 @@
 /// This design mirrors Apple's internal AttributeGraph, where `Attribute<V>` is
 /// a `UInt32` and the graph is an implicit context of the evaluating thread.
 @MainActor
-struct Attribute<V> {
+struct Attribute<V> : AnyAttribute {
 
     /// The index identifying this attribute's storage slot inside the graph arena.
     public let index: UInt32
@@ -27,10 +29,10 @@ struct Attribute<V> {
     /// just inside `_GraphContext.withGraph`. Dependency registration and
     /// recompute still use `_GraphContext.current` when it is available, but
     /// plain reads (e.g. from `_Window.init`) work without an active context.
-    let graph: AttributeGraph
+    let graph: Graph
 
     /// The backing storage slot for this attribute within the graph's arena.
-    var storage: AttributeGraph.Storage { graph.arena[Int(index)] }
+    var storage: Graph.Storage { graph.arena[Int(index)] }
 
     /// The current value of the attribute.
     ///
@@ -69,7 +71,7 @@ struct Attribute<V> {
         let currentStorage = graph.arena[Int(currentIdx)]
         guard !storage.outgoing.contains(where: { $0.to === currentStorage }) else { return }
 
-        let edge = AttributeGraph.Edge(from: storage, to: currentStorage)
+        let edge = Graph.Edge(from: storage, to: currentStorage)
         storage.outgoing.append(edge)
         currentStorage.incoming.append(edge)
     }
@@ -117,7 +119,7 @@ struct Attribute<V> {
     /// - Parameters:
     ///   - index: The arena index of the backing storage slot.
     ///   - graph: The graph that owns this slot.
-    init(index: UInt32, graph: AttributeGraph) {
+    init(index: UInt32, graph: Graph) {
         self.index = index
         self.graph = graph
     }

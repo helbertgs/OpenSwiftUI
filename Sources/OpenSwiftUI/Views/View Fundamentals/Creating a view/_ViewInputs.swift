@@ -16,36 +16,35 @@ import OpenSpatial
 @MainActor
 public struct _ViewInputs {
     
-    /// The space available for laying out this view.
-    var frame: _GraphValue<Rect3D>
+    var base: _GraphInputs
+    var environment: Attribute<EnvironmentValues> {
+        get { base.environment }
+        set { base.environment = newValue }
+    }
+    var isEnabled: Attribute<Bool> {
+        base.isEnabled
+    }
+    var needsDynamicLayout: Bool {
+        get { base.needsDynamicLayout }
+        set { base.needsDynamicLayout = newValue }
+    }
+    var needsGeometry: Bool = true
+    var needsLayout: Bool = true
+    var position: Attribute<Point3D>
+    var size: Attribute<Size3D>
+    var transaction: Attribute<Transaction> {
+        get { base.transaction }
+        set { base.transaction = newValue }
+    }
 
-    /// The environment propagated down the view tree.
-    var environment: _GraphValue<EnvironmentValues>
 
-    /// The active transaction, carrying animation intent.
-    var transaction: _GraphValue<Transaction>
-
-    /// The gesture registration point, instantiated by the `ViewGraph`/`ApplicationLoop`
-    /// and passed down the tree so views need not know about the `ApplicationLoop`.
-    ///
-    /// Simplified to a single handler.
-    var gestureHandler: GestureHandler?
-
-    /// Creates view inputs.
-    /// - Parameters:
-    ///   - frame: The frame attribute available for layout.
-    ///   - environment: The environment attribute propagated down the tree.
-    ///   - transaction: The transaction attribute carrying animation intent.
-    ///   - gestureHandler: The optional gesture handler for registering gestures.
     init(
-        frame: Attribute<Rect3D>,
-        environment: Attribute<EnvironmentValues>,
-        transaction: Attribute<Transaction>,
-        gestureHandler: GestureHandler? = nil
+        base: _GraphInputs,
+        position: Attribute<Point3D>,
+        size: Attribute<Size3D>
     ) {
-        self.frame          = _GraphValue(attribute: frame)
-        self.environment    = _GraphValue(attribute: environment)
-        self.transaction    = _GraphValue(attribute: transaction)
-        self.gestureHandler = gestureHandler
+        self.base = base
+        self.position = position
+        self.size = size
     }
 }

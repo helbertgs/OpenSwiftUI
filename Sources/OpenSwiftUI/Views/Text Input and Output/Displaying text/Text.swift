@@ -1881,7 +1881,7 @@ extension Text : View {
     }
 
     nonisolated public static func _makeView(view: _GraphValue<Text>, inputs: _ViewInputs) -> _ViewOutputs {
-        .init()
+        fatalError("not implemented yet")
     }
 }
 

@@ -12,13 +12,13 @@ import Foundation
 final class _GraphContext {
 
     /// The graph active in the current task-local execution context.
-    @TaskLocal static var current: AttributeGraph?
+    @TaskLocal static var current: Graph?
 
     /// Creates the context. Private because the type is only used through its static members.
     private init() {}
 
     /// Executes `body` with `graph` installed as the active context.
-    static func withGraph<R>(_ graph: AttributeGraph, _ body: () throws -> R) rethrows -> R {
+    static func withGraph<R>(_ graph: Graph, _ body: () throws -> R) rethrows -> R {
         try $current.withValue(graph, operation: body)
     }
 

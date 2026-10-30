@@ -454,6 +454,6 @@ extension Color: View {
     }
 
     public static func _makeView(view: _GraphValue<Color>, inputs: _ViewInputs) -> _ViewOutputs {
-        .init()
+        fatalError("not implemented yet")
     }
 }

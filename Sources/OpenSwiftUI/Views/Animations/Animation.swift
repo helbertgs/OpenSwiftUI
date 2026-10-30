@@ -8,7 +8,7 @@
 
 import Foundation
 
-@frozen public struct Animation {
+public struct Animation : Sendable {
     
     // MARK: - Static Property(ies).
     
@@ -16,5 +16,9 @@ import Foundation
     
     // MARK: - Constructor(s).
     
-    @inlinable public init() { }
+    public init() { }
+}
+
+extension Animation {
+    struct Function { }
 }

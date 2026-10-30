@@ -9,7 +9,7 @@
 
 import Foundation
 
-extension AttributeGraph {
+extension Graph {
 
     /// A directed edge between two `Storage` nodes in the arena.
     ///

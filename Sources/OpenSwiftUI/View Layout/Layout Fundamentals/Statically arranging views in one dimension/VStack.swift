@@ -73,6 +73,6 @@ extension VStack : View {
     ///   - inputs: The view inputs propagated from the parent context.
     /// - Returns: The `_ViewOutputs` produced for this view.
     public static func _makeView(view: _GraphValue<VStack<Content>>, inputs: _ViewInputs) -> _ViewOutputs {
-        .init()
+        fatalError("not implemented yet")
     }
 }

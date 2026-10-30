@@ -33,7 +33,7 @@ public struct Shader : Equatable, Hashable, Sendable {
     
     var _variant: UInt32 = 0
     
-    var options: Option = .init(rawValue: 0)
+    var options: [Option] = []
     
     /// The shader function called by the shader.
     public var function: ShaderFunction
