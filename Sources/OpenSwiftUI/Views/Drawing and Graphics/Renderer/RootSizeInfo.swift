@@ -1,14 +1,14 @@
-public struct RootSizeInfo {
-    public var animatedSize: ViewSize {
-        get {
-            fatalError("not implemented yet")
-        }
-        set {
-            fatalError("not implemented yet")
-        }
-    }
+//
+// RootSizeInfo.swift
+// OpenSwiftUI
+//
+// Created by Helbert Gomes on Nov 2, 2026.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
+//
 
-    public static func == (_ arg0: RootSizeInfo, _ arg1: RootSizeInfo) -> Bool {
-        fatalError("not implemented yet")
-    }
+import OpenSpatial
+
+struct RootSizeInfo : Equatable {
+    let animatedSize: Size3D
 }

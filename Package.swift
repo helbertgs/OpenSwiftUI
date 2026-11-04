@@ -1,4 +1,4 @@
-// swift-tools-version: 6.3
+// swift-tools-version: 6.4
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -37,12 +37,16 @@ let package = Package(
                 .product(name: "OpenSpatial", package: "OpenSpatial"),
                 .product(name: "OpenSTB", package: "OpenSTB"),
             ],
+            resources: [
+                .process("Resources/Shader/Color/color-fragment.glsl"),
+                .process("Resources/Shader/Color/color-vertex.glsl")
+            ],
             plugins: [
                 // .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")
             ]
         ),
         .testTarget(
-            name: "OpenSwiftUITests",
+            name: "Unit",
             dependencies: ["OpenSwiftUI"]
         ),
         .executableTarget(
@@ -59,5 +63,5 @@ let package = Package(
 )
 
 #if os(macOS)
-    package.platforms = [.macOS(.v15)]
+    package.platforms = [.macOS(.v26)]
 #endif

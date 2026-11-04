@@ -1,33 +1,17 @@
 //
-//  ArchiveIDs.swift
-//  OpenSwiftUI
+// DisplayList+ArchiveIDs.swift
+// OpenSwiftUI
 //
-//  Created by Helbert Gomes on 2026-11-02.
+// Created by Helbert Gomes on Nov 2, 2026.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
 //
 
+import Foundation
 
 extension DisplayList {
-    public struct ArchiveIDs {
-        public var stableIDs: _DisplayList_StableIdentityMap {
-            get {
-                fatalError("not implemented yet")
-            }
-            set {
-                fatalError("not implemented yet")
-            }
-        }
-
-        public var uuid: Foundation.UUID {
-            get {
-                fatalError("not implemented yet")
-            }
-            set {
-                fatalError("not implemented yet")
-            }
-        }
-
-        public init(uuid: Foundation.UUID, stableIDs: _DisplayList_StableIdentityMap) {
-            fatalError("not implemented yet")
-        }
+    struct ArchiveIDs {
+        let stableIDs: _DisplayList_StableIdentityMap
+        let uuid: UUID
     }
 }

@@ -99,6 +99,24 @@ public protocol ShapeStyle : Sendable {
 
     /// Evaluate to a resolved shape style given the current `environment`.
     func resolve(in environment: EnvironmentValues) -> Self.Resolved
+
+    func _apply(to shape: inout _ShapeStyle_Shape)
+
+    static func _apply(to shape: inout _ShapeStyle_ShapeType)
+}
+
+extension ShapeStyle {
+    public func _apply(to shape: inout _ShapeStyle_Shape) {
+    }
+
+    public static func _apply(to shape: inout _ShapeStyle_ShapeType) {
+    }
+}
+
+extension ShapeStyle where Self : View, Self.Body == _ShapeView<Rectangle, Self> {
+    public var body: _ShapeView<Rectangle, Self> {
+        .init(shape: .init(), style: self)
+    }
 }
 
 extension ShapeStyle where Self == ForegroundStyle {

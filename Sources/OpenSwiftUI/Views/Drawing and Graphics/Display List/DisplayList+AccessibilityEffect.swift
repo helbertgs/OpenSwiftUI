@@ -10,16 +10,8 @@
 import Foundation
 
 extension DisplayList {
-    enum Feature : String, CaseIterable, Codable, Equatable, Hashable, Sendable {
-        case animations
-        case dynamicContent
-        case flattened
-        case interpolatorLayers
-        case interpolatorRoots
-        case platformViews
-        case required
-        case stateEffects
-        case states
-        case views
+    enum AccessibilityEffect: @unchecked Sendable {
+        case attachments([String])
+        case representation(DisplayList)
     }
 }

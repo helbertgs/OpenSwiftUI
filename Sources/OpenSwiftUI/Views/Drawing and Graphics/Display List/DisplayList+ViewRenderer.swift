@@ -1,57 +1,36 @@
 //
-//  ViewRenderer.swift
-//  OpenSwiftUI
+// DisplayList+ViewRenderer.swift
+// OpenSwiftUI
 //
-//  Created by Helbert Gomes on 2026-11-02.
+// Created by Helbert Gomes on Oct 29, 2026.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
 //
-
 
 extension DisplayList {
-    public struct ViewRenderer {
-        public var configuration: _RendererConfiguration {
-            get {
-                fatalError("not implemented yet")
-            }
-            set {
-                fatalError("not implemented yet")
-            }
+    struct ViewRenderer {
+        let configuration: _RendererConfiguration = .init(renderer: .default)
+        var host: ViewRendererHost? = nil
+        var viewCacheIsEmpty: Bool = false
+
+        func renderAsync(to: DisplayList, time: Double, nextTime: Double, targetTimestamp: Double?, version: DisplayList.Version, maxVersion: DisplayList.Version) -> Double? {
+            nil
         }
 
-        public var definition: PlatformViewDefinition.Type {
-            fatalError("not implemented yet")
+        func exportedObject(rootView: AnyObject) -> AnyObject? {
+            nil
         }
 
-        public var host: ViewRendererHost? {
-            get {
-                fatalError("not implemented yet")
-            }
-            set {
-                fatalError("not implemented yet")
-            }
+        func render(rootView: AnyObject, from: DisplayList, time: Double, nextTime: Double, version: DisplayList.Version, maxVersion: DisplayList.Version, environment: DisplayList.ViewRenderer.Environment) -> Double {
+            0
         }
 
-        public var viewCacheIsEmpty: Bool {
-            fatalError("not implemented yet")
+        init(platform: DisplayList.ViewUpdater.Platform) {
         }
+    }
+}
 
-        public init(definition: PlatformViewDefinition.Type) {
-            fatalError("not implemented yet")
-        }
-
-        public func renderAsync(to: DisplayList, time: Time, nextTime: Time, targetTimestamp: Time?, version: DisplayList.Version, maxVersion: DisplayList.Version) -> Time? {
-            fatalError("not implemented yet")
-        }
-
-        public func exportedObject(rootView: AnyObject) -> AnyObject? {
-            fatalError("not implemented yet")
-        }
-
-        public func render(rootView: AnyObject, from: DisplayList, time: Time, nextTime: Time, version: DisplayList.Version, maxVersion: DisplayList.Version, environment: (extension in SwiftUI):DisplayList.ViewRenderer.Environment) -> Time {
-            fatalError("not implemented yet")
-        }
-
-        public init(platform: DisplayList.ViewUpdater.Platform) {
-            fatalError("not implemented yet")
-        }
+extension DisplayList.ViewRenderer {
+    struct Environment {
     }
 }

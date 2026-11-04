@@ -14,11 +14,7 @@ import OpenSpatial
 ///
 /// Use `ImageRenderer` to export bitmap image data from a OpenSwiftUI view. You
 /// initialize the renderer with a view, then render images on demand,
-/// either by calling the ``render(rasterizationScale:renderer:)`` method, or
-/// by using the renderer's properties to create a
-/// <doc://com.apple.documentation/documentation/CoreGraphics/CGImage>,
-/// <doc://com.apple.documentation/documentation/AppKit/NSImage>, or
-/// <doc://com.apple.documentation/documentation/UIKit/UIImage>.
+/// either by calling the ``render(rasterizationScale:renderer:)`` method
 ///
 /// By drawing to a ``Canvas`` and exporting with an `ImageRenderer`,
 /// you can generate images from any progammatically-rendered content, like
@@ -67,8 +63,7 @@ import OpenSpatial
 /// Save Achievement allows people to save and upload an image of this
 /// view.](ImageRenderer-1)
 ///
-/// Because `ImageRenderer` conforms to
-/// <doc://com.apple.documentation/documentation/Combine/ObservableObject>, you
+/// Because `ImageRenderer` conforms to `ObservableObject`, you
 /// can use it to produce a stream of images as its properties change. Subscribe
 /// to the renderer's ``ImageRenderer/objectWillChange`` publisher, then use the
 /// renderer to rasterize a new image each time the subscriber receives an
@@ -83,10 +78,8 @@ import OpenSpatial
 ///
 /// ### Rendering to a PDF context
 ///
-/// The ``render(rasterizationScale:renderer:)`` method renders the specified
-/// view to any
-/// <doc://com.apple.documentation/documentation/CoreGraphics/CGContext>. That
-/// means you aren't limited to creating a rasterized `CGImage`. For
+/// The ``render(rasterizationScale:renderer:)`` method renders the specified  view to any ``GraphicsContext``.
+/// That  means you aren't limited to creating a rasterized ``Image``. For
 /// example, you can generate PDF data by rendering to a PDF context. The
 /// resulting PDF maintains resolution-independence for supported members of the
 /// view hierarchy, such as text, symbol images, lines, shapes, and fills.
@@ -207,8 +200,7 @@ final public class ImageRenderer<Content> : OpenCombine.ObservableObject where C
     /// Draws the renderer's current contents to an arbitrary Core Graphics
     /// context.
     ///
-    /// Use this method to rasterize the renderer's content to a
-    /// <doc://com.apple.documentation/documentation/CoreGraphics/CGContext>
+    /// Use this method to rasterize the renderer's content to a ``GraphicsContext``
     /// you provide. The `renderer` closure receives two parameters: the current
     /// size of the view, and a function that renders the view to your
     /// `CGContext`. Implement the closure to provide a suitable `CGContext`,
@@ -222,8 +214,7 @@ final public class ImageRenderer<Content> : OpenCombine.ObservableObject where C
     ///   - renderer: The closure that sets up the Core Graphics context and
     ///     renders the view. This closure receives two parameters: the size of
     ///     the view and a function that you invoke in the closure to render the
-    ///     view at the reported size. This function takes a
-    ///     <doc://com.apple.documentation/documentation/CoreGraphics/CGContext>
+    ///     view at the reported size. This function takes a ``GraphicsContext``
     ///     parameter, and assumes a bottom-left coordinate space origin.
     @MainActor final public func render(rasterizationScale: Double = 1, renderer: (Size3D, (GraphicsContext) -> Void) -> Void) {
         fatalError("Not implemented")
@@ -237,8 +228,7 @@ final public class ImageRenderer<Content> : OpenCombine.ObservableObject where C
 
     /// A publisher that informs subscribers of changes to the image.
     ///
-    /// The renderer's
-    /// <doc://com.apple.documentation/documentation/Combine/ObservableObject/ObjectWillChangePublisher>
+    /// The renderer's ``ObservableObject/ObjectWillChangePublisher``
     /// publishes `Void` elements.
     /// Subscribers should interpret any event as indicating that the contents
     /// of the image may have changed.

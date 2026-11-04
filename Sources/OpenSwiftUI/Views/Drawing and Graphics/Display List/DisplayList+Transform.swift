@@ -1,29 +1,32 @@
 //
-//  Transform.swift
-//  OpenSwiftUI
+// DisplayList+Transform.swift
+// OpenSwiftUI
 //
-//  Created by Helbert Gomes on 2026-11-02.
+// Created by Helbert Gomes on Nov 2, 2026.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
 //
 
+import OpenSpatial
 
 extension DisplayList {
-    public enum Transform {
-        case projection(ProjectionTransform)
+    enum Transform {
+        case projection(ProjectiveTransform3D)
+        case rotation3D(Quaternion3D)
+        case affine(AffineTransform3D)
 
-        case rotation3D(_Rotation3DEffect.Data)
-
-        case affine(CGAffineTransform)
-
-        case rotation(_RotationEffect.Data)
-
-
-
-        public var affineTransform: CGAffineTransform? {
-            fatalError("not implemented yet")
+        var affineTransform: AffineTransform3D? {
+            switch self {
+                case .affine(let value): value
+                default: nil
+            }
         }
 
-        public var projectionTransform: ProjectionTransform? {
-            fatalError("not implemented yet")
+        var projectionTransform: ProjectiveTransform3D? {
+            switch self {
+                case .projection(let value): value
+                default: nil
+            }
         }
     }
 }

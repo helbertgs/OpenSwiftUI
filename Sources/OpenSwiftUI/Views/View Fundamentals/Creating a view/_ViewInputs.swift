@@ -37,7 +37,6 @@ public struct _ViewInputs {
         set { base.transaction = newValue }
     }
 
-
     init(
         base: _GraphInputs,
         position: Attribute<Point3D>,

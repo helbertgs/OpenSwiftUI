@@ -1,47 +1,14 @@
 //
-//  Seed.swift
-//  OpenSwiftUI
+// DisplayList+Seed.swift
+// OpenSwiftUI
 //
-//  Created by Helbert Gomes on 2026-11-02.
+// Created by Helbert Gomes on Nov 2, 2026.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// SPDX-License-Identifier: MIT
 //
-
 
 extension DisplayList {
-    public struct Seed {
-        public var hashValue: Int {
-            fatalError("not implemented yet")
-        }
-
-        public static var undefined: DisplayList.Seed {
-            fatalError("not implemented yet")
-        }
-
-        public var value: UInt16 {
-            fatalError("not implemented yet")
-        }
-
-        public func invalidate() {
-            fatalError("not implemented yet")
-        }
-
-        public init(decodedValue: UInt16) {
-            fatalError("not implemented yet")
-        }
-
-        public static func == (_ arg0: DisplayList.Seed, _ arg1: DisplayList.Seed) -> Bool {
-            fatalError("not implemented yet")
-        }
-
-        public func hash(into: inout Hasher) {
-            fatalError("not implemented yet")
-        }
-
-        public init() {
-            fatalError("not implemented yet")
-        }
-
-        public init(_ arg0: DisplayList.Version) {
-            fatalError("not implemented yet")
-        }
+    struct Seed {
+        let value: Int
     }
 }
